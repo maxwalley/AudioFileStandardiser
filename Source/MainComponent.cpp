@@ -46,6 +46,7 @@ void MainComponent::resized()
     }
     else if(fileLoaded == true)
     {
+        setSize(600, fileTable.getTableHeight());
         fileTable.setBounds(0, 0, getWidth(), getHeight());
     }
 }

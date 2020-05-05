@@ -11,8 +11,6 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "mpegfile.h"
-#include "tag.h"
 #include "tag_c.h"
 
 //==============================================================================
@@ -40,6 +38,8 @@ public:
     
     void refreshTable();
     
+    int getTableHeight();
+    
 private:
     
     int getNumRows() override;
@@ -47,9 +47,8 @@ private:
     void paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) override;
     
     TableListBox table;
-    TableHeaderComponent header;
     
-    OwnedArray<TagLib_Tag> metadataArray;
+    Array<TagLib_Tag*> metadataArray;
     TagLib_TagSorter arraySorter;
     
     String fileExtension;

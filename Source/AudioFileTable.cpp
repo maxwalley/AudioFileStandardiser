@@ -34,12 +34,15 @@ AudioFileTable::AudioFileTable()
 {
     addAndMakeVisible(table);
     
-    header.addColumn("Track Num", 1, 50, 50, 50, 1);
-    header.addColumn("Track Name", 2, 200, 200, 200, 1);
-    header.addColumn("Artist Name", 3, 50, 50, 50, 1);
-    
     table.setModel(this);
-    table.setHeader(&header);
+    table.setHeader(new TableHeaderComponent);
+    
+    table.getHeader().addColumn("Track Num", 1, 50, 50, 50, 1);
+    table.getHeader().addColumn("Track Name", 2, 200, 200, 200, 1);
+    table.getHeader().addColumn("Artist Name", 3, 100, 100, 100, 1);
+    
+    table.setName("Table");
+    header.setName("Header");
     
 }
 
@@ -80,6 +83,11 @@ void AudioFileTable::refreshTable()
     table.updateContent();
 }
 
+int AudioFileTable::getTableHeight()
+{
+    return metadataArray.size()*table.getRowHeight()+table.getHeaderHeight();
+}
+
 int AudioFileTable::getNumRows()
 {
     return metadataArray.size();
@@ -104,7 +112,7 @@ void AudioFileTable::paintCell(Graphics& g, int rowNumber, int columnId, int wid
     //Track Num column
     if(columnId == 1)
     {
-        g.drawText(String(taglib_tag_track(metadataArray[rowNumber])), 0, 0, width, height, Justification::centred);
+        g.drawText(String(taglib_tag_track(metadataArray[rowNumber])), 2, 0, width, height, Justification::centred);
     }
     
     //Track Name column
