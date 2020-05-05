@@ -11,6 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "Edit Metadata Window/EditMetadataWindow.h"
 #include "tag_c.h"
 
 //==============================================================================
@@ -25,7 +26,8 @@ public:
 
 
 class AudioFileTable    : public Component,
-                          public TableListBoxModel
+                          public TableListBoxModel,
+                          public Button::Listener
 {
 public:
     AudioFileTable();
@@ -45,6 +47,9 @@ private:
     int getNumRows() override;
     void paintRowBackground(Graphics& g, int rowNumber, int width, int height, bool rowIsSelected) override;
     void paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) override;
+    Component* refreshComponentForCell(int rowNumber, int columnId, bool isRowSelected, Component* existingComponentToUpdate) override;
+    
+    void buttonClicked(Button* button) override;
     
     TableListBox table;
     
@@ -52,6 +57,12 @@ private:
     TagLib_TagSorter arraySorter;
     
     String fileExtension;
+    
+    TextButton editMetadataButton;
+    
+    EditMetadataWindow* metadataWindow;
+    
+    Array<ToggleButton*> selectionButtons;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileTable)
 };
