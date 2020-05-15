@@ -56,6 +56,8 @@ private:
     
     TableListBox table;
     
+    Array<TagLib_File*> metadataFiles;
+    
     Array<TagLib_Tag*> metadataArray;
     TagLib_TagSorter arraySorter;
     

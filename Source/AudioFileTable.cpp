@@ -55,7 +55,11 @@ AudioFileTable::AudioFileTable() : editMetadataButton("Edit Metadata")
 
 AudioFileTable::~AudioFileTable()
 {
-    
+    for(int i = 0; i < metadataFiles.size(); i++)
+    {
+        taglib_file_save(metadataFiles[i]);
+        taglib_file_free(metadataFiles[i]);
+    }
 }
 
 void AudioFileTable::paint (Graphics& g)
@@ -78,6 +82,7 @@ void AudioFileTable::setFiles(Array<File> filesToShow)
         if(i < filesToShow.size())
         {
             TagLib_File* currentFile = taglib_file_new(filesToShow[i].getFullPathName().toRawUTF8());
+            metadataFiles.add(currentFile);
             metadataArray.add(taglib_file_tag(currentFile));
         }
         
@@ -157,13 +162,9 @@ void AudioFileTable::paintCell(Graphics& g, int rowNumber, int columnId, int wid
 {
     g.setColour(Colours::black);
     
-    if(rowNumber != metadataArray.size())
+    if(columnId == 6)
     {
-        //File Extention column
-        if(columnId == 6)
-        {
-            g.drawText(fileExtension, 2, 0, width, height, Justification::left);
-        }
+        g.drawText(fileExtension, 0, 0, width, height, Justification::centred);
     }
     
     g.drawLine(width, 0, width, height);
@@ -462,31 +463,94 @@ void AudioFileTable::buttonClicked(Button* button)
 
 void AudioFileTable::labelTextChanged(Label* label)
 {
-    for(int i = 0; i < metadataArray.size(); i++)
+    if(label == trackNumLabels[metadataArray.size()])
     {
-        if(label == trackNumLabels[i])
+        for(int i = 0; i < metadataArray.size(); i++)
         {
-            taglib_tag_set_track(metadataArray[i], label->getText().getIntValue());
+            if(selectionButtons[i]->getToggleState() == true)
+            {
+                trackNumLabels[i]->setText(trackNumLabels[metadataArray.size()]->getText(), dontSendNotification);
+                taglib_tag_set_track(metadataArray[i], label->getText().getIntValue());
+            }
         }
-        
-        else if(label == trackNameLabels[i])
+    }
+    
+    else if(label == trackNameLabels[metadataArray.size()])
+    {
+        for(int i = 0; i < metadataArray.size(); i++)
         {
-            taglib_tag_set_title(metadataArray[i], label->getText().toUTF8());
+            if(selectionButtons[i]->getToggleState() == true)
+            {
+                trackNameLabels[i]->setText(trackNameLabels[metadataArray.size()]->getText(), dontSendNotification);
+                taglib_tag_set_title(metadataArray[i], label->getText().toUTF8());
+            }
         }
-        
-        else if(label == artistNameLabels[i])
+    }
+    
+    else if(label == artistNameLabels[metadataArray.size()])
+    {
+        for(int i = 0; i < metadataArray.size(); i++)
         {
-            taglib_tag_set_artist(metadataArray[i], label->getText().toUTF8());
+            if(selectionButtons[i]->getToggleState() == true)
+            {
+                artistNameLabels[i]->setText(artistNameLabels[metadataArray.size()]->getText(), dontSendNotification);
+                taglib_tag_set_artist(metadataArray[i], label->getText().toUTF8());
+            }
         }
-        
-        else if(label == albumNameLabels[i])
+    }
+    
+    else if(label == albumNameLabels[metadataArray.size()])
+    {
+        for(int i = 0; i < metadataArray.size(); i++)
         {
-            taglib_tag_set_album(metadataArray[i], label->getText().toUTF8());
+            if(selectionButtons[i]->getToggleState() == true)
+            {
+                albumNameLabels[i]->setText(albumNameLabels[metadataArray.size()]->getText(), dontSendNotification);
+                taglib_tag_set_album(metadataArray[i], label->getText().toUTF8());
+            }
         }
-        
-        else if(label == yearLabels[i])
+    }
+    
+    else if(label == yearLabels[metadataArray.size()])
+    {
+        for(int i = 0; i < metadataArray.size(); i++)
         {
-            taglib_tag_set_year(metadataArray[i], label->getText().getIntValue());
+            if(selectionButtons[i]->getToggleState() == true)
+            {
+                yearLabels[i]->setText(yearLabels[metadataArray.size()]->getText(), dontSendNotification);
+                taglib_tag_set_year(metadataArray[i], label->getText().getIntValue());
+            }
+        }
+    }
+    
+    else
+    {
+        for(int i = 0; i < metadataArray.size(); i++)
+        {
+            if(label == trackNumLabels[i])
+            {
+                taglib_tag_set_track(metadataArray[i], label->getText().getIntValue());
+            }
+        
+            else if(label == trackNameLabels[i])
+            {
+                taglib_tag_set_title(metadataArray[i], label->getText().toUTF8());
+            }
+        
+            else if(label == artistNameLabels[i])
+            {
+                taglib_tag_set_artist(metadataArray[i], label->getText().toUTF8());
+            }
+        
+            else if(label == albumNameLabels[i])
+            {
+                taglib_tag_set_album(metadataArray[i], label->getText().toUTF8());
+            }
+        
+            else if(label == yearLabels[i])
+            {
+                taglib_tag_set_year(metadataArray[i], label->getText().getIntValue());
+            }
         }
     }
 }
