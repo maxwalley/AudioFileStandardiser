@@ -25,9 +25,10 @@ public:
 
 
 
-class AudioFileTable    : public Component,
-                          public TableListBoxModel,
-                          public Button::Listener
+class AudioFileTable    :   public Component,
+                            public TableListBoxModel,
+                            public Button::Listener,
+                            public Label::Listener
 {
 public:
     AudioFileTable();
@@ -51,6 +52,8 @@ private:
     
     void buttonClicked(Button* button) override;
     
+    void labelTextChanged(Label* label) override;
+    
     TableListBox table;
     
     Array<TagLib_Tag*> metadataArray;
@@ -63,6 +66,11 @@ private:
     EditMetadataWindow* metadataWindow;
     
     Array<ToggleButton*> selectionButtons;
+    Array<Label*> trackNumLabels;
+    Array<Label*> trackNameLabels;
+    Array<Label*> artistNameLabels;
+    Array<Label*> albumNameLabels;
+    Array<Label*> yearLabels;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileTable)
 };

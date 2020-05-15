@@ -26,4 +26,22 @@ public:
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (EditMetadataComponent)
+    
+    TextEditor titleEditor;
+    Label titleInfoLabel;
+    
+    TextEditor albumEditor;
+    Label albumInfoLabel;
+    
+    TextEditor artistEditor;
+    Label artistInfoLabel;
+    
+    TextEditor yearEditor;
+    Label yearInfoLabel;
+    
+    TextEditor trackEditor;
+    Label trackInfoLabel;
+    
+    TextEditor genreEditor;
+    Label genreInfoLabel;
 };
