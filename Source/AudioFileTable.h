@@ -13,6 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Edit Metadata Window/EditMetadataWindow.h"
 #include "tag_c.h"
+#include "StringChecker.h"
 
 //==============================================================================
 /*
@@ -54,6 +55,8 @@ private:
     
     void labelTextChanged(Label* label) override;
     
+    void saveTableToTags();
+    
     TableListBox table;
     
     Array<TagLib_File*> metadataFiles;
@@ -63,7 +66,8 @@ private:
     
     String fileExtension;
     
-    TextButton editMetadataButton;
+    TextButton correctDataButton;
+    TextButton saveButton;
     
     EditMetadataWindow* metadataWindow;
     

@@ -9,7 +9,6 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "/Users/maxwalley/Documents/C++ Libs and Frameworks/My Libs/StringChecker.h"
 #include "AudioFileTable.h"
 //==============================================================================
 
