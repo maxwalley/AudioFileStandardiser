@@ -26,10 +26,14 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), chooser("Pick 
     {
         DBG(manager.getKnownFormat(i)->getFormatName());
     }
+    
+    setMacMainMenu(this);
+    
 }
 
 MainComponent::~MainComponent()
 {
+    setMacMainMenu(0);
 }
 
 //==============================================================================
@@ -102,6 +106,37 @@ void MainComponent::buttonClicked(Button* button)
                     AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
                 }
             }
+        }
+    }
+}
+
+StringArray MainComponent::getMenuBarNames()
+{
+    StringArray menuNames("Settings");
+    return menuNames;
+}
+
+PopupMenu MainComponent::getMenuForIndex(int topLevelMenuIndex, const String &menuName)
+{
+    PopupMenu menu;
+    
+    //Settings Menu
+     if(topLevelMenuIndex == 0)
+    {
+        
+    }
+    
+    return menu;
+}
+
+void MainComponent::menuItemSelected(int menuItemID, int topLevelMenuIndex)
+{
+    if(topLevelMenuIndex == 0)
+    {
+        if(menuItemID == 1)
+        {
+            //Inverses the bool
+            
         }
     }
 }

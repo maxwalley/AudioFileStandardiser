@@ -13,7 +13,8 @@
 //==============================================================================
 
 class MainComponent   : public Component,
-                        public Button::Listener
+                        public Button::Listener,
+                        public MenuBarModel
 {
 public:
     MainComponent();
@@ -24,6 +25,10 @@ public:
 
 private:
     void buttonClicked(Button* button) override;
+    
+    StringArray getMenuBarNames() override;
+    PopupMenu getMenuForIndex(int topLevelMenuIndex, const String &menuName) override;
+    void menuItemSelected(int menuItemID, int topLevelMenuIndex) override;
     
     TextButton openSourceButton;
     

@@ -38,7 +38,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
-    void setFiles(Array<File> filesToShow);
+    void setFiles(Array<File>& filesToShow);
     
     void refreshTable();
     
@@ -59,6 +59,7 @@ private:
     
     TableListBox table;
     
+    Array<File>* juceFiles;
     Array<TagLib_File*> metadataFiles;
     
     Array<TagLib_Tag*> metadataArray;

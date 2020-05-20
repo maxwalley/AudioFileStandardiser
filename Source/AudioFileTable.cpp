@@ -80,9 +80,11 @@ void AudioFileTable::resized()
     saveButton.setBounds(200, getTableHeight(), 200, 30);
 }
 
-void AudioFileTable::setFiles(Array<File> filesToShow)
+void AudioFileTable::setFiles(Array<File>& filesToShow)
 {
     metadataArray.ensureStorageAllocated(filesToShow.size());
+    
+    juceFiles = &filesToShow;
     
     for(int i = 0; i < filesToShow.size() + 1; i++)
     {
@@ -545,6 +547,10 @@ void AudioFileTable::saveTableToTags()
 {
     for(int i = 0; i < metadataFiles.size(); i++)
     {
+        //Renames all the files to what their titles are specified as in the table
+    (*juceFiles)[i].moveFileTo((File((*juceFiles)[i].getFullPathName().dropLastCharacters((*juceFiles)[i].getFileName().length()) + trackNameLabels[i]->getText())));
+        
+        
         taglib_tag_set_track(metadataArray[i], trackNumLabels[i]->getText().getIntValue());
         taglib_tag_set_title(metadataArray[i], trackNameLabels[i]->getText().toUTF8());
         taglib_tag_set_artist(metadataArray[i], artistNameLabels[i]->getText().toUTF8());
