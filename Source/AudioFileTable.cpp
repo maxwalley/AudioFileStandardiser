@@ -30,7 +30,7 @@ int TagLib_TagSorter::compareElements(TagLib_Tag* first, TagLib_Tag* second)
 
 
 //==============================================================================
-AudioFileTable::AudioFileTable() : correctDataButton("Correct Data"), saveButton("Save Data")
+AudioFileTable::AudioFileTable() : correctDataButton("Correct Data"), saveButton("Save Data"), changeLocationButton("Change File Locations"), fileNamesToChangeWithTitle(true)
 {
     addAndMakeVisible(table);
     
@@ -55,6 +55,10 @@ AudioFileTable::AudioFileTable() : correctDataButton("Correct Data"), saveButton
     saveButton.setName("saveButton");
     saveButton.addListener(this);
     
+    addAndMakeVisible(changeLocationButton);
+    changeLocationButton.setName("changeLocationButton");
+    changeLocationButton.addListener(this);
+    
 }
 
 AudioFileTable::~AudioFileTable()
@@ -78,6 +82,7 @@ void AudioFileTable::resized()
     table.setBounds(0, 0, getWidth(), getTableHeight());
     correctDataButton.setBounds(0, getTableHeight(), 200, 30);
     saveButton.setBounds(200, getTableHeight(), 200, 30);
+    changeLocationButton.setBounds(400, getTableHeight(), 200, 30);
 }
 
 void AudioFileTable::setFiles(Array<File>& filesToShow)
@@ -88,6 +93,12 @@ void AudioFileTable::setFiles(Array<File>& filesToShow)
     
     for(int i = 0; i < filesToShow.size() + 1; i++)
     {
+        if(i == 0)
+        {
+            currentDirectoryPath = filesToShow[i].getFullPathName().dropLastCharacters(filesToShow[i].getFileName().length());
+            DBG(currentDirectoryPath);
+        }
+        
         if(i < filesToShow.size())
         {
             TagLib_File* currentFile = taglib_file_new(filesToShow[i].getFullPathName().toRawUTF8());
@@ -140,6 +151,11 @@ void AudioFileTable::refreshTable()
 int AudioFileTable::getTableHeight()
 {
     return (metadataArray.size() + 1)*table.getRowHeight()+table.getHeaderHeight();
+}
+
+void AudioFileTable::setFileNamesToChangeWithTitle(bool change)
+{
+    fileNamesToChangeWithTitle = change;
 }
 
 int AudioFileTable::getNumRows()
@@ -465,6 +481,34 @@ void AudioFileTable::buttonClicked(Button* button)
         saveTableToTags();
     }
     
+    else if(button == &changeLocationButton)
+    {
+        FileChooser chooser("Select A New Location");
+        String newDirectory;
+        
+        if(chooser.browseForDirectory())
+        {
+            currentDirectoryPath = chooser.getResult().getFullPathName() + "/";
+            //DBG(currentDirectoryPath);
+        
+            for(int i = 0; i < metadataArray.size(); i++)
+            {
+                File temp(currentDirectoryPath + (*juceFiles)[i].getFileName());
+                (*juceFiles)[i].moveFileTo(temp);
+                juceFiles->set(i, temp);
+            
+                //Replaces the metadata array
+                taglib_file_free(metadataFiles[i]);
+                
+                TagLib_File* currentFile = taglib_file_new((currentDirectoryPath + "/" + (*juceFiles)[i].getFileName()).toRawUTF8());
+                
+                metadataFiles.set(i,currentFile);
+                metadataArray.set(i, taglib_file_tag(currentFile));
+    
+            }
+        }
+    }
+    
     else if(button == selectionButtons[metadataArray.size()])
     {
         for(int i = 0; i < metadataArray.size(); i++)
@@ -547,9 +591,17 @@ void AudioFileTable::saveTableToTags()
 {
     for(int i = 0; i < metadataFiles.size(); i++)
     {
-        //Renames all the files to what their titles are specified as in the table
-    (*juceFiles)[i].moveFileTo((File((*juceFiles)[i].getFullPathName().dropLastCharacters((*juceFiles)[i].getFileName().length()) + trackNameLabels[i]->getText())));
-        
+        if(fileNamesToChangeWithTitle == true)
+        {
+            //Renames all the files to what their titles are specified as in the table
+            (*juceFiles)[i].moveFileTo(File(currentDirectoryPath + trackNameLabels[i]->getText() + fileExtension));
+            //File temp(currentDirectoryPath + trackNameLabels[i]->getText() + fileExtension);
+            //(*juceFiles)[i].moveFileTo(temp);
+        }
+            
+        /*DBG((*juceFiles)[i].getFullPathName());
+        DBG(int((*juceFiles)[i].exists()));
+        DBG(currentDirectoryPath + trackNameLabels[i]->getText() + fileExtension);*/
         
         taglib_tag_set_track(metadataArray[i], trackNumLabels[i]->getText().getIntValue());
         taglib_tag_set_title(metadataArray[i], trackNameLabels[i]->getText().toUTF8());

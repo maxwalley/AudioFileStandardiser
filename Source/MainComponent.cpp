@@ -11,7 +11,7 @@
 #define SUPPORTEDTYPES "*.mp3;*.flac;*.wav;*.wave;*.aac;*.wma;*.aiff"
 
 //==============================================================================
-MainComponent::MainComponent() : openSourceButton("Open Source"), chooser("Pick a folder", File(), "*.zip", true, false, nullptr), fileLoaded(false)
+MainComponent::MainComponent() : openSourceButton("Open Source"), chooser("Pick a folder", File(), "*.zip", true, false, nullptr), fileLoaded(false), fileNamesToChangeWithTitle(true)
 {
     setSize (300, 200);
     
@@ -123,7 +123,7 @@ PopupMenu MainComponent::getMenuForIndex(int topLevelMenuIndex, const String &me
     //Settings Menu
      if(topLevelMenuIndex == 0)
     {
-        
+        menu.addItem(1, "Change Filenames to Title", true, fileNamesToChangeWithTitle);
     }
     
     return menu;
@@ -136,7 +136,9 @@ void MainComponent::menuItemSelected(int menuItemID, int topLevelMenuIndex)
         if(menuItemID == 1)
         {
             //Inverses the bool
-            
+            fileNamesToChangeWithTitle = !fileNamesToChangeWithTitle;
+            fileTable.setFileNamesToChangeWithTitle(fileNamesToChangeWithTitle);
+            menuItemsChanged();
         }
     }
 }

@@ -44,6 +44,8 @@ public:
     
     int getTableHeight();
     
+    void setFileNamesToChangeWithTitle(bool change);
+    
 private:
     
     int getNumRows() override;
@@ -69,6 +71,7 @@ private:
     
     TextButton correctDataButton;
     TextButton saveButton;
+    TextButton changeLocationButton;
     
     EditMetadataWindow* metadataWindow;
     
@@ -78,6 +81,10 @@ private:
     Array<Label*> artistNameLabels;
     Array<Label*> albumNameLabels;
     Array<Label*> yearLabels;
+    
+    String currentDirectoryPath;
+    
+    bool fileNamesToChangeWithTitle;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileTable)
 };
