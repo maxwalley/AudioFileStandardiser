@@ -662,7 +662,7 @@ void AudioFileTable::actionListenerCallback(const String& message)
                     if(int(batchControls.getButtonsActive() & BatchRenameControls::artistButton) != 0)
                     {
                         //Removes characters set by the batch controls from the Artist names
-                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().removeCharacters(batchControls.getCharsToRemove()), dontSendNotification);
+                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().replace(batchControls.getCharsToRemove(), ""), dontSendNotification);
                     
                         //Removes start chars set by batch controls from artist names
                     artistNameLabels[i]->setText(artistNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), dontSendNotification);
@@ -674,7 +674,8 @@ void AudioFileTable::actionListenerCallback(const String& message)
                     if(int(batchControls.getButtonsActive() & BatchRenameControls::albumButton) != 0)
                     {
                         //Removes characters set by the batch controls from the album names
-                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().removeCharacters(batchControls.getCharsToRemove()), dontSendNotification);
+                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().replace(batchControls.getCharsToRemove(), ""), dontSendNotification);
+                        
                     
                         //Removes start chars set by batch controls from album names
                     albumNameLabels[i]->setText(albumNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), dontSendNotification);
