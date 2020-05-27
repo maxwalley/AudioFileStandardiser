@@ -14,20 +14,10 @@
             file="Source/AudioFileTable.h"/>
       <FILE id="htezue" name="AudioFileTable.cpp" compile="1" resource="0"
             file="Source/AudioFileTable.cpp"/>
-      <GROUP id="{0DBE7A58-643F-B547-027B-5C5DE7FCD25F}" name="Edit Metadata Window">
-        <FILE id="m0Qg2N" name="EditMetadataWindow.h" compile="0" resource="0"
-              file="Source/Edit Metadata Window/EditMetadataWindow.h"/>
-        <FILE id="MdecKc" name="EditMetadataWindow.cpp" compile="1" resource="0"
-              file="Source/Edit Metadata Window/EditMetadataWindow.cpp"/>
-        <FILE id="kBQyO9" name="ComponentWindow.h" compile="0" resource="0"
-              file="Source/Edit Metadata Window/ComponentWindow.h"/>
-        <FILE id="YNemFz" name="ComponentWindow.cpp" compile="1" resource="0"
-              file="Source/Edit Metadata Window/ComponentWindow.cpp"/>
-        <FILE id="BQcSC4" name="EditMetadataComponent.h" compile="0" resource="0"
-              file="Source/Edit Metadata Window/EditMetadataComponent.h"/>
-        <FILE id="oHqhF4" name="EditMetadataComponent.cpp" compile="1" resource="0"
-              file="Source/Edit Metadata Window/EditMetadataComponent.cpp"/>
-      </GROUP>
+      <FILE id="GNv9M5" name="BatchRenameControls.h" compile="0" resource="0"
+            file="Source/BatchRenameControls.h"/>
+      <FILE id="qjTIHG" name="BatchRenameControls.cpp" compile="1" resource="0"
+            file="Source/BatchRenameControls.cpp"/>
     </GROUP>
     <FILE id="nF9MYe" name="StringChecker.cpp" compile="1" resource="0"
           file="../../C++ Libs and Frameworks/My Libs/StringChecker.cpp"/>

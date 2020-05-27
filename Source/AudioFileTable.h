@@ -11,9 +11,9 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "Edit Metadata Window/EditMetadataWindow.h"
 #include "tag_c.h"
 #include "StringChecker.h"
+#include "BatchRenameControls.h"
 
 //==============================================================================
 /*
@@ -29,7 +29,8 @@ public:
 class AudioFileTable    :   public Component,
                             public TableListBoxModel,
                             public Button::Listener,
-                            public Label::Listener
+                            public Label::Listener,
+                            public ActionListener
 {
 public:
     AudioFileTable();
@@ -46,6 +47,10 @@ public:
     
     void setFileNamesToChangeWithTitle(bool change);
     
+    void setBatchControlsVisible(bool visible);
+    
+    void addBatchControlsActionListener(ActionListener* listener);
+    
 private:
     
     int getNumRows() override;
@@ -58,6 +63,8 @@ private:
     void labelTextChanged(Label* label) override;
     
     void saveTableToTags();
+    
+    void actionListenerCallback(const String& message) override;
     
     TableListBox table;
     
@@ -73,7 +80,6 @@ private:
     TextButton saveButton;
     TextButton changeLocationButton;
     
-    EditMetadataWindow* metadataWindow;
     
     Array<ToggleButton*> selectionButtons;
     Array<Label*> trackNumLabels;
@@ -85,6 +91,10 @@ private:
     String currentDirectoryPath;
     
     bool fileNamesToChangeWithTitle;
+    
+    Viewport batchControlViewport;
+    BatchRenameControls batchControls;
+    bool showBatchControls;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileTable)
 };

@@ -77,17 +77,9 @@
 			isa = PBXBuildFile;
 			fileRef = A3B779CAF22A76956E5AE01C;
 		};
-		06D32299FEC72E63B59F7FA4 = {
+		12C7DA8A424F3CC7493923E4 = {
 			isa = PBXBuildFile;
-			fileRef = 1DCE494173D6866F066C8BF6;
-		};
-		46B44E32844D9309CDAF9C73 = {
-			isa = PBXBuildFile;
-			fileRef = 543BED9EB8C00DC27637B347;
-		};
-		14519471872851C7F0A17FFF = {
-			isa = PBXBuildFile;
-			fileRef = 3019DD28C23BD99B9CBA58FB;
+			fileRef = A692DE55E19BCECBE988293B;
 		};
 		EDFEEE2D1E2EE80CAE5CBF07 = {
 			isa = PBXBuildFile;
@@ -208,13 +200,6 @@
 			path = System/Library/Frameworks/Accelerate.framework;
 			sourceTree = SDKROOT;
 		};
-		1DCE494173D6866F066C8BF6 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = EditMetadataWindow.cpp;
-			path = "../../Source/Edit Metadata Window/EditMetadataWindow.cpp";
-			sourceTree = "SOURCE_ROOT";
-		};
 		21E4278137509D440C9FE525 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -241,13 +226,6 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_events.mm";
 			path = "../../JuceLibraryCode/include_juce_events.mm";
-			sourceTree = "SOURCE_ROOT";
-		};
-		3019DD28C23BD99B9CBA58FB = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = EditMetadataComponent.cpp;
-			path = "../../Source/Edit Metadata Window/EditMetadataComponent.cpp";
 			sourceTree = "SOURCE_ROOT";
 		};
 		35140524E7FEE99EDF92571E = {
@@ -285,13 +263,6 @@
 			path = "../../JuceLibraryCode/include_juce_cryptography.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
-		543BED9EB8C00DC27637B347 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = ComponentWindow.cpp;
-			path = "../../Source/Edit Metadata Window/ComponentWindow.cpp";
-			sourceTree = "SOURCE_ROOT";
-		};
 		56121CF08F3F74337929D4A5 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -320,11 +291,11 @@
 			path = "../../JuceLibraryCode/include_juce_data_structures.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
-		616B31BB7B29BFD88AA35D72 = {
+		63C68C8F75CB2BBF755982AB = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
-			name = ComponentWindow.h;
-			path = "../../Source/Edit Metadata Window/ComponentWindow.h";
+			name = BatchRenameControls.h;
+			path = ../../Source/BatchRenameControls.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		6F1FBC862C0BF70D749256CD = {
@@ -362,13 +333,6 @@
 			path = "/Users/maxwalley/Documents/C++ Libs and Frameworks/JUCE/modules/juce_graphics";
 			sourceTree = "<absolute>";
 		};
-		81A81C3298EAD9DB787FA2F1 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = EditMetadataWindow.h;
-			path = "../../Source/Edit Metadata Window/EditMetadataWindow.h";
-			sourceTree = "SOURCE_ROOT";
-		};
 		82920D83E8EC5177B6FD15FA = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -382,13 +346,6 @@
 			name = CoreAudioKit.framework;
 			path = System/Library/Frameworks/CoreAudioKit.framework;
 			sourceTree = SDKROOT;
-		};
-		8BE5C33AB73DF2537DB8BEEF = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = EditMetadataComponent.h;
-			path = "../../Source/Edit Metadata Window/EditMetadataComponent.h";
-			sourceTree = "SOURCE_ROOT";
 		};
 		8FD8047ACBD243EEBD2FA4F0 = {
 			isa = PBXFileReference;
@@ -451,6 +408,13 @@
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = AudioFileTable.cpp;
 			path = ../../Source/AudioFileTable.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		A692DE55E19BCECBE988293B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = BatchRenameControls.cpp;
+			path = ../../Source/BatchRenameControls.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		AB44EF9A507304728C8186FE = {
@@ -558,19 +522,6 @@
 			path = System/Library/Frameworks/CoreMIDI.framework;
 			sourceTree = SDKROOT;
 		};
-		615D9818EEC1131D68729003 = {
-			isa = PBXGroup;
-			children = (
-				81A81C3298EAD9DB787FA2F1,
-				1DCE494173D6866F066C8BF6,
-				616B31BB7B29BFD88AA35D72,
-				543BED9EB8C00DC27637B347,
-				8BE5C33AB73DF2537DB8BEEF,
-				3019DD28C23BD99B9CBA58FB,
-			);
-			name = "Edit Metadata Window";
-			sourceTree = "<group>";
-		};
 		CF936255A4E9F747E5129F47 = {
 			isa = PBXGroup;
 			children = (
@@ -579,7 +530,8 @@
 				BB451F0C709F1A130F7239AA,
 				730BD281327F367096B8CA86,
 				A3B779CAF22A76956E5AE01C,
-				615D9818EEC1131D68729003,
+				63C68C8F75CB2BBF755982AB,
+				A692DE55E19BCECBE988293B,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -917,9 +869,7 @@
 				5A6D8708804A28296CD4BC1E,
 				6856CC11B13A7987E119FA68,
 				D0800C7479AC619BEBEAC90E,
-				06D32299FEC72E63B59F7FA4,
-				46B44E32844D9309CDAF9C73,
-				14519471872851C7F0A17FFF,
+				12C7DA8A424F3CC7493923E4,
 				EDFEEE2D1E2EE80CAE5CBF07,
 				A98064FCEE6B4C50AD3D655F,
 				43404F103C0690B5F6AC4123,

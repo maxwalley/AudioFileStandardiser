@@ -30,7 +30,7 @@ int TagLib_TagSorter::compareElements(TagLib_Tag* first, TagLib_Tag* second)
 
 
 //==============================================================================
-AudioFileTable::AudioFileTable() : correctDataButton("Correct Data"), saveButton("Save Data"), changeLocationButton("Change File Locations"), fileNamesToChangeWithTitle(true)
+AudioFileTable::AudioFileTable() : correctDataButton("Correct Data"), saveButton("Save Data"), changeLocationButton("Change File Locations"), fileNamesToChangeWithTitle(true), showBatchControls(false)
 {
     addAndMakeVisible(table);
     
@@ -59,6 +59,11 @@ AudioFileTable::AudioFileTable() : correctDataButton("Correct Data"), saveButton
     changeLocationButton.setName("changeLocationButton");
     changeLocationButton.addListener(this);
     
+    addAndMakeVisible(batchControlViewport);
+    batchControlViewport.setVisible(false);
+    batchControlViewport.setViewedComponent(&batchControls);
+    
+    batchControls.addActionListener(this);
 }
 
 AudioFileTable::~AudioFileTable()
@@ -79,7 +84,21 @@ void AudioFileTable::paint (Graphics& g)
 
 void AudioFileTable::resized()
 {
-    table.setBounds(0, 0, getWidth(), getTableHeight());
+    if(showBatchControls == false)
+    {
+        table.setBounds(0, 0, getWidth(), getTableHeight());
+        batchControls.setVisible(false);
+        batchControlViewport.setVisible(false);
+    }
+    else
+    {
+        table.setBounds(0, 0, getWidth() - 200, getTableHeight());
+        batchControlViewport.setBounds(650, 0, 200, getHeight());
+        batchControlViewport.setVisible(true);
+        batchControls.setSize(190, 360);
+        batchControls.setVisible(true);
+    }
+    
     correctDataButton.setBounds(0, getTableHeight(), 200, 30);
     saveButton.setBounds(200, getTableHeight(), 200, 30);
     changeLocationButton.setBounds(400, getTableHeight(), 200, 30);
@@ -134,6 +153,8 @@ void AudioFileTable::setFiles(Array<File>& filesToShow)
         
         selectionButtons.add(new ToggleButton);
         selectionButtons[i]->addListener(this);
+        
+        batchControls.setDataSet(true);
     }
     
     metadataArray.sort(arraySorter);
@@ -156,6 +177,17 @@ int AudioFileTable::getTableHeight()
 void AudioFileTable::setFileNamesToChangeWithTitle(bool change)
 {
     fileNamesToChangeWithTitle = change;
+}
+
+void AudioFileTable::setBatchControlsVisible(bool visible)
+{
+    showBatchControls = visible;
+    resized();
+}
+
+void AudioFileTable::addBatchControlsActionListener(ActionListener* listener)
+{
+    batchControls.addActionListener(listener);
 }
 
 int AudioFileTable::getNumRows()
@@ -595,18 +627,20 @@ void AudioFileTable::saveTableToTags()
         {
             //Renames all the files to what their titles are specified as in the table
             (*juceFiles)[i].moveFileTo(File(currentDirectoryPath + trackNameLabels[i]->getText() + fileExtension));
-            //File temp(currentDirectoryPath + trackNameLabels[i]->getText() + fileExtension);
-            //(*juceFiles)[i].moveFileTo(temp);
         }
             
-        /*DBG((*juceFiles)[i].getFullPathName());
-        DBG(int((*juceFiles)[i].exists()));
-        DBG(currentDirectoryPath + trackNameLabels[i]->getText() + fileExtension);*/
-        
         taglib_tag_set_track(metadataArray[i], trackNumLabels[i]->getText().getIntValue());
         taglib_tag_set_title(metadataArray[i], trackNameLabels[i]->getText().toUTF8());
         taglib_tag_set_artist(metadataArray[i], artistNameLabels[i]->getText().toUTF8());
         taglib_tag_set_album(metadataArray[i], albumNameLabels[i]->getText().toUTF8());
         taglib_tag_set_year(metadataArray[i], yearLabels[i]->getText().getIntValue());
+    }
+}
+
+void AudioFileTable::actionListenerCallback(const String& message)
+{
+    if(message == "Apply Button Clicked")
+    {
+        DBG("APPLY");
     }
 }

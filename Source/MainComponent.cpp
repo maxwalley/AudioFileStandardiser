@@ -11,7 +11,7 @@
 #define SUPPORTEDTYPES "*.mp3;*.flac;*.wav;*.wave;*.aac;*.wma;*.aiff"
 
 //==============================================================================
-MainComponent::MainComponent() : openSourceButton("Open Source"), chooser("Pick a folder", File(), "*.zip", true, false, nullptr), fileLoaded(false), fileNamesToChangeWithTitle(true)
+MainComponent::MainComponent() : openSourceButton("Open Source"), chooser("Pick a folder", File(), "*.zip", true, false, nullptr), fileLoaded(false), fileNamesToChangeWithTitle(true), batchControlsShown(false)
 {
     setSize (300, 200);
     
@@ -19,6 +19,7 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), chooser("Pick 
     addAndMakeVisible(openSourceButton);
     
     addAndMakeVisible(fileTable);
+    fileTable.addBatchControlsActionListener(this);
     
     manager.registerFormat(new MP3AudioFormat(), false);
     
@@ -50,7 +51,14 @@ void MainComponent::resized()
     }
     else if(fileLoaded == true)
     {
-        setSize(650, fileTable.getTableHeight() + 30);
+        if(batchControlsShown == false)
+        {
+            setSize(650, fileTable.getTableHeight() + 30);
+        }
+        else
+        {
+            setSize(850, fileTable.getTableHeight() + 30);
+        }
         fileTable.setBounds(0, 0, getWidth(), getHeight());
     }
 }
@@ -112,7 +120,7 @@ void MainComponent::buttonClicked(Button* button)
 
 StringArray MainComponent::getMenuBarNames()
 {
-    StringArray menuNames("Settings");
+    StringArray menuNames("Settings", "View");
     return menuNames;
 }
 
@@ -126,13 +134,21 @@ PopupMenu MainComponent::getMenuForIndex(int topLevelMenuIndex, const String &me
         menu.addItem(1, "Change Filenames to Title", true, fileNamesToChangeWithTitle);
     }
     
+    //View Menu
+    else if(topLevelMenuIndex == 1)
+    {
+        menu.addItem(1, "Show Batch Controls", true, batchControlsShown);
+    }
+    
     return menu;
 }
 
 void MainComponent::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 {
+    //Settings Menu
     if(topLevelMenuIndex == 0)
     {
+        //Change Filenames to Title
         if(menuItemID == 1)
         {
             //Inverses the bool
@@ -140,5 +156,29 @@ void MainComponent::menuItemSelected(int menuItemID, int topLevelMenuIndex)
             fileTable.setFileNamesToChangeWithTitle(fileNamesToChangeWithTitle);
             menuItemsChanged();
         }
+    }
+    
+    //View Menu
+    else if(topLevelMenuIndex == 1)
+    {
+        //Show Batch Controls
+        if(menuItemID == 1)
+        {
+            batchControlsShown = !batchControlsShown;
+            resized();
+            fileTable.setBatchControlsVisible(batchControlsShown);
+            menuItemsChanged();
+        }
+    }
+}
+
+void MainComponent::actionListenerCallback(const String& message)
+{
+    if(message == "Close Button Clicked")
+    {
+        batchControlsShown = false;
+        resized();
+        fileTable.setBatchControlsVisible(batchControlsShown);
+        menuItemsChanged();
     }
 }
