@@ -10,6 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "AudioFileTable.h"
+#include "FormatMetadataManager.h"
 //==============================================================================
 
 class MainComponent   : public Component,

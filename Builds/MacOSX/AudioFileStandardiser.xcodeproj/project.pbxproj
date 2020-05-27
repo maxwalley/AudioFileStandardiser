@@ -61,6 +61,14 @@
 			isa = PBXBuildFile;
 			fileRef = 5A15C4E4BFD977D25E18ACFE;
 		};
+		1C97165F8316B6BAEC111FB8 = {
+			isa = PBXBuildFile;
+			fileRef = 2EBD25346B5B43E19CE28A31;
+		};
+		89A4C0289E9847A59F491448 = {
+			isa = PBXBuildFile;
+			fileRef = 6742B4D7D126FC3FA7129101;
+		};
 		F640F0A175B48E5D65478629 = {
 			isa = PBXBuildFile;
 			fileRef = A0CC265807C22C772D01DFED;
@@ -228,6 +236,13 @@
 			path = "../../JuceLibraryCode/include_juce_events.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		2EBD25346B5B43E19CE28A31 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = FormatMetadataManager.cpp;
+			path = ../../Source/FormatMetadataManager.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		35140524E7FEE99EDF92571E = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -296,6 +311,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = BatchRenameControls.h;
 			path = ../../Source/BatchRenameControls.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		6742B4D7D126FC3FA7129101 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = ID3MetadataReader.cpp;
+			path = ../../Source/ID3MetadataReader.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		6F1FBC862C0BF70D749256CD = {
@@ -417,6 +439,13 @@
 			path = ../../Source/BatchRenameControls.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		A9353E0DFB7FE0F90B035F4A = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = FormatMetadataReader.h;
+			path = ../../Source/FormatMetadataReader.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		AB44EF9A507304728C8186FE = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -487,6 +516,13 @@
 			path = "../../../../C++ Libs and Frameworks/My Libs/StringChecker.cpp";
 			sourceTree = "SOURCE_ROOT";
 		};
+		D180A20B6968F939958550B7 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = FormatMetadataManager.h;
+			path = ../../Source/FormatMetadataManager.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		E37A4D1752C7CA2B4B33B635 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -507,6 +543,13 @@
 			name = "juce_audio_devices";
 			path = "/Users/maxwalley/Documents/C++ Libs and Frameworks/JUCE/modules/juce_audio_devices";
 			sourceTree = "<absolute>";
+		};
+		EAD30C3ADDA786D579188129 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = ID3MetadataReader.h;
+			path = ../../Source/ID3MetadataReader.h;
+			sourceTree = "SOURCE_ROOT";
 		};
 		F42CF978D57C78DA690B542A = {
 			isa = PBXFileReference;
@@ -539,6 +582,11 @@
 		329608004BEDC20C07FBE1D7 = {
 			isa = PBXGroup;
 			children = (
+				2EBD25346B5B43E19CE28A31,
+				D180A20B6968F939958550B7,
+				A9353E0DFB7FE0F90B035F4A,
+				6742B4D7D126FC3FA7129101,
+				EAD30C3ADDA786D579188129,
 				6F1FBC862C0BF70D749256CD,
 				A0CC265807C22C772D01DFED,
 				CF936255A4E9F747E5129F47,
@@ -865,6 +913,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C97165F8316B6BAEC111FB8,
+				89A4C0289E9847A59F491448,
 				F640F0A175B48E5D65478629,
 				5A6D8708804A28296CD4BC1E,
 				6856CC11B13A7987E119FA68,

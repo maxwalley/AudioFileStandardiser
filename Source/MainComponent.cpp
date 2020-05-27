@@ -29,6 +29,13 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), chooser("Pick 
     }
     
     setMacMainMenu(this);
+    
+    FormatMetadataManager manager;
+    File file("/Users/maxwalley/Desktop/King Gizzard & The Lizard Wizard - Chunky Shrapnel/01.Evil Star.mp3");
+    
+    std::unique_ptr<FormatMetadataReader> reader = manager.createMetadataReader(&file);
+    
+    DBG(reader->getTrackTitle());
 }
 
 MainComponent::~MainComponent()
