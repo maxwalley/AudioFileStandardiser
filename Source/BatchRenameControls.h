@@ -46,6 +46,18 @@ public:
     int getNumStartCharsToRemove();
     
     int getNumEndCharsToRemove();
+    
+    String getCharsToAddToStart();
+    
+    String getCharsToAddToPosition();
+    
+    int getPositionToAdd();
+    
+    String getCharsToAddToEnd();
+    
+    String getCharToReplace();
+    
+    String getCharToReplaceWith();
 
 private:
     
@@ -69,6 +81,26 @@ private:
     
     TextEditor removeEndCharsEditor;
     Label removeEndCharsLabel;
+    
+    
+    TextEditor addCharsToStartEditor;
+    Label addCharsToStartLabel;
+    
+    TextEditor addCharsToPositionEditor;
+    Label addCharsToPositionLabel;
+    
+    TextEditor positionToAddToEditor;
+    Label positionToAddToLabel;
+    
+    TextEditor addCharsToEndEditor;
+    Label addCharsToEndLabel;
+    
+    
+    TextEditor replaceCharEditor;
+    Label replaceCharLabel;
+    
+    TextEditor replaceCharWithEditor;
+    Label replaceCharWithLabel;
     
     TextButton applyButton;
     

@@ -39,6 +39,33 @@ BatchRenameControls::BatchRenameControls() : dataSet(false), applyButton("Apply"
     addAndMakeVisible(removeEndCharsLabel);
     removeEndCharsLabel.setText("Num End Chars", dontSendNotification);
     
+    
+    addAndMakeVisible(addCharsToStartEditor);
+    addAndMakeVisible(addCharsToStartLabel);
+    addCharsToStartLabel.setText("Chars to Start", dontSendNotification);
+    
+    addAndMakeVisible(addCharsToPositionEditor);
+    addAndMakeVisible(addCharsToPositionLabel);
+    addCharsToPositionLabel.setText("Characters", dontSendNotification);
+    
+    addAndMakeVisible(positionToAddToEditor);
+    positionToAddToEditor.setInputRestrictions(0, "0123456789");
+    addAndMakeVisible(positionToAddToLabel);
+    positionToAddToLabel.setText("At Position", dontSendNotification);
+    
+    addAndMakeVisible(addCharsToEndEditor);
+    addAndMakeVisible(addCharsToEndLabel);
+    addCharsToEndLabel.setText("Chars to End", dontSendNotification);
+    
+    
+    addAndMakeVisible(replaceCharEditor);
+    addAndMakeVisible(replaceCharLabel);
+    replaceCharLabel.setText("Replace", dontSendNotification);
+    
+    addAndMakeVisible(replaceCharWithEditor);
+    addAndMakeVisible(replaceCharWithLabel);
+    replaceCharWithLabel.setText("With", dontSendNotification);
+    
     addAndMakeVisible(applyButton);
     applyButton.addListener(this);
     
@@ -64,6 +91,8 @@ void BatchRenameControls::paint (Graphics& g)
         
         g.drawText("Add", 20, 220, 30, 20, Justification::centred);
         
+        g.drawText("Replace", 20, 400, 70, 20, Justification::centred);
+        
         Path path;
         path.startNewSubPath(80, 70);
         path.lineTo(184, 70);
@@ -74,10 +103,17 @@ void BatchRenameControls::paint (Graphics& g)
         
         path.startNewSubPath(50, 230);
         path.lineTo(184, 230);
-        path.lineTo(184, 270);
-        path.lineTo(6, 270);
+        path.lineTo(184, 373);
+        path.lineTo(6, 373);
         path.lineTo(6, 230);
         path.lineTo(20, 230);
+        
+        path.startNewSubPath(90, 410);
+        path.lineTo(184, 410);
+        path.lineTo(184, 500);
+        path.lineTo(6, 500);
+        path.lineTo(6, 410);
+        path.lineTo(20, 410);
         
         g.strokePath(path, PathStrokeType(1.0f));
     }
@@ -96,6 +132,7 @@ void BatchRenameControls::resized()
         artistToggleLabel.setBounds(84, 35, 40, 22);
         albumToggleLabel.setBounds(151, 35, 40, 22);
         
+        
         removeCharsEditor.setBounds(10, 90, 70, 20);
         removeCharsDescripLabel.setBounds(85, 90, 100, 20);
         
@@ -105,9 +142,28 @@ void BatchRenameControls::resized()
         removeEndCharsEditor.setBounds(10, 150, 50, 20);
         removeEndCharsLabel.setBounds(65, 150, 100, 20);
         
-        applyButton.setBounds(6, 280, 178, 30);
         
-        closeButton.setBounds(6, 320, 178, 30);
+        addCharsToStartEditor.setBounds(10, 250, 70, 20);
+        addCharsToStartLabel.setBounds(85, 250, 100, 20);
+        
+        addCharsToPositionEditor.setBounds(10, 280, 70, 20);
+        addCharsToPositionLabel.setBounds(85, 280, 100, 20);
+        
+        positionToAddToEditor.setBounds(10, 303, 30, 20);
+        positionToAddToLabel.setBounds(45, 303, 100, 20);
+        
+        addCharsToEndEditor.setBounds(10, 333, 70, 20);
+        addCharsToEndLabel.setBounds(85, 333, 100, 20);
+        
+        replaceCharEditor.setBounds(10, 430, 70, 20);
+        replaceCharLabel.setBounds(85, 430, 100, 20);
+        
+        replaceCharWithEditor.setBounds(10, 460, 70, 20);
+        replaceCharWithLabel.setBounds(85, 460, 100, 20);
+        
+        applyButton.setBounds(6, 520, 178, 30);
+        
+        closeButton.setBounds(6, 560, 178, 30);
     }
 }
 
@@ -164,4 +220,34 @@ int BatchRenameControls::getNumStartCharsToRemove()
 int BatchRenameControls::getNumEndCharsToRemove()
 {
     return removeEndCharsEditor.getText().getIntValue();
+}
+
+String BatchRenameControls::getCharsToAddToStart()
+{
+    return addCharsToStartEditor.getText();
+}
+
+String BatchRenameControls::getCharsToAddToPosition()
+{
+    return addCharsToPositionEditor.getText();
+}
+
+int BatchRenameControls::getPositionToAdd()
+{
+    return positionToAddToEditor.getText().getIntValue();
+}
+
+String BatchRenameControls::getCharsToAddToEnd()
+{
+    return addCharsToEndEditor.getText();
+}
+
+String BatchRenameControls::getCharToReplace()
+{
+    return replaceCharEditor.getText();
+}
+
+String BatchRenameControls::getCharToReplaceWith()
+{
+    return replaceCharWithEditor.getText();
 }

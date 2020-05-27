@@ -95,7 +95,7 @@ void AudioFileTable::resized()
         table.setBounds(0, 0, getWidth() - 200, getTableHeight());
         batchControlViewport.setBounds(650, 0, 200, getHeight());
         batchControlViewport.setVisible(true);
-        batchControls.setSize(190, 360);
+        batchControls.setSize(190, 600);
         batchControls.setVisible(true);
     }
     
@@ -261,21 +261,23 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
                 }
                 if(differenceFound == true)
                 {
+                    //Dont send notification so it doesnt change all labels to "..."
                     trackNumLabels[rowNumber]->setText("...", dontSendNotification);
                 }
                 else
                 {
-                    trackNumLabels[rowNumber]->setText(comparatorString, dontSendNotification);
+                    trackNumLabels[rowNumber]->setText(comparatorString, sendNotification);
                 }
             }
             else if(comparatorFound == false)
             {
+                //Dont send notification so it doesnt change all labels to "..."
                 trackNumLabels[rowNumber]->setText("...", dontSendNotification);
             }
         }
         else
         {
-            trackNumLabels[rowNumber]->setText(String(taglib_tag_track(metadataArray[rowNumber])), dontSendNotification);
+            trackNumLabels[rowNumber]->setText(String(taglib_tag_track(metadataArray[rowNumber])), sendNotification);
         }
         return trackNumLabels[rowNumber];
     }
@@ -316,7 +318,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
                 }
                 else
                 {
-                    trackNameLabels[rowNumber]->setText(comparatorString, dontSendNotification);
+                    trackNameLabels[rowNumber]->setText(comparatorString, sendNotification);
                 }
             }
             else if(comparatorFound == false)
@@ -326,7 +328,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
         }
         else
         {
-            trackNameLabels[rowNumber]->setText(String(CharPointer_UTF8(taglib_tag_title(metadataArray[rowNumber]))), dontSendNotification);
+            trackNameLabels[rowNumber]->setText(String(CharPointer_UTF8(taglib_tag_title(metadataArray[rowNumber]))), sendNotification);
         }
         return trackNameLabels[rowNumber];
     }
@@ -367,7 +369,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
                 }
                 else
                 {
-                    artistNameLabels[rowNumber]->setText(comparatorString, dontSendNotification);
+                    artistNameLabels[rowNumber]->setText(comparatorString, sendNotification);
                 }
             }
             else if(comparatorFound == false)
@@ -377,7 +379,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
         }
         else
         {
-            artistNameLabels[rowNumber]->setText(String(CharPointer_UTF8(taglib_tag_artist(metadataArray[rowNumber]))), dontSendNotification);
+            artistNameLabels[rowNumber]->setText(String(CharPointer_UTF8(taglib_tag_artist(metadataArray[rowNumber]))), sendNotification);
         }
         return artistNameLabels[rowNumber];
     }
@@ -418,7 +420,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
                 }
                 else
                 {
-                    albumNameLabels[rowNumber]->setText(comparatorString, dontSendNotification);
+                    albumNameLabels[rowNumber]->setText(comparatorString, sendNotification);
                 }
             }
             else if(comparatorFound == false)
@@ -428,7 +430,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
         }
         else
         {
-             albumNameLabels[rowNumber]->setText(String(CharPointer_UTF8(taglib_tag_album(metadataArray[rowNumber]))), dontSendNotification);
+             albumNameLabels[rowNumber]->setText(String(CharPointer_UTF8(taglib_tag_album(metadataArray[rowNumber]))), sendNotification);
         }
         return albumNameLabels[rowNumber];
     }
@@ -469,7 +471,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
                 }
                 else
                 {
-                    yearLabels[rowNumber]->setText(comparatorString, dontSendNotification);
+                    yearLabels[rowNumber]->setText(comparatorString, sendNotification);
                 }
             }
             else if(comparatorFound == false)
@@ -479,7 +481,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
         }
         else
         {
-            yearLabels[rowNumber]->setText(String(taglib_tag_year(metadataArray[rowNumber])), dontSendNotification);
+            yearLabels[rowNumber]->setText(String(taglib_tag_year(metadataArray[rowNumber])), sendNotification);
         }
         return yearLabels[rowNumber];
     }
@@ -501,9 +503,9 @@ void AudioFileTable::buttonClicked(Button* button)
         {
             if(selectionButtons[i]->getToggleState() == true)
             {
-                trackNameLabels[i]->setText(checker.decapatalizeWords(trackNameLabels[i]->getText()), dontSendNotification);
-                albumNameLabels[i]->setText(checker.decapatalizeWords(albumNameLabels[i]->getText()), dontSendNotification);
-                artistNameLabels[i]->setText(checker.decapatalizeWords(artistNameLabels[i]->getText()), dontSendNotification);
+                trackNameLabels[i]->setText(checker.decapatalizeWords(trackNameLabels[i]->getText()), sendNotification);
+                albumNameLabels[i]->setText(checker.decapatalizeWords(albumNameLabels[i]->getText()), sendNotification);
+                artistNameLabels[i]->setText(checker.decapatalizeWords(artistNameLabels[i]->getText()), sendNotification);
             }
         }
     }
@@ -545,7 +547,7 @@ void AudioFileTable::buttonClicked(Button* button)
     {
         for(int i = 0; i < metadataArray.size(); i++)
         {
-            selectionButtons[i]->setToggleState(selectionButtons[metadataArray.size()]->getToggleState(), dontSendNotification);
+            selectionButtons[i]->setToggleState(selectionButtons[metadataArray.size()]->getToggleState(), sendNotification);
             table.updateContent();
         }
     }
@@ -563,57 +565,90 @@ void AudioFileTable::buttonClicked(Button* button)
 
 void AudioFileTable::labelTextChanged(Label* label)
 {
+    //The change all label for the track number field
     if(label == trackNumLabels[metadataArray.size()])
     {
         for(int i = 0; i < metadataArray.size(); i++)
         {
             if(selectionButtons[i]->getToggleState() == true)
             {
-                trackNumLabels[i]->setText(trackNumLabels[metadataArray.size()]->getText(), dontSendNotification);
+                trackNumLabels[i]->setText(trackNumLabels[metadataArray.size()]->getText(), sendNotification);
             }
         }
     }
     
+    //The change all label for the track name field
     else if(label == trackNameLabels[metadataArray.size()])
     {
         for(int i = 0; i < metadataArray.size(); i++)
         {
             if(selectionButtons[i]->getToggleState() == true)
             {
-                trackNameLabels[i]->setText(trackNameLabels[metadataArray.size()]->getText(), dontSendNotification);
+                trackNameLabels[i]->setText(trackNameLabels[metadataArray.size()]->getText(), sendNotification);
             }
         }
     }
     
+    //The change all label for the artist name field
     else if(label == artistNameLabels[metadataArray.size()])
     {
         for(int i = 0; i < metadataArray.size(); i++)
         {
             if(selectionButtons[i]->getToggleState() == true)
             {
-                artistNameLabels[i]->setText(artistNameLabels[metadataArray.size()]->getText(), dontSendNotification);
+                artistNameLabels[i]->setText(artistNameLabels[metadataArray.size()]->getText(), sendNotification);
             }
         }
     }
     
+    //The change all label for the album name field
     else if(label == albumNameLabels[metadataArray.size()])
     {
         for(int i = 0; i < metadataArray.size(); i++)
         {
             if(selectionButtons[i]->getToggleState() == true)
             {
-                albumNameLabels[i]->setText(albumNameLabels[metadataArray.size()]->getText(), dontSendNotification);
+                albumNameLabels[i]->setText(albumNameLabels[metadataArray.size()]->getText(), sendNotification);
             }
         }
     }
     
+    //The change all label for the year field
     else if(label == yearLabels[metadataArray.size()])
     {
         for(int i = 0; i < metadataArray.size(); i++)
         {
             if(selectionButtons[i]->getToggleState() == true)
             {
-                yearLabels[i]->setText(yearLabels[metadataArray.size()]->getText(), dontSendNotification);
+                yearLabels[i]->setText(yearLabels[metadataArray.size()]->getText(), sendNotification);
+            }
+        }
+    }
+    
+    else
+    {
+        //Runs through the arrays and checks to find the label. Then saves the new tag with the label value
+        for(int i = 0; i < metadataArray.size(); i++)
+        {
+            if(label == trackNumLabels[i])
+            {
+                taglib_tag_set_track(metadataArray[i], trackNumLabels[i]->getText().getIntValue());
+            }
+            else if(label == trackNameLabels[i])
+            {
+                taglib_tag_set_title(metadataArray[i], trackNameLabels[i]->getText().toUTF8());
+            }
+            else if(label == artistNameLabels[i])
+            {
+                taglib_tag_set_artist(metadataArray[i], artistNameLabels[i]->getText().toUTF8());
+            }
+            else if(label == albumNameLabels[i])
+            {
+                taglib_tag_set_album(metadataArray[i], albumNameLabels[i]->getText().toUTF8());
+            }
+            else if(label == yearLabels[i])
+            {
+                taglib_tag_set_year(metadataArray[i], yearLabels[i]->getText().getIntValue());
             }
         }
     }
@@ -628,12 +663,6 @@ void AudioFileTable::saveTableToTags()
             //Renames all the files to what their titles are specified as in the table
             (*juceFiles)[i].moveFileTo(File(currentDirectoryPath + trackNameLabels[i]->getText() + fileExtension));
         }
-            
-        taglib_tag_set_track(metadataArray[i], trackNumLabels[i]->getText().getIntValue());
-        taglib_tag_set_title(metadataArray[i], trackNameLabels[i]->getText().toUTF8());
-        taglib_tag_set_artist(metadataArray[i], artistNameLabels[i]->getText().toUTF8());
-        taglib_tag_set_album(metadataArray[i], albumNameLabels[i]->getText().toUTF8());
-        taglib_tag_set_year(metadataArray[i], yearLabels[i]->getText().getIntValue());
     }
 }
 
@@ -650,41 +679,100 @@ void AudioFileTable::actionListenerCallback(const String& message)
                     if(int(batchControls.getButtonsActive() & BatchRenameControls::titleButton) != 0)
                     {
                         //Removes characters set by the batch controls from the titles
-                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().removeCharacters(batchControls.getCharsToRemove()), dontSendNotification);
+                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().replace(batchControls.getCharsToRemove(), ""), sendNotification);
                         
                         //Removes start chars set by batch controls from titles
-                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), dontSendNotification);
+                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), sendNotification);
                        
                         //Removes end chars set by batch controls from titles
-                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().dropLastCharacters(batchControls.getNumEndCharsToRemove()), dontSendNotification);
+                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().dropLastCharacters(batchControls.getNumEndCharsToRemove()), sendNotification);
+                        
+                        //Adds start chars set by batch controls from titles
+                        trackNameLabels[i]->setText(trackNameLabels[i]->getText().replaceSection(0, 0, batchControls.getCharsToAddToStart()), sendNotification);
+                        
+                        //Adds chars to set position set by batch controls from titles
+                        if(batchControls.getPositionToAdd() > trackNameLabels[i]->getText().length())
+                        {
+                            trackNameLabels[i]->setText(trackNameLabels[i]->getText() + batchControls.getCharsToAddToPosition(), sendNotification);
+                        }
+                        else
+                        {
+                        trackNameLabels[i]->setText(trackNameLabels[i]->getText().replaceSection(batchControls.getPositionToAdd(), 0, batchControls.getCharsToAddToPosition()), sendNotification);
+                        }
+                        
+                        //Adds end chars set by batch controls from titles
+                        trackNameLabels[i]->setText(trackNameLabels[i]->getText() + batchControls.getCharsToAddToEnd(), sendNotification);
+                        
+                        
+                        //Replaces char with another char both set by batch controls for titles
+                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().replace(batchControls.getCharToReplace(), batchControls.getCharToReplaceWith()), sendNotification);
                     }
                 
                     if(int(batchControls.getButtonsActive() & BatchRenameControls::artistButton) != 0)
                     {
                         //Removes characters set by the batch controls from the Artist names
-                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().replace(batchControls.getCharsToRemove(), ""), dontSendNotification);
+                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().replace(batchControls.getCharsToRemove(), ""), sendNotification);
                     
                         //Removes start chars set by batch controls from artist names
-                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), dontSendNotification);
+                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), sendNotification);
                        
                         //Removes end chars set by batch controls from artist names
-                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().dropLastCharacters(batchControls.getNumEndCharsToRemove()), dontSendNotification);
+                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().dropLastCharacters(batchControls.getNumEndCharsToRemove()), sendNotification);
+                        
+                        //Adds start chars set by batch controls from artist names
+                        artistNameLabels[i]->setText(artistNameLabels[i]->getText().replaceSection(0, 0, batchControls.getCharsToAddToStart()), sendNotification);
+                        
+                        //Adds chars to set position set by batch controls from artist names
+                        if(batchControls.getPositionToAdd() > artistNameLabels[i]->getText().length())
+                        {
+                            artistNameLabels[i]->setText(artistNameLabels[i]->getText() + batchControls.getCharsToAddToPosition(), sendNotification);
+                        }
+                        else
+                        {
+                            artistNameLabels[i]->setText(artistNameLabels[i]->getText().replaceSection(batchControls.getPositionToAdd(), 0, batchControls.getCharsToAddToPosition()), sendNotification);
+                        }
+                        
+                        //Adds end chars set by batch controls from artist names
+                        artistNameLabels[i]->setText(artistNameLabels[i]->getText() + batchControls.getCharsToAddToEnd(), sendNotification);
+                        
+                        //Replaces char with another char both set by batch controls for artist names
+                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().replace(batchControls.getCharToReplace(), batchControls.getCharToReplaceWith()), sendNotification);
                     }
                 
                     if(int(batchControls.getButtonsActive() & BatchRenameControls::albumButton) != 0)
                     {
                         //Removes characters set by the batch controls from the album names
-                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().replace(batchControls.getCharsToRemove(), ""), dontSendNotification);
+                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().replace(batchControls.getCharsToRemove(), ""), sendNotification);
                         
                     
                         //Removes start chars set by batch controls from album names
-                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), dontSendNotification);
+                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), sendNotification);
                        
                         //Removes end chars set by batch controls from album names
-                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().dropLastCharacters(batchControls.getNumEndCharsToRemove()), dontSendNotification);
+                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().dropLastCharacters(batchControls.getNumEndCharsToRemove()), sendNotification);
+                        
+                        //Adds start chars set by batch controls from album names
+                        albumNameLabels[i]->setText(albumNameLabels[i]->getText().replaceSection(0, 0, batchControls.getCharsToAddToStart()), sendNotification);
+                        
+                        //Adds chars to set position set by batch controls from album names
+                        if(batchControls.getPositionToAdd() > albumNameLabels[i]->getText().length())
+                        {
+                            albumNameLabels[i]->setText(albumNameLabels[i]->getText() + batchControls.getCharsToAddToPosition(), sendNotification);
+                        }
+                        else
+                        {
+                            albumNameLabels[i]->setText(albumNameLabels[i]->getText().replaceSection(batchControls.getPositionToAdd(), 0, batchControls.getCharsToAddToPosition()), sendNotification);
+                        }
+                        
+                        //Adds end chars set by batch controls from album names
+                        albumNameLabels[i]->setText(albumNameLabels[i]->getText() + batchControls.getCharsToAddToEnd(), sendNotification);
+                        
+                        //Replaces char with another char both set by batch controls for album names
+                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().replace(batchControls.getCharToReplace(), batchControls.getCharToReplaceWith()), sendNotification);
                     }
                 }
             }
+            table.updateContent();
         }
     }
 }
