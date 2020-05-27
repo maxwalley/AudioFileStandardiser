@@ -30,10 +30,12 @@ BatchRenameControls::BatchRenameControls() : dataSet(false), applyButton("Apply"
     removeCharsDescripLabel.setText("Characters", dontSendNotification);
     
     addAndMakeVisible(removeStartCharsEditor);
+    removeStartCharsEditor.setInputRestrictions(0, "0123456789");
     addAndMakeVisible(removeStartCharsLabel);
     removeStartCharsLabel.setText("Num Start Chars", dontSendNotification);
     
     addAndMakeVisible(removeEndCharsEditor);
+    removeEndCharsEditor.setInputRestrictions(0, "0123456789");
     addAndMakeVisible(removeEndCharsLabel);
     removeEndCharsLabel.setText("Num End Chars", dontSendNotification);
     
@@ -114,6 +116,33 @@ void BatchRenameControls::setDataSet(bool hasDataBeenSet)
     dataSet = hasDataBeenSet;
 }
 
+BatchRenameControls::ButtonsActive BatchRenameControls::getButtonsActive()
+{
+    ButtonsActive activeButtons = ButtonsActive(0);
+    
+    if(titleToggle.getToggleState() == true)
+    {
+        activeButtons = ButtonsActive(activeButtons + titleButton);
+    }
+    
+    if(artistToggle.getToggleState() == true)
+    {
+        activeButtons = ButtonsActive(activeButtons + artistButton);
+    }
+    
+    if(albumToggle.getToggleState() == true)
+    {
+        activeButtons = ButtonsActive(activeButtons + albumButton);
+    }
+    
+    return activeButtons;
+}
+
+String BatchRenameControls::getCharsToRemove()
+{
+    return removeCharsEditor.getText();
+}
+
 void BatchRenameControls::buttonClicked(Button* button)
 {
     if(button == &applyButton)
@@ -125,4 +154,14 @@ void BatchRenameControls::buttonClicked(Button* button)
     {
         sendActionMessage("Close Button Clicked");
     }
+}
+
+int BatchRenameControls::getNumStartCharsToRemove()
+{
+    return removeStartCharsEditor.getText().getIntValue();
+}
+
+int BatchRenameControls::getNumEndCharsToRemove()
+{
+    return removeEndCharsEditor.getText().getIntValue();
 }

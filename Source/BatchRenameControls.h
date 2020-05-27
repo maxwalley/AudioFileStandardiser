@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "tag_c.h"
+#include "StringChecker.h"
 
 //==============================================================================
 /*
@@ -22,6 +23,14 @@ class BatchRenameControls    : public Component,
                                public ActionBroadcaster
 {
 public:
+    
+    enum ButtonsActive
+    {
+        titleButton = 1,
+        artistButton = 2,
+        albumButton = 4
+    };
+    
     BatchRenameControls();
     ~BatchRenameControls();
 
@@ -30,9 +39,17 @@ public:
     
     void setDataSet(bool hasDataBeenSet);
     
-    void buttonClicked(Button* button) override;
+    ButtonsActive getButtonsActive();
+    
+    String getCharsToRemove();
+    
+    int getNumStartCharsToRemove();
+    
+    int getNumEndCharsToRemove();
 
 private:
+    
+    void buttonClicked(Button* button) override;
     
     bool dataSet;
     

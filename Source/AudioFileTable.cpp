@@ -641,6 +641,49 @@ void AudioFileTable::actionListenerCallback(const String& message)
 {
     if(message == "Apply Button Clicked")
     {
-        DBG("APPLY");
+        if(int(batchControls.getButtonsActive()) != 0)
+        {
+            for(int i = 0; i < metadataArray.size(); i++)
+            {
+                if(selectionButtons[i]->getToggleState() == true)
+                {
+                    if(int(batchControls.getButtonsActive() & BatchRenameControls::titleButton) != 0)
+                    {
+                        //Removes characters set by the batch controls from the titles
+                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().removeCharacters(batchControls.getCharsToRemove()), dontSendNotification);
+                        
+                        //Removes start chars set by batch controls from titles
+                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), dontSendNotification);
+                       
+                        //Removes end chars set by batch controls from titles
+                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().dropLastCharacters(batchControls.getNumEndCharsToRemove()), dontSendNotification);
+                    }
+                
+                    if(int(batchControls.getButtonsActive() & BatchRenameControls::artistButton) != 0)
+                    {
+                        //Removes characters set by the batch controls from the Artist names
+                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().removeCharacters(batchControls.getCharsToRemove()), dontSendNotification);
+                    
+                        //Removes start chars set by batch controls from artist names
+                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), dontSendNotification);
+                       
+                        //Removes end chars set by batch controls from artist names
+                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().dropLastCharacters(batchControls.getNumEndCharsToRemove()), dontSendNotification);
+                    }
+                
+                    if(int(batchControls.getButtonsActive() & BatchRenameControls::albumButton) != 0)
+                    {
+                        //Removes characters set by the batch controls from the album names
+                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().removeCharacters(batchControls.getCharsToRemove()), dontSendNotification);
+                    
+                        //Removes start chars set by batch controls from album names
+                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), dontSendNotification);
+                       
+                        //Removes end chars set by batch controls from album names
+                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().dropLastCharacters(batchControls.getNumEndCharsToRemove()), dontSendNotification);
+                    }
+                }
+            }
+        }
     }
 }

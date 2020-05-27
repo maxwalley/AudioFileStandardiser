@@ -29,7 +29,6 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), chooser("Pick 
     }
     
     setMacMainMenu(this);
-    
 }
 
 MainComponent::~MainComponent()
