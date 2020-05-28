@@ -15,8 +15,7 @@
 class FormatMetadataReader
 {
 public:
-    virtual ~FormatMetadataReader()
-    {DBG("Test");}
+    virtual ~FormatMetadataReader(){}
     
     virtual int getTrackNum() = 0;
     virtual String getTrackTitle() = 0;
@@ -28,7 +27,7 @@ public:
     virtual void setTrackTitle(String newTrackTitle) = 0;
     virtual void setArtistName(String newArtistName) = 0;
     virtual void setAlbumName(String newAlbumName) = 0;
-    virtual void setYear(String newYear) = 0;
+    virtual void setYear(int newYear) = 0;
    
 private:
     

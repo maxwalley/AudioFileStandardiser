@@ -11,6 +11,7 @@
 #pragma once
 
 #include "FormatMetadataReader.h"
+#include "tag_c.h"
 
 class ID3MetadataReader : public FormatMetadataReader
 {
@@ -28,8 +29,11 @@ public:
     void setTrackTitle(String newTrackTitle) override;
     void setArtistName(String newArtistName) override;
     void setAlbumName(String newAlbumName) override;
-    void setYear(String newYear) override;
+    void setYear(int newYear) override;
     
 private:
+    
+    TagLib_File* file;
+    TagLib_Tag* metadata;
     
 };

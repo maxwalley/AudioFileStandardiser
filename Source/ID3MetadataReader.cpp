@@ -12,60 +12,62 @@
 
 ID3MetadataReader::ID3MetadataReader(File* input)
 {
-    
+    file = taglib_file_new(input->getFullPathName().toRawUTF8());
+    metadata = taglib_file_tag(file);
 }
 
 ID3MetadataReader::~ID3MetadataReader()
 {
-    
+    taglib_file_save(file);
+    taglib_file_free(file);
 }
 
 int ID3MetadataReader::getTrackNum()
 {
-    
+    return taglib_tag_track(metadata);
 }
 
 String ID3MetadataReader::getTrackTitle()
 {
-    return "Welcome";
+    return String(CharPointer_UTF8(taglib_tag_title(metadata)));
 }
 
 String ID3MetadataReader::getArtistName()
 {
-    
+    return String(CharPointer_UTF8(taglib_tag_artist(metadata)));
 }
 
 String ID3MetadataReader::getAlbumName()
 {
-    
+    return String(CharPointer_UTF8(taglib_tag_album(metadata)));
 }
 
 int ID3MetadataReader::getYear()
 {
-    
+    return taglib_tag_year(metadata);
 }
 
 void ID3MetadataReader::setTrackNum(int newTrackNum)
 {
-    
+    taglib_tag_set_track(metadata, newTrackNum);
 }
 
 void ID3MetadataReader::setTrackTitle(String newTrackTitle)
 {
-    
+    taglib_tag_set_title(metadata, newTrackTitle.toUTF8());
 }
 
 void ID3MetadataReader::setArtistName(String newArtistName)
 {
-    
+    taglib_tag_set_artist(metadata, newArtistName.toUTF8());
 }
 
 void ID3MetadataReader::setAlbumName(String newAlbumName)
 {
-    
+    taglib_tag_set_album(metadata, newAlbumName.toUTF8());
 }
 
-void ID3MetadataReader::setYear(String newYear)
+void ID3MetadataReader::setYear(int newYear)
 {
-    
+    taglib_tag_set_year(metadata, newYear);
 }
