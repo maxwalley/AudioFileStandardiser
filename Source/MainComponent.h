@@ -38,7 +38,6 @@ private:
     
     TextButton openSourceButton;
     
-    Array<File> currentFiles;
     StringChecker stringChecker;
     
     FileChooser chooser;

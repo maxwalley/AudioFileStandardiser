@@ -21,7 +21,7 @@ public:
     FormatMetadataManager();
     ~FormatMetadataManager();
     
-    std::unique_ptr<FormatMetadataReader> createMetadataReader(File* file);
+    std::unique_ptr<FormatMetadataReader> createMetadataReader(File& file);
     
 private:
     

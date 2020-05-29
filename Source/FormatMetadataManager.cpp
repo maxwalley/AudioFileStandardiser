@@ -20,7 +20,7 @@ FormatMetadataManager::~FormatMetadataManager()
     
 }
 
-std::unique_ptr<FormatMetadataReader> FormatMetadataManager::createMetadataReader(File* file)
+std::unique_ptr<FormatMetadataReader> FormatMetadataManager::createMetadataReader(File& file)
 {
     ID3MetadataReader reader(file);
     

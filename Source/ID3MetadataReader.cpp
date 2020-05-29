@@ -10,9 +10,9 @@
 
 #include "ID3MetadataReader.h"
 
-ID3MetadataReader::ID3MetadataReader(File* input)
+ID3MetadataReader::ID3MetadataReader(File& input)
 {
-    file = taglib_file_new(input->getFullPathName().toRawUTF8());
+    file = taglib_file_new(input.getFullPathName().toRawUTF8());
     metadata = taglib_file_tag(file);
 }
 

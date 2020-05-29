@@ -14,6 +14,7 @@
 #include "tag_c.h"
 #include "StringChecker.h"
 #include "BatchRenameControls.h"
+#include "FormatMetadataManager.h"
 
 //==============================================================================
 /*
@@ -68,11 +69,14 @@ private:
     
     TableListBox table;
     
-    Array<File>* juceFiles;
+    Array<File> juceFiles;
     Array<TagLib_File*> metadataFiles;
     
     Array<TagLib_Tag*> metadataArray;
     TagLib_TagSorter arraySorter;
+    
+    FormatMetadataManager metadataManager;
+    OwnedArray<FormatMetadataReader> metadataReaders;
     
     String fileExtension;
     

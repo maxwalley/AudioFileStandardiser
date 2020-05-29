@@ -72,6 +72,8 @@ void MainComponent::buttonClicked(Button* button)
         if(chooser.getResult().exists() == true)
         {
             File file = chooser.getResult();
+            Array<File> currentFiles;
+            
         
             if(file.existsAsFile() == true && file.getFileExtension() == ".zip")
             {

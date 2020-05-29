@@ -16,7 +16,7 @@
 class ID3MetadataReader : public FormatMetadataReader
 {
 public:
-    ID3MetadataReader(File* input);
+    ID3MetadataReader(File& input);
     ~ID3MetadataReader();
     
     int getTrackNum() override;

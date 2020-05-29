@@ -108,21 +108,25 @@ void AudioFileTable::setFiles(Array<File>& filesToShow)
 {
     metadataArray.ensureStorageAllocated(filesToShow.size());
     
-    juceFiles = &filesToShow;
+    filesToShow.swapWith(juceFiles);
     
-    for(int i = 0; i < filesToShow.size() + 1; i++)
+    for(int i = 0; i < juceFiles.size() + 1; i++)
     {
         if(i == 0)
         {
-            currentDirectoryPath = filesToShow[i].getFullPathName().dropLastCharacters(filesToShow[i].getFileName().length());
-            DBG(currentDirectoryPath);
+            currentDirectoryPath = juceFiles[i].getFullPathName().dropLastCharacters(filesToShow[i].getFileName().length());
         }
         
-        if(i < filesToShow.size())
+        if(i < juceFiles.size())
         {
-            TagLib_File* currentFile = taglib_file_new(filesToShow[i].getFullPathName().toRawUTF8());
+            TagLib_File* currentFile = taglib_file_new(juceFiles[i].getFullPathName().toRawUTF8());
             metadataFiles.add(currentFile);
             metadataArray.add(taglib_file_tag(currentFile));
+            
+            DBG("Here");
+            metadataReaders.add(metadataManager.createMetadataReader(juceFiles.getReference(i)));
+            
+            DBG(metadataReaders[i]->getTrackNum());
         }
         
         trackNumLabels.add(new Label);
@@ -159,7 +163,7 @@ void AudioFileTable::setFiles(Array<File>& filesToShow)
     
     metadataArray.sort(arraySorter);
     
-    fileExtension = filesToShow[0].getFileExtension();
+    fileExtension = juceFiles[0].getFileExtension();
     
     table.updateContent();
 }
@@ -527,17 +531,17 @@ void AudioFileTable::buttonClicked(Button* button)
         
             for(int i = 0; i < metadataArray.size(); i++)
             {
-                File temp(currentDirectoryPath + (*juceFiles)[i].getFileName());
+                /*File temp(currentDirectoryPath + (*juceFiles)[i].getFileName());
                 (*juceFiles)[i].moveFileTo(temp);
                 juceFiles->set(i, temp);
             
                 //Replaces the metadata array
                 taglib_file_free(metadataFiles[i]);
                 
-                TagLib_File* currentFile = taglib_file_new((currentDirectoryPath + "/" + (*juceFiles)[i].getFileName()).toRawUTF8());
+                TagLib_File* currentFile = taglib_file_new((currentDirectoryPath + "/" + (*juceFiles)[i].getFileName()).toRawUTF8());*/
                 
-                metadataFiles.set(i,currentFile);
-                metadataArray.set(i, taglib_file_tag(currentFile));
+                //metadataFiles.set(i,currentFile);
+                //metadataArray.set(i, taglib_file_tag(currentFile));
     
             }
         }
@@ -661,7 +665,7 @@ void AudioFileTable::saveTableToTags()
         if(fileNamesToChangeWithTitle == true)
         {
             //Renames all the files to what their titles are specified as in the table
-            (*juceFiles)[i].moveFileTo(File(currentDirectoryPath + trackNameLabels[i]->getText() + fileExtension));
+            //(*juceFiles)[i].moveFileTo(File(currentDirectoryPath + trackNameLabels[i]->getText() + fileExtension));
         }
     }
 }
