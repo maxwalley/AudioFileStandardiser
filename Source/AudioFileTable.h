@@ -25,6 +25,12 @@ public:
     int compareElements(TagLib_Tag* first, TagLib_Tag* second);
 };
 
+class MetadataReaderSorter
+{
+public:
+    int compareElements(FormatMetadataReader* first, FormatMetadataReader* second);
+};
+
 
 
 class AudioFileTable    :   public Component,
@@ -73,7 +79,8 @@ private:
     Array<TagLib_File*> metadataFiles;
     
     Array<TagLib_Tag*> metadataArray;
-    TagLib_TagSorter arraySorter;
+    //TagLib_TagSorter arraySorter;
+    MetadataReaderSorter arraySorter;
     
     FormatMetadataManager metadataManager;
     OwnedArray<FormatMetadataReader> metadataReaders;

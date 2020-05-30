@@ -28,6 +28,11 @@ public:
     virtual void setArtistName(String newArtistName) = 0;
     virtual void setAlbumName(String newAlbumName) = 0;
     virtual void setYear(int newYear) = 0;
+    
+    virtual void moveFile(String newLocation) = 0;
+    virtual String getFileLocation() = 0;
+    virtual String getFileName() = 0;
+    virtual String getFileNameWithoutExtension() = 0;
    
 private:
     

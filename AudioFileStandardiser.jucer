@@ -13,8 +13,10 @@
           file="Source/ID3MetadataReader.cpp"/>
     <FILE id="NJ34hU" name="ID3MetadataReader.h" compile="0" resource="0"
           file="Source/ID3MetadataReader.h"/>
-    <FILE id="sG7vSR" name="Meter.h" compile="0" resource="0" file="../../C++ Libs and Frameworks/CustomJuceLibs/Meter.h"/>
-    <FILE id="RRcf6G" name="Meter.cpp" compile="1" resource="0" file="../../C++ Libs and Frameworks/CustomJuceLibs/Meter.cpp"/>
+    <FILE id="umNjWj" name="WAVINFOMetadataReader.cpp" compile="1" resource="0"
+          file="Source/WAVINFOMetadataReader.cpp"/>
+    <FILE id="a52hmM" name="WAVINFOMetadataReader.h" compile="0" resource="0"
+          file="Source/WAVINFOMetadataReader.h"/>
     <GROUP id="{DAC9FF2B-CDC2-6395-3BB3-4BB855900B73}" name="Source">
       <FILE id="ABkAcZ" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="MLfJwx" name="MainComponent.cpp" compile="1" resource="0"

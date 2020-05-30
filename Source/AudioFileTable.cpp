@@ -27,6 +27,21 @@ int TagLib_TagSorter::compareElements(TagLib_Tag* first, TagLib_Tag* second)
     }
 }
 
+int MetadataReaderSorter::compareElements(FormatMetadataReader* first, FormatMetadataReader* second)
+{
+    if(first->getTrackNum() > second->getTrackNum())
+    {
+        return 1;
+    }
+    else if(first->getTrackNum() == second->getTrackNum())
+    {
+        return 0;
+    }
+    else if(first->getTrackNum() < second->getTrackNum())
+    {
+        return -1;
+    }
+}
 
 
 //==============================================================================
@@ -69,12 +84,6 @@ AudioFileTable::AudioFileTable() : correctDataButton("Correct Data"), saveButton
 AudioFileTable::~AudioFileTable()
 {
     saveTableToTags();
-    
-    for(int i = 0; i < metadataFiles.size(); i++)
-    {
-        taglib_file_save(metadataFiles[i]);
-        taglib_file_free(metadataFiles[i]);
-    }
 }
 
 void AudioFileTable::paint (Graphics& g)
@@ -119,14 +128,7 @@ void AudioFileTable::setFiles(Array<File>& filesToShow)
         
         if(i < juceFiles.size())
         {
-            TagLib_File* currentFile = taglib_file_new(juceFiles[i].getFullPathName().toRawUTF8());
-            metadataFiles.add(currentFile);
-            metadataArray.add(taglib_file_tag(currentFile));
-            
-            DBG("Here");
             metadataReaders.add(metadataManager.createMetadataReader(juceFiles.getReference(i)));
-            
-            DBG(metadataReaders[i]->getTrackNum());
         }
         
         trackNumLabels.add(new Label);
@@ -161,8 +163,9 @@ void AudioFileTable::setFiles(Array<File>& filesToShow)
         batchControls.setDataSet(true);
     }
     
-    metadataArray.sort(arraySorter);
+    metadataReaders.sort(arraySorter);
     
+    //Make this better
     fileExtension = juceFiles[0].getFileExtension();
     
     table.updateContent();
@@ -175,7 +178,7 @@ void AudioFileTable::refreshTable()
 
 int AudioFileTable::getTableHeight()
 {
-    return (metadataArray.size() + 1)*table.getRowHeight()+table.getHeaderHeight();
+    return (metadataReaders.size() + 1)*table.getRowHeight()+table.getHeaderHeight();
 }
 
 void AudioFileTable::setFileNamesToChangeWithTitle(bool change)
@@ -196,14 +199,11 @@ void AudioFileTable::addBatchControlsActionListener(ActionListener* listener)
 
 int AudioFileTable::getNumRows()
 {
-    if(metadataArray.size() > 0)
+    if(metadataReaders.size() > 0)
     {
-        return metadataArray.size() + 1;
+        return metadataReaders.size() + 1;
     }
-    else
-    {
-        return 0;
-    }
+    return 0;
 }
 
 void AudioFileTable::paintRowBackground(Graphics& g, int rowNumber, int width, int height, bool rowIsSelected)
@@ -235,12 +235,12 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
 {
     if(columnId == 1)
     {
-        if(rowNumber == metadataArray.size())
+        if(rowNumber == metadataReaders.size())
         {
             bool comparatorFound = false;
             String comparatorString;
             
-            for(int i = 0; i < metadataArray.size() && comparatorFound != true; i++)
+            for(int i = 0; i < metadataReaders.size() && comparatorFound != true; i++)
             {
                 if(selectionButtons[i]->getToggleState() == true)
                 {
@@ -253,7 +253,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
             {
                 bool differenceFound = false;
                 
-                for(int i = 0; i < metadataArray.size() && differenceFound != true; i++)
+                for(int i = 0; i < metadataReaders.size() && differenceFound != true; i++)
                 {
                     if(selectionButtons[i]->getToggleState() == true)
                     {
@@ -281,19 +281,19 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
         }
         else
         {
-            trackNumLabels[rowNumber]->setText(String(taglib_tag_track(metadataArray[rowNumber])), sendNotification);
+            trackNumLabels[rowNumber]->setText(String(metadataReaders[rowNumber]->getTrackNum()), sendNotification);
         }
         return trackNumLabels[rowNumber];
     }
     
     else if(columnId == 2)
     {
-        if(rowNumber == metadataArray.size())
+        if(rowNumber == metadataReaders.size())
         {
             bool comparatorFound = false;
             String comparatorString;
             
-            for(int i = 0; i < metadataArray.size() && comparatorFound != true; i++)
+            for(int i = 0; i < metadataReaders.size() && comparatorFound != true; i++)
             {
                 if(selectionButtons[i]->getToggleState() == true)
                 {
@@ -306,7 +306,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
             {
                 bool differenceFound = false;
                 
-                for(int i = 0; i < metadataArray.size() && differenceFound != true; i++)
+                for(int i = 0; i < metadataReaders.size() && differenceFound != true; i++)
                 {
                     if(selectionButtons[i]->getToggleState() == true)
                     {
@@ -332,19 +332,19 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
         }
         else
         {
-            trackNameLabels[rowNumber]->setText(String(CharPointer_UTF8(taglib_tag_title(metadataArray[rowNumber]))), sendNotification);
+            trackNameLabels[rowNumber]->setText(metadataReaders[rowNumber]->getTrackTitle(), sendNotification);
         }
         return trackNameLabels[rowNumber];
     }
     
     else if(columnId == 3)
     {
-        if(rowNumber == metadataArray.size())
+        if(rowNumber == metadataReaders.size())
         {
             bool comparatorFound = false;
             String comparatorString;
             
-            for(int i = 0; i < metadataArray.size() && comparatorFound != true; i++)
+            for(int i = 0; i < metadataReaders.size() && comparatorFound != true; i++)
             {
                 if(selectionButtons[i]->getToggleState() == true)
                 {
@@ -357,7 +357,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
             {
                 bool differenceFound = false;
                 
-                for(int i = 0; i < metadataArray.size() && differenceFound != true; i++)
+                for(int i = 0; i < metadataReaders.size() && differenceFound != true; i++)
                 {
                     if(selectionButtons[i]->getToggleState() == true)
                     {
@@ -383,19 +383,19 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
         }
         else
         {
-            artistNameLabels[rowNumber]->setText(String(CharPointer_UTF8(taglib_tag_artist(metadataArray[rowNumber]))), sendNotification);
+            artistNameLabels[rowNumber]->setText(metadataReaders[rowNumber]->getArtistName(), sendNotification);
         }
         return artistNameLabels[rowNumber];
     }
     
     else if(columnId == 4)
     {
-        if(rowNumber == metadataArray.size())
+        if(rowNumber == metadataReaders.size())
         {
             bool comparatorFound = false;
             String comparatorString;
             
-            for(int i = 0; i < metadataArray.size() && comparatorFound != true; i++)
+            for(int i = 0; i < metadataReaders.size() && comparatorFound != true; i++)
             {
                 if(selectionButtons[i]->getToggleState() == true)
                 {
@@ -408,7 +408,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
             {
                 bool differenceFound = false;
                 
-                for(int i = 0; i < metadataArray.size() && differenceFound != true; i++)
+                for(int i = 0; i < metadataReaders.size() && differenceFound != true; i++)
                 {
                     if(selectionButtons[i]->getToggleState() == true)
                     {
@@ -434,19 +434,19 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
         }
         else
         {
-             albumNameLabels[rowNumber]->setText(String(CharPointer_UTF8(taglib_tag_album(metadataArray[rowNumber]))), sendNotification);
+             albumNameLabels[rowNumber]->setText(metadataReaders[rowNumber]->getAlbumName(), sendNotification);
         }
         return albumNameLabels[rowNumber];
     }
     
     else if(columnId == 5)
     {
-        if(rowNumber == metadataArray.size())
+        if(rowNumber == metadataReaders.size())
         {
             bool comparatorFound = false;
             String comparatorString;
             
-            for(int i = 0; i < metadataArray.size() && comparatorFound != true; i++)
+            for(int i = 0; i < metadataReaders.size() && comparatorFound != true; i++)
             {
                 if(selectionButtons[i]->getToggleState() == true)
                 {
@@ -459,7 +459,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
             {
                 bool differenceFound = false;
                 
-                for(int i = 0; i < metadataArray.size() && differenceFound != true; i++)
+                for(int i = 0; i < metadataReaders.size() && differenceFound != true; i++)
                 {
                     if(selectionButtons[i]->getToggleState() == true)
                     {
@@ -485,7 +485,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
         }
         else
         {
-            yearLabels[rowNumber]->setText(String(taglib_tag_year(metadataArray[rowNumber])), sendNotification);
+            yearLabels[rowNumber]->setText(String(metadataReaders[rowNumber]->getYear()), sendNotification);
         }
         return yearLabels[rowNumber];
     }
@@ -522,42 +522,29 @@ void AudioFileTable::buttonClicked(Button* button)
     else if(button == &changeLocationButton)
     {
         FileChooser chooser("Select A New Location");
-        String newDirectory;
-        
+
         if(chooser.browseForDirectory())
         {
-            currentDirectoryPath = chooser.getResult().getFullPathName() + "/";
-            //DBG(currentDirectoryPath);
-        
-            for(int i = 0; i < metadataArray.size(); i++)
+            for(int i = 0; i < metadataReaders.size(); i++)
             {
-                /*File temp(currentDirectoryPath + (*juceFiles)[i].getFileName());
-                (*juceFiles)[i].moveFileTo(temp);
-                juceFiles->set(i, temp);
-            
-                //Replaces the metadata array
-                taglib_file_free(metadataFiles[i]);
+                String newDirectoryPath = chooser.getResult().getFullPathName() + "/" + metadataReaders[i]->getFileName();
                 
-                TagLib_File* currentFile = taglib_file_new((currentDirectoryPath + "/" + (*juceFiles)[i].getFileName()).toRawUTF8());*/
-                
-                //metadataFiles.set(i,currentFile);
-                //metadataArray.set(i, taglib_file_tag(currentFile));
-    
+                metadataReaders[i]->moveFile(newDirectoryPath);
             }
         }
     }
     
-    else if(button == selectionButtons[metadataArray.size()])
+    else if(button == selectionButtons[metadataReaders.size()])
     {
-        for(int i = 0; i < metadataArray.size(); i++)
+        for(int i = 0; i < metadataReaders.size(); i++)
         {
-            selectionButtons[i]->setToggleState(selectionButtons[metadataArray.size()]->getToggleState(), sendNotification);
+            selectionButtons[i]->setToggleState(selectionButtons[metadataReaders.size()]->getToggleState(), sendNotification);
             table.updateContent();
         }
     }
     else
     {
-        for(int i = 0; i < metadataArray.size(); i++)
+        for(int i = 0; i < metadataReaders.size(); i++)
         {
             if(button == selectionButtons[i])
             {
@@ -570,89 +557,97 @@ void AudioFileTable::buttonClicked(Button* button)
 void AudioFileTable::labelTextChanged(Label* label)
 {
     //The change all label for the track number field
-    if(label == trackNumLabels[metadataArray.size()])
+    if(label == trackNumLabels[metadataReaders.size()])
     {
-        for(int i = 0; i < metadataArray.size(); i++)
+        for(int i = 0; i < metadataReaders.size(); i++)
         {
             if(selectionButtons[i]->getToggleState() == true)
             {
-                trackNumLabels[i]->setText(trackNumLabels[metadataArray.size()]->getText(), sendNotification);
+                trackNumLabels[i]->setText(trackNumLabels[metadataReaders.size()]->getText(), sendNotification);
             }
         }
     }
     
     //The change all label for the track name field
-    else if(label == trackNameLabels[metadataArray.size()])
+    else if(label == trackNameLabels[metadataReaders.size()])
     {
-        for(int i = 0; i < metadataArray.size(); i++)
+        for(int i = 0; i < metadataReaders.size(); i++)
         {
             if(selectionButtons[i]->getToggleState() == true)
             {
-                trackNameLabels[i]->setText(trackNameLabels[metadataArray.size()]->getText(), sendNotification);
+                //Sends a notification to make the relevent changes to the readers
+                trackNameLabels[i]->setText(trackNameLabels[metadataReaders.size()]->getText(), sendNotification);
             }
         }
     }
     
     //The change all label for the artist name field
-    else if(label == artistNameLabels[metadataArray.size()])
+    else if(label == artistNameLabels[metadataReaders.size()])
     {
-        for(int i = 0; i < metadataArray.size(); i++)
+        for(int i = 0; i < metadataReaders.size(); i++)
         {
             if(selectionButtons[i]->getToggleState() == true)
             {
-                artistNameLabels[i]->setText(artistNameLabels[metadataArray.size()]->getText(), sendNotification);
+                artistNameLabels[i]->setText(artistNameLabels[metadataReaders.size()]->getText(), sendNotification);
             }
         }
     }
     
     //The change all label for the album name field
-    else if(label == albumNameLabels[metadataArray.size()])
+    else if(label == albumNameLabels[metadataReaders.size()])
     {
-        for(int i = 0; i < metadataArray.size(); i++)
+        for(int i = 0; i < metadataReaders.size(); i++)
         {
             if(selectionButtons[i]->getToggleState() == true)
             {
-                albumNameLabels[i]->setText(albumNameLabels[metadataArray.size()]->getText(), sendNotification);
+                albumNameLabels[i]->setText(albumNameLabels[metadataReaders.size()]->getText(), sendNotification);
             }
         }
     }
     
     //The change all label for the year field
-    else if(label == yearLabels[metadataArray.size()])
+    else if(label == yearLabels[metadataReaders.size()])
     {
-        for(int i = 0; i < metadataArray.size(); i++)
+        for(int i = 0; i < metadataReaders.size(); i++)
         {
             if(selectionButtons[i]->getToggleState() == true)
             {
-                yearLabels[i]->setText(yearLabels[metadataArray.size()]->getText(), sendNotification);
+                yearLabels[i]->setText(yearLabels[metadataReaders.size()]->getText(), sendNotification);
             }
         }
     }
     
     else
     {
-        //Runs through the arrays and checks to find the label. Then saves the new tag with the label value
-        for(int i = 0; i < metadataArray.size(); i++)
+        //Runs through the arrays and checks to find the label. Then writes into the metadata reader
+        for(int i = 0; i < metadataReaders.size(); i++)
         {
             if(label == trackNumLabels[i])
             {
-                taglib_tag_set_track(metadataArray[i], trackNumLabels[i]->getText().getIntValue());
+                metadataReaders[i]->setTrackNum(trackNumLabels[i]->getText().getIntValue());
             }
             else if(label == trackNameLabels[i])
             {
-                taglib_tag_set_title(metadataArray[i], trackNameLabels[i]->getText().toUTF8());
+                metadataReaders[i]->setTrackTitle(trackNameLabels[i]->getText());
+                
+                if(fileNamesToChangeWithTitle == true)
+                {
+                    String newDirectory = metadataReaders[i]->getFileLocation().replace(metadataReaders[i]->getFileNameWithoutExtension(), trackNameLabels[i]->getText());
+                    
+                    metadataReaders[i]->moveFile(newDirectory);
+                }
             }
             else if(label == artistNameLabels[i])
             {
-                taglib_tag_set_artist(metadataArray[i], artistNameLabels[i]->getText().toUTF8());
+                metadataReaders[i]->setArtistName(artistNameLabels[i]->getText());
             }
             else if(label == albumNameLabels[i])
             {
-                taglib_tag_set_album(metadataArray[i], albumNameLabels[i]->getText().toUTF8());
+                metadataReaders[i]->setAlbumName(albumNameLabels[i]->getText());
             }
             else if(label == yearLabels[i])
             {
-                taglib_tag_set_year(metadataArray[i], yearLabels[i]->getText().getIntValue());
+                metadataReaders[i]->setYear(yearLabels[i]->getText().getIntValue());
             }
         }
     }
@@ -676,7 +671,7 @@ void AudioFileTable::actionListenerCallback(const String& message)
     {
         if(int(batchControls.getButtonsActive()) != 0)
         {
-            for(int i = 0; i < metadataArray.size(); i++)
+            for(int i = 0; i < metadataReaders.size(); i++)
             {
                 if(selectionButtons[i]->getToggleState() == true)
                 {
@@ -776,6 +771,7 @@ void AudioFileTable::actionListenerCallback(const String& message)
                     }
                 }
             }
+            
             table.updateContent();
         }
     }

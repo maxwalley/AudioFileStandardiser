@@ -22,6 +22,9 @@ FormatMetadataManager::~FormatMetadataManager()
 
 std::unique_ptr<FormatMetadataReader> FormatMetadataManager::createMetadataReader(File& file)
 {
+    AudioFormatManager manager;
+    manager.registerBasicFormats();
+    
     ID3MetadataReader reader(file);
     
     std::unique_ptr<ID3MetadataReader> ptr = std::make_unique<ID3MetadataReader>(file);

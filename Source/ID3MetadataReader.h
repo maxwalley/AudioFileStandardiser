@@ -31,9 +31,15 @@ public:
     void setAlbumName(String newAlbumName) override;
     void setYear(int newYear) override;
     
+    void moveFile(String newDirectory) override;
+    String getFileLocation() override;
+    String getFileName() override;
+    String getFileNameWithoutExtension() override;
+    
 private:
     
-    TagLib_File* file;
+    File file;
+    TagLib_File* metadataFile;
     TagLib_Tag* metadata;
     
 };

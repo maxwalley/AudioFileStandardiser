@@ -12,14 +12,15 @@
 
 ID3MetadataReader::ID3MetadataReader(File& input)
 {
-    file = taglib_file_new(input.getFullPathName().toRawUTF8());
-    metadata = taglib_file_tag(file);
+    file = input;
+    metadataFile = taglib_file_new(input.getFullPathName().toRawUTF8());
+    metadata = taglib_file_tag(metadataFile);
 }
 
 ID3MetadataReader::~ID3MetadataReader()
 {
-    taglib_file_save(file);
-    taglib_file_free(file);
+    taglib_file_save(metadataFile);
+    taglib_file_free(metadataFile);
 }
 
 int ID3MetadataReader::getTrackNum()
@@ -70,4 +71,25 @@ void ID3MetadataReader::setAlbumName(String newAlbumName)
 void ID3MetadataReader::setYear(int newYear)
 {
     taglib_tag_set_year(metadata, newYear);
+}
+
+void ID3MetadataReader::moveFile(String newLocation)
+{
+    file.moveFileTo(File(newLocation));
+    file = newLocation;
+}
+
+String ID3MetadataReader::getFileLocation()
+{
+    return file.getFullPathName();
+}
+
+String ID3MetadataReader::getFileName()
+{
+    return file.getFileName();
+}
+
+String ID3MetadataReader::getFileNameWithoutExtension()
+{
+    return file.getFileNameWithoutExtension();
 }
