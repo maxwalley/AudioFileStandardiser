@@ -11,7 +11,8 @@
 #pragma once
 
 #include "FormatMetadataReader.h"
-#include "ID3MetadataReader.h"
+#include "TagLibTagReader.h"
+#include "fileref.h"
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -24,5 +25,7 @@ public:
     std::unique_ptr<FormatMetadataReader> createMetadataReader(File& file);
     
 private:
+    
+    AudioFormatManager formatManager;
     
 };

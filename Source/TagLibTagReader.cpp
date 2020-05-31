@@ -1,0 +1,94 @@
+/*
+  ==============================================================================
+
+    TagLibTagReader.cpp
+    Created: 27 May 2020 6:37:30pm
+    Author:  Max Walley
+
+  ==============================================================================
+*/
+
+#include "TagLibTagReader.h"
+
+TagLibTagReader::TagLibTagReader(File& input)   :   file(input), metadataFile(file.getFullPathName().toUTF8(), false)
+{
+    metadata = metadataFile.tag();
+}
+
+TagLibTagReader::~TagLibTagReader()
+{
+    metadataFile.save();
+}
+
+int TagLibTagReader::getTrackNum()
+{
+    return metadata->track();
+}
+
+String TagLibTagReader::getTrackTitle()
+{
+    return String(metadata->title().toCString());
+    
+    //return String(CharPointer_UTF8(metadata->title()));
+}
+
+String TagLibTagReader::getArtistName()
+{
+    return String(metadata->artist().to8Bit());
+}
+
+String TagLibTagReader::getAlbumName()
+{
+    return String(metadata->album().to8Bit());
+}
+
+int TagLibTagReader::getYear()
+{
+    return metadata->year();
+}
+
+void TagLibTagReader::setTrackNum(int newTrackNum)
+{
+    metadata->setTrack(newTrackNum);
+}
+
+void TagLibTagReader::setTrackTitle(String newTrackTitle)
+{
+    metadata->setTitle(TagLib::String(newTrackTitle.toUTF8()));
+}
+
+void TagLibTagReader::setArtistName(String newArtistName)
+{
+    metadata->setArtist(TagLib::String(newArtistName.toUTF8()));
+}
+
+void TagLibTagReader::setAlbumName(String newAlbumName)
+{
+    metadata->setAlbum(TagLib::String(newAlbumName.toUTF8()));
+}
+
+void TagLibTagReader::setYear(int newYear)
+{
+    metadata->setYear(newYear);
+}
+
+void TagLibTagReader::moveFile(String newLocation)
+{
+    file.moveFileTo(File(newLocation));
+    file = newLocation;
+}
+
+String TagLibTagReader::getFileLocation()
+{
+    return file.getFullPathName();
+}
+
+String TagLibTagReader::getFileName()
+{
+    return file.getFileName();
+}
+
+String TagLibTagReader::getFileNameWithoutExtension()
+{
+    return file.getFileNameWithoutExtension();
+}

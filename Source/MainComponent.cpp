@@ -8,10 +8,8 @@
 
 #include "MainComponent.h"
 
-#define SUPPORTEDTYPES "*.mp3;*.flac;*.wav;*.wave;*.aac;*.wma;*.aiff"
-
 //==============================================================================
-MainComponent::MainComponent() : openSourceButton("Open Source"), chooser("Pick a folder", File(), "*.zip", true, false, nullptr), fileLoaded(false), fileNamesToChangeWithTitle(true), batchControlsShown(false)
+MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(false), fileNamesToChangeWithTitle(true), batchControlsShown(false)
 {
     setSize (300, 200);
     
@@ -20,13 +18,6 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), chooser("Pick 
     
     addAndMakeVisible(fileTable);
     fileTable.addBatchControlsActionListener(this);
-    
-    manager.registerFormat(new MP3AudioFormat(), false);
-    
-    for(int i = 0; i < manager.getNumKnownFormats(); i++)
-    {
-        DBG(manager.getKnownFormat(i)->getFormatName());
-    }
     
     setMacMainMenu(this);
 }
@@ -66,62 +57,17 @@ void MainComponent::buttonClicked(Button* button)
 {
     if(button == &openSourceButton)
     {
-        //Looks and opens the file
-        chooser.browseForMultipleFilesOrDirectories();
-        
-        if(chooser.getResult().exists() == true)
+        if(fileTable.setFiles())
         {
-            File file = chooser.getResult();
-            Array<File> currentFiles;
-            
-        
-            if(file.existsAsFile() == true && file.getFileExtension() == ".zip")
-            {
-                //Creates a new directory
-                String newDirectoryName(file.getParentDirectory().getFullPathName() + "/" + file.getFileName());
-                newDirectoryName = newDirectoryName.dropLastCharacters(4);
-                File newDirectory(newDirectoryName);
-                newDirectory.createDirectory();
-            
-                //Decompresses the zip file
-                ZipFile zip(chooser.getResult());
-                zip.uncompressTo(newDirectory);
-            
-                if(newDirectory.getNumberOfChildFiles(2, SUPPORTEDTYPES) > 0)
-                {
-                    //Finds files in the new directory
-                    currentFiles = newDirectory.findChildFiles(2, false, SUPPORTEDTYPES);
-                    fileLoaded = true;
-                    fileTable.setFiles(currentFiles);
-                    resized();
-                }
-                else
-                {
-                    AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
-                }
-            }
-            else if(file.isDirectory() == true)
-            {
-                if(file.getNumberOfChildFiles(2, SUPPORTEDTYPES) > 0)
-                {
-                    //Finds files in the new directory
-                    currentFiles = file.findChildFiles(2, false, SUPPORTEDTYPES);
-                    fileLoaded = true;
-                    fileTable.setFiles(currentFiles);
-                    resized();
-                }
-                else
-                {
-                    AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
-                }
-            }
+            fileLoaded = true;
+            resized();
         }
     }
 }
 
 StringArray MainComponent::getMenuBarNames()
 {
-    StringArray menuNames("Settings", "View");
+    StringArray menuNames("Settings", "View", "Files");
     return menuNames;
 }
 
@@ -139,6 +85,11 @@ PopupMenu MainComponent::getMenuForIndex(int topLevelMenuIndex, const String &me
     else if(topLevelMenuIndex == 1)
     {
         menu.addItem(1, "Show Batch Controls", true, batchControlsShown);
+    }
+    
+    else if(topLevelMenuIndex == 2)
+    {
+        menu.addItem(1, "Change files", true, false);
     }
     
     return menu;
@@ -169,6 +120,15 @@ void MainComponent::menuItemSelected(int menuItemID, int topLevelMenuIndex)
             resized();
             fileTable.setBatchControlsVisible(batchControlsShown);
             menuItemsChanged();
+        }
+    }
+    
+    //Files menu
+    else if(topLevelMenuIndex == 2)
+    {
+        if(menuItemID == 1)
+        {
+            
         }
     }
 }

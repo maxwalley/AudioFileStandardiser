@@ -46,7 +46,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
-    void setFiles(Array<File>& filesToShow);
+    bool setFiles();
     
     void refreshTable();
     
@@ -57,6 +57,8 @@ public:
     void setBatchControlsVisible(bool visible);
     
     void addBatchControlsActionListener(ActionListener* listener);
+    
+    void changeFiles();
     
 private:
     
@@ -72,6 +74,8 @@ private:
     void saveTableToTags();
     
     void actionListenerCallback(const String& message) override;
+    
+    bool lookForAudioDirectory();
     
     TableListBox table;
     
@@ -99,7 +103,7 @@ private:
     Array<Label*> albumNameLabels;
     Array<Label*> yearLabels;
     
-    String currentDirectoryPath;
+    //String currentDirectoryPath;
     
     bool fileNamesToChangeWithTitle;
     

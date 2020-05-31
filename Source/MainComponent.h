@@ -40,13 +40,9 @@ private:
     
     StringChecker stringChecker;
     
-    FileChooser chooser;
-    
     bool fileLoaded;
     
     AudioFileTable fileTable;
-    
-    AudioFormatManager manager;
     
     bool fileNamesToChangeWithTitle;
     

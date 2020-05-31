@@ -11,6 +11,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "AudioFileTable.h"
 
+#define SUPPORTEDTYPES "*.mp3;*.flac;*.wav;*.wave;*.aac;*.wma;*.aif;*.m4a"
+
 int TagLib_TagSorter::compareElements(TagLib_Tag* first, TagLib_Tag* second)
 {
     if(taglib_tag_track(first) > taglib_tag_track(second))
@@ -113,62 +115,135 @@ void AudioFileTable::resized()
     changeLocationButton.setBounds(400, getTableHeight(), 200, 30);
 }
 
-void AudioFileTable::setFiles(Array<File>& filesToShow)
+bool AudioFileTable::setFiles()
 {
-    metadataArray.ensureStorageAllocated(filesToShow.size());
+    FileChooser chooser("Pick a folder", File(), "*.zip", true, false, nullptr);
     
-    filesToShow.swapWith(juceFiles);
+    //Looks and opens the file
+    chooser.browseForMultipleFilesOrDirectories();
+    
+    if(chooser.getResult().exists() == true)
+    {
+        File file = chooser.getResult();
+        
+    
+        if(file.existsAsFile() && file.getFileExtension() == ".zip")
+        {
+            //Creates a new directory
+            String newDirectoryName(file.getParentDirectory().getFullPathName() + "/" + file.getFileNameWithoutExtension());
+            File newDirectory(newDirectoryName);
+            newDirectory.createDirectory();
+        
+            //Decompresses the zip file
+            ZipFile zip(chooser.getResult());
+            zip.uncompressTo(newDirectory);
+        
+            if(newDirectory.getNumberOfChildFiles(2, SUPPORTEDTYPES) > 0)
+            {
+                //Finds files in the new directory
+                juceFiles = newDirectory.findChildFiles(2, false, SUPPORTEDTYPES);
+            }
+            else
+            {
+                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
+                return false;
+            }
+        }
+        
+        else if(file.isDirectory() == true)
+        {
+            if(file.getNumberOfChildFiles(2, SUPPORTEDTYPES) > 0)
+            {
+                //Finds files in the new directory
+                juceFiles = file.findChildFiles(2, false, SUPPORTEDTYPES);
+            }
+            else
+            {
+                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
+                return false;
+            }
+        }
+    }
+    
+    metadataArray.ensureStorageAllocated(juceFiles.size());
     
     for(int i = 0; i < juceFiles.size() + 1; i++)
     {
-        if(i == 0)
-        {
-            currentDirectoryPath = juceFiles[i].getFullPathName().dropLastCharacters(filesToShow[i].getFileName().length());
-        }
+        bool entryIsInvalid;
         
         if(i < juceFiles.size())
         {
-            metadataReaders.add(metadataManager.createMetadataReader(juceFiles.getReference(i)));
+            std::unique_ptr<FormatMetadataReader> tempReader = metadataManager.createMetadataReader(juceFiles.getReference(i));
+                
+            if(tempReader == nullptr)
+            {
+                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "File Error", "The file: " + juceFiles[i].getFileName() + " does not use supported metadata and will not be included");
+                
+                juceFiles.remove(i);
+                entryIsInvalid = true;
+                
+                i--;
+                DBG("Size" << juceFiles.size());
+                if(juceFiles.size() == 0)
+                {
+                    AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error - All files are incompatible", "None of the files in the selected folder have compatable metadata objects");
+                    return false;
+                }
+            }
+            else
+            {
+                metadataReaders.add(metadataManager.createMetadataReader(juceFiles.getReference(i)));
+                entryIsInvalid = false;
+            }
         }
         
-        trackNumLabels.add(new Label);
-        trackNumLabels[i]->setEditable(true);
-        trackNumLabels[i]->setColour(Label::textColourId, Colours::black);
-        trackNumLabels[i]->setJustificationType(Justification::centred);
-        trackNumLabels[i]->addListener(this);
+        if(entryIsInvalid == false)
+        {
+            trackNumLabels.add(new Label);
+            trackNumLabels[i]->setName("Track Num Label " + String(i));
+            trackNumLabels[i]->setEditable(true);
+            trackNumLabels[i]->setColour(Label::textColourId, Colours::black);
+            trackNumLabels[i]->setJustificationType(Justification::centred);
+            trackNumLabels[i]->addListener(this);
         
-        trackNameLabels.add(new Label);
-        trackNameLabels[i]->setEditable(true);
-        trackNameLabels[i]->setColour(Label::textColourId, Colours::black);
-        trackNameLabels[i]->addListener(this);
+            trackNameLabels.add(new Label);
+            trackNameLabels[i]->setName("Track Name Label " + String(i));
+            trackNameLabels[i]->setEditable(true);
+            trackNameLabels[i]->setColour(Label::textColourId, Colours::black);
+            trackNameLabels[i]->addListener(this);
         
-        artistNameLabels.add(new Label);
-        artistNameLabels[i]->setEditable(true);
-        artistNameLabels[i]->setColour(Label::textColourId, Colours::black);
-        artistNameLabels[i]->addListener(this);
+            artistNameLabels.add(new Label);
+            artistNameLabels[i]->setName("Artist Name Label " + String(i));
+            artistNameLabels[i]->setEditable(true);
+            artistNameLabels[i]->setColour(Label::textColourId, Colours::black);
+            artistNameLabels[i]->addListener(this);
         
-        albumNameLabels.add(new Label);
-        albumNameLabels[i]->setEditable(true);
-        albumNameLabels[i]->setColour(Label::textColourId, Colours::black);
-        albumNameLabels[i]->addListener(this);
+            albumNameLabels.add(new Label);
+            albumNameLabels[i]->setName("Album Name Label " + String(i));
+            albumNameLabels[i]->setEditable(true);
+            albumNameLabels[i]->setColour(Label::textColourId, Colours::black);
+            albumNameLabels[i]->addListener(this);
         
-        yearLabels.add(new Label);
-        yearLabels[i]->setEditable(true);
-        yearLabels[i]->setColour(Label::textColourId, Colours::black);
-        yearLabels[i]->addListener(this);
+            yearLabels.add(new Label);
+            yearLabels[i]->setName("Year Label " + String(i));
+            yearLabels[i]->setEditable(true);
+            yearLabels[i]->setColour(Label::textColourId, Colours::black);
+            yearLabels[i]->addListener(this);
         
-        selectionButtons.add(new ToggleButton);
-        selectionButtons[i]->addListener(this);
-        
-        batchControls.setDataSet(true);
+            selectionButtons.add(new ToggleButton);
+            selectionButtons[i]->addListener(this);
+        }
     }
     
+    batchControls.setDataSet(true);
     metadataReaders.sort(arraySorter);
-    
+       
     //Make this better
     fileExtension = juceFiles[0].getFileExtension();
-    
+       
     table.updateContent();
+    
+    return true;
 }
 
 void AudioFileTable::refreshTable()
@@ -775,4 +850,90 @@ void AudioFileTable::actionListenerCallback(const String& message)
             table.updateContent();
         }
     }
+}
+
+bool AudioFileTable::lookForAudioDirectory()
+{
+    FileChooser chooser("Pick a folder", File(), "*.zip", true, false, nullptr);
+    
+    //Looks and opens the file
+    chooser.browseForMultipleFilesOrDirectories();
+    
+    if(chooser.getResult().exists() == true)
+    {
+        File file = chooser.getResult();
+        
+    
+        if(file.existsAsFile() && file.getFileExtension() == ".zip")
+        {
+            //Creates a new directory
+            String newDirectoryName(file.getParentDirectory().getFullPathName() + "/" + file.getFileNameWithoutExtension());
+            File newDirectory(newDirectoryName);
+            newDirectory.createDirectory();
+        
+            //Decompresses the zip file
+            ZipFile zip(chooser.getResult());
+            zip.uncompressTo(newDirectory);
+        
+            if(newDirectory.getNumberOfChildFiles(2, SUPPORTEDTYPES) > 0)
+            {
+                //Finds files in the new directory
+                juceFiles = newDirectory.findChildFiles(2, false, SUPPORTEDTYPES);
+            }
+            else
+            {
+                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
+                return false;
+            }
+        }
+        
+        else if(file.isDirectory() == true)
+        {
+            if(file.getNumberOfChildFiles(2, SUPPORTEDTYPES) > 0)
+            {
+                //Finds files in the new directory
+                juceFiles = file.findChildFiles(2, false, SUPPORTEDTYPES);
+            }
+            else
+            {
+                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
+                return false;
+            }
+        }
+    }
+    
+    metadataArray.ensureStorageAllocated(juceFiles.size());
+    
+    int numIncompatibleFiles = 0;
+    
+    for(int i = 0; i < juceFiles.size(); i++)
+    {
+        
+        std::unique_ptr<FormatMetadataReader> tempReader = metadataManager.createMetadataReader(juceFiles.getReference(i));
+            
+        if(tempReader == nullptr)
+        {
+            AlertWindow::showMessageBox(AlertWindow::WarningIcon, "File Error", "The file: " + juceFiles[i].getFileName() + " does not use supported metadata and will not be included");
+            numIncompatibleFiles++;
+                
+            if(numIncompatibleFiles == juceFiles.size())
+            {
+                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error - All files are incompatible", "None of the files in the selected folder have compatable metadata objects");
+                return false;
+            }
+            
+            juceFiles.remove(i);
+        }
+        else
+        {
+            metadataReaders.add(metadataManager.createMetadataReader(juceFiles.getReference(i)));
+        }
+    }
+    
+    metadataReaders.sort(arraySorter);
+    
+    //Make this better
+    fileExtension = juceFiles[0].getFileExtension();
+    
+    return true;
 }

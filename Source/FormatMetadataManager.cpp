@@ -12,7 +12,7 @@
 
 FormatMetadataManager::FormatMetadataManager()
 {
-    
+    formatManager.registerBasicFormats();
 }
 
 FormatMetadataManager::~FormatMetadataManager()
@@ -25,9 +25,13 @@ std::unique_ptr<FormatMetadataReader> FormatMetadataManager::createMetadataReade
     AudioFormatManager manager;
     manager.registerBasicFormats();
     
-    ID3MetadataReader reader(file);
-    
-    std::unique_ptr<ID3MetadataReader> ptr = std::make_unique<ID3MetadataReader>(file);
-    
-    return ptr;
+    TagLib::FileRef tFile(file.getFullPathName().toUTF8(), false);
+            
+    if(!tFile.tag()->isEmpty())
+    {
+        DBG("Tag Lib Compatable File");
+        std::unique_ptr<TagLibTagReader> ptr = std::make_unique<TagLibTagReader>(file);
+        return ptr;
+    }
+    return nullptr;
 }
