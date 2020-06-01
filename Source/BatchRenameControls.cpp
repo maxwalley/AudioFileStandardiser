@@ -66,6 +66,34 @@ BatchRenameControls::BatchRenameControls() : dataSet(false), applyButton("Apply"
     addAndMakeVisible(replaceCharWithLabel);
     replaceCharWithLabel.setText("With", dontSendNotification);
     
+    
+    addAndMakeVisible(defaultCapSettingsToggle);
+    addAndMakeVisible(defaultCapSettingsLabel);
+    defaultCapSettingsLabel.setText("Default Settings", dontSendNotification);
+    
+    addAndMakeVisible(capAllWordsToggle);
+    capAllWordsToggle.setRadioGroupId(1);
+    addAndMakeVisible(capAllWordsLabel);
+    capAllWordsLabel.setText("Everything", dontSendNotification);
+    
+    addAndMakeVisible(decapAllWordsToggle);
+    decapAllWordsToggle.setRadioGroupId(1);
+    addAndMakeVisible(decapAllWordsLabel);
+    decapAllWordsLabel.setText("Decapatalise Everything", dontSendNotification);
+    
+    addAndMakeVisible(capWordEditor);
+    addAndMakeVisible(capWordLabel);
+    capWordLabel.setText("Word", dontSendNotification);
+    
+    addAndMakeVisible(capStartOfAllWordsToggle);
+    addAndMakeVisible(capStartOfAllWordsLabel);
+    capStartOfAllWordsLabel.setText("Start of All Words", dontSendNotification);
+    
+    addAndMakeVisible(capStartOfWordEditor);
+    addAndMakeVisible(capStartOfWordLabel);
+    capStartOfWordLabel.setText("Start of Word", dontSendNotification);
+    
+    
     addAndMakeVisible(applyButton);
     applyButton.addListener(this);
     
@@ -87,33 +115,42 @@ void BatchRenameControls::paint (Graphics& g)
         g.drawText("Batch Rename", 0, 5, getWidth(), 30, Justification::centred);
     
         g.setFont(Font(14));
-        g.drawText("Remove", 20, 60, 60, 20, Justification::centred);
+        g.drawText("Remove", 25, 60, 60, 20, Justification::left);
         
-        g.drawText("Add", 20, 220, 30, 20, Justification::centred);
+        g.drawText("Add", 25, 220, 30, 20, Justification::left);
         
-        g.drawText("Replace", 20, 400, 70, 20, Justification::centred);
+        g.drawText("Replace", 25, 400, 70, 20, Justification::left);
+        
+        g.drawText("Capatalise", 25, 530, 100, 20, Justification::left);
         
         Path path;
-        path.startNewSubPath(80, 70);
+        path.startNewSubPath(75, 70);
         path.lineTo(184, 70);
         path.lineTo(184, 190);
         path.lineTo(6, 190);
         path.lineTo(6, 70);
         path.lineTo(20, 70);
         
-        path.startNewSubPath(50, 230);
+        path.startNewSubPath(53, 230);
         path.lineTo(184, 230);
         path.lineTo(184, 373);
         path.lineTo(6, 373);
         path.lineTo(6, 230);
         path.lineTo(20, 230);
         
-        path.startNewSubPath(90, 410);
+        path.startNewSubPath(75, 410);
         path.lineTo(184, 410);
         path.lineTo(184, 500);
         path.lineTo(6, 500);
         path.lineTo(6, 410);
         path.lineTo(20, 410);
+        
+        path.startNewSubPath(90, 540);
+        path.lineTo(184, 540);
+        path.lineTo(184, 750);
+        path.lineTo(6, 750);
+        path.lineTo(6, 540);
+        path.lineTo(20, 540);
         
         g.strokePath(path, PathStrokeType(1.0f));
     }
@@ -155,15 +192,37 @@ void BatchRenameControls::resized()
         addCharsToEndEditor.setBounds(10, 333, 70, 20);
         addCharsToEndLabel.setBounds(85, 333, 100, 20);
         
+        
         replaceCharEditor.setBounds(10, 430, 70, 20);
         replaceCharLabel.setBounds(85, 430, 100, 20);
         
         replaceCharWithEditor.setBounds(10, 460, 70, 20);
         replaceCharWithLabel.setBounds(85, 460, 100, 20);
         
-        applyButton.setBounds(6, 520, 178, 30);
         
-        closeButton.setBounds(6, 560, 178, 30);
+        defaultCapSettingsToggle.setBounds(10, 560, 25, 20);
+        defaultCapSettingsToggle.addListener(this);
+        defaultCapSettingsLabel.setBounds(30, 560, 160, 20);
+        
+        capAllWordsToggle.setBounds(10, 590, 25, 20);
+        capAllWordsLabel.setBounds(30, 590, 160, 20);
+        
+        decapAllWordsToggle.setBounds(10, 620, 25, 20);
+        decapAllWordsLabel.setBounds(30, 620, 160, 20);
+        
+        capWordEditor.setBounds(10, 650, 70, 20);
+        capWordLabel.setBounds(85, 650, 100, 20);
+        
+        capStartOfAllWordsToggle.setBounds(10, 680, 25, 20);
+        capStartOfAllWordsLabel.setBounds(30, 680, 160, 20);
+        
+        capStartOfWordEditor.setBounds(10, 710, 70, 20);
+        capStartOfWordLabel.setBounds(85, 710, 100, 20);
+    
+        
+        applyButton.setBounds(6, 770, 178, 30);
+        
+        closeButton.setBounds(6, 810, 178, 30);
     }
 }
 
@@ -210,6 +269,20 @@ void BatchRenameControls::buttonClicked(Button* button)
     {
         sendActionMessage("Close Button Clicked");
     }
+    
+    else if(button == &defaultCapSettingsToggle)
+    {
+        capAllWordsToggle.setToggleState(false, dontSendNotification);
+        capAllWordsToggle.setEnabled(!defaultCapSettingsToggle.getToggleState());
+        decapAllWordsToggle.setToggleState(false, dontSendNotification);
+        decapAllWordsToggle.setEnabled(!defaultCapSettingsToggle.getToggleState());
+        capWordEditor.clear();
+        capWordEditor.setEnabled(!defaultCapSettingsToggle.getToggleState());
+        capStartOfAllWordsToggle.setToggleState(false, dontSendNotification);
+        capStartOfAllWordsToggle.setEnabled(!defaultCapSettingsToggle.getToggleState());
+        capStartOfWordEditor.clear();
+        capStartOfWordEditor.setEnabled(!defaultCapSettingsToggle.getToggleState());
+    }
 }
 
 int BatchRenameControls::getNumStartCharsToRemove()
@@ -250,4 +323,34 @@ String BatchRenameControls::getCharToReplace()
 String BatchRenameControls::getCharToReplaceWith()
 {
     return replaceCharWithEditor.getText();
+}
+
+bool BatchRenameControls::getDefaultCapSettings() const
+{
+    return defaultCapSettingsToggle.getToggleState();
+}
+
+bool BatchRenameControls::getCapAllWords() const
+{
+    return capAllWordsToggle.getToggleState();
+}
+
+bool BatchRenameControls::getDecapAllWords() const
+{
+    return decapAllWordsToggle.getToggleState();
+}
+
+String BatchRenameControls::getCapWord() const
+{
+    return capWordEditor.getText();
+}
+
+bool BatchRenameControls::getCapStartOfAllWords() const
+{
+    return capStartOfAllWordsToggle.getToggleState();
+}
+
+String BatchRenameControls::getCapStartOfWord() const
+{
+    return capStartOfWordEditor.getText();
 }

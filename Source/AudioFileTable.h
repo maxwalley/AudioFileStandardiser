@@ -75,8 +75,6 @@ private:
     
     void actionListenerCallback(const String& message) override;
     
-    bool lookForAudioDirectory();
-    
     TableListBox table;
     
     Array<File> juceFiles;
@@ -102,8 +100,6 @@ private:
     Array<Label*> artistNameLabels;
     Array<Label*> albumNameLabels;
     Array<Label*> yearLabels;
-    
-    //String currentDirectoryPath;
     
     bool fileNamesToChangeWithTitle;
     

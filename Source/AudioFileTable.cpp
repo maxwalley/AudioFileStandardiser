@@ -106,7 +106,7 @@ void AudioFileTable::resized()
         table.setBounds(0, 0, getWidth() - 200, getTableHeight());
         batchControlViewport.setBounds(650, 0, 200, getHeight());
         batchControlViewport.setVisible(true);
-        batchControls.setSize(190, 600);
+        batchControls.setSize(190, 860);
         batchControls.setVisible(true);
     }
     
@@ -576,15 +576,13 @@ void AudioFileTable::buttonClicked(Button* button)
 {
     if(button == &correctDataButton)
     {
-        StringChecker checker;
-        
         for(int i = 0; i < metadataArray.size(); i++)
         {
             if(selectionButtons[i]->getToggleState() == true)
             {
-                trackNameLabels[i]->setText(checker.decapatalizeWords(trackNameLabels[i]->getText()), sendNotification);
-                albumNameLabels[i]->setText(checker.decapatalizeWords(albumNameLabels[i]->getText()), sendNotification);
-                artistNameLabels[i]->setText(checker.decapatalizeWords(artistNameLabels[i]->getText()), sendNotification);
+                trackNameLabels[i]->setText(StringChecker::decapatalizeWords(trackNameLabels[i]->getText()), sendNotification);
+                albumNameLabels[i]->setText(StringChecker::decapatalizeWords(albumNameLabels[i]->getText()), sendNotification);
+                artistNameLabels[i]->setText(StringChecker::decapatalizeWords(artistNameLabels[i]->getText()), sendNotification);
             }
         }
     }
@@ -780,6 +778,46 @@ void AudioFileTable::actionListenerCallback(const String& message)
                         
                         //Replaces char with another char both set by batch controls for titles
                     trackNameLabels[i]->setText(trackNameLabels[i]->getText().replace(batchControls.getCharToReplace(), batchControls.getCharToReplaceWith()), sendNotification);
+                        
+                        //Checks if the default capatalisation settings in batch control is set. If not it'll check the state of the other batch control settings
+                        if(batchControls.getDefaultCapSettings())
+                        {
+                            //Brings all text to lower case
+                            trackNameLabels[i]->setText(trackNameLabels[i]->getText().toLowerCase(), dontSendNotification);
+                       
+                            //Capatalises all first letters of the text
+                        trackNameLabels[i]->setText(StringChecker::capatalizeFirstLetters(trackNameLabels[i]->getText()), dontSendNotification);
+                       
+                            //Removes capitals from all the correct words
+                        trackNameLabels[i]->setText(StringChecker::decapatalizeWords(trackNameLabels[i]->getText()), sendNotification);
+                        }
+                        else
+                        {
+                            //Capatalises or decapatalises all words based on what is toggled in batch controls
+                            if(batchControls.getCapAllWords())
+                            {
+                                trackNameLabels[i]->setText(trackNameLabels[i]->getText().toUpperCase(), sendNotification);
+                            }
+                            
+                            else if(batchControls.getDecapAllWords())
+                            {
+                                trackNameLabels[i]->setText(trackNameLabels[i]->getText().toLowerCase(), sendNotification);
+                            }
+                            
+                           //Capatalises a certain word set by batch controls
+                            trackNameLabels[i]->setText(trackNameLabels[i]->getText().replace(batchControls.getCapWord(), batchControls.getCapWord().toUpperCase()), sendNotification);
+                            
+                            //Capatalises the start of all words or just one specific one based on the options set by batch controls
+                            if(batchControls.getCapStartOfAllWords() == true)
+                           
+                            {   trackNameLabels[i]->setText(StringChecker::capatalizeFirstLetters(trackNameLabels[i]->getText()), sendNotification);
+                            }
+                            //Just one word
+                            else if(!batchControls.getCapStartOfWord().isEmpty())
+                            {
+                                trackNameLabels[i]->setText(trackNameLabels[i]->getText().replace(batchControls.getCapStartOfWord(), StringChecker::capatalizeFirstLetters(batchControls.getCapStartOfWord())), sendNotification);
+                            }
+                        }
                     }
                 
                     if(int(batchControls.getButtonsActive() & BatchRenameControls::artistButton) != 0)
@@ -811,6 +849,46 @@ void AudioFileTable::actionListenerCallback(const String& message)
                         
                         //Replaces char with another char both set by batch controls for artist names
                     artistNameLabels[i]->setText(artistNameLabels[i]->getText().replace(batchControls.getCharToReplace(), batchControls.getCharToReplaceWith()), sendNotification);
+                        
+                        //Checks if the default capatalisation settings in batch control is set. If not it'll check the state of the other batch control settings
+                         if(batchControls.getDefaultCapSettings())
+                         {
+                             //Brings all text to lower case
+                             artistNameLabels[i]->setText(artistNameLabels[i]->getText().toLowerCase(), dontSendNotification);
+                        
+                             //Capatalises all first letters of the text
+                         artistNameLabels[i]->setText(StringChecker::capatalizeFirstLetters(artistNameLabels[i]->getText()), dontSendNotification);
+                        
+                             //Removes capitals from all the correct words
+                         artistNameLabels[i]->setText(StringChecker::decapatalizeWords(artistNameLabels[i]->getText()), sendNotification);
+                         }
+                         else
+                         {
+                             //Capatalises or decapatalises all words based on what is toggled in batch controls
+                             if(batchControls.getCapAllWords())
+                             {
+                                 artistNameLabels[i]->setText(artistNameLabels[i]->getText().toUpperCase(), sendNotification);
+                             }
+                             
+                             else if(batchControls.getDecapAllWords())
+                             {
+                                 artistNameLabels[i]->setText(artistNameLabels[i]->getText().toLowerCase(), sendNotification);
+                             }
+                             
+                            //Capatalises a certain word set by batch controls
+                             artistNameLabels[i]->setText(artistNameLabels[i]->getText().replace(batchControls.getCapWord(), batchControls.getCapWord().toUpperCase()), sendNotification);
+                             
+                             //Capatalises the start of all words or just one specific one based on the options set by batch controls
+                             if(batchControls.getCapStartOfAllWords() == true)
+                            
+                             {   artistNameLabels[i]->setText(StringChecker::capatalizeFirstLetters(artistNameLabels[i]->getText()), sendNotification);
+                             }
+                             //Just one word
+                             else if(!batchControls.getCapStartOfWord().isEmpty())
+                             {
+                                 artistNameLabels[i]->setText(artistNameLabels[i]->getText().replace(batchControls.getCapStartOfWord(), StringChecker::capatalizeFirstLetters(batchControls.getCapStartOfWord())), sendNotification);
+                             }
+                         }
                     }
                 
                     if(int(batchControls.getButtonsActive() & BatchRenameControls::albumButton) != 0)
@@ -843,6 +921,46 @@ void AudioFileTable::actionListenerCallback(const String& message)
                         
                         //Replaces char with another char both set by batch controls for album names
                     albumNameLabels[i]->setText(albumNameLabels[i]->getText().replace(batchControls.getCharToReplace(), batchControls.getCharToReplaceWith()), sendNotification);
+                        
+                        //Checks if the default capatalisation settings in batch control is set. If not it'll check the state of the other batch control settings
+                         if(batchControls.getDefaultCapSettings())
+                         {
+                             //Brings all text to lower case
+                             albumNameLabels[i]->setText(albumNameLabels[i]->getText().toLowerCase(), dontSendNotification);
+                        
+                             //Capatalises all first letters of the text
+                             albumNameLabels[i]->setText(StringChecker::capatalizeFirstLetters(albumNameLabels[i]->getText()), dontSendNotification);
+                        
+                             //Removes capitals from all the correct words
+                         albumNameLabels[i]->setText(StringChecker::decapatalizeWords(albumNameLabels[i]->getText()), sendNotification);
+                         }
+                         else
+                         {
+                             //Capatalises or decapatalises all words based on what is toggled in batch controls
+                             if(batchControls.getCapAllWords())
+                             {
+                                 albumNameLabels[i]->setText(albumNameLabels[i]->getText().toUpperCase(), sendNotification);
+                             }
+                             
+                             else if(batchControls.getDecapAllWords())
+                             {
+                                 albumNameLabels[i]->setText(albumNameLabels[i]->getText().toLowerCase(), sendNotification);
+                             }
+                             
+                            //Capatalises a certain word set by batch controls
+                             albumNameLabels[i]->setText(albumNameLabels[i]->getText().replace(batchControls.getCapWord(), batchControls.getCapWord().toUpperCase()), sendNotification);
+                             
+                             //Capatalises the start of all words or just one specific one based on the options set by batch controls
+                             if(batchControls.getCapStartOfAllWords() == true)
+                            
+                             {   albumNameLabels[i]->setText(StringChecker::capatalizeFirstLetters(albumNameLabels[i]->getText()), sendNotification);
+                             }
+                             //Just one word
+                             else if(!batchControls.getCapStartOfWord().isEmpty())
+                             {
+                                 albumNameLabels[i]->setText(albumNameLabels[i]->getText().replace(batchControls.getCapStartOfWord(), StringChecker::capatalizeFirstLetters(batchControls.getCapStartOfWord())), sendNotification);
+                             }
+                         }
                     }
                 }
             }
@@ -850,90 +968,4 @@ void AudioFileTable::actionListenerCallback(const String& message)
             table.updateContent();
         }
     }
-}
-
-bool AudioFileTable::lookForAudioDirectory()
-{
-    FileChooser chooser("Pick a folder", File(), "*.zip", true, false, nullptr);
-    
-    //Looks and opens the file
-    chooser.browseForMultipleFilesOrDirectories();
-    
-    if(chooser.getResult().exists() == true)
-    {
-        File file = chooser.getResult();
-        
-    
-        if(file.existsAsFile() && file.getFileExtension() == ".zip")
-        {
-            //Creates a new directory
-            String newDirectoryName(file.getParentDirectory().getFullPathName() + "/" + file.getFileNameWithoutExtension());
-            File newDirectory(newDirectoryName);
-            newDirectory.createDirectory();
-        
-            //Decompresses the zip file
-            ZipFile zip(chooser.getResult());
-            zip.uncompressTo(newDirectory);
-        
-            if(newDirectory.getNumberOfChildFiles(2, SUPPORTEDTYPES) > 0)
-            {
-                //Finds files in the new directory
-                juceFiles = newDirectory.findChildFiles(2, false, SUPPORTEDTYPES);
-            }
-            else
-            {
-                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
-                return false;
-            }
-        }
-        
-        else if(file.isDirectory() == true)
-        {
-            if(file.getNumberOfChildFiles(2, SUPPORTEDTYPES) > 0)
-            {
-                //Finds files in the new directory
-                juceFiles = file.findChildFiles(2, false, SUPPORTEDTYPES);
-            }
-            else
-            {
-                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
-                return false;
-            }
-        }
-    }
-    
-    metadataArray.ensureStorageAllocated(juceFiles.size());
-    
-    int numIncompatibleFiles = 0;
-    
-    for(int i = 0; i < juceFiles.size(); i++)
-    {
-        
-        std::unique_ptr<FormatMetadataReader> tempReader = metadataManager.createMetadataReader(juceFiles.getReference(i));
-            
-        if(tempReader == nullptr)
-        {
-            AlertWindow::showMessageBox(AlertWindow::WarningIcon, "File Error", "The file: " + juceFiles[i].getFileName() + " does not use supported metadata and will not be included");
-            numIncompatibleFiles++;
-                
-            if(numIncompatibleFiles == juceFiles.size())
-            {
-                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error - All files are incompatible", "None of the files in the selected folder have compatable metadata objects");
-                return false;
-            }
-            
-            juceFiles.remove(i);
-        }
-        else
-        {
-            metadataReaders.add(metadataManager.createMetadataReader(juceFiles.getReference(i)));
-        }
-    }
-    
-    metadataReaders.sort(arraySorter);
-    
-    //Make this better
-    fileExtension = juceFiles[0].getFileExtension();
-    
-    return true;
 }

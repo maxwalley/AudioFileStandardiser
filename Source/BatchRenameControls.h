@@ -58,6 +58,18 @@ public:
     String getCharToReplace();
     
     String getCharToReplaceWith();
+    
+    bool getDefaultCapSettings() const;
+    
+    bool getCapAllWords() const;
+    
+    bool getDecapAllWords() const;
+    
+    String getCapWord() const;
+    
+    bool getCapStartOfAllWords() const;
+    
+    String getCapStartOfWord() const;
 
 private:
     
@@ -101,6 +113,26 @@ private:
     
     TextEditor replaceCharWithEditor;
     Label replaceCharWithLabel;
+    
+    
+    ToggleButton defaultCapSettingsToggle;
+    Label defaultCapSettingsLabel;
+    
+    ToggleButton capAllWordsToggle;
+    Label capAllWordsLabel;
+    
+    ToggleButton decapAllWordsToggle;
+    Label decapAllWordsLabel;
+    
+    TextEditor capWordEditor;
+    Label capWordLabel;
+    
+    ToggleButton capStartOfAllWordsToggle;
+    Label capStartOfAllWordsLabel;
+    
+    TextEditor capStartOfWordEditor;
+    Label capStartOfWordLabel;
+    
     
     TextButton applyButton;
     

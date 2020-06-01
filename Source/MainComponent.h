@@ -11,6 +11,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "AudioFileTable.h"
 #include "FormatMetadataManager.h"
+#include "StringChecker.h"
 //==============================================================================
 
 class MainComponent   : public Component,
@@ -37,8 +38,6 @@ private:
     bool batchControlsShown;
     
     TextButton openSourceButton;
-    
-    StringChecker stringChecker;
     
     bool fileLoaded;
     

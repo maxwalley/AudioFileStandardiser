@@ -22,20 +22,17 @@ StringChecker::~StringChecker()
 
 String StringChecker::removeNumbers(String inputString)
 {
-    inputString.removeCharacters("0123456789");
+    return inputString.removeCharacters("0123456789");
 }
 
 String StringChecker::removeCharacters(String inputString, bool capitals = false)
 {
     if(capitals == false)
     {
-        inputString.removeCharacters("abcdefghijklmnopqrstuvwxyz");
+        return inputString.removeCharacters("abcdefghijklmnopqrstuvwxyz");
     }
     
-    else if(capitals == true)
-    {
-        inputString.removeCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-    }
+    return inputString.removeCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 }
 
 String StringChecker::removeSymbols(String inputString)
@@ -94,4 +91,6 @@ String StringChecker::decapatalizeWords(String inputString)
     inputString = inputString.replace(" Of ", " of ");
     inputString = inputString.replace(" On ", " on ");
     inputString = inputString.replace(" To ", " to ");
+    
+    return inputString;
 }

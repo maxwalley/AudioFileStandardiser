@@ -20,6 +20,8 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(fal
     fileTable.addBatchControlsActionListener(this);
     
     setMacMainMenu(this);
+    
+    StringChecker::removeNumbers("ys98y78s");
 }
 
 MainComponent::~MainComponent()
@@ -128,7 +130,11 @@ void MainComponent::menuItemSelected(int menuItemID, int topLevelMenuIndex)
     {
         if(menuItemID == 1)
         {
-            
+            if(fileTable.setFiles())
+            {
+                fileLoaded = true;
+                resized();
+            }
         }
     }
 }

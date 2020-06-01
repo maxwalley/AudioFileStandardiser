@@ -18,11 +18,11 @@ public:
     StringChecker();
     ~StringChecker();
     
-    String removeNumbers(String inputString);
-    String removeCharacters(String inputString, bool capitals);
-    String removeSymbols(String inputString);
-    String capatalizeFirstLetters(String inputString);
-    String decapatalizeWords(String inputString);
+    static String removeNumbers(String inputString);
+    static String removeCharacters(String inputString, bool capitals);
+    static String removeSymbols(String inputString);
+    static String capatalizeFirstLetters(String inputString);
+    static String decapatalizeWords(String inputString);
     
 private:
     

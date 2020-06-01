@@ -85,9 +85,9 @@
 			isa = PBXBuildFile;
 			fileRef = A692DE55E19BCECBE988293B;
 		};
-		EDFEEE2D1E2EE80CAE5CBF07 = {
+		390DB1B07A54387F9FD6A681 = {
 			isa = PBXBuildFile;
-			fileRef = CE6B7B597145ADC77B1351A3;
+			fileRef = 9ED766B59D2A728F0EE5961D;
 		};
 		A98064FCEE6B4C50AD3D655F = {
 			isa = PBXBuildFile;
@@ -323,11 +323,11 @@
 			path = ../../Source/AudioFileTable.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		748082B503B1A033C7B8AA29 = {
+		7B493AF72D46DDCF7B973AC8 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
 			name = StringChecker.h;
-			path = "../../../../C++ Libs and Frameworks/My Libs/StringChecker.h";
+			path = ../../Source/StringChecker.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		7D23F2E63A3F3579D8D158CD = {
@@ -398,6 +398,13 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_gui_extra.mm";
 			path = "../../JuceLibraryCode/include_juce_gui_extra.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		9ED766B59D2A728F0EE5961D = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = StringChecker.cpp;
+			path = ../../Source/StringChecker.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		9EFFFDA6C148A0801C13750B = {
@@ -491,13 +498,6 @@
 			path = "/Users/maxwalley/Documents/C++ Libs and Frameworks/JUCE/modules/juce_gui_basics";
 			sourceTree = "<absolute>";
 		};
-		CE6B7B597145ADC77B1351A3 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = StringChecker.cpp;
-			path = "../../../../C++ Libs and Frameworks/My Libs/StringChecker.cpp";
-			sourceTree = "SOURCE_ROOT";
-		};
 		CFE2997CB6863DA3DD1D9DA5 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -570,8 +570,8 @@
 				CFE2997CB6863DA3DD1D9DA5,
 				3A17947E40C7A6BBA541128C,
 				CF936255A4E9F747E5129F47,
-				CE6B7B597145ADC77B1351A3,
-				748082B503B1A033C7B8AA29,
+				9ED766B59D2A728F0EE5961D,
+				7B493AF72D46DDCF7B973AC8,
 			);
 			name = AudioFileStandardiser;
 			sourceTree = "<group>";
@@ -899,7 +899,7 @@
 				6856CC11B13A7987E119FA68,
 				D0800C7479AC619BEBEAC90E,
 				12C7DA8A424F3CC7493923E4,
-				EDFEEE2D1E2EE80CAE5CBF07,
+				390DB1B07A54387F9FD6A681,
 				A98064FCEE6B4C50AD3D655F,
 				43404F103C0690B5F6AC4123,
 				F91C7BDFB4EE9BC935D6A9CB,
