@@ -418,7 +418,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
             }
             else
             {
-                componentToUpdate->setText(comparatorString, sendNotification);
+                componentToUpdate->setText(comparatorString, dontSendNotification);
             }
         }
         else if(comparatorFound == false)
@@ -474,25 +474,6 @@ void AudioFileTable::buttonClicked(Button* button)
                 metadataReaders[i]->moveFile(newDirectoryPath);
             }
         }
-    }
-    
-    else if(button == selectionButtons[metadataReaders.size()])
-    {
-        for(int i = 0; i < metadataReaders.size(); i++)
-        {
-            selectionButtons[i]->setToggleState(selectionButtons[metadataReaders.size()]->getToggleState(), sendNotification);
-            table.updateContent();
-        }
-    }
-    else
-    {
-        for(int i = 0; i < metadataReaders.size(); i++)
-        {
-            if(button == selectionButtons[i])
-            {
-                table.updateContent();
-            }
-        }
     }*/
 }
 
@@ -530,102 +511,23 @@ void AudioFileTable::textEditorTextChanged(TextEditor& editor)
             metadataReaders[editorThatHasChanged.getRowNumber()]->setYear(editorThatHasChanged.getText().getIntValue());
         }
     }
-    
-    //The change all label for the track number field
-    /*if(label == trackNumLabels[metadataReaders.size()])
-    {
-        for(int i = 0; i < metadataReaders.size(); i++)
-        {
-            if(selectionButtons[i]->getToggleState() == true)
-            {
-                trackNumLabels[i]->setText(trackNumLabels[metadataReaders.size()]->getText(), sendNotification);
-            }
-        }
-    }
-    
-    //The change all label for the track name field
-    else if(label == trackNameLabels[metadataReaders.size()])
-    {
-        for(int i = 0; i < metadataReaders.size(); i++)
-        {
-            if(selectionButtons[i]->getToggleState() == true)
-            {
-                //Sends a notification to make the relevent changes to the readers
-                trackNameLabels[i]->setText(trackNameLabels[metadataReaders.size()]->getText(), sendNotification);
-            }
-        }
-    }
-    
-    //The change all label for the artist name field
-    else if(label == artistNameLabels[metadataReaders.size()])
-    {
-        for(int i = 0; i < metadataReaders.size(); i++)
-        {
-            if(selectionButtons[i]->getToggleState() == true)
-            {
-                artistNameLabels[i]->setText(artistNameLabels[metadataReaders.size()]->getText(), sendNotification);
-            }
-        }
-    }
-    
-    //The change all label for the album name field
-    else if(label == albumNameLabels[metadataReaders.size()])
-    {
-        for(int i = 0; i < metadataReaders.size(); i++)
-        {
-            if(selectionButtons[i]->getToggleState() == true)
-            {
-                albumNameLabels[i]->setText(albumNameLabels[metadataReaders.size()]->getText(), sendNotification);
-            }
-        }
-    }
-    
-    //The change all label for the year field
-    else if(label == yearLabels[metadataReaders.size()])
-    {
-        for(int i = 0; i < metadataReaders.size(); i++)
-        {
-            if(selectionButtons[i]->getToggleState() == true)
-            {
-                yearLabels[i]->setText(yearLabels[metadataReaders.size()]->getText(), sendNotification);
-            }
-        }
-    }
-    
+    //If label is from the bottom row
     else
     {
-        //Runs through the arrays and checks to find the label. Then writes into the metadata reader
+        //Iterates through the rows
         for(int i = 0; i < metadataReaders.size(); i++)
         {
-            if(label == trackNumLabels[i])
+            //Gets the button for this row and the editor for the row and column
+            TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
+            TableTextEditorComponent* tempEditor = static_cast<TableTextEditorComponent*>(table.getCellComponent(editorThatHasChanged.getColumnID(), i));
+            
+            //If the row is selected with the toggle buttons the editor in that rows colun will be changed
+            if(tempButton->getToggleState())
             {
-                metadataReaders[i]->setTrackNum(trackNumLabels[i]->getText().getIntValue());
-            }
-            else if(label == trackNameLabels[i])
-            {
-                metadataReaders[i]->setTrackTitle(trackNameLabels[i]->getText());
-                
-                if(fileNamesToChangeWithTitle == true)
-                {
-                    String newDirectory = metadataReaders[i]->getFileLocation().replace(metadataReaders[i]->getFileNameWithoutExtension(), trackNameLabels[i]->getText());
-                    
-                    metadataReaders[i]->moveFile(newDirectory);
-                }
-            }
-            else if(label == artistNameLabels[i])
-            {
-                metadataReaders[i]->setArtistName(artistNameLabels[i]->getText());
-            }
-            else if(label == albumNameLabels[i])
-            {
-                metadataReaders[i]->setAlbumName(albumNameLabels[i]->getText());
-            }
-            else if(label == yearLabels[i])
-            {
-                metadataReaders[i]->setYear(yearLabels[i]->getText().getIntValue());
+                tempEditor->setText(editorThatHasChanged.getText(), sendNotification);
             }
         }
-    }*/
+    }
 }
 
 void AudioFileTable::saveTableToTags()
