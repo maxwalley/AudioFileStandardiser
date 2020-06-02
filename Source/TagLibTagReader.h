@@ -37,8 +37,7 @@ public:
     String getFileNameWithoutExtension() override;
     
 private:
-    
-    File file;
+    //File fileToRead;
     TagLib::FileRef metadataFile;
     TagLib::Tag* metadata;
     

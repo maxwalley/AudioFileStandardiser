@@ -3,6 +3,18 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               jucerVersion="5.4.5">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
+    <FILE id="abOQzo" name="ToggleButtonTableComponent.cpp" compile="1"
+          resource="0" file="Source/ToggleButtonTableComponent.cpp"/>
+    <FILE id="mqOim8" name="ToggleButtonTableComponent.h" compile="0" resource="0"
+          file="Source/ToggleButtonTableComponent.h"/>
+    <FILE id="UxWncc" name="LabelTableComponent.cpp" compile="1" resource="0"
+          file="Source/LabelTableComponent.cpp"/>
+    <FILE id="HNYiVA" name="LabelTableComponent.h" compile="0" resource="0"
+          file="Source/LabelTableComponent.h"/>
+    <FILE id="ezE6Mo" name="TableComponent.cpp" compile="1" resource="0"
+          file="Source/TableComponent.cpp"/>
+    <FILE id="TgRqOq" name="TableComponent.h" compile="0" resource="0"
+          file="Source/TableComponent.h"/>
     <FILE id="OcgKO6" name="FormatMetadataManager.cpp" compile="1" resource="0"
           file="Source/FormatMetadataManager.cpp"/>
     <FILE id="Wcp8rp" name="FormatMetadataManager.h" compile="0" resource="0"

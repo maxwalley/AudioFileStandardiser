@@ -48,8 +48,6 @@ public:
 
     bool setFiles();
     
-    void refreshTable();
-    
     int getTableHeight();
     
     void setFileNamesToChangeWithTitle(bool change);
@@ -78,28 +76,15 @@ private:
     TableListBox table;
     
     Array<File> juceFiles;
-    Array<TagLib_File*> metadataFiles;
-    
-    Array<TagLib_Tag*> metadataArray;
-    //TagLib_TagSorter arraySorter;
     MetadataReaderSorter arraySorter;
     
     FormatMetadataManager metadataManager;
     OwnedArray<FormatMetadataReader> metadataReaders;
     
-    String fileExtension;
-    
     TextButton correctDataButton;
     TextButton saveButton;
     TextButton changeLocationButton;
     
-    
-    Array<ToggleButton*> selectionButtons;
-    Array<Label*> trackNumLabels;
-    Array<Label*> trackNameLabels;
-    Array<Label*> artistNameLabels;
-    Array<Label*> albumNameLabels;
-    Array<Label*> yearLabels;
     
     bool fileNamesToChangeWithTitle;
     

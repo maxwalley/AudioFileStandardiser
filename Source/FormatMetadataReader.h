@@ -15,7 +15,8 @@
 class FormatMetadataReader
 {
 public:
-    virtual ~FormatMetadataReader(){}
+    FormatMetadataReader(File& inputFile)   :   fileToRead(inputFile){};
+    virtual ~FormatMetadataReader(){};
     
     virtual int getTrackNum() = 0;
     virtual String getTrackTitle() = 0;
@@ -33,7 +34,10 @@ public:
     virtual String getFileLocation() = 0;
     virtual String getFileName() = 0;
     virtual String getFileNameWithoutExtension() = 0;
-   
+    
+protected:
+    File fileToRead;
+    
 private:
     
 };

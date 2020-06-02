@@ -29,7 +29,6 @@ std::unique_ptr<FormatMetadataReader> FormatMetadataManager::createMetadataReade
             
     if(!tFile.tag()->isEmpty())
     {
-        DBG("Tag Lib Compatable File");
         std::unique_ptr<TagLibTagReader> ptr = std::make_unique<TagLibTagReader>(file);
         return ptr;
     }

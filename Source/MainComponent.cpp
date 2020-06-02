@@ -18,10 +18,9 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(fal
     
     addAndMakeVisible(fileTable);
     fileTable.addBatchControlsActionListener(this);
+    fileTable.setName("File Table");
     
     setMacMainMenu(this);
-    
-    StringChecker::removeNumbers("ys98y78s");
 }
 
 MainComponent::~MainComponent()

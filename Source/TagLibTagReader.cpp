@@ -10,7 +10,7 @@
 
 #include "TagLibTagReader.h"
 
-TagLibTagReader::TagLibTagReader(File& input)   :   file(input), metadataFile(file.getFullPathName().toUTF8(), false)
+TagLibTagReader::TagLibTagReader(File& input)   :   FormatMetadataReader(input), metadataFile(fileToRead.getFullPathName().toUTF8(), false)
 {
     metadata = metadataFile.tag();
 }
@@ -18,6 +18,7 @@ TagLibTagReader::TagLibTagReader(File& input)   :   file(input), metadataFile(fi
 TagLibTagReader::~TagLibTagReader()
 {
     metadataFile.save();
+    DBG("Deleted");
 }
 
 int TagLibTagReader::getTrackNum()
@@ -27,7 +28,7 @@ int TagLibTagReader::getTrackNum()
 
 String TagLibTagReader::getTrackTitle()
 {
-    return String(metadata->title().toCString());
+    return String(metadata->title().to8Bit());
     
     //return String(CharPointer_UTF8(metadata->title()));
 }
@@ -74,21 +75,21 @@ void TagLibTagReader::setYear(int newYear)
 
 void TagLibTagReader::moveFile(String newLocation)
 {
-    file.moveFileTo(File(newLocation));
-    file = newLocation;
+    fileToRead.moveFileTo(File(newLocation));
+    fileToRead = newLocation;
 }
 
 String TagLibTagReader::getFileLocation()
 {
-    return file.getFullPathName();
+    return fileToRead.getFullPathName();
 }
 
 String TagLibTagReader::getFileName()
 {
-    return file.getFileName();
+    return fileToRead.getFileName();
 }
 
 String TagLibTagReader::getFileNameWithoutExtension()
 {
-    return file.getFileNameWithoutExtension();
+    return fileToRead.getFileNameWithoutExtension();
 }

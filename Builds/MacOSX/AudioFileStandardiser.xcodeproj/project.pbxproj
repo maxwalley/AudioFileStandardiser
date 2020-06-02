@@ -61,6 +61,18 @@
 			isa = PBXBuildFile;
 			fileRef = 5A15C4E4BFD977D25E18ACFE;
 		};
+		AD52F3B9BA5005D8D52F4311 = {
+			isa = PBXBuildFile;
+			fileRef = 9D4DBA789EA1D00DEBAC966B;
+		};
+		DCE1C4484C2F09EE28BF4AAF = {
+			isa = PBXBuildFile;
+			fileRef = 4550374B79D942F919FBCE32;
+		};
+		F48AAC5CFBD793A60435C4E6 = {
+			isa = PBXBuildFile;
+			fileRef = A512A7FE9D010D14AAF06BC8;
+		};
 		1C97165F8316B6BAEC111FB8 = {
 			isa = PBXBuildFile;
 			fileRef = 2EBD25346B5B43E19CE28A31;
@@ -246,6 +258,13 @@
 			path = System/Library/Frameworks/QuartzCore.framework;
 			sourceTree = SDKROOT;
 		};
+		369F6DC493AD6ED1B1293C88 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = TableComponent.h;
+			path = ../../Source/TableComponent.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		3A17947E40C7A6BBA541128C = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -258,6 +277,13 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_gui_basics.mm";
 			path = "../../JuceLibraryCode/include_juce_gui_basics.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		4550374B79D942F919FBCE32 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = LabelTableComponent.cpp;
+			path = ../../Source/LabelTableComponent.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		468E783A21A878150063A76B = {
@@ -274,6 +300,13 @@
 			path = "../../JuceLibraryCode/include_juce_audio_processors.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		4968E0FE2882D8C47F4E6F97 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = ToggleButtonTableComponent.h;
+			path = ../../Source/ToggleButtonTableComponent.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		4B386E9C13E6839EEAA12629 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -287,6 +320,13 @@
 			name = "juce_audio_basics";
 			path = "/Users/maxwalley/Documents/C++ Libs and Frameworks/JUCE/modules/juce_audio_basics";
 			sourceTree = "<absolute>";
+		};
+		58DCB89D1E44E90B21AD4BDB = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = LabelTableComponent.h;
+			path = ../../Source/LabelTableComponent.h;
+			sourceTree = "SOURCE_ROOT";
 		};
 		5A15C4E4BFD977D25E18ACFE = {
 			isa = PBXFileReference;
@@ -393,6 +433,13 @@
 			path = "/Users/maxwalley/Documents/C++ Libs and Frameworks/JUCE/modules/juce_events";
 			sourceTree = "<absolute>";
 		};
+		9D4DBA789EA1D00DEBAC966B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = ToggleButtonTableComponent.cpp;
+			path = ../../Source/ToggleButtonTableComponent.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		9E854D1F35EB8C3E41AF0FEC = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -419,6 +466,13 @@
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = AudioFileTable.cpp;
 			path = ../../Source/AudioFileTable.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		A512A7FE9D010D14AAF06BC8 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = TableComponent.cpp;
+			path = ../../Source/TableComponent.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		A692DE55E19BCECBE988293B = {
@@ -564,6 +618,12 @@
 		329608004BEDC20C07FBE1D7 = {
 			isa = PBXGroup;
 			children = (
+				9D4DBA789EA1D00DEBAC966B,
+				4968E0FE2882D8C47F4E6F97,
+				4550374B79D942F919FBCE32,
+				58DCB89D1E44E90B21AD4BDB,
+				A512A7FE9D010D14AAF06BC8,
+				369F6DC493AD6ED1B1293C88,
 				2EBD25346B5B43E19CE28A31,
 				D180A20B6968F939958550B7,
 				A9353E0DFB7FE0F90B035F4A,
@@ -893,6 +953,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD52F3B9BA5005D8D52F4311,
+				DCE1C4484C2F09EE28BF4AAF,
+				F48AAC5CFBD793A60435C4E6,
 				1C97165F8316B6BAEC111FB8,
 				06C47506EE37BE8441D2DC5B,
 				5A6D8708804A28296CD4BC1E,

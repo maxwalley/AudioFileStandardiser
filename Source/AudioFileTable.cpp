@@ -63,6 +63,7 @@ AudioFileTable::AudioFileTable() : correctDataButton("Correct Data"), saveButton
     table.getHeader().addColumn("Selected", 7, 50, 50, 50, 1);
     
     table.setName("Table");
+    table.setComponentID("Table");
     
     addAndMakeVisible(correctDataButton);
     correctDataButton.setName("correctData");
@@ -85,7 +86,7 @@ AudioFileTable::AudioFileTable() : correctDataButton("Correct Data"), saveButton
 
 AudioFileTable::~AudioFileTable()
 {
-    saveTableToTags();
+    //saveTableToTags();
 }
 
 void AudioFileTable::paint (Graphics& g)
@@ -95,6 +96,7 @@ void AudioFileTable::paint (Graphics& g)
 
 void AudioFileTable::resized()
 {
+    DBG("Resized");
     if(showBatchControls == false)
     {
         table.setBounds(0, 0, getWidth(), getTableHeight());
@@ -117,7 +119,27 @@ void AudioFileTable::resized()
 
 bool AudioFileTable::setFiles()
 {
+    DBG("Setting Files");
     FileChooser chooser("Pick a folder", File(), "*.zip", true, false, nullptr);
+    
+    Array<File> lastArrayUsed;
+    
+    bool filesAreCurrentlyLoaded = false;
+    
+    /*if(juceFiles.size() != 0)
+    {
+        juceFiles.swapWith(lastArrayUsed);
+        juceFiles.clear();
+        filesAreCurrentlyLoaded = true;
+        
+        metadataReaders.clear();
+        trackNumLabels.clear();
+        trackNameLabels.clear();
+        artistNameLabels.clear();
+        albumNameLabels.clear();
+        yearLabels.clear();
+        selectionButtons.clear();
+    }*/
     
     //Looks and opens the file
     chooser.browseForMultipleFilesOrDirectories();
@@ -126,8 +148,7 @@ bool AudioFileTable::setFiles()
     {
         File file = chooser.getResult();
         
-    
-        if(file.existsAsFile() && file.getFileExtension() == ".zip")
+        if(file.existsAsFile())
         {
             //Creates a new directory
             String newDirectoryName(file.getParentDirectory().getFullPathName() + "/" + file.getFileNameWithoutExtension());
@@ -146,7 +167,13 @@ bool AudioFileTable::setFiles()
             else
             {
                 AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
-                return false;
+                
+                /*if(!filesAreCurrentlyLoaded)
+                {
+                    return false;
+                }
+                juceFiles.swapWith(lastArrayUsed);
+                lastArrayUsed.clear();*/
             }
         }
         
@@ -160,22 +187,26 @@ bool AudioFileTable::setFiles()
             else
             {
                 AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
-                return false;
+                /*if(!filesAreCurrentlyLoaded)
+                {
+                    return false;
+                }
+                juceFiles.swapWith(lastArrayUsed);
+                lastArrayUsed.clear();*/
             }
         }
     }
     
-    metadataArray.ensureStorageAllocated(juceFiles.size());
-    
     for(int i = 0; i < juceFiles.size() + 1; i++)
     {
-        bool entryIsInvalid;
+        //bool entryIsInvalid = false;
         
         if(i < juceFiles.size())
         {
-            std::unique_ptr<FormatMetadataReader> tempReader = metadataManager.createMetadataReader(juceFiles.getReference(i));
+            std::unique_ptr<FormatMetadataReader> currentReader = metadataManager.createMetadataReader(juceFiles.getReference(i));
                 
-            if(tempReader == nullptr)
+            //If it = null pointer
+            /*if(!currentReader)
             {
                 AlertWindow::showMessageBox(AlertWindow::WarningIcon, "File Error", "The file: " + juceFiles[i].getFileName() + " does not use supported metadata and will not be included");
                 
@@ -183,72 +214,34 @@ bool AudioFileTable::setFiles()
                 entryIsInvalid = true;
                 
                 i--;
-                DBG("Size" << juceFiles.size());
+                
                 if(juceFiles.size() == 0)
                 {
                     AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error - All files are incompatible", "None of the files in the selected folder have compatable metadata objects");
-                    return false;
+                    
+                    if(!filesAreCurrentlyLoaded)
+                    {
+                        return false;
+                    }
+                    i=-1;
+                    juceFiles.swapWith(lastArrayUsed);
                 }
             }
             else
-            {
-                metadataReaders.add(metadataManager.createMetadataReader(juceFiles.getReference(i)));
-                entryIsInvalid = false;
-            }
-        }
-        
-        if(entryIsInvalid == false)
-        {
-            trackNumLabels.add(new Label);
-            trackNumLabels[i]->setName("Track Num Label " + String(i));
-            trackNumLabels[i]->setEditable(true);
-            trackNumLabels[i]->setColour(Label::textColourId, Colours::black);
-            trackNumLabels[i]->setJustificationType(Justification::centred);
-            trackNumLabels[i]->addListener(this);
-        
-            trackNameLabels.add(new Label);
-            trackNameLabels[i]->setName("Track Name Label " + String(i));
-            trackNameLabels[i]->setEditable(true);
-            trackNameLabels[i]->setColour(Label::textColourId, Colours::black);
-            trackNameLabels[i]->addListener(this);
-        
-            artistNameLabels.add(new Label);
-            artistNameLabels[i]->setName("Artist Name Label " + String(i));
-            artistNameLabels[i]->setEditable(true);
-            artistNameLabels[i]->setColour(Label::textColourId, Colours::black);
-            artistNameLabels[i]->addListener(this);
-        
-            albumNameLabels.add(new Label);
-            albumNameLabels[i]->setName("Album Name Label " + String(i));
-            albumNameLabels[i]->setEditable(true);
-            albumNameLabels[i]->setColour(Label::textColourId, Colours::black);
-            albumNameLabels[i]->addListener(this);
-        
-            yearLabels.add(new Label);
-            yearLabels[i]->setName("Year Label " + String(i));
-            yearLabels[i]->setEditable(true);
-            yearLabels[i]->setColour(Label::textColourId, Colours::black);
-            yearLabels[i]->addListener(this);
-        
-            selectionButtons.add(new ToggleButton);
-            selectionButtons[i]->addListener(this);
+            {*/
+                metadataReaders.add(currentReader.release());
+                //entryIsInvalid = false;
+            //}
         }
     }
     
     batchControls.setDataSet(true);
     metadataReaders.sort(arraySorter);
-       
-    //Make this better
-    fileExtension = juceFiles[0].getFileExtension();
-       
+    
+    
     table.updateContent();
     
     return true;
-}
-
-void AudioFileTable::refreshTable()
-{
-    table.updateContent();
 }
 
 int AudioFileTable::getTableHeight()
@@ -298,17 +291,77 @@ void AudioFileTable::paintCell(Graphics& g, int rowNumber, int columnId, int wid
 {
     g.setColour(Colours::black);
     
-    if(columnId == 6)
-    {
-        g.drawText(fileExtension, 0, 0, width, height, Justification::centred);
-    }
-    
     g.drawLine(width, 0, width, height);
 }
 
 Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, bool isRowSelected, Component* existingComponentToUpdate)
 {
+    //If no component currently exists
+    if(existingComponentToUpdate == nullptr)
+    {
+        
+        if(columnId == 7)
+        {
+            ToggleButton* componentToAdd = new ToggleButton();
+            componentToAdd->addListener(this);
+            return componentToAdd;
+        }
+        
+        Label* componentToAdd = new Label();
+        componentToAdd->setEditable(true);
+        componentToAdd->setColour(Label::textColourId, Colours::black);
+        componentToAdd->setJustificationType(Justification::centred);
+        componentToAdd->addListener(this);
+        return componentToAdd;
+    }
+    
     if(columnId == 1)
+    {
+        if(rowNumber < juceFiles.size())
+        {
+            Label* componentToUpdate = static_cast<Label*>(existingComponentToUpdate);
+            componentToUpdate->setText(String(metadataReaders[rowNumber]->getTrackNum()), dontSendNotification);
+            return componentToUpdate;
+        }
+    }
+    else if(columnId == 2)
+    {
+        if(rowNumber < juceFiles.size())
+        {
+            Label* componentToUpdate = static_cast<Label*>(existingComponentToUpdate);
+            componentToUpdate->setText(metadataReaders[rowNumber]->getTrackName), dontSendNotification);
+            return componentToUpdate;
+        }
+    }
+    else if(columnId == 3)
+    {
+        if(rowNumber < juceFiles.size())
+        {
+            Label* componentToUpdate = static_cast<Label*>(existingComponentToUpdate);
+            componentToUpdate->setText(metadataReaders[rowNumber]->getArtistName(), dontSendNotification);
+            return componentToUpdate;
+        }
+    }
+    else if(columnId == 4)
+    {
+        if(rowNumber < juceFiles.size())
+        {
+            Label* componentToUpdate = static_cast<Label*>(existingComponentToUpdate);
+            componentToUpdate->setText(metadataReaders[rowNumber]->getAlbumName(), dontSendNotification);
+            return componentToUpdate;
+        }
+    }
+    else if(columnId == 5)
+    {
+        if(rowNumber < juceFiles.size())
+        {
+            Label* componentToUpdate = static_cast<Label*>(existingComponentToUpdate);
+            componentToUpdate->setText(String(metadataReaders[rowNumber]->getYear()), dontSendNotification);
+            return componentToUpdate;
+        }
+    }
+    
+    /*if(columnId == 1)
     {
         if(rowNumber == metadataReaders.size())
         {
@@ -569,27 +622,14 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
     {
         return selectionButtons[rowNumber];
     }
-    return nullptr;
+    return nullptr;*/
 }
 
 void AudioFileTable::buttonClicked(Button* button)
 {
-    if(button == &correctDataButton)
+    if(button == &saveButton)
     {
-        for(int i = 0; i < metadataArray.size(); i++)
-        {
-            if(selectionButtons[i]->getToggleState() == true)
-            {
-                trackNameLabels[i]->setText(StringChecker::decapatalizeWords(trackNameLabels[i]->getText()), sendNotification);
-                albumNameLabels[i]->setText(StringChecker::decapatalizeWords(albumNameLabels[i]->getText()), sendNotification);
-                artistNameLabels[i]->setText(StringChecker::decapatalizeWords(artistNameLabels[i]->getText()), sendNotification);
-            }
-        }
-    }
-    
-    else if(button == &saveButton)
-    {
-        saveTableToTags();
+        //saveTableToTags();
     }
     
     else if(button == &changeLocationButton)
@@ -728,14 +768,14 @@ void AudioFileTable::labelTextChanged(Label* label)
 
 void AudioFileTable::saveTableToTags()
 {
-    for(int i = 0; i < metadataFiles.size(); i++)
+    /*for(int i = 0; i < metadataFiles.size(); i++)
     {
         if(fileNamesToChangeWithTitle == true)
         {
             //Renames all the files to what their titles are specified as in the table
             //(*juceFiles)[i].moveFileTo(File(currentDirectoryPath + trackNameLabels[i]->getText() + fileExtension));
         }
-    }
+    }*/
 }
 
 void AudioFileTable::actionListenerCallback(const String& message)
