@@ -345,32 +345,35 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
     
         if(rowNumber < juceFiles.size())
         {
-            //TURN THIS INTO A SWITCH
-            if(columnId == 1)
+            DBG(columnId);
+            switch (columnId)
             {
-                componentToUpdate->setText(String(metadataReaders[rowNumber]->getTrackNum()), dontSendNotification);
+                case 1:
+                    componentToUpdate->setText(String(metadataReaders[rowNumber]->getTrackNum()), dontSendNotification);
+                    break;
+                    
+                case 2:
+                    componentToUpdate->setText(metadataReaders[rowNumber]->getTrackTitle(), dontSendNotification);
+                    break;
+                    
+                case 3:
+                    componentToUpdate->setText(metadataReaders[rowNumber]->getArtistName(), dontSendNotification);
+                    break;
+                    
+                case 4:
+                    componentToUpdate->setText(metadataReaders[rowNumber]->getAlbumName(), dontSendNotification);
+                    break;
+                    
+                case 5:
+                    componentToUpdate->setText(String(metadataReaders[rowNumber]->getYear()), dontSendNotification);
+                    break;
+                    
+                case 6:
+                    componentToUpdate->setText(metadataReaders[rowNumber]->getFileExtension(), dontSendNotification);
+                    break;
+                    
             }
-            else if(columnId == 2)
-            {
-                componentToUpdate->setText(metadataReaders[rowNumber]->getTrackTitle(), dontSendNotification);
-            }
-            else if(columnId == 3)
-            {
-                componentToUpdate->setText(metadataReaders[rowNumber]->getArtistName(), dontSendNotification);
-            }
-            else if(columnId == 4)
-            {
-                componentToUpdate->setText(metadataReaders[rowNumber]->getAlbumName(), dontSendNotification);
-            }
-            else if(columnId == 5)
-            {
-                componentToUpdate->setText(String(metadataReaders[rowNumber]->getYear()), dontSendNotification);
-            }
-            else if(columnId == 6)
-            {
-                componentToUpdate->setText(metadataReaders[rowNumber]->getFileExtension(), dontSendNotification);
-            }
-        
+            
             return componentToUpdate;
         }
     
@@ -384,8 +387,6 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
             TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
             TableTextEditorComponent* tempEditor = static_cast<TableTextEditorComponent*>(table.getCellComponent(columnId, i));
             
-            DBG("Column " << tempEditor->getColumnID() << " Row " << tempEditor->getRowNumber());
-        
             if(tempButton->getToggleState() == true)
             {
                 comparatorFound = true;
