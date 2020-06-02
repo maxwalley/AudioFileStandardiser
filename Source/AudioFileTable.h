@@ -15,34 +15,34 @@
 #include "StringChecker.h"
 #include "BatchRenameControls.h"
 #include "FormatMetadataManager.h"
+#include "TableCellComponent.h"
 
 //==============================================================================
 /*
 */
-class TagLib_TagSorter
-{
-public:
-    int compareElements(TagLib_Tag* first, TagLib_Tag* second);
-};
-
 class MetadataReaderSorter
 {
 public:
     int compareElements(FormatMetadataReader* first, FormatMetadataReader* second);
 };
 
+class TextEditorOutlineDrawer   :   public LookAndFeel_V4
+{
+public:
+    void drawTextEditorOutline(Graphics& g, int width, int height, TextEditor& editor) override;
+};
 
 
 class AudioFileTable    :   public Component,
                             public TableListBoxModel,
                             public Button::Listener,
-                            public Label::Listener,
+                            public TextEditor::Listener,
                             public ActionListener
 {
 public:
     AudioFileTable();
     ~AudioFileTable();
-
+    
     void paint (Graphics&) override;
     void resized() override;
 
@@ -60,6 +60,7 @@ public:
     
 private:
     
+    
     int getNumRows() override;
     void paintRowBackground(Graphics& g, int rowNumber, int width, int height, bool rowIsSelected) override;
     void paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) override;
@@ -67,7 +68,7 @@ private:
     
     void buttonClicked(Button* button) override;
     
-    void labelTextChanged(Label* label) override;
+    void textEditorTextChanged (TextEditor& editor) override;
     
     void saveTableToTags();
     
@@ -81,16 +82,17 @@ private:
     FormatMetadataManager metadataManager;
     OwnedArray<FormatMetadataReader> metadataReaders;
     
-    TextButton correctDataButton;
+    /*TextButton correctDataButton;
     TextButton saveButton;
-    TextButton changeLocationButton;
+    TextButton changeLocationButton;*/
     
+    TextEditorOutlineDrawer drawer;
     
-    bool fileNamesToChangeWithTitle;
+    //bool fileNamesToChangeWithTitle;
     
-    Viewport batchControlViewport;
+    /*Viewport batchControlViewport;
     BatchRenameControls batchControls;
-    bool showBatchControls;
+    bool showBatchControls;*/
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileTable)
 };

@@ -18,7 +18,6 @@ TagLibTagReader::TagLibTagReader(File& input)   :   FormatMetadataReader(input),
 TagLibTagReader::~TagLibTagReader()
 {
     metadataFile.save();
-    DBG("Deleted");
 }
 
 int TagLibTagReader::getTrackNum()
@@ -92,4 +91,9 @@ String TagLibTagReader::getFileName()
 String TagLibTagReader::getFileNameWithoutExtension()
 {
     return fileToRead.getFileNameWithoutExtension();
+}
+
+String TagLibTagReader::getFileExtension()
+{
+    return fileToRead.getFileExtension();
 }

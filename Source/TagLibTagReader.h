@@ -35,6 +35,7 @@ public:
     String getFileLocation() override;
     String getFileName() override;
     String getFileNameWithoutExtension() override;
+    String getFileExtension() override;
     
 private:
     //File fileToRead;

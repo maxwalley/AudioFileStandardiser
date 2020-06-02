@@ -13,22 +13,6 @@
 
 #define SUPPORTEDTYPES "*.mp3;*.flac;*.wav;*.wave;*.aac;*.wma;*.aif;*.m4a"
 
-int TagLib_TagSorter::compareElements(TagLib_Tag* first, TagLib_Tag* second)
-{
-    if(taglib_tag_track(first) > taglib_tag_track(second))
-    {
-        return 1;
-    }
-    else if(taglib_tag_track(first) == taglib_tag_track(second))
-    {
-        return 0;
-    }
-    else if(taglib_tag_track(first) < taglib_tag_track(second))
-    {
-        return -1;
-    }
-}
-
 int MetadataReaderSorter::compareElements(FormatMetadataReader* first, FormatMetadataReader* second)
 {
     if(first->getTrackNum() > second->getTrackNum())
@@ -46,8 +30,19 @@ int MetadataReaderSorter::compareElements(FormatMetadataReader* first, FormatMet
 }
 
 
+void TextEditorOutlineDrawer::drawTextEditorOutline(Graphics& g, int width, int height, TextEditor& editor)
+{
+    Path path;
+    
+    path.startNewSubPath(width, 0);
+    path.lineTo(width, height);
+    path.lineTo(0, height);
+    
+    g.strokePath(path, PathStrokeType(1.0f));
+}
+
 //==============================================================================
-AudioFileTable::AudioFileTable() : correctDataButton("Correct Data"), saveButton("Save Data"), changeLocationButton("Change File Locations"), fileNamesToChangeWithTitle(true), showBatchControls(false)
+AudioFileTable::AudioFileTable() //: correctDataButton("Correct Data"), saveButton("Save Data"), changeLocationButton("Change File Locations"), fileNamesToChangeWithTitle(true), showBatchControls(false)
 {
     addAndMakeVisible(table);
     
@@ -63,9 +58,8 @@ AudioFileTable::AudioFileTable() : correctDataButton("Correct Data"), saveButton
     table.getHeader().addColumn("Selected", 7, 50, 50, 50, 1);
     
     table.setName("Table");
-    table.setComponentID("Table");
     
-    addAndMakeVisible(correctDataButton);
+    /*addAndMakeVisible(correctDataButton);
     correctDataButton.setName("correctData");
     correctDataButton.addListener(this);
     
@@ -81,12 +75,21 @@ AudioFileTable::AudioFileTable() : correctDataButton("Correct Data"), saveButton
     batchControlViewport.setVisible(false);
     batchControlViewport.setViewedComponent(&batchControls);
     
-    batchControls.addActionListener(this);
+    batchControls.addActionListener(this);*/
 }
 
 AudioFileTable::~AudioFileTable()
 {
     //saveTableToTags();
+    
+    //Clears the look and feels to prevent an error
+    for(int i = 1; i < table.getHeader().getNumColumns(false); i++)
+    {
+        for(int j = 0; j < juceFiles.size()+1; j++)
+        {
+            table.getCellComponent(i, j)->setLookAndFeel(nullptr);
+        }
+    }
 }
 
 void AudioFileTable::paint (Graphics& g)
@@ -96,11 +99,11 @@ void AudioFileTable::paint (Graphics& g)
 
 void AudioFileTable::resized()
 {
-    DBG("Resized");
+    /*DBG("Resized");
     if(showBatchControls == false)
-    {
+    {*/
         table.setBounds(0, 0, getWidth(), getTableHeight());
-        batchControls.setVisible(false);
+        /*batchControls.setVisible(false);
         batchControlViewport.setVisible(false);
     }
     else
@@ -114,31 +117,22 @@ void AudioFileTable::resized()
     
     correctDataButton.setBounds(0, getTableHeight(), 200, 30);
     saveButton.setBounds(200, getTableHeight(), 200, 30);
-    changeLocationButton.setBounds(400, getTableHeight(), 200, 30);
+    changeLocationButton.setBounds(400, getTableHeight(), 200, 30);*/
 }
 
 bool AudioFileTable::setFiles()
 {
-    DBG("Setting Files");
     FileChooser chooser("Pick a folder", File(), "*.zip", true, false, nullptr);
     
-    Array<File> lastArrayUsed;
+    //Array<File> lastArrayUsed;
     
-    bool filesAreCurrentlyLoaded = false;
+    //bool filesAreCurrentlyLoaded = false;
     
     /*if(juceFiles.size() != 0)
     {
         juceFiles.swapWith(lastArrayUsed);
         juceFiles.clear();
         filesAreCurrentlyLoaded = true;
-        
-        metadataReaders.clear();
-        trackNumLabels.clear();
-        trackNameLabels.clear();
-        artistNameLabels.clear();
-        albumNameLabels.clear();
-        yearLabels.clear();
-        selectionButtons.clear();
     }*/
     
     //Looks and opens the file
@@ -235,11 +229,11 @@ bool AudioFileTable::setFiles()
         }
     }
     
-    batchControls.setDataSet(true);
+    //batchControls.setDataSet(true);
     metadataReaders.sort(arraySorter);
     
     
-    table.updateContent();
+    //table.updateContent();
     
     return true;
 }
@@ -251,18 +245,18 @@ int AudioFileTable::getTableHeight()
 
 void AudioFileTable::setFileNamesToChangeWithTitle(bool change)
 {
-    fileNamesToChangeWithTitle = change;
+    //fileNamesToChangeWithTitle = change;
 }
 
 void AudioFileTable::setBatchControlsVisible(bool visible)
 {
-    showBatchControls = visible;
+    //showBatchControls = visible;
     resized();
 }
 
 void AudioFileTable::addBatchControlsActionListener(ActionListener* listener)
 {
-    batchControls.addActionListener(listener);
+    //batchControls.addActionListener(listener);
 }
 
 int AudioFileTable::getNumRows()
@@ -284,14 +278,12 @@ void AudioFileTable::paintRowBackground(Graphics& g, int rowNumber, int width, i
     {
         g.fillAll(Colours::lightgrey);
     }
-    g.drawLine(0, 0, width, 0);
+    g.drawLine(0, height, width, height);
 }
 
 void AudioFileTable::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-    g.setColour(Colours::black);
     
-    g.drawLine(width, 0, width, height);
 }
 
 Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, bool isRowSelected, Component* existingComponentToUpdate)
@@ -299,340 +291,176 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
     //If no component currently exists
     if(existingComponentToUpdate == nullptr)
     {
-        
         if(columnId == 7)
         {
-            ToggleButton* componentToAdd = new ToggleButton();
+            TableToggleButtonComponent* componentToAdd = new TableToggleButtonComponent();
             componentToAdd->addListener(this);
+            componentToAdd->setLocationInTable(columnId, rowNumber);
+            //Sets the name for identification by a listener
+            componentToAdd->setName("TableButton");
             return componentToAdd;
         }
         
-        Label* componentToAdd = new Label();
-        componentToAdd->setEditable(true);
-        componentToAdd->setColour(Label::textColourId, Colours::black);
-        componentToAdd->setJustificationType(Justification::centred);
+        TableTextEditorComponent* componentToAdd = new TableTextEditorComponent();
         componentToAdd->addListener(this);
+        componentToAdd->setLocationInTable(columnId, rowNumber);
+        componentToAdd->setColour(TextEditor::textColourId, Colours::black);
+        componentToAdd->setColour(TextEditor::outlineColourId, Colours::black);
+        componentToAdd->setLookAndFeel(&drawer);
+        
+        if(rowNumber % 2 == 0)
+        {
+            componentToAdd->setColour(TextEditor::backgroundColourId, Colours::silver);
+        }
+        else
+        {
+            componentToAdd->setColour(TextEditor::backgroundColourId, Colours::lightgrey);
+        }
+        
+        if(columnId == 1 || columnId == 5 || columnId == 6)
+        {
+            componentToAdd->setJustification(Justification::centred);
+        }
+        else
+        {
+            componentToAdd->setJustification(Justification::left);
+        }
+        
+        if(columnId == 6)
+        {
+            componentToAdd->setEnabled(false);
+        }
+        
+        //componentToAdd->addListener(this);
         return componentToAdd;
     }
     
-    if(columnId == 1)
-    {
-        if(rowNumber < juceFiles.size())
-        {
-            Label* componentToUpdate = static_cast<Label*>(existingComponentToUpdate);
-            componentToUpdate->setText(String(metadataReaders[rowNumber]->getTrackNum()), dontSendNotification);
-            return componentToUpdate;
-        }
-    }
-    else if(columnId == 2)
-    {
-        if(rowNumber < juceFiles.size())
-        {
-            Label* componentToUpdate = static_cast<Label*>(existingComponentToUpdate);
-            componentToUpdate->setText(metadataReaders[rowNumber]->getTrackName), dontSendNotification);
-            return componentToUpdate;
-        }
-    }
-    else if(columnId == 3)
-    {
-        if(rowNumber < juceFiles.size())
-        {
-            Label* componentToUpdate = static_cast<Label*>(existingComponentToUpdate);
-            componentToUpdate->setText(metadataReaders[rowNumber]->getArtistName(), dontSendNotification);
-            return componentToUpdate;
-        }
-    }
-    else if(columnId == 4)
-    {
-        if(rowNumber < juceFiles.size())
-        {
-            Label* componentToUpdate = static_cast<Label*>(existingComponentToUpdate);
-            componentToUpdate->setText(metadataReaders[rowNumber]->getAlbumName(), dontSendNotification);
-            return componentToUpdate;
-        }
-    }
-    else if(columnId == 5)
-    {
-        if(rowNumber < juceFiles.size())
-        {
-            Label* componentToUpdate = static_cast<Label*>(existingComponentToUpdate);
-            componentToUpdate->setText(String(metadataReaders[rowNumber]->getYear()), dontSendNotification);
-            return componentToUpdate;
-        }
-    }
+    //If a component is already there
     
-    /*if(columnId == 1)
+    //Selection buttons should not need updated once they are there
+    if(columnId != 7)
     {
-        if(rowNumber == metadataReaders.size())
+        //Casts the component to the table specific class
+        TableTextEditorComponent* componentToUpdate = static_cast<TableTextEditorComponent*>(existingComponentToUpdate);
+    
+        if(rowNumber < juceFiles.size())
         {
-            bool comparatorFound = false;
-            String comparatorString;
-            
-            for(int i = 0; i < metadataReaders.size() && comparatorFound != true; i++)
+            //TURN THIS INTO A SWITCH
+            if(columnId == 1)
             {
-                if(selectionButtons[i]->getToggleState() == true)
-                {
-                    comparatorFound = true;
-                    comparatorString = trackNumLabels[i]->getText();
-                }
+                componentToUpdate->setText(String(metadataReaders[rowNumber]->getTrackNum()), dontSendNotification);
             }
-            
-            if(comparatorFound == true)
+            else if(columnId == 2)
             {
-                bool differenceFound = false;
-                
-                for(int i = 0; i < metadataReaders.size() && differenceFound != true; i++)
+                componentToUpdate->setText(metadataReaders[rowNumber]->getTrackTitle(), dontSendNotification);
+            }
+            else if(columnId == 3)
+            {
+                componentToUpdate->setText(metadataReaders[rowNumber]->getArtistName(), dontSendNotification);
+            }
+            else if(columnId == 4)
+            {
+                componentToUpdate->setText(metadataReaders[rowNumber]->getAlbumName(), dontSendNotification);
+            }
+            else if(columnId == 5)
+            {
+                componentToUpdate->setText(String(metadataReaders[rowNumber]->getYear()), dontSendNotification);
+            }
+            else if(columnId == 6)
+            {
+                componentToUpdate->setText(metadataReaders[rowNumber]->getFileExtension(), dontSendNotification);
+            }
+        
+            return componentToUpdate;
+        }
+    
+        //If the label is in the last row
+    
+        bool comparatorFound = false;
+        String comparatorString;
+    
+        for(int i = 0; i < metadataReaders.size() && comparatorFound != true; i++)
+        {
+            TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
+            TableTextEditorComponent* tempEditor = static_cast<TableTextEditorComponent*>(table.getCellComponent(columnId, i));
+            
+            DBG("Column " << tempEditor->getColumnID() << " Row " << tempEditor->getRowNumber());
+        
+            if(tempButton->getToggleState() == true)
+            {
+                comparatorFound = true;
+                comparatorString = tempEditor->getText();
+            }
+        }
+    
+        if(comparatorFound == true)
+        {
+            bool differenceFound = false;
+        
+            for(int i = 0; i < metadataReaders.size() && differenceFound != true; i++)
+            {
+                TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
+                TableTextEditorComponent* tempEditor = static_cast<TableTextEditorComponent*>(table.getCellComponent(columnId, i));
+            
+                if(tempButton->getToggleState() == true)
                 {
-                    if(selectionButtons[i]->getToggleState() == true)
+                    if(tempEditor->getText().compare(comparatorString) != 0)
                     {
-                        if(trackNumLabels[i]->getText().compare(comparatorString) != 0)
-                        {
-                            differenceFound = true;
-                        }
+                        differenceFound = true;
                     }
                 }
-                if(differenceFound == true)
-                {
-                    //Dont send notification so it doesnt change all labels to "..."
-                    trackNumLabels[rowNumber]->setText("...", dontSendNotification);
-                }
-                else
-                {
-                    trackNumLabels[rowNumber]->setText(comparatorString, sendNotification);
-                }
             }
-            else if(comparatorFound == false)
+            if(differenceFound == true)
             {
                 //Dont send notification so it doesnt change all labels to "..."
-                trackNumLabels[rowNumber]->setText("...", dontSendNotification);
+                componentToUpdate->setText("...", dontSendNotification);
+            }
+            else
+            {
+                componentToUpdate->setText(comparatorString, sendNotification);
             }
         }
-        else
+        else if(comparatorFound == false)
         {
-            trackNumLabels[rowNumber]->setText(String(metadataReaders[rowNumber]->getTrackNum()), sendNotification);
+            //Dont send notification so it doesnt change all labels to "..."
+            componentToUpdate->setText("...", dontSendNotification);
         }
-        return trackNumLabels[rowNumber];
+    
+    return componentToUpdate;
     }
     
-    else if(columnId == 2)
-    {
-        if(rowNumber == metadataReaders.size())
-        {
-            bool comparatorFound = false;
-            String comparatorString;
-            
-            for(int i = 0; i < metadataReaders.size() && comparatorFound != true; i++)
-            {
-                if(selectionButtons[i]->getToggleState() == true)
-                {
-                    comparatorFound = true;
-                    comparatorString = trackNameLabels[i]->getText();
-                }
-            }
-            
-            if(comparatorFound == true)
-            {
-                bool differenceFound = false;
-                
-                for(int i = 0; i < metadataReaders.size() && differenceFound != true; i++)
-                {
-                    if(selectionButtons[i]->getToggleState() == true)
-                    {
-                        if(trackNameLabels[i]->getText().compare(comparatorString) != 0)
-                        {
-                            differenceFound = true;
-                        }
-                    }
-                }
-                if(differenceFound == true)
-                {
-                    trackNameLabels[rowNumber]->setText("...", dontSendNotification);
-                }
-                else
-                {
-                    trackNameLabels[rowNumber]->setText(comparatorString, sendNotification);
-                }
-            }
-            else if(comparatorFound == false)
-            {
-                trackNameLabels[rowNumber]->setText("...", dontSendNotification);
-            }
-        }
-        else
-        {
-            trackNameLabels[rowNumber]->setText(metadataReaders[rowNumber]->getTrackTitle(), sendNotification);
-        }
-        return trackNameLabels[rowNumber];
-    }
+    return existingComponentToUpdate;
     
-    else if(columnId == 3)
-    {
-        if(rowNumber == metadataReaders.size())
-        {
-            bool comparatorFound = false;
-            String comparatorString;
-            
-            for(int i = 0; i < metadataReaders.size() && comparatorFound != true; i++)
-            {
-                if(selectionButtons[i]->getToggleState() == true)
-                {
-                    comparatorFound = true;
-                    comparatorString = artistNameLabels[i]->getText();
-                }
-            }
-            
-            if(comparatorFound == true)
-            {
-                bool differenceFound = false;
-                
-                for(int i = 0; i < metadataReaders.size() && differenceFound != true; i++)
-                {
-                    if(selectionButtons[i]->getToggleState() == true)
-                    {
-                        if(artistNameLabels[i]->getText().compare(comparatorString) != 0)
-                        {
-                            differenceFound = true;
-                        }
-                    }
-                }
-                if(differenceFound == true)
-                {
-                    artistNameLabels[rowNumber]->setText("...", dontSendNotification);
-                }
-                else
-                {
-                    artistNameLabels[rowNumber]->setText(comparatorString, sendNotification);
-                }
-            }
-            else if(comparatorFound == false)
-            {
-                artistNameLabels[rowNumber]->setText("...", dontSendNotification);
-            }
-        }
-        else
-        {
-            artistNameLabels[rowNumber]->setText(metadataReaders[rowNumber]->getArtistName(), sendNotification);
-        }
-        return artistNameLabels[rowNumber];
-    }
     
-    else if(columnId == 4)
-    {
-        if(rowNumber == metadataReaders.size())
-        {
-            bool comparatorFound = false;
-            String comparatorString;
-            
-            for(int i = 0; i < metadataReaders.size() && comparatorFound != true; i++)
-            {
-                if(selectionButtons[i]->getToggleState() == true)
-                {
-                    comparatorFound = true;
-                    comparatorString = albumNameLabels[i]->getText();
-                }
-            }
-            
-            if(comparatorFound == true)
-            {
-                bool differenceFound = false;
-                
-                for(int i = 0; i < metadataReaders.size() && differenceFound != true; i++)
-                {
-                    if(selectionButtons[i]->getToggleState() == true)
-                    {
-                        if(albumNameLabels[i]->getText().compare(comparatorString) != 0)
-                        {
-                            differenceFound = true;
-                        }
-                    }
-                }
-                if(differenceFound == true)
-                {
-                    albumNameLabels[rowNumber]->setText("...", dontSendNotification);
-                }
-                else
-                {
-                    albumNameLabels[rowNumber]->setText(comparatorString, sendNotification);
-                }
-            }
-            else if(comparatorFound == false)
-            {
-                albumNameLabels[rowNumber]->setText("...", dontSendNotification);
-            }
-        }
-        else
-        {
-             albumNameLabels[rowNumber]->setText(metadataReaders[rowNumber]->getAlbumName(), sendNotification);
-        }
-        return albumNameLabels[rowNumber];
-    }
-    
-    else if(columnId == 5)
-    {
-        if(rowNumber == metadataReaders.size())
-        {
-            bool comparatorFound = false;
-            String comparatorString;
-            
-            for(int i = 0; i < metadataReaders.size() && comparatorFound != true; i++)
-            {
-                if(selectionButtons[i]->getToggleState() == true)
-                {
-                    comparatorFound = true;
-                    comparatorString = yearLabels[i]->getText();
-                }
-            }
-            
-            if(comparatorFound == true)
-            {
-                bool differenceFound = false;
-                
-                for(int i = 0; i < metadataReaders.size() && differenceFound != true; i++)
-                {
-                    if(selectionButtons[i]->getToggleState() == true)
-                    {
-                        if(yearLabels[i]->getText().compare(comparatorString) != 0)
-                        {
-                            differenceFound = true;
-                        }
-                    }
-                }
-                if(differenceFound == true)
-                {
-                    yearLabels[rowNumber]->setText("...", dontSendNotification);
-                }
-                else
-                {
-                    yearLabels[rowNumber]->setText(comparatorString, sendNotification);
-                }
-            }
-            else if(comparatorFound == false)
-            {
-                yearLabels[rowNumber]->setText("...", dontSendNotification);
-            }
-        }
-        else
-        {
-            yearLabels[rowNumber]->setText(String(metadataReaders[rowNumber]->getYear()), sendNotification);
-        }
-        return yearLabels[rowNumber];
-    }
-    
-    else if(columnId == 7)
-    {
-        return selectionButtons[rowNumber];
-    }
-    return nullptr;*/
 }
 
 void AudioFileTable::buttonClicked(Button* button)
 {
-    if(button == &saveButton)
+    //Checks to see if this is one of the buttons on the table
+    if(button->getName().compare("TableButton") == 0)
     {
-        //saveTableToTags();
+        //Casts the button into the special table button type
+        TableToggleButtonComponent* tableButtonThatHasBeenClicked = static_cast<TableToggleButtonComponent*>(button);
+        
+        //Checks to see if the button thats been clicked is in the bottom row of the table
+        if(tableButtonThatHasBeenClicked->getRowNumber() == juceFiles.size())
+        {
+            for(int i = 0; i < juceFiles.size(); i++)
+            {
+                //Changes all toggle states to the same as the button in the last row
+                TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
+                tempButton->setToggleState(tableButtonThatHasBeenClicked->getToggleState(), sendNotification);
+            }
+        }
+        //If its any other button
+        else
+        {
+            //Updates the table to check for comparators
+            table.updateContent();
+        }
     }
     
-    else if(button == &changeLocationButton)
+    /*else if(button == &changeLocationButton)
     {
         FileChooser chooser("Select A New Location");
 
@@ -664,13 +492,46 @@ void AudioFileTable::buttonClicked(Button* button)
                 table.updateContent();
             }
         }
-    }
+    }*/
 }
 
-void AudioFileTable::labelTextChanged(Label* label)
+void AudioFileTable::textEditorTextChanged(TextEditor& editor)
 {
+    //Casts the editor to one of the specific table component editors so that row num and col id can be accessed
+    TableTextEditorComponent& editorThatHasChanged = static_cast<TableTextEditorComponent&>(editor);
+    
+    //If the editor is not in the bottom row of the table
+    if(editorThatHasChanged.getRowNumber() != juceFiles.size())
+    {
+        //Track num col
+        if(editorThatHasChanged.getColumnID() == 1)
+        {
+            metadataReaders[editorThatHasChanged.getRowNumber()]->setTrackNum(editorThatHasChanged.getText().getIntValue());
+        }
+        //Title col
+        else if(editorThatHasChanged.getColumnID() == 2)
+        {
+            metadataReaders[editorThatHasChanged.getRowNumber()]->setTrackTitle(editorThatHasChanged.getText());
+        }
+        //Artist col
+        else if(editorThatHasChanged.getColumnID() == 3)
+        {
+            metadataReaders[editorThatHasChanged.getRowNumber()]->setArtistName(editorThatHasChanged.getText());
+        }
+        //Album col
+        else if(editorThatHasChanged.getColumnID() == 4)
+        {
+            metadataReaders[editorThatHasChanged.getRowNumber()]->setAlbumName(editorThatHasChanged.getText());
+        }
+        //Year col
+        else if(editorThatHasChanged.getColumnID() == 5)
+        {
+            metadataReaders[editorThatHasChanged.getRowNumber()]->setYear(editorThatHasChanged.getText().getIntValue());
+        }
+    }
+    
     //The change all label for the track number field
-    if(label == trackNumLabels[metadataReaders.size()])
+    /*if(label == trackNumLabels[metadataReaders.size()])
     {
         for(int i = 0; i < metadataReaders.size(); i++)
         {
@@ -763,7 +624,7 @@ void AudioFileTable::labelTextChanged(Label* label)
                 metadataReaders[i]->setYear(yearLabels[i]->getText().getIntValue());
             }
         }
-    }
+    }*/
 }
 
 void AudioFileTable::saveTableToTags()
@@ -782,7 +643,7 @@ void AudioFileTable::actionListenerCallback(const String& message)
 {
     if(message == "Apply Button Clicked")
     {
-        if(int(batchControls.getButtonsActive()) != 0)
+        /*if(int(batchControls.getButtonsActive()) != 0)
         {
             for(int i = 0; i < metadataReaders.size(); i++)
             {
@@ -1007,5 +868,11 @@ void AudioFileTable::actionListenerCallback(const String& message)
             
             table.updateContent();
         }
+    }*/
     }
+}
+
+void drawTextEditorOutline(Graphics& g, int width, int height, TextEditor& editor)
+{
+    g.drawRoundedRectangle(0, 0, width, height, 2.0f, 2.0f);
 }

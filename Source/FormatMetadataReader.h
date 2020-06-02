@@ -34,6 +34,7 @@ public:
     virtual String getFileLocation() = 0;
     virtual String getFileName() = 0;
     virtual String getFileNameWithoutExtension() = 0;
+    virtual String getFileExtension() = 0;
     
 protected:
     File fileToRead;
