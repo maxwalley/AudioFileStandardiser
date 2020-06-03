@@ -59,29 +59,16 @@ AudioFileTable::AudioFileTable() //: correctDataButton("Correct Data"), saveButt
     
     table.setName("Table");
     
-    /*addAndMakeVisible(correctDataButton);
-    correctDataButton.setName("correctData");
-    correctDataButton.addListener(this);
-    
-    addAndMakeVisible(saveButton);
-    saveButton.setName("saveButton");
-    saveButton.addListener(this);
-    
-    addAndMakeVisible(changeLocationButton);
-    changeLocationButton.setName("changeLocationButton");
-    changeLocationButton.addListener(this);
-    
     addAndMakeVisible(batchControlViewport);
     batchControlViewport.setVisible(false);
     batchControlViewport.setViewedComponent(&batchControls);
+    showBatchControls = false;
     
-    batchControls.addActionListener(this);*/
+    batchControls.addActionListener(this);
 }
 
 AudioFileTable::~AudioFileTable()
 {
-    //saveTableToTags();
-    
     //Clears the look and feels to prevent an error
     for(int i = 1; i < table.getHeader().getNumColumns(false); i++)
     {
@@ -99,11 +86,10 @@ void AudioFileTable::paint (Graphics& g)
 
 void AudioFileTable::resized()
 {
-    /*DBG("Resized");
     if(showBatchControls == false)
-    {*/
+    {
         table.setBounds(0, 0, getWidth(), getTableHeight());
-        /*batchControls.setVisible(false);
+        batchControls.setVisible(false);
         batchControlViewport.setVisible(false);
     }
     else
@@ -114,10 +100,6 @@ void AudioFileTable::resized()
         batchControls.setSize(190, 860);
         batchControls.setVisible(true);
     }
-    
-    correctDataButton.setBounds(0, getTableHeight(), 200, 30);
-    saveButton.setBounds(200, getTableHeight(), 200, 30);
-    changeLocationButton.setBounds(400, getTableHeight(), 200, 30);*/
 }
 
 bool AudioFileTable::setFiles()
@@ -229,7 +211,7 @@ bool AudioFileTable::setFiles()
         }
     }
     
-    //batchControls.setDataSet(true);
+    batchControls.setDataSet(true);
     metadataReaders.sort(arraySorter);
     
     
@@ -250,13 +232,13 @@ void AudioFileTable::setFileNamesToChangeWithTitle(bool change)
 
 void AudioFileTable::setBatchControlsVisible(bool visible)
 {
-    //showBatchControls = visible;
+    showBatchControls = visible;
     resized();
 }
 
 void AudioFileTable::addBatchControlsActionListener(ActionListener* listener)
 {
-    //batchControls.addActionListener(listener);
+    batchControls.addActionListener(listener);
 }
 
 int AudioFileTable::getNumRows()
@@ -331,7 +313,6 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
             componentToAdd->setEnabled(false);
         }
         
-        //componentToAdd->addListener(this);
         return componentToAdd;
     }
     
@@ -345,7 +326,6 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
     
         if(rowNumber < juceFiles.size())
         {
-            DBG(columnId);
             switch (columnId)
             {
                 case 1:
@@ -427,7 +407,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
             componentToUpdate->setText("...", dontSendNotification);
         }
     
-    return componentToUpdate;
+        return componentToUpdate;
     }
     
     return existingComponentToUpdate;
@@ -485,32 +465,9 @@ void AudioFileTable::textEditorTextChanged(TextEditor& editor)
     //If the editor is not in the bottom row of the table
     if(editorThatHasChanged.getRowNumber() != juceFiles.size())
     {
-        //Track num col
-        if(editorThatHasChanged.getColumnID() == 1)
-        {
-            metadataReaders[editorThatHasChanged.getRowNumber()]->setTrackNum(editorThatHasChanged.getText().getIntValue());
-        }
-        //Title col
-        else if(editorThatHasChanged.getColumnID() == 2)
-        {
-            metadataReaders[editorThatHasChanged.getRowNumber()]->setTrackTitle(editorThatHasChanged.getText());
-        }
-        //Artist col
-        else if(editorThatHasChanged.getColumnID() == 3)
-        {
-            metadataReaders[editorThatHasChanged.getRowNumber()]->setArtistName(editorThatHasChanged.getText());
-        }
-        //Album col
-        else if(editorThatHasChanged.getColumnID() == 4)
-        {
-            metadataReaders[editorThatHasChanged.getRowNumber()]->setAlbumName(editorThatHasChanged.getText());
-        }
-        //Year col
-        else if(editorThatHasChanged.getColumnID() == 5)
-        {
-            metadataReaders[editorThatHasChanged.getRowNumber()]->setYear(editorThatHasChanged.getText().getIntValue());
-        }
+        changeMetadataForCellComponent(editorThatHasChanged.getColumnID(), editorThatHasChanged.getRowNumber(), editorThatHasChanged.getText());
     }
+    
     //If label is from the bottom row
     else
     {
@@ -519,263 +476,185 @@ void AudioFileTable::textEditorTextChanged(TextEditor& editor)
         {
             //Gets the button for this row and the editor for the row and column
             TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
-            TableTextEditorComponent* tempEditor = static_cast<TableTextEditorComponent*>(table.getCellComponent(editorThatHasChanged.getColumnID(), i));
             
             //If the row is selected with the toggle buttons the editor in that rows colun will be changed
             if(tempButton->getToggleState())
             {
-                tempEditor->setText(editorThatHasChanged.getText(), sendNotification);
+                changeMetadataForCellComponent(editorThatHasChanged.getColumnID(), i, editorThatHasChanged.getText());
             }
         }
+        table.updateContent();
     }
-}
-
-void AudioFileTable::saveTableToTags()
-{
-    /*for(int i = 0; i < metadataFiles.size(); i++)
-    {
-        if(fileNamesToChangeWithTitle == true)
-        {
-            //Renames all the files to what their titles are specified as in the table
-            //(*juceFiles)[i].moveFileTo(File(currentDirectoryPath + trackNameLabels[i]->getText() + fileExtension));
-        }
-    }*/
 }
 
 void AudioFileTable::actionListenerCallback(const String& message)
 {
     if(message == "Apply Button Clicked")
     {
-        /*if(int(batchControls.getButtonsActive()) != 0)
+        if(int(batchControls.getButtonsActive()) != 0)
         {
-            for(int i = 0; i < metadataReaders.size(); i++)
+            for(int j = 0; j < 3; j++)
             {
-                if(selectionButtons[i]->getToggleState() == true)
+                int comparator = 0;
+                int column = 0;
+                
+                switch (j)
                 {
-                    if(int(batchControls.getButtonsActive() & BatchRenameControls::titleButton) != 0)
-                    {
-                        //Removes characters set by the batch controls from the titles
-                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().replace(batchControls.getCharsToRemove(), ""), sendNotification);
+                    case 0:
+                        comparator = int(batchControls.getButtonsActive() & BatchRenameControls::titleButton);
+                        column = 2;
+                        break;
                         
-                        //Removes start chars set by batch controls from titles
-                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), sendNotification);
-                       
-                        //Removes end chars set by batch controls from titles
-                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().dropLastCharacters(batchControls.getNumEndCharsToRemove()), sendNotification);
+                    case 1:
+                        comparator = int(batchControls.getButtonsActive() & BatchRenameControls::artistButton);
+                        column = 3;
+                        break;
                         
-                        //Adds start chars set by batch controls from titles
-                        trackNameLabels[i]->setText(trackNameLabels[i]->getText().replaceSection(0, 0, batchControls.getCharsToAddToStart()), sendNotification);
-                        
-                        //Adds chars to set position set by batch controls from titles
-                        if(batchControls.getPositionToAdd() > trackNameLabels[i]->getText().length())
-                        {
-                            trackNameLabels[i]->setText(trackNameLabels[i]->getText() + batchControls.getCharsToAddToPosition(), sendNotification);
-                        }
-                        else
-                        {
-                        trackNameLabels[i]->setText(trackNameLabels[i]->getText().replaceSection(batchControls.getPositionToAdd(), 0, batchControls.getCharsToAddToPosition()), sendNotification);
-                        }
-                        
-                        //Adds end chars set by batch controls from titles
-                        trackNameLabels[i]->setText(trackNameLabels[i]->getText() + batchControls.getCharsToAddToEnd(), sendNotification);
-                        
-                        
-                        //Replaces char with another char both set by batch controls for titles
-                    trackNameLabels[i]->setText(trackNameLabels[i]->getText().replace(batchControls.getCharToReplace(), batchControls.getCharToReplaceWith()), sendNotification);
-                        
-                        //Checks if the default capatalisation settings in batch control is set. If not it'll check the state of the other batch control settings
-                        if(batchControls.getDefaultCapSettings())
-                        {
-                            //Brings all text to lower case
-                            trackNameLabels[i]->setText(trackNameLabels[i]->getText().toLowerCase(), dontSendNotification);
-                       
-                            //Capatalises all first letters of the text
-                        trackNameLabels[i]->setText(StringChecker::capatalizeFirstLetters(trackNameLabels[i]->getText()), dontSendNotification);
-                       
-                            //Removes capitals from all the correct words
-                        trackNameLabels[i]->setText(StringChecker::decapatalizeWords(trackNameLabels[i]->getText()), sendNotification);
-                        }
-                        else
-                        {
-                            //Capatalises or decapatalises all words based on what is toggled in batch controls
-                            if(batchControls.getCapAllWords())
-                            {
-                                trackNameLabels[i]->setText(trackNameLabels[i]->getText().toUpperCase(), sendNotification);
-                            }
-                            
-                            else if(batchControls.getDecapAllWords())
-                            {
-                                trackNameLabels[i]->setText(trackNameLabels[i]->getText().toLowerCase(), sendNotification);
-                            }
-                            
-                           //Capatalises a certain word set by batch controls
-                            trackNameLabels[i]->setText(trackNameLabels[i]->getText().replace(batchControls.getCapWord(), batchControls.getCapWord().toUpperCase()), sendNotification);
-                            
-                            //Capatalises the start of all words or just one specific one based on the options set by batch controls
-                            if(batchControls.getCapStartOfAllWords() == true)
-                           
-                            {   trackNameLabels[i]->setText(StringChecker::capatalizeFirstLetters(trackNameLabels[i]->getText()), sendNotification);
-                            }
-                            //Just one word
-                            else if(!batchControls.getCapStartOfWord().isEmpty())
-                            {
-                                trackNameLabels[i]->setText(trackNameLabels[i]->getText().replace(batchControls.getCapStartOfWord(), StringChecker::capatalizeFirstLetters(batchControls.getCapStartOfWord())), sendNotification);
-                            }
-                        }
-                    }
+                    case 2:
+                        comparator = int(batchControls.getButtonsActive() & BatchRenameControls::albumButton);
+                        column = 4;
+                        break;
+                }
                 
-                    if(int(batchControls.getButtonsActive() & BatchRenameControls::artistButton) != 0)
+                if(comparator != 0)
+                {
+                    for(int i = 0; i < metadataReaders.size(); i++)
                     {
-                        //Removes characters set by the batch controls from the Artist names
-                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().replace(batchControls.getCharsToRemove(), ""), sendNotification);
-                    
-                        //Removes start chars set by batch controls from artist names
-                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), sendNotification);
-                       
-                        //Removes end chars set by batch controls from artist names
-                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().dropLastCharacters(batchControls.getNumEndCharsToRemove()), sendNotification);
+                        //Gets the button for this row
+                        TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
                         
-                        //Adds start chars set by batch controls from artist names
-                        artistNameLabels[i]->setText(artistNameLabels[i]->getText().replaceSection(0, 0, batchControls.getCharsToAddToStart()), sendNotification);
-                        
-                        //Adds chars to set position set by batch controls from artist names
-                        if(batchControls.getPositionToAdd() > artistNameLabels[i]->getText().length())
+                        if(tempButton->getToggleState() == true)
                         {
-                            artistNameLabels[i]->setText(artistNameLabels[i]->getText() + batchControls.getCharsToAddToPosition(), sendNotification);
-                        }
-                        else
-                        {
-                            artistNameLabels[i]->setText(artistNameLabels[i]->getText().replaceSection(batchControls.getPositionToAdd(), 0, batchControls.getCharsToAddToPosition()), sendNotification);
-                        }
-                        
-                        //Adds end chars set by batch controls from artist names
-                        artistNameLabels[i]->setText(artistNameLabels[i]->getText() + batchControls.getCharsToAddToEnd(), sendNotification);
-                        
-                        //Replaces char with another char both set by batch controls for artist names
-                    artistNameLabels[i]->setText(artistNameLabels[i]->getText().replace(batchControls.getCharToReplace(), batchControls.getCharToReplaceWith()), sendNotification);
-                        
-                        //Checks if the default capatalisation settings in batch control is set. If not it'll check the state of the other batch control settings
-                         if(batchControls.getDefaultCapSettings())
-                         {
-                             //Brings all text to lower case
-                             artistNameLabels[i]->setText(artistNameLabels[i]->getText().toLowerCase(), dontSendNotification);
-                        
-                             //Capatalises all first letters of the text
-                         artistNameLabels[i]->setText(StringChecker::capatalizeFirstLetters(artistNameLabels[i]->getText()), dontSendNotification);
-                        
-                             //Removes capitals from all the correct words
-                         artistNameLabels[i]->setText(StringChecker::decapatalizeWords(artistNameLabels[i]->getText()), sendNotification);
-                         }
-                         else
-                         {
-                             //Capatalises or decapatalises all words based on what is toggled in batch controls
-                             if(batchControls.getCapAllWords())
-                             {
-                                 artistNameLabels[i]->setText(artistNameLabels[i]->getText().toUpperCase(), sendNotification);
-                             }
-                             
-                             else if(batchControls.getDecapAllWords())
-                             {
-                                 artistNameLabels[i]->setText(artistNameLabels[i]->getText().toLowerCase(), sendNotification);
-                             }
-                             
-                            //Capatalises a certain word set by batch controls
-                             artistNameLabels[i]->setText(artistNameLabels[i]->getText().replace(batchControls.getCapWord(), batchControls.getCapWord().toUpperCase()), sendNotification);
-                             
-                             //Capatalises the start of all words or just one specific one based on the options set by batch controls
-                             if(batchControls.getCapStartOfAllWords() == true)
+                            //Gets the editor for this row and column
+                            TableTextEditorComponent* tempEditor = static_cast<TableTextEditorComponent*>(table.getCellComponent(column, i));
                             
-                             {   artistNameLabels[i]->setText(StringChecker::capatalizeFirstLetters(artistNameLabels[i]->getText()), sendNotification);
-                             }
-                             //Just one word
-                             else if(!batchControls.getCapStartOfWord().isEmpty())
-                             {
-                                 artistNameLabels[i]->setText(artistNameLabels[i]->getText().replace(batchControls.getCapStartOfWord(), StringChecker::capatalizeFirstLetters(batchControls.getCapStartOfWord())), sendNotification);
-                             }
-                         }
-                    }
-                
-                    if(int(batchControls.getButtonsActive() & BatchRenameControls::albumButton) != 0)
-                    {
-                        //Removes characters set by the batch controls from the album names
-                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().replace(batchControls.getCharsToRemove(), ""), sendNotification);
-                        
-                    
-                        //Removes start chars set by batch controls from album names
-                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().substring(batchControls.getNumStartCharsToRemove()), sendNotification);
-                       
-                        //Removes end chars set by batch controls from album names
-                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().dropLastCharacters(batchControls.getNumEndCharsToRemove()), sendNotification);
-                        
-                        //Adds start chars set by batch controls from album names
-                        albumNameLabels[i]->setText(albumNameLabels[i]->getText().replaceSection(0, 0, batchControls.getCharsToAddToStart()), sendNotification);
-                        
-                        //Adds chars to set position set by batch controls from album names
-                        if(batchControls.getPositionToAdd() > albumNameLabels[i]->getText().length())
-                        {
-                            albumNameLabels[i]->setText(albumNameLabels[i]->getText() + batchControls.getCharsToAddToPosition(), sendNotification);
-                        }
-                        else
-                        {
-                            albumNameLabels[i]->setText(albumNameLabels[i]->getText().replaceSection(batchControls.getPositionToAdd(), 0, batchControls.getCharsToAddToPosition()), sendNotification);
-                        }
-                        
-                        //Adds end chars set by batch controls from album names
-                        albumNameLabels[i]->setText(albumNameLabels[i]->getText() + batchControls.getCharsToAddToEnd(), sendNotification);
-                        
-                        //Replaces char with another char both set by batch controls for album names
-                    albumNameLabels[i]->setText(albumNameLabels[i]->getText().replace(batchControls.getCharToReplace(), batchControls.getCharToReplaceWith()), sendNotification);
-                        
-                        //Checks if the default capatalisation settings in batch control is set. If not it'll check the state of the other batch control settings
-                         if(batchControls.getDefaultCapSettings())
-                         {
-                             //Brings all text to lower case
-                             albumNameLabels[i]->setText(albumNameLabels[i]->getText().toLowerCase(), dontSendNotification);
-                        
-                             //Capatalises all first letters of the text
-                             albumNameLabels[i]->setText(StringChecker::capatalizeFirstLetters(albumNameLabels[i]->getText()), dontSendNotification);
-                        
-                             //Removes capitals from all the correct words
-                         albumNameLabels[i]->setText(StringChecker::decapatalizeWords(albumNameLabels[i]->getText()), sendNotification);
-                         }
-                         else
-                         {
-                             //Capatalises or decapatalises all words based on what is toggled in batch controls
-                             if(batchControls.getCapAllWords())
-                             {
-                                 albumNameLabels[i]->setText(albumNameLabels[i]->getText().toUpperCase(), sendNotification);
-                             }
-                             
-                             else if(batchControls.getDecapAllWords())
-                             {
-                                 albumNameLabels[i]->setText(albumNameLabels[i]->getText().toLowerCase(), sendNotification);
-                             }
-                             
-                            //Capatalises a certain word set by batch controls
-                             albumNameLabels[i]->setText(albumNameLabels[i]->getText().replace(batchControls.getCapWord(), batchControls.getCapWord().toUpperCase()), sendNotification);
-                             
-                             //Capatalises the start of all words or just one specific one based on the options set by batch controls
-                             if(batchControls.getCapStartOfAllWords() == true)
+                            //Gets the text from the editor that is currently being changed
+                            String textToReplace = tempEditor->getText();
                             
-                             {   albumNameLabels[i]->setText(StringChecker::capatalizeFirstLetters(albumNameLabels[i]->getText()), sendNotification);
-                             }
-                             //Just one word
-                             else if(!batchControls.getCapStartOfWord().isEmpty())
+                            if(batchControls.getCharsToRemove().isNotEmpty())
                              {
-                                 albumNameLabels[i]->setText(albumNameLabels[i]->getText().replace(batchControls.getCapStartOfWord(), StringChecker::capatalizeFirstLetters(batchControls.getCapStartOfWord())), sendNotification);
+                                 //Removes characters set by the batch controls
+                                 textToReplace = textToReplace.replace(batchControls.getCharsToRemove(), "");
                              }
-                         }
+                             
+                             if(batchControls.getNumStartCharsToRemove() != 0)
+                             {
+                                 //Removes start chars set by batch controls from titles
+                                 textToReplace = textToReplace.substring(batchControls.getNumStartCharsToRemove());
+                             }
+                            
+                             if(batchControls.getNumEndCharsToRemove() != 0)
+                             {
+                                 //Removes end chars set by batch controls from titles
+                                 textToReplace = textToReplace.dropLastCharacters(batchControls.getNumEndCharsToRemove());
+                             }
+                                 
+                             if(batchControls.getCharsToAddToStart().isNotEmpty())
+                             {
+                                 //Adds start chars set by batch controls from titles
+                                 textToReplace = textToReplace.replaceSection(0, 0, batchControls.getCharsToAddToStart());
+                             }
+                             
+                             if(batchControls.getCharsToAddToPosition().isNotEmpty())
+                             {
+                                 //Adds chars to set position set by batch controls from titles
+                                 if(batchControls.getPositionToAdd() > tempEditor->getText().length())
+                                 {
+                                     textToReplace = textToReplace + batchControls.getCharsToAddToPosition();
+                                 }
+                                 else
+                                 {
+                                     textToReplace = textToReplace.replaceSection(batchControls.getPositionToAdd(), 0, batchControls.getCharsToAddToPosition());
+                                 }
+                             }
+                             
+                             if(batchControls.getCharsToAddToEnd().isNotEmpty())
+                             {
+                                 //Adds end chars set by batch controls from titles
+                                 textToReplace = textToReplace + batchControls.getCharsToAddToEnd();
+                             }
+                             
+                             if(batchControls.getCharToReplace().isNotEmpty())
+                             {
+                                 //Replaces char with another char both set by batch controls for titles
+                                 textToReplace = textToReplace.replace(batchControls.getCharToReplace(), batchControls.getCharToReplaceWith());
+                             }
+                             
+                             //Checks if the default capatalisation settings in batch control is set. If not it'll check the state of the other batch control settings
+                             if(batchControls.getDefaultCapSettings())
+                             {
+                                 //Brings all text to lower case
+                                 textToReplace = textToReplace.toLowerCase();
+                            
+                                 //Capatalises all first letters of the text
+                                 textToReplace = StringChecker::capatalizeFirstLetters(textToReplace);
+                            
+                                 //Removes capitals from all the correct words
+                                 textToReplace = StringChecker::decapatalizeWords(textToReplace);
+                             }
+                             else
+                             {
+                                 //Capatalises or decapatalises all words based on what is toggled in batch controls
+                                 if(batchControls.getCapAllWords())
+                                 {
+                                     textToReplace = textToReplace.toUpperCase();
+                                 }
+                                 
+                                 else if(batchControls.getDecapAllWords())
+                                 {
+                                     textToReplace = textToReplace.toLowerCase();
+                                 }
+                                 
+                                 if(batchControls.getCapWord().isNotEmpty())
+                                 {
+                                     //Capatalises a certain word set by batch controls
+                                     textToReplace = textToReplace.replace(batchControls.getCapWord(), batchControls.getCapWord().toUpperCase());
+                                 }
+                                 
+                                 //Capatalises the start of all words or just one specific one based on the options set by batch controls
+                                 if(batchControls.getCapStartOfAllWords() == true)
+                                 {
+                                     textToReplace = StringChecker::capatalizeFirstLetters(textToReplace);
+                                 }
+                                 //Just one word
+                                 else if(batchControls.getCapStartOfWord().isNotEmpty())
+                                 {
+                                     textToReplace = textToReplace.replace(batchControls.getCapStartOfWord(), StringChecker::capatalizeFirstLetters(batchControls.getCapStartOfWord()));
+                                 }
+                                 
+                                 changeMetadataForCellComponent(column, i, textToReplace);
+                             }
+                        }
                     }
                 }
             }
-            
-            table.updateContent();
         }
-    }*/
+        table.updateContent();
     }
 }
 
-void drawTextEditorOutline(Graphics& g, int width, int height, TextEditor& editor)
+void AudioFileTable::changeMetadataForCellComponent(int cellColumn, int row, String newData)
 {
-    g.drawRoundedRectangle(0, 0, width, height, 2.0f, 2.0f);
+    switch (cellColumn)
+    {
+        case 1:
+            metadataReaders[row]->setTrackNum(newData.getIntValue());
+            break;
+            
+        case 2:
+            metadataReaders[row]->setTrackTitle(newData);
+            break;
+            
+        case 3:
+            metadataReaders[row]->setArtistName(newData);
+            break;
+            
+        case 4:
+            metadataReaders[row]->setAlbumName(newData);
+            break;
+            
+        case 5:
+            metadataReaders[row]->setYear(newData.getIntValue());
+            break;
+    }
 }

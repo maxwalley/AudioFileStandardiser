@@ -69,10 +69,10 @@ private:
     void buttonClicked(Button* button) override;
     
     void textEditorTextChanged (TextEditor& editor) override;
-    
-    void saveTableToTags();
-    
+
     void actionListenerCallback(const String& message) override;
+    
+    void changeMetadataForCellComponent(int cellColumn, int row, String newData);
     
     TableListBox table;
     
@@ -82,17 +82,13 @@ private:
     FormatMetadataManager metadataManager;
     OwnedArray<FormatMetadataReader> metadataReaders;
     
-    /*TextButton correctDataButton;
-    TextButton saveButton;
-    TextButton changeLocationButton;*/
-    
     TextEditorOutlineDrawer drawer;
     
     //bool fileNamesToChangeWithTitle;
     
-    /*Viewport batchControlViewport;
+    Viewport batchControlViewport;
     BatchRenameControls batchControls;
-    bool showBatchControls;*/
+    bool showBatchControls;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileTable)
 };
