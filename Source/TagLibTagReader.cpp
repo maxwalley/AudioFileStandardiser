@@ -13,6 +13,8 @@
 TagLibTagReader::TagLibTagReader(File& input)   :   FormatMetadataReader(input), metadataFile(fileToRead.getFullPathName().toUTF8(), false)
 {
     metadata = metadataFile.tag();
+    metadata->setGenre("");
+    metadata->setComment("");
 }
 
 TagLibTagReader::~TagLibTagReader()

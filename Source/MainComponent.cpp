@@ -36,11 +36,11 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    if(fileLoaded == false)
+    if(!fileTable.getIfFileLoaded())
     {
         openSourceButton.setBounds(100, 60, 100, 30);
     }
-    else if(fileLoaded == true)
+    else
     {
         if(batchControlsShown == false)
         {
@@ -90,7 +90,7 @@ PopupMenu MainComponent::getMenuForIndex(int topLevelMenuIndex, const String &me
     
     else if(topLevelMenuIndex == 2)
     {
-        menu.addItem(1, "Change files", true, false);
+        menu.addItem(1, "Select New Source", true, false);
     }
     
     return menu;

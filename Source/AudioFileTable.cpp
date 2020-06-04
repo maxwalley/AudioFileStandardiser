@@ -42,7 +42,7 @@ void TextEditorOutlineDrawer::drawTextEditorOutline(Graphics& g, int width, int 
 }
 
 //==============================================================================
-AudioFileTable::AudioFileTable() //: correctDataButton("Correct Data"), saveButton("Save Data"), changeLocationButton("Change File Locations"), fileNamesToChangeWithTitle(true), showBatchControls(false)
+AudioFileTable::AudioFileTable()    :   showBatchControls(false), fileLoaded(false)
 {
     addAndMakeVisible(table);
     
@@ -56,25 +56,25 @@ AudioFileTable::AudioFileTable() //: correctDataButton("Correct Data"), saveButt
     table.getHeader().addColumn("Year", 5, 50, 50, 50, 1);
     table.getHeader().addColumn("File Type", 6, 50, 50, 50, 1);
     table.getHeader().addColumn("Selected", 7, 50, 50, 50, 1);
-    
-    table.setName("Table");
-    
+
     addAndMakeVisible(batchControlViewport);
     batchControlViewport.setVisible(false);
     batchControlViewport.setViewedComponent(&batchControls);
-    showBatchControls = false;
     
     batchControls.addActionListener(this);
 }
 
 AudioFileTable::~AudioFileTable()
 {
-    //Clears the look and feels to prevent an error
-    for(int i = 1; i < table.getHeader().getNumColumns(false); i++)
+    if(getIfFileLoaded())
     {
-        for(int j = 0; j < juceFiles.size()+1; j++)
+        //Clears the look and feels to prevent an error
+        for(int i = 1; i < table.getHeader().getNumColumns(false); i++)
         {
-            table.getCellComponent(i, j)->setLookAndFeel(nullptr);
+            for(int j = 0; j < juceFiles.size()+1; j++)
+            {
+                table.getCellComponent(i, j)->setLookAndFeel(nullptr);
+            }
         }
     }
 }
@@ -106,16 +106,17 @@ bool AudioFileTable::setFiles()
 {
     FileChooser chooser("Pick a folder", File(), "*.zip", true, false, nullptr);
     
-    //Array<File> lastArrayUsed;
+    Array<File> lastArrayUsed;
     
-    //bool filesAreCurrentlyLoaded = false;
+    bool filesAreCurrentlyLoaded = false;
     
-    /*if(juceFiles.size() != 0)
+    if(juceFiles.size() != 0)
     {
         juceFiles.swapWith(lastArrayUsed);
         juceFiles.clear();
+        metadataReaders.clear();
         filesAreCurrentlyLoaded = true;
-    }*/
+    }
     
     //Looks and opens the file
     chooser.browseForMultipleFilesOrDirectories();
@@ -144,12 +145,12 @@ bool AudioFileTable::setFiles()
             {
                 AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
                 
-                /*if(!filesAreCurrentlyLoaded)
+                if(!filesAreCurrentlyLoaded)
                 {
                     return false;
                 }
                 juceFiles.swapWith(lastArrayUsed);
-                lastArrayUsed.clear();*/
+                lastArrayUsed.clear();
             }
         }
         
@@ -163,31 +164,29 @@ bool AudioFileTable::setFiles()
             else
             {
                 AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
-                /*if(!filesAreCurrentlyLoaded)
+                
+                if(!filesAreCurrentlyLoaded)
                 {
                     return false;
                 }
                 juceFiles.swapWith(lastArrayUsed);
-                lastArrayUsed.clear();*/
+                lastArrayUsed.clear();
             }
         }
     }
     
     for(int i = 0; i < juceFiles.size() + 1; i++)
     {
-        //bool entryIsInvalid = false;
-        
         if(i < juceFiles.size())
         {
             std::unique_ptr<FormatMetadataReader> currentReader = metadataManager.createMetadataReader(juceFiles.getReference(i));
                 
             //If it = null pointer
-            /*if(!currentReader)
+            if(!currentReader)
             {
                 AlertWindow::showMessageBox(AlertWindow::WarningIcon, "File Error", "The file: " + juceFiles[i].getFileName() + " does not use supported metadata and will not be included");
                 
                 juceFiles.remove(i);
-                entryIsInvalid = true;
                 
                 i--;
                 
@@ -195,25 +194,29 @@ bool AudioFileTable::setFiles()
                 {
                     AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error - All files are incompatible", "None of the files in the selected folder have compatable metadata objects");
                     
+                    juceFiles.clear();
+                    
                     if(!filesAreCurrentlyLoaded)
                     {
                         return false;
                     }
+                    //Resets i - Even though this will iterate through the loop again no errors should occur since any files with incompatible metadata types will have already been removed
                     i=-1;
                     juceFiles.swapWith(lastArrayUsed);
+                    lastArrayUsed.clear();
                 }
             }
             else
-            {*/
+            {
                 metadataReaders.add(currentReader.release());
-                //entryIsInvalid = false;
-            //}
+            }
         }
     }
     
     batchControls.setDataSet(true);
     metadataReaders.sort(arraySorter);
     
+    fileLoaded = true;
     
     //table.updateContent();
     
@@ -239,6 +242,11 @@ void AudioFileTable::setBatchControlsVisible(bool visible)
 void AudioFileTable::addBatchControlsActionListener(ActionListener* listener)
 {
     batchControls.addActionListener(listener);
+}
+
+bool AudioFileTable::getIfFileLoaded()
+{
+    return fileLoaded;
 }
 
 int AudioFileTable::getNumRows()

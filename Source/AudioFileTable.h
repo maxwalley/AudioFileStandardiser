@@ -58,6 +58,8 @@ public:
     
     void changeFiles();
     
+    bool getIfFileLoaded();
+    
 private:
     
     
@@ -89,6 +91,8 @@ private:
     Viewport batchControlViewport;
     BatchRenameControls batchControls;
     bool showBatchControls;
+    
+    bool fileLoaded;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileTable)
 };
