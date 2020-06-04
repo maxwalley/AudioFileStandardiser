@@ -75,6 +75,9 @@ private:
     
     void buttonClicked(Button* button) override;
     
+    void mouseDown(const MouseEvent& event) override;
+
+    
     bool dataSet;
     
     ToggleButton titleToggle;
@@ -135,6 +138,8 @@ private:
     
     
     TextButton applyButton;
+    
+    TextButton resetButton;
     
     TextButton closeButton;
     

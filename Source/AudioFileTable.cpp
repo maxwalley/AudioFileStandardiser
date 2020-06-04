@@ -97,7 +97,7 @@ void AudioFileTable::resized()
         table.setBounds(0, 0, getWidth() - 200, getTableHeight());
         batchControlViewport.setBounds(650, 0, 200, getHeight());
         batchControlViewport.setVisible(true);
-        batchControls.setSize(190, 860);
+        batchControls.setSize(190, 900);
         batchControls.setVisible(true);
     }
 }
@@ -119,7 +119,10 @@ bool AudioFileTable::setFiles()
     }
     
     //Looks and opens the file
-    chooser.browseForMultipleFilesOrDirectories();
+    if(!chooser.browseForMultipleFilesOrDirectories())
+    {
+        return false;
+    }
     
     if(chooser.getResult().exists() == true)
     {
@@ -629,9 +632,8 @@ void AudioFileTable::actionListenerCallback(const String& message)
                                  {
                                      textToReplace = textToReplace.replace(batchControls.getCapStartOfWord(), StringChecker::capatalizeFirstLetters(batchControls.getCapStartOfWord()));
                                  }
-                                 
-                                 changeMetadataForCellComponent(column, i, textToReplace);
                              }
+                            changeMetadataForCellComponent(column, i, textToReplace);
                         }
                     }
                 }

@@ -51,7 +51,7 @@ String StringChecker::removeSymbols(String inputString)
 
 String StringChecker::capatalizeFirstLetters(String inputString)
 {
-    /*for(int i = 0; i < inputString.length(); i++)
+    for(int i = 0; i < inputString.length(); i++)
     {
         if(i == 0)
         {
@@ -70,7 +70,7 @@ String StringChecker::capatalizeFirstLetters(String inputString)
                 inputString = inputString.replaceSection(i, 1, newChar);
             }
         }
-    }*/
+    }
     
     return inputString;
 }

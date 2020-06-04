@@ -12,7 +12,7 @@
 #include "BatchRenameControls.h"
 
 //==============================================================================
-BatchRenameControls::BatchRenameControls() : dataSet(false), applyButton("Apply"), closeButton("Close")
+BatchRenameControls::BatchRenameControls() : dataSet(false), applyButton("Apply"), resetButton("Reset"), closeButton("Close")
 {
     addAndMakeVisible(titleToggle);
     addAndMakeVisible(artistToggle);
@@ -72,30 +72,36 @@ BatchRenameControls::BatchRenameControls() : dataSet(false), applyButton("Apply"
     defaultCapSettingsLabel.setText("Default Settings", dontSendNotification);
     
     addAndMakeVisible(capAllWordsToggle);
-    capAllWordsToggle.setRadioGroupId(1);
+    capAllWordsToggle.addListener(this);
     addAndMakeVisible(capAllWordsLabel);
     capAllWordsLabel.setText("Everything", dontSendNotification);
     
     addAndMakeVisible(decapAllWordsToggle);
-    decapAllWordsToggle.setRadioGroupId(1);
+    decapAllWordsToggle.addListener(this);
     addAndMakeVisible(decapAllWordsLabel);
     decapAllWordsLabel.setText("Decapatalise Everything", dontSendNotification);
     
     addAndMakeVisible(capWordEditor);
+    capWordEditor.addMouseListener(this, false);
     addAndMakeVisible(capWordLabel);
     capWordLabel.setText("Word", dontSendNotification);
     
     addAndMakeVisible(capStartOfAllWordsToggle);
+    capStartOfAllWordsToggle.addListener(this);
     addAndMakeVisible(capStartOfAllWordsLabel);
     capStartOfAllWordsLabel.setText("Start of All Words", dontSendNotification);
     
     addAndMakeVisible(capStartOfWordEditor);
+    capStartOfWordEditor.addMouseListener(this, false);
     addAndMakeVisible(capStartOfWordLabel);
     capStartOfWordLabel.setText("Start of Word", dontSendNotification);
     
     
     addAndMakeVisible(applyButton);
     applyButton.addListener(this);
+    
+    addAndMakeVisible(resetButton);
+    resetButton.addListener(this);
     
     addAndMakeVisible(closeButton);
     closeButton.addListener(this);
@@ -222,7 +228,9 @@ void BatchRenameControls::resized()
         
         applyButton.setBounds(6, 770, 178, 30);
         
-        closeButton.setBounds(6, 810, 178, 30);
+        resetButton.setBounds(6, 810, 178, 30);
+        
+        closeButton.setBounds(6, 850, 178, 30);
     }
 }
 
@@ -265,6 +273,34 @@ void BatchRenameControls::buttonClicked(Button* button)
         sendActionMessage("Apply Button Clicked");
     }
     
+    else if(button == &resetButton)
+    {
+        titleToggle.setToggleState(false, dontSendNotification);
+        artistToggle.setToggleState(false, dontSendNotification);
+        albumToggle.setToggleState(false, dontSendNotification);
+        
+        removeCharsEditor.clear();
+        removeStartCharsEditor.clear();
+        removeEndCharsEditor.clear();
+        
+        addCharsToStartEditor.clear();
+        addCharsToEndEditor.clear();
+        addCharsToPositionEditor.clear();
+        positionToAddToEditor.clear();
+        
+        replaceCharEditor.clear();
+        replaceCharWithEditor.clear();
+        
+        defaultCapSettingsToggle.setToggleState(false, dontSendNotification);
+        capAllWordsToggle.setToggleState(false, dontSendNotification);
+        decapAllWordsToggle.setToggleState(false, dontSendNotification);
+        capWordEditor.clear();
+        capStartOfAllWordsToggle.setToggleState(false, dontSendNotification);
+        capStartOfWordEditor.clear();
+        
+        repaint();
+    }
+    
     else if(button == &closeButton)
     {
         sendActionMessage("Close Button Clicked");
@@ -273,15 +309,56 @@ void BatchRenameControls::buttonClicked(Button* button)
     else if(button == &defaultCapSettingsToggle)
     {
         capAllWordsToggle.setToggleState(false, dontSendNotification);
-        capAllWordsToggle.setEnabled(!defaultCapSettingsToggle.getToggleState());
         decapAllWordsToggle.setToggleState(false, dontSendNotification);
-        decapAllWordsToggle.setEnabled(!defaultCapSettingsToggle.getToggleState());
         capWordEditor.clear();
-        capWordEditor.setEnabled(!defaultCapSettingsToggle.getToggleState());
         capStartOfAllWordsToggle.setToggleState(false, dontSendNotification);
-        capStartOfAllWordsToggle.setEnabled(!defaultCapSettingsToggle.getToggleState());
         capStartOfWordEditor.clear();
-        capStartOfWordEditor.setEnabled(!defaultCapSettingsToggle.getToggleState());
+        repaint();
+    }
+    
+    else if(button == &capAllWordsToggle)
+    {
+        if(defaultCapSettingsToggle.getToggleState())
+        {
+            defaultCapSettingsToggle.setToggleState(false, dontSendNotification);
+        }
+        
+        else if(capAllWordsToggle.getToggleState())
+        {
+            decapAllWordsToggle.setToggleState(false, dontSendNotification);
+        }
+    }
+    
+    else if(button == &decapAllWordsToggle)
+    {
+        if(defaultCapSettingsToggle.getToggleState())
+        {
+            defaultCapSettingsToggle.setToggleState(false, dontSendNotification);
+        }
+        
+        else if(decapAllWordsToggle.getToggleState())
+        {
+            capAllWordsToggle.setToggleState(false, dontSendNotification);
+        }
+    }
+    
+    else if(button == &capStartOfAllWordsToggle)
+    {
+        if(defaultCapSettingsToggle.getToggleState())
+        {
+            defaultCapSettingsToggle.setToggleState(false, dontSendNotification);
+        }
+    }
+}
+
+void BatchRenameControls::mouseDown(const MouseEvent& event)
+{
+    if(event.originalComponent == &capWordEditor || event.originalComponent ==&capStartOfWordEditor)
+    {
+        if(defaultCapSettingsToggle.getToggleState())
+        {
+            defaultCapSettingsToggle.setToggleState(false, dontSendNotification);
+        }
     }
 }
 

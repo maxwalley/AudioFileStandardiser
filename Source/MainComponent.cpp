@@ -91,6 +91,7 @@ PopupMenu MainComponent::getMenuForIndex(int topLevelMenuIndex, const String &me
     else if(topLevelMenuIndex == 2)
     {
         menu.addItem(1, "Select New Source", true, false);
+        menu.addItem(2, "Move Files to New Location", true, false);
     }
     
     return menu;
