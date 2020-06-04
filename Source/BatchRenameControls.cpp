@@ -303,7 +303,7 @@ void BatchRenameControls::buttonClicked(Button* button)
     
     else if(button == &closeButton)
     {
-        sendActionMessage("Close Button Clicked");
+        sendActionMessage("Batch Controls Close Button Clicked");
     }
     
     else if(button == &defaultCapSettingsToggle)

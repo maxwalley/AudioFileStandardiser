@@ -42,7 +42,7 @@ void TextEditorOutlineDrawer::drawTextEditorOutline(Graphics& g, int width, int 
 }
 
 //==============================================================================
-AudioFileTable::AudioFileTable()    :   showBatchControls(false), fileLoaded(false)
+AudioFileTable::AudioFileTable()    :   showBatchControls(false), fileLoaded(false), fileAndFolderControlsVisible(false)
 {
     addAndMakeVisible(table);
     
@@ -60,8 +60,10 @@ AudioFileTable::AudioFileTable()    :   showBatchControls(false), fileLoaded(fal
     addAndMakeVisible(batchControlViewport);
     batchControlViewport.setVisible(false);
     batchControlViewport.setViewedComponent(&batchControls);
-    
     batchControls.addActionListener(this);
+    
+    addAndMakeVisible(fileAndDirectoryControls);
+    fileAndDirectoryControls.setVisible(false);
 }
 
 AudioFileTable::~AudioFileTable()
@@ -86,19 +88,27 @@ void AudioFileTable::paint (Graphics& g)
 
 void AudioFileTable::resized()
 {
-    if(showBatchControls == false)
-    {
-        table.setBounds(0, 0, getWidth(), getTableHeight());
-        batchControls.setVisible(false);
-        batchControlViewport.setVisible(false);
-    }
-    else
+    if(showBatchControls)
     {
         table.setBounds(0, 0, getWidth() - 200, getTableHeight());
         batchControlViewport.setBounds(650, 0, 200, getHeight());
         batchControlViewport.setVisible(true);
         batchControls.setSize(190, 900);
         batchControls.setVisible(true);
+        fileAndDirectoryControls.setVisible(false);
+    }
+    else if(fileAndFolderControlsVisible)
+    {
+        table.setBounds(0, 0, getWidth() - 200, getTableHeight());
+        fileAndDirectoryControls.setBounds(650, 0, 200, getHeight());
+        fileAndDirectoryControls.setVisible(true);
+        batchControls.setVisible(false);
+    }
+    else
+    {
+        table.setBounds(0, 0, getWidth(), getTableHeight());
+        batchControls.setVisible(false);
+        batchControlViewport.setVisible(false);
     }
 }
 
@@ -217,11 +227,10 @@ bool AudioFileTable::setFiles()
     }
     
     batchControls.setDataSet(true);
+    fileAndDirectoryControls.setDataSet(true);
     metadataReaders.sort(arraySorter);
     
     fileLoaded = true;
-    
-    //table.updateContent();
     
     return true;
 }
@@ -250,6 +259,12 @@ void AudioFileTable::addBatchControlsActionListener(ActionListener* listener)
 bool AudioFileTable::getIfFileLoaded()
 {
     return fileLoaded;
+}
+
+void AudioFileTable::setFileAndDirectoryControlsVisible(bool visible)
+{
+    fileAndFolderControlsVisible = visible;
+    resized();
 }
 
 int AudioFileTable::getNumRows()

@@ -18,6 +18,10 @@
     <FILE id="NJ34hU" name="TagLibTagReader.h" compile="0" resource="0"
           file="Source/TagLibTagReader.h"/>
     <GROUP id="{DAC9FF2B-CDC2-6395-3BB3-4BB855900B73}" name="Source">
+      <FILE id="vMXghL" name="FileAndDirectoryControls.h" compile="0" resource="0"
+            file="Source/FileAndDirectoryControls.h"/>
+      <FILE id="ASPQmG" name="FileAndDirectoryControls.cpp" compile="1" resource="0"
+            file="Source/FileAndDirectoryControls.cpp"/>
       <FILE id="ABkAcZ" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="MLfJwx" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
@@ -59,6 +63,27 @@
         <MODULEPATH id="juce_audio_utils" path="../../C++ Libs and Frameworks/JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
+    <VS2019 targetFolder="Builds/VisualStudio2019">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_opengl"/>
+        <MODULEPATH id="juce_gui_extra"/>
+        <MODULEPATH id="juce_gui_basics"/>
+        <MODULEPATH id="juce_graphics"/>
+        <MODULEPATH id="juce_events"/>
+        <MODULEPATH id="juce_data_structures"/>
+        <MODULEPATH id="juce_cryptography"/>
+        <MODULEPATH id="juce_core"/>
+        <MODULEPATH id="juce_audio_utils"/>
+        <MODULEPATH id="juce_audio_processors"/>
+        <MODULEPATH id="juce_audio_formats"/>
+        <MODULEPATH id="juce_audio_devices"/>
+        <MODULEPATH id="juce_audio_basics"/>
+      </MODULEPATHS>
+    </VS2019>
   </EXPORTFORMATS>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

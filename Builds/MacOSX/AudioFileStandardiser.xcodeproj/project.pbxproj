@@ -73,6 +73,10 @@
 			isa = PBXBuildFile;
 			fileRef = CFE2997CB6863DA3DD1D9DA5;
 		};
+		C951DC66CAD3E338297F3471 = {
+			isa = PBXBuildFile;
+			fileRef = AD1D61E3604CBF49036D93F0;
+		};
 		5A6D8708804A28296CD4BC1E = {
 			isa = PBXBuildFile;
 			fileRef = 14DA85BD881AE336C9273F73;
@@ -460,6 +464,13 @@
 			path = "../../JuceLibraryCode/include_juce_opengl.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		AD1D61E3604CBF49036D93F0 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = FileAndDirectoryControls.cpp;
+			path = ../../Source/FileAndDirectoryControls.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		AE1DB697ED7CCFA44040C2E4 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -494,6 +505,13 @@
 			includeInIndex = 0;
 			path = AudioFileStandardiser.app;
 			sourceTree = "BUILT_PRODUCTS_DIR";
+		};
+		C633339F460A61DEF84F6127 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = FileAndDirectoryControls.h;
+			path = ../../Source/FileAndDirectoryControls.h;
+			sourceTree = "SOURCE_ROOT";
 		};
 		C69C3AE13C04BFB5FE3A3010 = {
 			isa = PBXFileReference;
@@ -568,6 +586,8 @@
 		CF936255A4E9F747E5129F47 = {
 			isa = PBXGroup;
 			children = (
+				C633339F460A61DEF84F6127,
+				AD1D61E3604CBF49036D93F0,
 				91EA670A36DD865C7CACE49A,
 				14DA85BD881AE336C9273F73,
 				BB451F0C709F1A130F7239AA,
@@ -916,6 +936,7 @@
 				351F55B98A73780443A7D80E,
 				1C97165F8316B6BAEC111FB8,
 				06C47506EE37BE8441D2DC5B,
+				C951DC66CAD3E338297F3471,
 				5A6D8708804A28296CD4BC1E,
 				6856CC11B13A7987E119FA68,
 				D0800C7479AC619BEBEAC90E,

@@ -16,6 +16,7 @@
 #include "BatchRenameControls.h"
 #include "FormatMetadataManager.h"
 #include "TableCellComponent.h"
+#include "FileAndDirectoryControls.h"
 
 //==============================================================================
 /*
@@ -37,7 +38,8 @@ class AudioFileTable    :   public Component,
                             public TableListBoxModel,
                             public Button::Listener,
                             public TextEditor::Listener,
-                            public ActionListener
+                            public ActionListener,
+                            public ActionBroadcaster
 {
 public:
     AudioFileTable();
@@ -59,6 +61,8 @@ public:
     void changeFiles();
     
     bool getIfFileLoaded();
+    
+    void setFileAndDirectoryControlsVisible(bool visible);
     
 private:
     
@@ -93,6 +97,10 @@ private:
     bool showBatchControls;
     
     bool fileLoaded;
+    
+    bool fileAndFolderControlsVisible;
+    
+    FileAndDirectoryControls fileAndDirectoryControls;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioFileTable)
 };

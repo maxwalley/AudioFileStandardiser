@@ -9,7 +9,7 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(false), fileNamesToChangeWithTitle(true), batchControlsShown(false)
+MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(false), fileNamesToChangeWithTitle(true), batchControlsShown(false), fileAndFolderControlsShown(false)
 {
     setSize (300, 200);
     
@@ -42,13 +42,13 @@ void MainComponent::resized()
     }
     else
     {
-        if(batchControlsShown == false)
+        if(batchControlsShown || fileAndFolderControlsShown)
         {
-            setSize(650, fileTable.getTableHeight() + 30);
+            setSize(850, fileTable.getTableHeight() + 30);
         }
         else
         {
-            setSize(850, fileTable.getTableHeight() + 30);
+            setSize(650, fileTable.getTableHeight() + 30);
         }
         fileTable.setBounds(0, 0, getWidth(), getHeight());
     }
@@ -86,12 +86,12 @@ PopupMenu MainComponent::getMenuForIndex(int topLevelMenuIndex, const String &me
     else if(topLevelMenuIndex == 1)
     {
         menu.addItem(1, "Show Batch Controls", true, batchControlsShown);
+        menu.addItem(2, "Show File/Directory", true, fileAndFolderControlsShown);
     }
     
     else if(topLevelMenuIndex == 2)
     {
         menu.addItem(1, "Select New Source", true, false);
-        menu.addItem(2, "Move Files to New Location", true, false);
     }
     
     return menu;
@@ -118,9 +118,22 @@ void MainComponent::menuItemSelected(int menuItemID, int topLevelMenuIndex)
         //Show Batch Controls
         if(menuItemID == 1)
         {
+            fileAndFolderControlsShown = false;
+            fileTable.setFileAndDirectoryControlsVisible(fileAndFolderControlsShown);
             batchControlsShown = !batchControlsShown;
-            resized();
             fileTable.setBatchControlsVisible(batchControlsShown);
+            resized();
+            menuItemsChanged();
+        }
+        
+        //Show File/Folder Controls
+        else if(menuItemID == 2)
+        {
+            batchControlsShown = false;
+            fileTable.setBatchControlsVisible(batchControlsShown);
+            fileAndFolderControlsShown = !fileAndFolderControlsShown;
+            fileTable.setFileAndDirectoryControlsVisible(fileAndFolderControlsShown);
+            resized();
             menuItemsChanged();
         }
     }
@@ -141,7 +154,7 @@ void MainComponent::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 
 void MainComponent::actionListenerCallback(const String& message)
 {
-    if(message == "Close Button Clicked")
+    if(message == "Batch Controls Close Button Clicked")
     {
         batchControlsShown = false;
         resized();
