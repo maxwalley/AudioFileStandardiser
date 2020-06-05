@@ -80,6 +80,10 @@ private:
     
     void changeMetadataForCellComponent(int cellColumn, int row, String newData);
     
+    bool isAnyTableButtonOn();
+    
+    void sendDirectoryDataToControls();
+    
     TableListBox table;
     
     Array<File> juceFiles;

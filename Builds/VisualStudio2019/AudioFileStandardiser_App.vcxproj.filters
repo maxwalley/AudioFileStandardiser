@@ -412,6 +412,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\FilePathWildcardInterpretter.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\TableCellComponent.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
@@ -2349,6 +2352,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\FilePathWildcardInterpretter.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\TableCellComponent.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>

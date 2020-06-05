@@ -3,6 +3,10 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               jucerVersion="5.4.5">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
+    <FILE id="vBpyxG" name="FilePathWildcardInterpretter.h" compile="0"
+          resource="0" file="Source/FilePathWildcardInterpretter.h"/>
+    <FILE id="ZgxrJO" name="FilePathWildcardInterpretter.cpp" compile="1"
+          resource="0" file="Source/FilePathWildcardInterpretter.cpp"/>
     <FILE id="E3yrMp" name="TableCellComponent.cpp" compile="1" resource="0"
           file="Source/TableCellComponent.cpp"/>
     <FILE id="B7BRzh" name="TableCellComponent.h" compile="0" resource="0"

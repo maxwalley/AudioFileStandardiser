@@ -13,6 +13,7 @@
 #include "FormatMetadataReader.h"
 #include "TagLibTagReader.h"
 #include "fileref.h"
+#include "FilePathWildcardInterpretter.h"
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -24,8 +25,13 @@ public:
     
     std::unique_ptr<FormatMetadataReader> createMetadataReader(File& file);
     
+    bool moveFileBasedOnWildcardPath(FormatMetadataReader* fileToMove, String newLocationWithWildcards);
+    
+    void testOutput(String inputstr, FormatMetadataReader* input);
+    
 private:
     
     AudioFormatManager formatManager;
+    FilePathWildcardInterpretter wildcardInterpretter;
     
 };

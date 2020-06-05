@@ -34,3 +34,13 @@ std::unique_ptr<FormatMetadataReader> FormatMetadataManager::createMetadataReade
     }
     return nullptr;
 }
+
+bool moveFileBasedOnWildcardPath(FormatMetadataReader* fileToMove, String newLocationWithWildcards)
+{
+    
+}
+
+void FormatMetadataManager::testOutput(String inputstr, FormatMetadataReader* input)
+{
+    DBG(wildcardInterpretter.interpretString(inputstr, input));
+}

@@ -14,7 +14,12 @@
 //==============================================================================
 FileAndDirectoryControls::FileAndDirectoryControls()    :   dataSet(false), changeDirectoryButton("Change")
 {
-    
+    addAndMakeVisible(currentDirectoryLabel);
+    currentDirectoryLabel.setText("Selected Files Directory", dontSendNotification);
+    addAndMakeVisible(currentDirectoryDataLabel);
+    currentDirectoryDataLabel.setEditable(false);
+    currentDirectoryDataLabel.setColour(Label::outlineColourId, Colour(141, 152, 155));
+    currentDirectoryDataLabel.setColour(Label::backgroundColourId, Colour(37, 50, 55));
 }
 
 FileAndDirectoryControls::~FileAndDirectoryControls()
@@ -33,7 +38,11 @@ void FileAndDirectoryControls::paint (Graphics& g)
 
 void FileAndDirectoryControls::resized()
 {
-    
+    if(dataSet)
+    {
+        currentDirectoryLabel.setBounds(0, 40, getWidth(), 20);
+        currentDirectoryDataLabel.setBounds(5, 65, getWidth()-10, 50);
+    }
 }
 
 void FileAndDirectoryControls::setDataSet(bool isDataSet)
@@ -43,7 +52,7 @@ void FileAndDirectoryControls::setDataSet(bool isDataSet)
 
 void FileAndDirectoryControls::setCurrentDirectory(String newDirectory)
 {
-    
+    currentDirectoryDataLabel.setText(newDirectory, dontSendNotification);
 }
 
 String FileAndDirectoryControls::getCurrentDirectory() const

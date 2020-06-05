@@ -134,10 +134,11 @@ bool AudioFileTable::setFiles()
         return false;
     }
     
-    if(chooser.getResult().exists() == true)
+    if(chooser.getResult().exists())
     {
         File file = chooser.getResult();
         
+        //If it is a zip file
         if(file.existsAsFile())
         {
             //Creates a new directory
@@ -222,6 +223,7 @@ bool AudioFileTable::setFiles()
             else
             {
                 metadataReaders.add(currentReader.release());
+                metadataManager.testOutput("$artist/($year)$album/$tracktitle$fileformat", metadataReaders[i]);
             }
         }
     }
@@ -465,6 +467,9 @@ void AudioFileTable::buttonClicked(Button* button)
             //Updates the table to check for comparators
             table.updateContent();
         }
+        
+        sendDirectoryDataToControls();
+        
     }
     
     /*else if(button == &changeLocationButton)
@@ -681,5 +686,61 @@ void AudioFileTable::changeMetadataForCellComponent(int cellColumn, int row, Str
         case 5:
             metadataReaders[row]->setYear(newData.getIntValue());
             break;
+    }
+}
+
+bool AudioFileTable::isAnyTableButtonOn()
+{
+    for(int i = 0; i < juceFiles.size(); i++)
+    {
+        TableToggleButtonComponent* currentButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
+        
+        if(currentButton->getToggleState())
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+void AudioFileTable::sendDirectoryDataToControls()
+{
+    if(juceFiles.size() > 0 && isAnyTableButtonOn())
+    {
+        File parentComparator;
+        bool allTheSame = true;
+        bool comparatorFound = false;
+        
+        for(int i = 0; i < juceFiles.size() && allTheSame; i++)
+        {
+            TableToggleButtonComponent* currentButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
+            
+            if(currentButton->getToggleState())
+            {
+                File currentParent = juceFiles[i].getParentDirectory();
+                
+                if(!comparatorFound)
+                {
+                    parentComparator = currentParent;
+                }
+                else
+                {
+                    if(currentParent != parentComparator)
+                    {
+                        allTheSame = false;
+                    }
+                }
+            }
+        }
+        
+        if(allTheSame)
+        {
+            fileAndDirectoryControls.setCurrentDirectory(parentComparator.getFullPathName());
+        }
+        else
+        {
+            fileAndDirectoryControls.setCurrentDirectory("...");
+        }
+        
     }
 }

@@ -33,7 +33,7 @@ private:
     
     bool dataSet;
     
-    TextEditor currentDirectoryEditor;
+    Label currentDirectoryDataLabel;
     Label currentDirectoryLabel;
     
     TextButton changeDirectoryButton;

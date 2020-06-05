@@ -61,6 +61,10 @@
 			isa = PBXBuildFile;
 			fileRef = 5A15C4E4BFD977D25E18ACFE;
 		};
+		765D65CB3DEBEDC105CA3765 = {
+			isa = PBXBuildFile;
+			fileRef = F9DFF163A9701A61130E8238;
+		};
 		351F55B98A73780443A7D80E = {
 			isa = PBXBuildFile;
 			fileRef = 514A4CB9E7D85D5F43ADD845;
@@ -569,6 +573,13 @@
 			path = "/Users/maxwalley/Documents/C++ Libs and Frameworks/JUCE/modules/juce_audio_devices";
 			sourceTree = "<absolute>";
 		};
+		EE6DC76DFF16FD41497F8B2F = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = FilePathWildcardInterpretter.h;
+			path = ../../Source/FilePathWildcardInterpretter.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		F42CF978D57C78DA690B542A = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
@@ -582,6 +593,13 @@
 			name = CoreMIDI.framework;
 			path = System/Library/Frameworks/CoreMIDI.framework;
 			sourceTree = SDKROOT;
+		};
+		F9DFF163A9701A61130E8238 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = FilePathWildcardInterpretter.cpp;
+			path = ../../Source/FilePathWildcardInterpretter.cpp;
+			sourceTree = "SOURCE_ROOT";
 		};
 		CF936255A4E9F747E5129F47 = {
 			isa = PBXGroup;
@@ -602,6 +620,8 @@
 		329608004BEDC20C07FBE1D7 = {
 			isa = PBXGroup;
 			children = (
+				EE6DC76DFF16FD41497F8B2F,
+				F9DFF163A9701A61130E8238,
 				514A4CB9E7D85D5F43ADD845,
 				39E413055F6637354984B594,
 				2EBD25346B5B43E19CE28A31,
@@ -933,6 +953,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				765D65CB3DEBEDC105CA3765,
 				351F55B98A73780443A7D80E,
 				1C97165F8316B6BAEC111FB8,
 				06C47506EE37BE8441D2DC5B,
