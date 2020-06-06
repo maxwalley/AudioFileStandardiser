@@ -57,9 +57,8 @@ AudioFileTable::AudioFileTable()    :   showBatchControls(false), fileLoaded(fal
     table.getHeader().addColumn("File Type", 6, 50, 50, 50, 1);
     table.getHeader().addColumn("Selected", 7, 50, 50, 50, 1);
 
-    addAndMakeVisible(batchControlViewport);
-    batchControlViewport.setVisible(false);
-    batchControlViewport.setViewedComponent(&batchControls);
+    addAndMakeVisible(extraInfoViewport);
+    extraInfoViewport.setVisible(false);
     batchControls.addActionListener(this);
     
     addAndMakeVisible(fileAndDirectoryControls);
@@ -88,27 +87,32 @@ void AudioFileTable::paint (Graphics& g)
 
 void AudioFileTable::resized()
 {
-    if(showBatchControls)
+    if(showBatchControls || fileAndFolderControlsVisible)
     {
         table.setBounds(0, 0, getWidth() - 200, getTableHeight());
-        batchControlViewport.setBounds(650, 0, 200, getHeight());
-        batchControlViewport.setVisible(true);
-        batchControls.setSize(190, 900);
-        batchControls.setVisible(true);
-        fileAndDirectoryControls.setVisible(false);
-    }
-    else if(fileAndFolderControlsVisible)
-    {
-        table.setBounds(0, 0, getWidth() - 200, getTableHeight());
-        fileAndDirectoryControls.setBounds(650, 0, 200, getHeight());
-        fileAndDirectoryControls.setVisible(true);
-        batchControls.setVisible(false);
+        extraInfoViewport.setBounds(650, 0, 200, getHeight());
+        extraInfoViewport.setVisible(true);
+        
+        if(showBatchControls)
+        {
+            extraInfoViewport.setViewedComponent(&batchControls, false);
+            batchControls.setSize(190, 900);
+            batchControls.setVisible(true);
+            fileAndDirectoryControls.setVisible(false);
+        }
+        else if(fileAndFolderControlsVisible)
+        {
+            extraInfoViewport.setViewedComponent(&fileAndDirectoryControls, false);
+            fileAndDirectoryControls.setSize(190, 290);
+            fileAndDirectoryControls.setVisible(true);
+            batchControls.setVisible(false);
+        }
     }
     else
     {
         table.setBounds(0, 0, getWidth(), getTableHeight());
         batchControls.setVisible(false);
-        batchControlViewport.setVisible(false);
+        extraInfoViewport.setVisible(false);
     }
 }
 
@@ -326,7 +330,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
             componentToAdd->setColour(TextEditor::backgroundColourId, Colours::lightgrey);
         }
         
-        if(columnId == 1 || columnId == 5)
+        if((columnId == 1 || columnId == 5) && columnId != 6)
         {
             componentToAdd->setJustification(Justification::centred);
             componentToAdd->setInputRestrictions(0, "0123456789");

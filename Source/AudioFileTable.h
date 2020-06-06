@@ -96,7 +96,7 @@ private:
     
     //bool fileNamesToChangeWithTitle;
     
-    Viewport batchControlViewport;
+    Viewport extraInfoViewport;
     BatchRenameControls batchControls;
     bool showBatchControls;
     

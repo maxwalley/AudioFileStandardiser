@@ -44,5 +44,7 @@ private:
     TextEditor folderHierachyEditor;
     Label folderHierachyLabel;
     
+    TextButton moveButton;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FileAndDirectoryControls)
 };
