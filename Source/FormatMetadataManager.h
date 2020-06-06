@@ -27,11 +27,15 @@ public:
     
     bool moveFileBasedOnWildcardPath(FormatMetadataReader* fileToMove, String newLocationWithWildcards);
     
-    void testOutput(String inputstr, FormatMetadataReader* input);
-    
 private:
     
     AudioFormatManager formatManager;
     FilePathWildcardInterpretter wildcardInterpretter;
-    
 };
+
+//TO DO
+//Abstract this out to metadataManager
+//Rename this to audioMetadataManager
+
+//rename FormatMetadataReader to audioMetadataReader
+//Follows library pattern found at: https://sourcemaking.com/design_patterns/factory_method/cpp/2

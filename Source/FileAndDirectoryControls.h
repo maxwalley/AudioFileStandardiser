@@ -15,7 +15,8 @@
 //==============================================================================
 /*
 */
-class FileAndDirectoryControls    : public Component
+class FileAndDirectoryControls    : public Component,
+                                    public Button::Listener
 {
 public:
     FileAndDirectoryControls();
@@ -27,16 +28,21 @@ public:
     void setDataSet(bool isDataSet);
     
     void setCurrentDirectory(String newDirectory);
-    String getCurrentDirectory() const;
+    String getCurrentDirectoryDisplayed() const;
 
 private:
     
+    void buttonClicked(Button* button) override;
+    
     bool dataSet;
     
-    Label currentDirectoryDataLabel;
     Label currentDirectoryLabel;
+    TextEditor currentDirectoryEditor;
     
     TextButton changeDirectoryButton;
+    
+    TextEditor folderHierachyEditor;
+    Label folderHierachyLabel;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FileAndDirectoryControls)
 };

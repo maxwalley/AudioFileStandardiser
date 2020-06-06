@@ -68,7 +68,17 @@ void MainComponent::buttonClicked(Button* button)
 
 StringArray MainComponent::getMenuBarNames()
 {
-    StringArray menuNames("Settings", "View", "Files");
+    StringArray menuNames;
+    
+    menuNames.ensureStorageAllocated(3);
+    
+    menuNames.insert(0, "Settings");
+    menuNames.insert(2, "Files");
+    
+    if(fileTable.getIfFileLoaded())
+    {
+        menuNames.insert(1, "View");
+    }
     return menuNames;
 }
 
@@ -86,7 +96,7 @@ PopupMenu MainComponent::getMenuForIndex(int topLevelMenuIndex, const String &me
     else if(topLevelMenuIndex == 1)
     {
         menu.addItem(1, "Show Batch Controls", true, batchControlsShown);
-        menu.addItem(2, "Show File/Directory", true, fileAndFolderControlsShown);
+        menu.addItem(2, "Show File/Directory Controls", true, fileAndFolderControlsShown);
     }
     
     else if(topLevelMenuIndex == 2)

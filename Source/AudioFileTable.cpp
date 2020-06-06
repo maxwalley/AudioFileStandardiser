@@ -223,7 +223,6 @@ bool AudioFileTable::setFiles()
             else
             {
                 metadataReaders.add(currentReader.release());
-                metadataManager.testOutput("$artist/($year)$album/$tracktitle$fileformat", metadataReaders[i]);
             }
         }
     }
@@ -327,9 +326,10 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
             componentToAdd->setColour(TextEditor::backgroundColourId, Colours::lightgrey);
         }
         
-        if(columnId == 1 || columnId == 5 || columnId == 6)
+        if(columnId == 1 || columnId == 5)
         {
             componentToAdd->setJustification(Justification::centred);
+            componentToAdd->setInputRestrictions(0, "0123456789");
         }
         else
         {
@@ -338,6 +338,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
         
         if(columnId == 6)
         {
+            componentToAdd->setJustification(Justification::centred);
             componentToAdd->setEnabled(false);
         }
         

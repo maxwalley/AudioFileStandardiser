@@ -12,14 +12,13 @@
 #include "FileAndDirectoryControls.h"
 
 //==============================================================================
-FileAndDirectoryControls::FileAndDirectoryControls()    :   dataSet(false), changeDirectoryButton("Change")
+FileAndDirectoryControls::FileAndDirectoryControls()    :   dataSet(false), changeDirectoryButton("Select New Directory")
 {
     addAndMakeVisible(currentDirectoryLabel);
     currentDirectoryLabel.setText("Selected Files Directory", dontSendNotification);
-    addAndMakeVisible(currentDirectoryDataLabel);
-    currentDirectoryDataLabel.setEditable(false);
-    currentDirectoryDataLabel.setColour(Label::outlineColourId, Colour(141, 152, 155));
-    currentDirectoryDataLabel.setColour(Label::backgroundColourId, Colour(37, 50, 55));
+    addAndMakeVisible(currentDirectoryEditor);
+    
+    addAndMakeVisible(changeDirectoryButton);
 }
 
 FileAndDirectoryControls::~FileAndDirectoryControls()
@@ -41,7 +40,9 @@ void FileAndDirectoryControls::resized()
     if(dataSet)
     {
         currentDirectoryLabel.setBounds(0, 40, getWidth(), 20);
-        currentDirectoryDataLabel.setBounds(5, 65, getWidth()-10, 50);
+        currentDirectoryEditor.setBounds(5, 65, getWidth()-10, 50);
+        
+        changeDirectoryButton.setBounds(135, 120, 60, 20);
     }
 }
 
@@ -52,10 +53,22 @@ void FileAndDirectoryControls::setDataSet(bool isDataSet)
 
 void FileAndDirectoryControls::setCurrentDirectory(String newDirectory)
 {
-    currentDirectoryDataLabel.setText(newDirectory, dontSendNotification);
+    currentDirectoryEditor.setText(newDirectory, dontSendNotification);
 }
 
-String FileAndDirectoryControls::getCurrentDirectory() const
+String FileAndDirectoryControls::getCurrentDirectoryDisplayed() const
 {
+    return currentDirectoryEditor.getText();
+}
+
+void FileAndDirectoryControls::buttonClicked(Button* button)
+{
+    FileChooser chooser("Select New Directory");
     
+    if(chooser.browseForDirectory())
+    {
+        File newDirectory = chooser.getResult();
+        
+        currentDirectoryEditor.setText(newDirectory.getFullPathName(), sendNotification);
+    }
 }
