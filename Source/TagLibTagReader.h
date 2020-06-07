@@ -10,10 +10,10 @@
 
 #pragma once
 
-#include "FormatMetadataReader.h"
+#include "AudioMetadataReader.h"
 #include "fileref.h"
 
-class TagLibTagReader : public FormatMetadataReader
+class TagLibTagReader : public AudioMetadataReader
 {
 public:
     TagLibTagReader(File& input);

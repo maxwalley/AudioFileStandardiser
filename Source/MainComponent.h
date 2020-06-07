@@ -10,7 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "AudioFileTable.h"
-#include "FormatMetadataManager.h"
+#include "AudioMetadataManager.h"
 #include "StringChecker.h"
 //==============================================================================
 

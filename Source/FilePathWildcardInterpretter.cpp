@@ -30,7 +30,7 @@ StringArray FilePathWildcardInterpretter::getCompatibleWildcards() const
     return compatibleWildcards;
 }
 
-String FilePathWildcardInterpretter::interpretString(String input, FormatMetadataReader* file)
+String FilePathWildcardInterpretter::interpretString(String input, AudioMetadataReader* file)
 {
     String stringToReturn = input;
     

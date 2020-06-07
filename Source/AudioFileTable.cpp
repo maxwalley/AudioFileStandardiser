@@ -14,7 +14,7 @@
 
 #define SUPPORTEDTYPES "*.mp3;*.flac;*.wav;*.wave;*.aac;*.wma;*.aif;*.m4a"
 
-int MetadataReaderSorter::compareElements(FormatMetadataReader* first, FormatMetadataReader* second)
+int MetadataReaderSorter::compareElements(AudioMetadataReader* first, AudioMetadataReader* second)
 {
     if(first->getTrackNum() > second->getTrackNum())
     {
@@ -43,7 +43,7 @@ void TextEditorOutlineDrawer::drawTextEditorOutline(Graphics& g, int width, int 
 }
 
 //==============================================================================
-AudioFileTable::AudioFileTable()    :   showBatchControls(false), fileLoaded(false), fileAndFolderControlsVisible(false), testButt("Test")
+AudioFileTable::AudioFileTable()    :   fileNamesToChangeWithTitle(false), showBatchControls(false), fileLoaded(false), fileAndFolderControlsVisible(false), testButt("Test")
 {
     addAndMakeVisible(table);
     
@@ -127,7 +127,7 @@ bool AudioFileTable::setFiles()
 {
     FileChooser chooser("Pick a folder", File(), "*.zip", true, false, nullptr);
     
-    OwnedArray<FormatMetadataReader> lastArrayUsed;
+    OwnedArray<AudioMetadataReader> lastArrayUsed;
     Array<File> juceFiles;
     bool errorEncountered = false;
     
@@ -186,7 +186,7 @@ bool AudioFileTable::setFiles()
     {
         if(i < juceFiles.size())
         {
-            std::unique_ptr<FormatMetadataReader> currentReader = metadataManager.createMetadataReader(juceFiles.getReference(i));
+            std::unique_ptr<AudioMetadataReader> currentReader = metadataManager.createMetadataReader(juceFiles.getReference(i));
                 
             //If it = null pointer
             if(!currentReader)
@@ -228,6 +228,11 @@ bool AudioFileTable::setFiles()
     fileAndDirectoryControls.setDataSet(true);
     metadataReaders.sort(arraySorter);
     
+    if(fileNamesToChangeWithTitle)
+    {
+        changeFileNamesToTitles();
+    }
+    
     fileLoaded = true;
     
     return true;
@@ -240,7 +245,11 @@ int AudioFileTable::getTableHeight()
 
 void AudioFileTable::setFileNamesToChangeWithTitle(bool change)
 {
-    //fileNamesToChangeWithTitle = change;
+    fileNamesToChangeWithTitle = change;
+    if(change)
+    {
+        changeFileNamesToTitles();
+    }
 }
 
 void AudioFileTable::setBatchControlsVisible(bool visible)
@@ -676,6 +685,11 @@ void AudioFileTable::changeMetadataForCellComponent(int cellColumn, int row, Str
             
         case 2:
             metadataReaders[row]->setTrackTitle(newData);
+            
+            if(fileNamesToChangeWithTitle)
+            {
+                metadataReaders[row]->changeFileName(newData);
+            }
             break;
             
         case 3:
@@ -753,5 +767,13 @@ void AudioFileTable::sendDirectoryDataToControls()
     else
     {
         fileAndDirectoryControls.setCurrentDirectory("");
+    }
+}
+
+void AudioFileTable::changeFileNamesToTitles()
+{
+    for(int i = 0; i < metadataReaders.size(); i++)
+    {
+        metadataReaders[i]->changeFileName(metadataReaders[i]->getTrackTitle());
     }
 }

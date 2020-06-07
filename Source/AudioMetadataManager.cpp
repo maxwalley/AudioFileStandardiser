@@ -1,26 +1,26 @@
 /*
   ==============================================================================
 
-    FormatMetadataManager.cpp
+    AudioMetadataManager.cpp
     Created: 27 May 2020 6:12:50pm
     Author:  Max Walley
 
   ==============================================================================
 */
 
-#include "FormatMetadataManager.h"
+#include "AudioMetadataManager.h"
 
-FormatMetadataManager::FormatMetadataManager()
+AudioMetadataManager::AudioMetadataManager()
 {
     formatManager.registerBasicFormats();
 }
 
-FormatMetadataManager::~FormatMetadataManager()
+AudioMetadataManager::~AudioMetadataManager()
 {
     
 }
 
-std::unique_ptr<FormatMetadataReader> FormatMetadataManager::createMetadataReader(File& file)
+std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(File& file)
 {
     AudioFormatManager manager;
     manager.registerBasicFormats();
@@ -35,7 +35,7 @@ std::unique_ptr<FormatMetadataReader> FormatMetadataManager::createMetadataReade
     return nullptr;
 }
 
-bool FormatMetadataManager::moveFileBasedOnWildcardPath(FormatMetadataReader* fileToMove, String newLocationWithWildcards)
+bool AudioMetadataManager::moveFileBasedOnWildcardPath(AudioMetadataReader* fileToMove, String newLocationWithWildcards)
 {
     String convertedPath = wildcardInterpretter.interpretString(newLocationWithWildcards, fileToMove);
     

@@ -9,7 +9,7 @@
 #include "MainComponent.h"
 
 //==============================================================================
-MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(false), fileNamesToChangeWithTitle(true), batchControlsShown(false), fileAndFolderControlsShown(false)
+MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(false), fileNamesToChangeWithTitle(false), batchControlsShown(false), fileAndFolderControlsShown(false)
 {
     setSize (300, 200);
     setName("Main Component");

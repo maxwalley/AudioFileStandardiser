@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    FormatMetadataReader.h
+    AudioMetadataReader.h
     Created: 27 May 2020 6:11:08pm
     Author:  Max Walley
 
@@ -12,11 +12,11 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class FormatMetadataReader
+class AudioMetadataReader
 {
 public:
-    FormatMetadataReader(File& inputFile);
-    virtual ~FormatMetadataReader();
+    AudioMetadataReader(File& inputFile);
+    virtual ~AudioMetadataReader();
     
     virtual int getTrackNum() = 0;
     virtual String getTrackTitle() = 0;

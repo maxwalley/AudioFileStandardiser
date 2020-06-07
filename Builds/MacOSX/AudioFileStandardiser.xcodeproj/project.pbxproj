@@ -69,13 +69,13 @@
 			isa = PBXBuildFile;
 			fileRef = 514A4CB9E7D85D5F43ADD845;
 		};
-		1C97165F8316B6BAEC111FB8 = {
+		3AC2936C337D888933B2919E = {
 			isa = PBXBuildFile;
-			fileRef = 2EBD25346B5B43E19CE28A31;
+			fileRef = D2F722DD4805B75845536D85;
 		};
-		243F00A0B761DE76CADD2E61 = {
+		D53DA832404DF41A85024B64 = {
 			isa = PBXBuildFile;
-			fileRef = 120E44BDB20C5D12A0AB3DF9;
+			fileRef = 5390AF7C86EB4E166ED50358;
 		};
 		06C47506EE37BE8441D2DC5B = {
 			isa = PBXBuildFile;
@@ -199,13 +199,6 @@
 			path = AudioFileStandardiser.entitlements;
 			sourceTree = "SOURCE_ROOT";
 		};
-		120E44BDB20C5D12A0AB3DF9 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = FormatMetadataReader.cpp;
-			path = ../../Source/FormatMetadataReader.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
 		123BB4CC297305689050A3C7 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -253,13 +246,6 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_events.mm";
 			path = "../../JuceLibraryCode/include_juce_events.mm";
-			sourceTree = "SOURCE_ROOT";
-		};
-		2EBD25346B5B43E19CE28A31 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = FormatMetadataManager.cpp;
-			path = ../../Source/FormatMetadataManager.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		35140524E7FEE99EDF92571E = {
@@ -318,12 +304,26 @@
 			path = ../../Source/TableCellComponent.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		5390AF7C86EB4E166ED50358 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = AudioMetadataReader.cpp;
+			path = ../../Source/AudioMetadataReader.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		56121CF08F3F74337929D4A5 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
 			name = "juce_audio_basics";
 			path = "/Users/maxwalley/Documents/C++ Libs and Frameworks/JUCE/modules/juce_audio_basics";
 			sourceTree = "<absolute>";
+		};
+		58F84E194AD630109FAEC6D4 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = AudioMetadataReader.h;
+			path = ../../Source/AudioMetadataReader.h;
+			sourceTree = "SOURCE_ROOT";
 		};
 		5A15C4E4BFD977D25E18ACFE = {
 			isa = PBXFileReference;
@@ -465,13 +465,6 @@
 			path = ../../Source/BatchRenameControls.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
-		A9353E0DFB7FE0F90B035F4A = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = FormatMetadataReader.h;
-			path = ../../Source/FormatMetadataReader.h;
-			sourceTree = "SOURCE_ROOT";
-		};
 		AB44EF9A507304728C8186FE = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -499,6 +492,13 @@
 			name = OpenGL.framework;
 			path = System/Library/Frameworks/OpenGL.framework;
 			sourceTree = SDKROOT;
+		};
+		B59C73F877C6497AC91E6324 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = AudioMetadataManager.h;
+			path = ../../Source/AudioMetadataManager.h;
+			sourceTree = "SOURCE_ROOT";
 		};
 		BB451F0C709F1A130F7239AA = {
 			isa = PBXFileReference;
@@ -556,11 +556,11 @@
 			path = ../../Source/TagLibTagReader.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
-		D180A20B6968F939958550B7 = {
+		D2F722DD4805B75845536D85 = {
 			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = FormatMetadataManager.h;
-			path = ../../Source/FormatMetadataManager.h;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = AudioMetadataManager.cpp;
+			path = ../../Source/AudioMetadataManager.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		E37A4D1752C7CA2B4B33B635 = {
@@ -635,15 +635,15 @@
 				F9DFF163A9701A61130E8238,
 				39E413055F6637354984B594,
 				514A4CB9E7D85D5F43ADD845,
-				D180A20B6968F939958550B7,
-				2EBD25346B5B43E19CE28A31,
-				A9353E0DFB7FE0F90B035F4A,
-				120E44BDB20C5D12A0AB3DF9,
+				B59C73F877C6497AC91E6324,
+				D2F722DD4805B75845536D85,
+				58F84E194AD630109FAEC6D4,
+				5390AF7C86EB4E166ED50358,
 				3A17947E40C7A6BBA541128C,
 				CFE2997CB6863DA3DD1D9DA5,
 				CF936255A4E9F747E5129F47,
-				9ED766B59D2A728F0EE5961D,
 				7B493AF72D46DDCF7B973AC8,
+				9ED766B59D2A728F0EE5961D,
 			);
 			name = AudioFileStandardiser;
 			sourceTree = "<group>";
@@ -967,8 +967,8 @@
 			files = (
 				765D65CB3DEBEDC105CA3765,
 				351F55B98A73780443A7D80E,
-				1C97165F8316B6BAEC111FB8,
-				243F00A0B761DE76CADD2E61,
+				3AC2936C337D888933B2919E,
+				D53DA832404DF41A85024B64,
 				06C47506EE37BE8441D2DC5B,
 				C951DC66CAD3E338297F3471,
 				5A6D8708804A28296CD4BC1E,

@@ -9,7 +9,7 @@
 */
 
 #pragma once
-#include "FormatMetadataReader.h"
+#include "AudioMetadataReader.h"
 
 class FilePathWildcardInterpretter
 {
@@ -26,7 +26,7 @@ public:
     
     void setTrackNumFormat();
     
-    String interpretString(String input, FormatMetadataReader* file);
+    String interpretString(String input, AudioMetadataReader* file);
     
     StringArray getCompatibleWildcards() const;
     

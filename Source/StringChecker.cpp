@@ -38,14 +38,14 @@ String StringChecker::removeCharacters(String inputString, bool capitals = false
 String StringChecker::removeSymbols(String inputString)
 {
     
-    /*for(int i = 0; i < inputString.length(); i++)
+    for(int i = 0; i < inputString.length(); i++)
     {
         if((inputString.getCharPointer() + i).isLetterOrDigit() == false && (inputString.getCharPointer()[i] != *(" ")))
         {
             inputString = inputString.replaceSection(i, 1, "");
             i--;
         }
-    }*/
+    }
     return inputString;
 }
 

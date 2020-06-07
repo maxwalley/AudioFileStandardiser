@@ -418,10 +418,10 @@
     <ClCompile Include="..\..\Source\TableCellComponent.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\FormatMetadataManager.cpp">
+    <ClCompile Include="..\..\Source\AudioMetadataManager.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\FormatMetadataReader.cpp">
+    <ClCompile Include="..\..\Source\AudioMetadataReader.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\TagLibTagReader.cpp">
@@ -2361,10 +2361,10 @@
     <ClInclude Include="..\..\Source\TableCellComponent.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\FormatMetadataManager.h">
+    <ClInclude Include="..\..\Source\AudioMetadataManager.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\FormatMetadataReader.h">
+    <ClInclude Include="..\..\Source\AudioMetadataReader.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\TagLibTagReader.h">

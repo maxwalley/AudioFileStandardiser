@@ -11,14 +11,14 @@
           file="Source/TableCellComponent.h"/>
     <FILE id="E3yrMp" name="TableCellComponent.cpp" compile="1" resource="0"
           file="Source/TableCellComponent.cpp"/>
-    <FILE id="Wcp8rp" name="FormatMetadataManager.h" compile="0" resource="0"
-          file="Source/FormatMetadataManager.h"/>
-    <FILE id="OcgKO6" name="FormatMetadataManager.cpp" compile="1" resource="0"
-          file="Source/FormatMetadataManager.cpp"/>
-    <FILE id="T8YHe3" name="FormatMetadataReader.h" compile="0" resource="0"
-          file="Source/FormatMetadataReader.h"/>
-    <FILE id="Vn8ZR2" name="FormatMetadataReader.cpp" compile="1" resource="0"
-          file="Source/FormatMetadataReader.cpp"/>
+    <FILE id="Wcp8rp" name="AudioMetadataManager.h" compile="0" resource="0"
+          file="Source/AudioMetadataManager.h"/>
+    <FILE id="OcgKO6" name="AudioMetadataManager.cpp" compile="1" resource="0"
+          file="Source/AudioMetadataManager.cpp"/>
+    <FILE id="T8YHe3" name="AudioMetadataReader.h" compile="0" resource="0"
+          file="Source/AudioMetadataReader.h"/>
+    <FILE id="Vn8ZR2" name="AudioMetadataReader.cpp" compile="1" resource="0"
+          file="Source/AudioMetadataReader.cpp"/>
     <FILE id="NJ34hU" name="TagLibTagReader.h" compile="0" resource="0"
           file="Source/TagLibTagReader.h"/>
     <FILE id="T9x8am" name="TagLibTagReader.cpp" compile="1" resource="0"
@@ -41,9 +41,9 @@
       <FILE id="qjTIHG" name="BatchRenameControls.cpp" compile="1" resource="0"
             file="Source/BatchRenameControls.cpp"/>
     </GROUP>
+    <FILE id="BBHnbZ" name="StringChecker.h" compile="0" resource="0" file="Source/StringChecker.h"/>
     <FILE id="u1Fi03" name="StringChecker.cpp" compile="1" resource="0"
           file="Source/StringChecker.cpp"/>
-    <FILE id="BBHnbZ" name="StringChecker.h" compile="0" resource="0" file="Source/StringChecker.h"/>
   </MAINGROUP>
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX" externalLibraries="tag&#10;tag_c">

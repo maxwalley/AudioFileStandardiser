@@ -14,7 +14,7 @@
 #include "tag_c.h"
 #include "StringChecker.h"
 #include "BatchRenameControls.h"
-#include "FormatMetadataManager.h"
+#include "AudioMetadataManager.h"
 #include "TableCellComponent.h"
 #include "FileAndDirectoryControls.h"
 
@@ -24,7 +24,7 @@
 class MetadataReaderSorter
 {
 public:
-    int compareElements(FormatMetadataReader* first, FormatMetadataReader* second);
+    int compareElements(AudioMetadataReader* first, AudioMetadataReader* second);
 };
 
 class TextEditorOutlineDrawer   :   public LookAndFeel_V4
@@ -84,17 +84,18 @@ private:
     
     void sendDirectoryDataToControls();
     
+    void changeFileNamesToTitles();
+    
     TableListBox table;
     
-    //Array<File> juceFiles;
     MetadataReaderSorter arraySorter;
     
-    FormatMetadataManager metadataManager;
-    OwnedArray<FormatMetadataReader> metadataReaders;
+    AudioMetadataManager metadataManager;
+    OwnedArray<AudioMetadataReader> metadataReaders;
     
     TextEditorOutlineDrawer drawer;
     
-    //bool fileNamesToChangeWithTitle;
+    bool fileNamesToChangeWithTitle;
     
     Viewport extraInfoViewport;
     BatchRenameControls batchControls;

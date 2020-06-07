@@ -140,8 +140,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\FilePathWildcardInterpretter.cpp"/>
     <ClCompile Include="..\..\Source\TableCellComponent.cpp"/>
-    <ClCompile Include="..\..\Source\FormatMetadataManager.cpp"/>
-    <ClCompile Include="..\..\Source\FormatMetadataReader.cpp"/>
+    <ClCompile Include="..\..\Source\AudioMetadataManager.cpp"/>
+    <ClCompile Include="..\..\Source\AudioMetadataReader.cpp"/>
     <ClCompile Include="..\..\Source\TagLibTagReader.cpp"/>
     <ClCompile Include="..\..\Source\FileAndDirectoryControls.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
@@ -1918,8 +1918,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\Source\FilePathWildcardInterpretter.h"/>
     <ClInclude Include="..\..\Source\TableCellComponent.h"/>
-    <ClInclude Include="..\..\Source\FormatMetadataManager.h"/>
-    <ClInclude Include="..\..\Source\FormatMetadataReader.h"/>
+    <ClInclude Include="..\..\Source\AudioMetadataManager.h"/>
+    <ClInclude Include="..\..\Source\AudioMetadataReader.h"/>
     <ClInclude Include="..\..\Source\TagLibTagReader.h"/>
     <ClInclude Include="..\..\Source\FileAndDirectoryControls.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
