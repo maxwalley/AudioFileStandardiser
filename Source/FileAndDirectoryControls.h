@@ -16,7 +16,8 @@
 /*
 */
 class FileAndDirectoryControls    : public Component,
-                                    public Button::Listener
+                                    public Button::Listener,
+                                    public ActionBroadcaster
 {
 public:
     FileAndDirectoryControls();
@@ -29,7 +30,10 @@ public:
     
     void setCurrentDirectory(String newDirectory);
     String getCurrentDirectoryDisplayed() const;
+    
+    String getWildcardPath() const;
 
+    String getNewDirAndWildcardPath() const;
 private:
     
     void buttonClicked(Button* button) override;
@@ -37,7 +41,7 @@ private:
     bool dataSet;
     
     Label currentDirectoryLabel;
-    TextEditor currentDirectoryEditor;
+    Label currentDirectoryDataLabel;
     
     TextButton changeDirectoryButton;
     
@@ -45,6 +49,8 @@ private:
     Label folderHierachyLabel;
     
     TextButton moveButton;
+    
+    TextButton closeButton;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FileAndDirectoryControls)
 };

@@ -12,6 +12,7 @@
 MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(false), fileNamesToChangeWithTitle(true), batchControlsShown(false), fileAndFolderControlsShown(false)
 {
     setSize (300, 200);
+    setName("Main Component");
     
     openSourceButton.addListener(this);
     addAndMakeVisible(openSourceButton);
@@ -164,11 +165,13 @@ void MainComponent::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 
 void MainComponent::actionListenerCallback(const String& message)
 {
-    if(message == "Batch Controls Close Button Clicked")
+    if(message == "Extra Info Close Button Clicked")
     {
         batchControlsShown = false;
+        fileAndFolderControlsShown = false;
         resized();
         fileTable.setBatchControlsVisible(batchControlsShown);
+        fileTable.setFileAndDirectoryControlsVisible(fileAndFolderControlsShown);
         menuItemsChanged();
     }
 }

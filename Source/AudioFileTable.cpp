@@ -10,6 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "AudioFileTable.h"
+#include "MainComponent.h"
 
 #define SUPPORTEDTYPES "*.mp3;*.flac;*.wav;*.wave;*.aac;*.wma;*.aif;*.m4a"
 
@@ -59,10 +60,12 @@ AudioFileTable::AudioFileTable()    :   showBatchControls(false), fileLoaded(fal
 
     addAndMakeVisible(extraInfoViewport);
     extraInfoViewport.setVisible(false);
-    batchControls.addActionListener(this);
     
-    addAndMakeVisible(fileAndDirectoryControls);
+    batchControls.setVisible(false);
+    //batchControls.addActionListener(static_cast<MainComponent*>(getParentComponent()));
     fileAndDirectoryControls.setVisible(false);
+    fileAndDirectoryControls.addActionListener(this);
+    //fileAndDirectoryControls.addActionListener(static_cast<MainComponent*>(getParentComponent()));
 }
 
 AudioFileTable::~AudioFileTable()
@@ -103,7 +106,7 @@ void AudioFileTable::resized()
         else if(fileAndFolderControlsVisible)
         {
             extraInfoViewport.setViewedComponent(&fileAndDirectoryControls, false);
-            fileAndDirectoryControls.setSize(190, 290);
+            fileAndDirectoryControls.setSize(190, 330);
             fileAndDirectoryControls.setVisible(true);
             batchControls.setVisible(false);
         }
@@ -474,23 +477,7 @@ void AudioFileTable::buttonClicked(Button* button)
         }
         
         sendDirectoryDataToControls();
-        
     }
-    
-    /*else if(button == &changeLocationButton)
-    {
-        FileChooser chooser("Select A New Location");
-
-        if(chooser.browseForDirectory())
-        {
-            for(int i = 0; i < metadataReaders.size(); i++)
-            {
-                String newDirectoryPath = chooser.getResult().getFullPathName() + "/" + metadataReaders[i]->getFileName();
-                
-                metadataReaders[i]->moveFile(newDirectoryPath);
-            }
-        }
-    }*/
 }
 
 void AudioFileTable::textEditorTextChanged(TextEditor& editor)
@@ -665,6 +652,19 @@ void AudioFileTable::actionListenerCallback(const String& message)
             }
         }
         table.updateContent();
+    }
+    
+    else if(message.compare("File and Dir Apply Button Clicked") == 0)
+    {
+        for(int i = 0; i < juceFiles.size(); i++)
+        {
+            TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
+            
+            if(tempButton->getToggleState())
+            {
+                metadataManager.moveFileBasedOnWildcardPath(metadataReaders[i], fileAndDirectoryControls.getNewDirAndWildcardPath());
+            }
+        }
     }
 }
 
