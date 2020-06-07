@@ -56,7 +56,7 @@ public:
     
     void setBatchControlsVisible(bool visible);
     
-    void addBatchControlsActionListener(ActionListener* listener);
+    void addExtraInfoActionListener(ActionListener* listener);
     
     void changeFiles();
     

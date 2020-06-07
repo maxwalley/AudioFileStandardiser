@@ -263,9 +263,10 @@ void AudioFileTable::setBatchControlsVisible(bool visible)
     resized();
 }
 
-void AudioFileTable::addBatchControlsActionListener(ActionListener* listener)
+void AudioFileTable::addExtraInfoActionListener(ActionListener* listener)
 {
     batchControls.addActionListener(listener);
+    fileAndDirectoryControls.addActionListener(listener);
 }
 
 bool AudioFileTable::getIfFileLoaded()
@@ -722,25 +723,31 @@ void AudioFileTable::sendDirectoryDataToControls()
 {
     if(juceFiles.size() > 0 && isAnyTableButtonOn())
     {
-        File parentComparator;
+        File parentFileComparator;
         bool allTheSame = true;
         bool comparatorFound = false;
         
+        //Iterates through the files owned by the metadata readers and sees whether the parent files are the same on the ticked ones
         for(int i = 0; i < juceFiles.size() && allTheSame; i++)
         {
             TableToggleButtonComponent* currentButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
             
             if(currentButton->getToggleState())
             {
-                File currentParent = juceFiles[i].getParentDirectory();
+                String currentParentString = metadataReaders[i]->getFileLocation().replace("/" + metadataReaders[i]->getFileName(), "");
+                
+                File currentParentFile = File(currentParentString);
+                
+                DBG(currentParentFile.getFullPathName());
                 
                 if(!comparatorFound)
                 {
-                    parentComparator = currentParent;
+                    parentFileComparator = currentParentFile;
+                    comparatorFound = true;
                 }
                 else
                 {
-                    if(currentParent != parentComparator)
+                    if(currentParentFile != parentFileComparator)
                     {
                         allTheSame = false;
                     }
@@ -748,14 +755,18 @@ void AudioFileTable::sendDirectoryDataToControls()
             }
         }
         
+
         if(allTheSame)
         {
-            fileAndDirectoryControls.setCurrentDirectory(parentComparator.getFullPathName());
+            fileAndDirectoryControls.setCurrentDirectory(parentFileComparator.getFullPathName());
         }
         else
         {
             fileAndDirectoryControls.setCurrentDirectory("...");
         }
-        
+    }
+    else
+    {
+        fileAndDirectoryControls.setCurrentDirectory("");
     }
 }

@@ -18,7 +18,7 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(fal
     addAndMakeVisible(openSourceButton);
     
     addAndMakeVisible(fileTable);
-    fileTable.addBatchControlsActionListener(this);
+    fileTable.addExtraInfoActionListener(this);
     fileTable.setName("File Table");
     
     setMacMainMenu(this);
