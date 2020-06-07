@@ -44,6 +44,8 @@ bool FormatMetadataManager::moveFileBasedOnWildcardPath(FormatMetadataReader* fi
         File(convertedPath).createDirectory();
     }
     
+    //convertedPath = convertedPath + "/" + fileToMove->getFile().getFileName();
+    
     fileToMove->moveFileToNewDirectory(convertedPath);
 }
 

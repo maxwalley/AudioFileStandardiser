@@ -376,7 +376,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
                     break;
                     
                 case 6:
-                    componentToUpdate->setText(metadataReaders[rowNumber]->getFileExtension(), dontSendNotification);
+                    componentToUpdate->setText(metadataReaders[rowNumber]->getFile().getFileExtension(), dontSendNotification);
                     break;
                     
             }
@@ -721,7 +721,7 @@ void AudioFileTable::sendDirectoryDataToControls()
             
             if(currentButton->getToggleState())
             {
-                String currentParentString = metadataReaders[i]->getFileLocation().replace("/" + metadataReaders[i]->getFileName(), "");
+                String currentParentString = metadataReaders[i]->getFile().getFullPathName().replace("/" + metadataReaders[i]->getFile().getFileName(), "");
                 
                 File currentParentFile = File(currentParentString);
                 

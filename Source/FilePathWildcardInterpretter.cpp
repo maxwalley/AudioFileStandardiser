@@ -62,7 +62,7 @@ String FilePathWildcardInterpretter::interpretString(String input, FormatMetadat
         
         stringToReturn = stringToReturn.replace("$tracktitle", file->getTrackTitle());
         stringToReturn = stringToReturn.replace("$year", String(file->getYear()));
-        stringToReturn = stringToReturn.replace("$fileformat", file->getFileExtension());
+        stringToReturn = stringToReturn.replace("$fileformat", file->getFile().getFileExtension());
     }
     
     return stringToReturn;

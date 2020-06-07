@@ -27,29 +27,14 @@ void FormatMetadataReader::moveFileToNewDirectory(String newLocation)
     fileToRead = newLocation;
 }
 
-String FormatMetadataReader::getFileLocation()
-{
-    return fileToRead.getFullPathName();
-}
-
-String FormatMetadataReader::getFileName()
-{
-    return fileToRead.getFileName();
-}
-
-String FormatMetadataReader::getFileNameWithoutExtension()
-{
-    return fileToRead.getFileNameWithoutExtension();
-}
-
-String FormatMetadataReader::getFileExtension()
-{
-    return fileToRead.getFileExtension();
-}
-
 void FormatMetadataReader::changeFileName(String newName)
 {
     String newPath = fileToRead.getFullPathName().replace(fileToRead.getFileNameWithoutExtension(), newName);
     fileToRead.moveFileTo(File(newPath));
     fileToRead = newPath;
+}
+
+File& FormatMetadataReader::getFile()
+{
+    return fileToRead;
 }

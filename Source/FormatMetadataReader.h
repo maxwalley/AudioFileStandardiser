@@ -31,11 +31,8 @@ public:
     virtual void setYear(int newYear) = 0;
     
     virtual void moveFileToNewDirectory(String newLocation);
-    virtual String getFileLocation();
-    virtual String getFileName();
-    virtual String getFileNameWithoutExtension();
-    virtual String getFileExtension();
     virtual void changeFileName(String newName);
+    virtual File& getFile();
     
 protected:
     File fileToRead;
