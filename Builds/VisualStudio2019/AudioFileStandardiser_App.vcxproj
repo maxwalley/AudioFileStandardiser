@@ -141,6 +141,7 @@
     <ClCompile Include="..\..\Source\FilePathWildcardInterpretter.cpp"/>
     <ClCompile Include="..\..\Source\TableCellComponent.cpp"/>
     <ClCompile Include="..\..\Source\FormatMetadataManager.cpp"/>
+    <ClCompile Include="..\..\Source\FormatMetadataReader.cpp"/>
     <ClCompile Include="..\..\Source\TagLibTagReader.cpp"/>
     <ClCompile Include="..\..\Source\FileAndDirectoryControls.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>

@@ -31,14 +31,13 @@ public:
     void setAlbumName(String newAlbumName) override;
     void setYear(int newYear) override;
     
-    void moveFile(String newDirectory) override;
+    /*void moveFile(String newDirectory) override;
     String getFileLocation() override;
     String getFileName() override;
     String getFileNameWithoutExtension() override;
-    String getFileExtension() override;
+    String getFileExtension() override;*/
     
 private:
-    //File fileToRead;
     TagLib::FileRef metadataFile;
     TagLib::Tag* metadata;
     

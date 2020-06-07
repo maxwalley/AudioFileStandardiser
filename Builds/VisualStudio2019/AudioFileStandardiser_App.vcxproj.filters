@@ -421,6 +421,9 @@
     <ClCompile Include="..\..\Source\FormatMetadataManager.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\FormatMetadataReader.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\TagLibTagReader.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>

@@ -39,6 +39,6 @@ bool FormatMetadataManager::moveFileBasedOnWildcardPath(FormatMetadataReader* fi
 {
     String convertedPath = wildcardInterpretter.interpretString(newLocationWithWildcards, fileToMove);
     
-    fileToMove->moveFile(convertedPath);
+    fileToMove->moveFileToNewDirectory(convertedPath);
 }
 

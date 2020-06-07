@@ -15,8 +15,8 @@
 class FormatMetadataReader
 {
 public:
-    FormatMetadataReader(File& inputFile)   :   fileToRead(inputFile){};
-    virtual ~FormatMetadataReader(){};
+    FormatMetadataReader(File& inputFile);
+    virtual ~FormatMetadataReader();
     
     virtual int getTrackNum() = 0;
     virtual String getTrackTitle() = 0;
@@ -30,11 +30,12 @@ public:
     virtual void setAlbumName(String newAlbumName) = 0;
     virtual void setYear(int newYear) = 0;
     
-    virtual void moveFile(String newLocation) = 0;
-    virtual String getFileLocation() = 0;
-    virtual String getFileName() = 0;
-    virtual String getFileNameWithoutExtension() = 0;
-    virtual String getFileExtension() = 0;
+    virtual void moveFileToNewDirectory(String newLocation);
+    virtual String getFileLocation();
+    virtual String getFileName();
+    virtual String getFileNameWithoutExtension();
+    virtual String getFileExtension();
+    virtual void changeFileName(String newName);
     
 protected:
     File fileToRead;

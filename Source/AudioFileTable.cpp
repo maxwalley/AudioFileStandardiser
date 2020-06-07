@@ -43,7 +43,7 @@ void TextEditorOutlineDrawer::drawTextEditorOutline(Graphics& g, int width, int 
 }
 
 //==============================================================================
-AudioFileTable::AudioFileTable()    :   showBatchControls(false), fileLoaded(false), fileAndFolderControlsVisible(false)
+AudioFileTable::AudioFileTable()    :   showBatchControls(false), fileLoaded(false), fileAndFolderControlsVisible(false), testButt("Test")
 {
     addAndMakeVisible(table);
     
@@ -66,6 +66,9 @@ AudioFileTable::AudioFileTable()    :   showBatchControls(false), fileLoaded(fal
     fileAndDirectoryControls.setVisible(false);
     fileAndDirectoryControls.addActionListener(this);
     //fileAndDirectoryControls.addActionListener(static_cast<MainComponent*>(getParentComponent()));
+    
+    addAndMakeVisible(testButt);
+    testButt.addListener(this);
 }
 
 AudioFileTable::~AudioFileTable()
@@ -117,6 +120,7 @@ void AudioFileTable::resized()
         batchControls.setVisible(false);
         extraInfoViewport.setVisible(false);
     }
+    testButt.setBounds(0, getTableHeight(), 200, 30);
 }
 
 bool AudioFileTable::setFiles()
@@ -469,6 +473,7 @@ void AudioFileTable::buttonClicked(Button* button)
                 tempButton->setToggleState(tableButtonThatHasBeenClicked->getToggleState(), sendNotification);
             }
         }
+        
         //If its any other button
         else
         {
@@ -477,6 +482,11 @@ void AudioFileTable::buttonClicked(Button* button)
         }
         
         sendDirectoryDataToControls();
+    }
+    
+    else if(button == &testButt)
+    {
+        
     }
 }
 
