@@ -78,7 +78,7 @@ AudioFileTable::~AudioFileTable()
         //Clears the look and feels to prevent an error
         for(int i = 1; i < table.getHeader().getNumColumns(false); i++)
         {
-            for(int j = 0; j < juceFiles.size()+1; j++)
+            for(int j = 0; j < metadataReaders.size()+1; j++)
             {
                 table.getCellComponent(i, j)->setLookAndFeel(nullptr);
             }
@@ -127,14 +127,15 @@ bool AudioFileTable::setFiles()
 {
     FileChooser chooser("Pick a folder", File(), "*.zip", true, false, nullptr);
     
-    Array<File> lastArrayUsed;
+    OwnedArray<FormatMetadataReader> lastArrayUsed;
+    Array<File> juceFiles;
+    bool errorEncountered = false;
     
     bool filesAreCurrentlyLoaded = false;
     
-    if(juceFiles.size() != 0)
+    if(metadataReaders.size() != 0)
     {
-        juceFiles.swapWith(lastArrayUsed);
-        juceFiles.clear();
+        metadataReaders.swapWith(lastArrayUsed);
         metadataReaders.clear();
         filesAreCurrentlyLoaded = true;
     }
@@ -160,47 +161,28 @@ bool AudioFileTable::setFiles()
             //Decompresses the zip file
             ZipFile zip(chooser.getResult());
             zip.uncompressTo(newDirectory);
-        
-            if(newDirectory.getNumberOfChildFiles(2, SUPPORTEDTYPES) > 0)
-            {
-                //Finds files in the new directory
-                juceFiles = newDirectory.findChildFiles(2, false, SUPPORTEDTYPES);
-            }
-            else
-            {
-                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
-                
-                if(!filesAreCurrentlyLoaded)
-                {
-                    return false;
-                }
-                juceFiles.swapWith(lastArrayUsed);
-                lastArrayUsed.clear();
-            }
+            
+            file = newDirectory;
         }
         
-        else if(file.isDirectory() == true)
+        if(file.getNumberOfChildFiles(2, SUPPORTEDTYPES) > 0)
         {
-            if(file.getNumberOfChildFiles(2, SUPPORTEDTYPES) > 0)
-            {
-                //Finds files in the new directory
-                juceFiles = file.findChildFiles(2, false, SUPPORTEDTYPES);
-            }
-            else
-            {
-                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
+            //Finds files in the new directory
+            juceFiles = file.findChildFiles(2, false, SUPPORTEDTYPES);
+        }
+        else
+        {
+            AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
                 
-                if(!filesAreCurrentlyLoaded)
-                {
-                    return false;
-                }
-                juceFiles.swapWith(lastArrayUsed);
-                lastArrayUsed.clear();
+            if(!filesAreCurrentlyLoaded)
+            {
+                return false;
             }
+            errorEncountered = true;
         }
     }
     
-    for(int i = 0; i < juceFiles.size() + 1; i++)
+    for(int i = 0; i < juceFiles.size() + 1 && errorEncountered == false; i++)
     {
         if(i < juceFiles.size())
         {
@@ -225,10 +207,8 @@ bool AudioFileTable::setFiles()
                     {
                         return false;
                     }
-                    //Resets i - Even though this will iterate through the loop again no errors should occur since any files with incompatible metadata types will have already been removed
-                    i=-1;
-                    juceFiles.swapWith(lastArrayUsed);
-                    lastArrayUsed.clear();
+
+                    errorEncountered = true;
                 }
             }
             else
@@ -236,6 +216,12 @@ bool AudioFileTable::setFiles()
                 metadataReaders.add(currentReader.release());
             }
         }
+    }
+    
+    if(errorEncountered == true)
+    {
+        metadataReaders.swapWith(lastArrayUsed);
+        lastArrayUsed.clear();
     }
     
     batchControls.setDataSet(true);
@@ -365,7 +351,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
         //Casts the component to the table specific class
         TableTextEditorComponent* componentToUpdate = static_cast<TableTextEditorComponent*>(existingComponentToUpdate);
     
-        if(rowNumber < juceFiles.size())
+        if(rowNumber < metadataReaders.size())
         {
             switch (columnId)
             {
@@ -465,9 +451,9 @@ void AudioFileTable::buttonClicked(Button* button)
         TableToggleButtonComponent* tableButtonThatHasBeenClicked = static_cast<TableToggleButtonComponent*>(button);
         
         //Checks to see if the button thats been clicked is in the bottom row of the table
-        if(tableButtonThatHasBeenClicked->getRowNumber() == juceFiles.size())
+        if(tableButtonThatHasBeenClicked->getRowNumber() == metadataReaders.size())
         {
-            for(int i = 0; i < juceFiles.size(); i++)
+            for(int i = 0; i < metadataReaders.size(); i++)
             {
                 //Changes all toggle states to the same as the button in the last row
                 TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
@@ -497,7 +483,7 @@ void AudioFileTable::textEditorTextChanged(TextEditor& editor)
     TableTextEditorComponent& editorThatHasChanged = static_cast<TableTextEditorComponent&>(editor);
     
     //If the editor is not in the bottom row of the table
-    if(editorThatHasChanged.getRowNumber() != juceFiles.size())
+    if(editorThatHasChanged.getRowNumber() != metadataReaders.size())
     {
         changeMetadataForCellComponent(editorThatHasChanged.getColumnID(), editorThatHasChanged.getRowNumber(), editorThatHasChanged.getText());
     }
@@ -667,7 +653,7 @@ void AudioFileTable::actionListenerCallback(const String& message)
     
     else if(message.compare("File and Dir Apply Button Clicked") == 0)
     {
-        for(int i = 0; i < juceFiles.size(); i++)
+        for(int i = 0; i < metadataReaders.size(); i++)
         {
             TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
             
@@ -676,6 +662,7 @@ void AudioFileTable::actionListenerCallback(const String& message)
                 metadataManager.moveFileBasedOnWildcardPath(metadataReaders[i], fileAndDirectoryControls.getNewDirAndWildcardPath());
             }
         }
+        sendDirectoryDataToControls();
     }
 }
 
@@ -707,7 +694,7 @@ void AudioFileTable::changeMetadataForCellComponent(int cellColumn, int row, Str
 
 bool AudioFileTable::isAnyTableButtonOn()
 {
-    for(int i = 0; i < juceFiles.size(); i++)
+    for(int i = 0; i < metadataReaders.size(); i++)
     {
         TableToggleButtonComponent* currentButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
         
@@ -721,14 +708,14 @@ bool AudioFileTable::isAnyTableButtonOn()
 
 void AudioFileTable::sendDirectoryDataToControls()
 {
-    if(juceFiles.size() > 0 && isAnyTableButtonOn())
+    if(metadataReaders.size() > 0 && isAnyTableButtonOn())
     {
         File parentFileComparator;
         bool allTheSame = true;
         bool comparatorFound = false;
         
         //Iterates through the files owned by the metadata readers and sees whether the parent files are the same on the ticked ones
-        for(int i = 0; i < juceFiles.size() && allTheSame; i++)
+        for(int i = 0; i < metadataReaders.size() && allTheSame; i++)
         {
             TableToggleButtonComponent* currentButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
             
@@ -737,8 +724,6 @@ void AudioFileTable::sendDirectoryDataToControls()
                 String currentParentString = metadataReaders[i]->getFileLocation().replace("/" + metadataReaders[i]->getFileName(), "");
                 
                 File currentParentFile = File(currentParentString);
-                
-                DBG(currentParentFile.getFullPathName());
                 
                 if(!comparatorFound)
                 {

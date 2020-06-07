@@ -86,7 +86,7 @@ private:
     
     TableListBox table;
     
-    Array<File> juceFiles;
+    //Array<File> juceFiles;
     MetadataReaderSorter arraySorter;
     
     FormatMetadataManager metadataManager;
