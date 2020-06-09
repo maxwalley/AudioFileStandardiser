@@ -125,7 +125,7 @@ void AudioFileTable::resized()
 
 bool AudioFileTable::setFiles()
 {
-    FileChooser chooser("Pick a folder", File(), "*.zip", true, false, nullptr);
+    FileChooser chooser("Pick a folder", File(), "*.zip;*.mp3;*.flac;*.wav;*.wave;*.aac;*.wma;*.aif;*.m4a", true, false, nullptr);
     
     OwnedArray<AudioMetadataReader> lastArrayUsed;
     Array<File> juceFiles;
@@ -146,40 +146,36 @@ bool AudioFileTable::setFiles()
         return false;
     }
     
-    if(chooser.getResult().exists())
+    Array<File> chosenFiles = chooser.getResults();
+    
+    for(int i = 0; i < chosenFiles.size(); i++)
     {
-        File file = chooser.getResult();
-        
-        //If it is a zip file
-        if(file.existsAsFile())
+        if(chosenFiles[i].hasFileExtension(".mp3;.flac;.wav;.wave;.aac;.wma;.aif;.m4a"))
         {
-            //Creates a new directory
-            String newDirectoryName(file.getParentDirectory().getFullPathName() + "/" + file.getFileNameWithoutExtension());
-            File newDirectory(newDirectoryName);
-            newDirectory.createDirectory();
+            juceFiles.add(chosenFiles[i]);
+        }
         
-            //Decompresses the zip file
-            ZipFile zip(chooser.getResult());
-            zip.uncompressTo(newDirectory);
+        else if(chosenFiles[i].hasFileExtension(".zip"))
+        {
+            chosenFiles.set(i, decompressZipToLocation(chosenFiles[i]));
+        }
+        
+        if(chosenFiles[i].getNumberOfChildFiles(2, SUPPORTEDTYPES) > 0)
+        {
+            Array<File> tempArray = chosenFiles[i].findChildFiles(2, true, SUPPORTEDTYPES);
+            juceFiles.addArray(tempArray, 0);
+        }
+    }
+    
+    if(juceFiles.size() == 0)
+    {
+        AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
             
-            file = newDirectory;
-        }
-        
-        if(file.getNumberOfChildFiles(2, SUPPORTEDTYPES) > 0)
+        if(!filesAreCurrentlyLoaded)
         {
-            //Finds files in the new directory
-            juceFiles = file.findChildFiles(2, false, SUPPORTEDTYPES);
+            return false;
         }
-        else
-        {
-            AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
-                
-            if(!filesAreCurrentlyLoaded)
-            {
-                return false;
-            }
-            errorEncountered = true;
-        }
+        errorEncountered = true;
     }
     
     for(int i = 0; i < juceFiles.size() + 1 && errorEncountered == false; i++)
@@ -776,4 +772,36 @@ void AudioFileTable::changeFileNamesToTitles()
     {
         metadataReaders[i]->changeFileName(metadataReaders[i]->getTrackTitle());
     }
+}
+
+File AudioFileTable::decompressZipToLocation(File zip)
+{
+    if(zip.exists() && zip.getFileExtension().compare(".zip") == 0)
+    {
+        ZipFile file(zip);
+            
+        String newDirName = zip.getParentDirectory().getFullPathName() + "/" + zip.getFileNameWithoutExtension();
+        
+        if(File(newDirName).isDirectory())
+        {
+            if(!AlertWindow::showNativeDialogBox("Duplicate folder names", "A folder with this name already exists in this directory, would you like a similar name to be allocated?", true))
+            {
+                return zip;
+            }
+            
+            bool nameFound = false;
+            for(int i = 0; !nameFound; i++)
+            {
+                if(!File(newDirName + " (" + String(i+1) + ")").isDirectory())
+                {
+                    newDirName = newDirName + " (" + String(i+1) + ")";
+                    nameFound = true;
+                }
+            }
+        }
+        
+        file.uncompressTo(newDirName);
+        return File(newDirName);
+    }
+    return zip;
 }

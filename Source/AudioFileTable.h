@@ -86,6 +86,8 @@ private:
     
     void changeFileNamesToTitles();
     
+    File decompressZipToLocation(File zip);
+    
     TableListBox table;
     
     MetadataReaderSorter arraySorter;
