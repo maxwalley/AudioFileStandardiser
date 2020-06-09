@@ -16,6 +16,20 @@
 
 int MetadataReaderSorter::compareElements(AudioMetadataReader* first, AudioMetadataReader* second)
 {
+    int artistCompareResult = first->getArtistName().toLowerCase().compare(second->getArtistName().toLowerCase());
+    
+    if(artistCompareResult != 0)
+    {
+        return artistCompareResult;
+    }
+    
+    int albumCompareResult = first->getAlbumName().toLowerCase().compare(second->getAlbumName().toLowerCase());
+    
+    if(albumCompareResult != 0)
+    {
+        return albumCompareResult;
+    }
+    
     if(first->getTrackNum() > second->getTrackNum())
     {
         return 1;
@@ -69,6 +83,7 @@ AudioFileTable::AudioFileTable()    :   fileNamesToChangeWithTitle(false), showB
     
     addAndMakeVisible(testButt);
     testButt.addListener(this);
+    
 }
 
 AudioFileTable::~AudioFileTable()
