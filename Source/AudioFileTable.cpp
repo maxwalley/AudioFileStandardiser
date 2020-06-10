@@ -94,7 +94,12 @@ AudioFileTable::~AudioFileTable()
         {
             for(int j = 0; j < metadataReaders.size()+1; j++)
             {
-                table.getCellComponent(i, j)->setLookAndFeel(nullptr);
+                Component* currentComponent = table.getCellComponent(i, j);
+                
+                if(currentComponent != nullptr)
+                {
+                    currentComponent->setLookAndFeel(nullptr);
+                }
             }
         }
     }
