@@ -12,6 +12,8 @@
 #include "AudioFileTable.h"
 #include "AudioMetadataManager.h"
 #include "StringChecker.h"
+#include "SelectionArray.h"
+#include "ExtendedStringArray.h"
 //==============================================================================
 
 class MainComponent   : public Component,

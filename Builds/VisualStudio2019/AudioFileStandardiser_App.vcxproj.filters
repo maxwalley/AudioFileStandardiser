@@ -412,6 +412,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\ExtendedStringArray.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\DataHandler.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\FilePathWildcardInterpretter.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
@@ -2355,6 +2361,15 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\ExtendedStringArray.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\DataHandler.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SelectionArray.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\FilePathWildcardInterpretter.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>

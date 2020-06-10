@@ -44,27 +44,6 @@ void MainComponent::resized()
     }
     else
     {
-        /*int componentHeight;
-        
-        if(fileTable.getTableHeight() < 600)
-        {
-            componentHeight = fileTable.getTableHeight() + 30;
-        }
-        else
-        {
-            componentHeight = 600;
-        }
-        
-        if(batchControlsShown || fileAndFolderControlsShown)
-        {
-            setSize(850, componentHeight);
-        }
-        else
-        {
-            setSize(650, componentHeight);
-        }
-        fileTable.setBounds(0, 0, getWidth(), getHeight());*/
-        
         setSize(fileTable.getWidth(), fileTable.getHeight());
     }
 }

@@ -385,7 +385,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
     if(columnId != 7)
     {
         //Casts the component to the table specific class
-        TableTextEditorComponent* componentToUpdate = static_cast<TableTextEditorComponent*>(existingComponentToUpdate);
+        TableTextEditorComponent* componentToUpdate = dynamic_cast<TableTextEditorComponent*>(existingComponentToUpdate);
         
         componentToUpdate->setLocationInTable(columnId, rowNumber);
     
@@ -471,7 +471,7 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
     
     else if(columnId == 7)
     {
-        TableToggleButtonComponent* componentToUpdate = static_cast<TableToggleButtonComponent*>(existingComponentToUpdate);
+        TableToggleButtonComponent* componentToUpdate = dynamic_cast<TableToggleButtonComponent*>(existingComponentToUpdate);
         
         componentToUpdate->setLocationInTable(7, rowNumber);
         componentToUpdate->setToggleState(selectionButtonsValues[componentToUpdate->getRowNumber()], dontSendNotification);
@@ -490,7 +490,7 @@ void AudioFileTable::buttonClicked(Button* button)
     if(button->getName().compare("TableButton") == 0)
     {
         //Casts the button into the special table button type
-        TableToggleButtonComponent* tableButtonThatHasBeenClicked = static_cast<TableToggleButtonComponent*>(button);
+        TableToggleButtonComponent* tableButtonThatHasBeenClicked = dynamic_cast<TableToggleButtonComponent*>(button);
         
         selectionButtonsValues.set(tableButtonThatHasBeenClicked->getRowNumber(), tableButtonThatHasBeenClicked->getToggleState());
         
@@ -524,7 +524,7 @@ void AudioFileTable::buttonClicked(Button* button)
 void AudioFileTable::textEditorTextChanged(TextEditor& editor)
 {
     //Casts the editor to one of the specific table component editors so that row num and col id can be accessed
-    TableTextEditorComponent& editorThatHasChanged = static_cast<TableTextEditorComponent&>(editor);
+    TableTextEditorComponent& editorThatHasChanged = dynamic_cast<TableTextEditorComponent&>(editor);
     
     //If the editor is not in the bottom row of the table
     if(editorThatHasChanged.getRowNumber() != metadataReaders.size())
