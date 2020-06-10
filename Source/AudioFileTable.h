@@ -88,12 +88,16 @@ private:
     
     File decompressZipToLocation(File zip);
     
+    String getValueForCell(int row, int column);
+    
     TableListBox table;
     
     MetadataReaderSorter arraySorter;
     
     AudioMetadataManager metadataManager;
     OwnedArray<AudioMetadataReader> metadataReaders;
+    
+    Array<bool> selectionButtonsValues;
     
     TextEditorOutlineDrawer drawer;
     

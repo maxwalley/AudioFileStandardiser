@@ -76,10 +76,9 @@ AudioFileTable::AudioFileTable()    :   fileNamesToChangeWithTitle(false), showB
     extraInfoViewport.setVisible(false);
     
     batchControls.setVisible(false);
-    //batchControls.addActionListener(static_cast<MainComponent*>(getParentComponent()));
+    batchControls.addActionListener(this);
     fileAndDirectoryControls.setVisible(false);
     fileAndDirectoryControls.addActionListener(this);
-    //fileAndDirectoryControls.addActionListener(static_cast<MainComponent*>(getParentComponent()));
     
     addAndMakeVisible(testButt);
     testButt.addListener(this);
@@ -108,9 +107,15 @@ void AudioFileTable::paint (Graphics& g)
 
 void AudioFileTable::resized()
 {
+    int componentHeight;
+    
+    componentHeight = (getTableHeight() > 600)  ?   600 :   getTableHeight();
+    
     if(showBatchControls || fileAndFolderControlsVisible)
     {
-        table.setBounds(0, 0, getWidth() - 200, getTableHeight());
+        setSize(850, componentHeight);
+        
+        table.setBounds(0, 0, getWidth() - 200, getHeight());
         extraInfoViewport.setBounds(650, 0, 200, getHeight());
         extraInfoViewport.setVisible(true);
         
@@ -131,11 +136,13 @@ void AudioFileTable::resized()
     }
     else
     {
-        table.setBounds(0, 0, getWidth(), getTableHeight());
+        setSize(650, componentHeight);
+        
+        table.setBounds(0, 0, getWidth(), getHeight());
         batchControls.setVisible(false);
         extraInfoViewport.setVisible(false);
     }
-    testButt.setBounds(0, getTableHeight(), 200, 30);
+    sendActionMessage("Resize");
 }
 
 bool AudioFileTable::setFiles()
@@ -153,6 +160,7 @@ bool AudioFileTable::setFiles()
         metadataReaders.swapWith(lastArrayUsed);
         metadataReaders.clear();
         filesAreCurrentlyLoaded = true;
+        selectionButtonsValues.clear();
     }
     
     //Looks and opens the file
@@ -225,9 +233,12 @@ bool AudioFileTable::setFiles()
             else
             {
                 metadataReaders.add(currentReader.release());
+                selectionButtonsValues.add(false);
             }
         }
     }
+    //Adds one more for the bottom row selection button
+    selectionButtonsValues.add(false);
     
     if(errorEncountered == true)
     {
@@ -243,6 +254,8 @@ bool AudioFileTable::setFiles()
     {
         changeFileNamesToTitles();
     }
+    
+    resized();
     
     fileLoaded = true;
     
@@ -364,12 +377,12 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
     }
     
     //If a component is already there
-    
-    //Selection buttons should not need updated once they are there
     if(columnId != 7)
     {
         //Casts the component to the table specific class
         TableTextEditorComponent* componentToUpdate = static_cast<TableTextEditorComponent*>(existingComponentToUpdate);
+        
+        componentToUpdate->setLocationInTable(columnId, rowNumber);
     
         if(rowNumber < metadataReaders.size())
         {
@@ -411,13 +424,10 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
     
         for(int i = 0; i < metadataReaders.size() && comparatorFound != true; i++)
         {
-            TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
-            TableTextEditorComponent* tempEditor = static_cast<TableTextEditorComponent*>(table.getCellComponent(columnId, i));
-            
-            if(tempButton->getToggleState() == true)
+            if(selectionButtonsValues[i])
             {
                 comparatorFound = true;
-                comparatorString = tempEditor->getText();
+                comparatorString = getValueForCell(i, columnId);
             }
         }
     
@@ -427,12 +437,9 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
         
             for(int i = 0; i < metadataReaders.size() && differenceFound != true; i++)
             {
-                TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
-                TableTextEditorComponent* tempEditor = static_cast<TableTextEditorComponent*>(table.getCellComponent(columnId, i));
-            
-                if(tempButton->getToggleState() == true)
+                if(selectionButtonsValues[i])
                 {
-                    if(tempEditor->getText().compare(comparatorString) != 0)
+                    if(getValueForCell(i, columnId).compare(comparatorString) != 0)
                     {
                         differenceFound = true;
                     }
@@ -457,8 +464,18 @@ Component* AudioFileTable::refreshComponentForCell(int rowNumber, int columnId, 
         return componentToUpdate;
     }
     
-    return existingComponentToUpdate;
+    else if(columnId == 7)
+    {
+        TableToggleButtonComponent* componentToUpdate = static_cast<TableToggleButtonComponent*>(existingComponentToUpdate);
+        
+        componentToUpdate->setLocationInTable(7, rowNumber);
+        componentToUpdate->setToggleState(selectionButtonsValues[componentToUpdate->getRowNumber()], dontSendNotification);
+        
+        return componentToUpdate;
+    }
     
+    DBG("Row " << rowNumber << "  column " <<columnId);
+    return nullptr;
     
 }
 
@@ -470,15 +487,17 @@ void AudioFileTable::buttonClicked(Button* button)
         //Casts the button into the special table button type
         TableToggleButtonComponent* tableButtonThatHasBeenClicked = static_cast<TableToggleButtonComponent*>(button);
         
+        selectionButtonsValues.set(tableButtonThatHasBeenClicked->getRowNumber(), tableButtonThatHasBeenClicked->getToggleState());
+        
         //Checks to see if the button thats been clicked is in the bottom row of the table
         if(tableButtonThatHasBeenClicked->getRowNumber() == metadataReaders.size())
         {
             for(int i = 0; i < metadataReaders.size(); i++)
             {
                 //Changes all toggle states to the same as the button in the last row
-                TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
-                tempButton->setToggleState(tableButtonThatHasBeenClicked->getToggleState(), sendNotification);
+                selectionButtonsValues.set(i, tableButtonThatHasBeenClicked->getToggleState());
             }
+            table.updateContent();
         }
         
         //If its any other button
@@ -514,11 +533,8 @@ void AudioFileTable::textEditorTextChanged(TextEditor& editor)
         //Iterates through the rows
         for(int i = 0; i < metadataReaders.size(); i++)
         {
-            //Gets the button for this row and the editor for the row and column
-            TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
-            
             //If the row is selected with the toggle buttons the editor in that rows colun will be changed
-            if(tempButton->getToggleState())
+            if(selectionButtonsValues[i])
             {
                 changeMetadataForCellComponent(editorThatHasChanged.getColumnID(), i, editorThatHasChanged.getText());
             }
@@ -560,16 +576,11 @@ void AudioFileTable::actionListenerCallback(const String& message)
                 {
                     for(int i = 0; i < metadataReaders.size(); i++)
                     {
-                        //Gets the button for this row
-                        TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
-                        
-                        if(tempButton->getToggleState() == true)
+                        //Gets the button value for this row
+                        if(selectionButtonsValues[i])
                         {
-                            //Gets the editor for this row and column
-                            TableTextEditorComponent* tempEditor = static_cast<TableTextEditorComponent*>(table.getCellComponent(column, i));
-                            
-                            //Gets the text from the editor that is currently being changed
-                            String textToReplace = tempEditor->getText();
+                            //Gets the text from the metadata that is currently being changed
+                            String textToReplace = getValueForCell(i, column);
                             
                             if(batchControls.getCharsToRemove().isNotEmpty())
                              {
@@ -598,7 +609,7 @@ void AudioFileTable::actionListenerCallback(const String& message)
                              if(batchControls.getCharsToAddToPosition().isNotEmpty())
                              {
                                  //Adds chars to set position set by batch controls from titles
-                                 if(batchControls.getPositionToAdd() > tempEditor->getText().length())
+                                 if(batchControls.getPositionToAdd() > getValueForCell(i, column).length())
                                  {
                                      textToReplace = textToReplace + batchControls.getCharsToAddToPosition();
                                  }
@@ -675,14 +686,19 @@ void AudioFileTable::actionListenerCallback(const String& message)
     {
         for(int i = 0; i < metadataReaders.size(); i++)
         {
-            TableToggleButtonComponent* tempButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
-            
-            if(tempButton->getToggleState())
+            if(selectionButtonsValues[i])
             {
                 metadataManager.moveFileBasedOnWildcardPath(metadataReaders[i], fileAndDirectoryControls.getNewDirAndWildcardPath());
             }
         }
         sendDirectoryDataToControls();
+    }
+    
+    else if(message.compare("Extra Info Close Button Clicked") == 0)
+    {
+        showBatchControls = false;
+        fileAndFolderControlsVisible = false;
+        resized();
     }
 }
 
@@ -721,9 +737,7 @@ bool AudioFileTable::isAnyTableButtonOn()
 {
     for(int i = 0; i < metadataReaders.size(); i++)
     {
-        TableToggleButtonComponent* currentButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
-        
-        if(currentButton->getToggleState())
+        if(selectionButtonsValues[i])
         {
             return true;
         }
@@ -742,9 +756,7 @@ void AudioFileTable::sendDirectoryDataToControls()
         //Iterates through the files owned by the metadata readers and sees whether the parent files are the same on the ticked ones
         for(int i = 0; i < metadataReaders.size() && allTheSame; i++)
         {
-            TableToggleButtonComponent* currentButton = static_cast<TableToggleButtonComponent*>(table.getCellComponent(7, i));
-            
-            if(currentButton->getToggleState())
+            if(selectionButtonsValues[i])
             {
                 String currentParentString = metadataReaders[i]->getFile().getFullPathName().replace("/" + metadataReaders[i]->getFile().getFileName(), "");
                 
@@ -819,4 +831,34 @@ File AudioFileTable::decompressZipToLocation(File zip)
         return File(newDirName);
     }
     return zip;
+}
+
+String AudioFileTable::getValueForCell(int row, int column)
+{
+    switch (column)
+    {
+        case 1:
+            return String(metadataReaders[row]->getTrackNum());
+            break;
+            
+        case 2:
+            return metadataReaders[row]->getTrackTitle();
+            break;
+            
+        case 3:
+            return metadataReaders[row]->getArtistName();
+            break;
+            
+        case 4:
+            return metadataReaders[row]->getAlbumName();
+            break;
+            
+        case 5:
+            return String(metadataReaders[row]->getYear());
+            break;
+            
+        case 6:
+            return metadataReaders[row]->getFile().getFileExtension();
+            break;
+    }
 }

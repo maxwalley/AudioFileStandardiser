@@ -20,6 +20,7 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(fal
     addAndMakeVisible(fileTable);
     fileTable.addExtraInfoActionListener(this);
     fileTable.setName("File Table");
+    fileTable.addActionListener(this);
     
     setMacMainMenu(this);
 }
@@ -43,15 +44,28 @@ void MainComponent::resized()
     }
     else
     {
-        if(batchControlsShown || fileAndFolderControlsShown)
+        /*int componentHeight;
+        
+        if(fileTable.getTableHeight() < 600)
         {
-            setSize(850, fileTable.getTableHeight() + 30);
+            componentHeight = fileTable.getTableHeight() + 30;
         }
         else
         {
-            setSize(650, fileTable.getTableHeight() + 30);
+            componentHeight = 600;
         }
-        fileTable.setBounds(0, 0, getWidth(), getHeight());
+        
+        if(batchControlsShown || fileAndFolderControlsShown)
+        {
+            setSize(850, componentHeight);
+        }
+        else
+        {
+            setSize(650, componentHeight);
+        }
+        fileTable.setBounds(0, 0, getWidth(), getHeight());*/
+        
+        setSize(fileTable.getWidth(), fileTable.getHeight());
     }
 }
 
@@ -167,11 +181,16 @@ void MainComponent::actionListenerCallback(const String& message)
 {
     if(message == "Extra Info Close Button Clicked")
     {
-        batchControlsShown = false;
+        /*batchControlsShown = false;
         fileAndFolderControlsShown = false;
         resized();
         fileTable.setBatchControlsVisible(batchControlsShown);
-        fileTable.setFileAndDirectoryControlsVisible(fileAndFolderControlsShown);
+        fileTable.setFileAndDirectoryControlsVisible(fileAndFolderControlsShown);*/
         menuItemsChanged();
+    }
+    
+    else if(message == "Resize")
+    {
+        resized();
     }
 }
