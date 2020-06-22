@@ -3,10 +3,6 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               jucerVersion="5.4.5">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
-    <FILE id="RW26S7" name="ExtendedStringArray.h" compile="0" resource="0"
-          file="Source/ExtendedStringArray.h"/>
-    <FILE id="fZLh3S" name="ExtendedStringArray.cpp" compile="1" resource="0"
-          file="Source/ExtendedStringArray.cpp"/>
     <FILE id="uaTkbk" name="DataHandler.h" compile="0" resource="0" file="Source/DataHandler.h"/>
     <FILE id="f7NUAw" name="DataHandler.cpp" compile="1" resource="0" file="Source/DataHandler.cpp"/>
     <FILE id="UjPsQb" name="SelectionArray.h" compile="0" resource="0"

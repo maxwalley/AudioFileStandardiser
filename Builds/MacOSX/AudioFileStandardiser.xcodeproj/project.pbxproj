@@ -61,10 +61,6 @@
 			isa = PBXBuildFile;
 			fileRef = 5A15C4E4BFD977D25E18ACFE;
 		};
-		B7CCD987454117D057389D3B = {
-			isa = PBXBuildFile;
-			fileRef = C897F7B2BF0EE91AE465EC39;
-		};
 		CA970EEE0314F5D3ED4D298A = {
 			isa = PBXBuildFile;
 			fileRef = 93D21EF72669705ADD5305B8;
@@ -219,13 +215,6 @@
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = MainComponent.cpp;
 			path = ../../Source/MainComponent.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
-		182258EE028160400E97B8D7 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			name = ExtendedStringArray.h;
-			path = ../../Source/ExtendedStringArray.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		199ED50162E80C1274709BFF = {
@@ -564,13 +553,6 @@
 			path = "../../JuceLibraryCode/include_juce_audio_devices.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
-		C897F7B2BF0EE91AE465EC39 = {
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.cpp.cpp;
-			name = ExtendedStringArray.cpp;
-			path = ../../Source/ExtendedStringArray.cpp;
-			sourceTree = "SOURCE_ROOT";
-		};
 		CB61A16FCF53627E219A6D87 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -674,8 +656,6 @@
 		329608004BEDC20C07FBE1D7 = {
 			isa = PBXGroup;
 			children = (
-				182258EE028160400E97B8D7,
-				C897F7B2BF0EE91AE465EC39,
 				581CB47D9607559734D1ACDD,
 				93D21EF72669705ADD5305B8,
 				EFCA961B037336AE380D7199,
@@ -1013,7 +993,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7CCD987454117D057389D3B,
 				CA970EEE0314F5D3ED4D298A,
 				765D65CB3DEBEDC105CA3765,
 				351F55B98A73780443A7D80E,

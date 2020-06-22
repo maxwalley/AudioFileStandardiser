@@ -73,30 +73,3 @@ void TagLibTagReader::setYear(int newYear)
 {
     metadata->setYear(newYear);
 }
-
-/*void TagLibTagReader::moveFile(String newLocation)
-{
-    newLocation = newLocation + "/" + fileToRead.getFileName();
-    fileToRead.moveFileTo(File(newLocation));
-    fileToRead = newLocation;
-}
-
-String TagLibTagReader::getFileLocation()
-{
-    return fileToRead.getFullPathName();
-}
-
-String TagLibTagReader::getFileName()
-{
-    return fileToRead.getFileName();
-}
-
-String TagLibTagReader::getFileNameWithoutExtension()
-{
-    return fileToRead.getFileNameWithoutExtension();
-}
-
-String TagLibTagReader::getFileExtension()
-{
-    return fileToRead.getFileExtension();
-}*/

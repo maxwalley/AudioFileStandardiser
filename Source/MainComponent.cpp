@@ -23,8 +23,9 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(fal
     fileTable.addActionListener(this);
     
     setMacMainMenu(this);
+    
 }
-
+    
 MainComponent::~MainComponent()
 {
     setMacMainMenu(0);

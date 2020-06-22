@@ -13,7 +13,6 @@
 #include "AudioMetadataManager.h"
 #include "StringChecker.h"
 #include "SelectionArray.h"
-#include "ExtendedStringArray.h"
 //==============================================================================
 
 class MainComponent   : public Component,
@@ -27,7 +26,7 @@ public:
    
     void paint (Graphics&) override;
     void resized() override;
-
+    
 private:
     void buttonClicked(Button* button) override;
     

@@ -138,7 +138,6 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\ExtendedStringArray.cpp"/>
     <ClCompile Include="..\..\Source\DataHandler.cpp"/>
     <ClCompile Include="..\..\Source\FilePathWildcardInterpretter.cpp"/>
     <ClCompile Include="..\..\Source\TableCellComponent.cpp"/>
@@ -1918,7 +1917,6 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\ExtendedStringArray.h"/>
     <ClInclude Include="..\..\Source\DataHandler.h"/>
     <ClInclude Include="..\..\Source\SelectionArray.h"/>
     <ClInclude Include="..\..\Source\FilePathWildcardInterpretter.h"/>
