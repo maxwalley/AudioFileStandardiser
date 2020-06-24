@@ -28,7 +28,7 @@ public:
     
     void setDataSet(bool isDataSet);
     
-    void setCurrentDirectory(String newDirectory);
+    void setCurrentDirectory(const String& newDirectory);
     String getCurrentDirectoryDisplayed() const;
     
     String getWildcardPath() const;

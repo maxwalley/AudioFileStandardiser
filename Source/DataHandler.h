@@ -10,8 +10,19 @@
 
 #pragma once
 
-#include "SelectionArray.h"
 #include "TagLibTagReader.h"
+#include "Mediator.h"
+
+template <class t>
+struct SelectionData
+{
+    SelectionData(t newObject, bool newSelection)   :   object(newObject), selection(newSelection){};
+    
+    //SelectionData(const SelectionData& otherData){};
+    
+    t object;
+    bool selection;
+};
 
 class DataHandler
 {
@@ -32,25 +43,26 @@ public:
     
     void setDataForItem(DataConcerned typeOfData, int itemIndex, String newData);
     
-    
-    
     //Essentially a shortcut to stop the switch being explicitly implemented into lots of other funcs
-    String getDataForItem(DataConcerned typeOfData, AudioMetadataReader* reader);
+    String getDataForItem(DataConcerned typeOfData, int index);
+    
+    void setItemSelection(int index, bool selected);
+    bool getItemSelection(int index) const;
     
     bool isSelectedDataTheSame(DataConcerned typeOfData, bool selected);
     
-    int getIndexForArtist(String artistName);
+    void addData(std::vector<AudioMetadataReader*>& readersToAdd);
+    void addData(AudioMetadataReader* readerToAdd);
     
-    int getIndexForAlbum(String albumName);
+    void clearData();
+    void clearData(int firstIndex, int lastIndex);
     
-    int getIndexForTrack(String trackTitle);
+    int numEntries();
     
-    bool compareDataAtIndexes(DataConcerned typeOfData, int index1, int index2);
-    
-    bool compareDataAtIndexes(DataConcerned typeOfData, std::vector<int> indexesToCompare);
+    void sort();
     
 private:
+    Mediator* mediator;
     
-    SelectionArray<AudioMetadataReader> readers;
-    
+    std::vector<SelectionData<AudioMetadataReader*>> readers;
 };

@@ -10,7 +10,7 @@
 
 #include "TagLibTagReader.h"
 
-TagLibTagReader::TagLibTagReader(File& input)   :   AudioMetadataReader(input), metadataFile(fileToRead.getFullPathName().toUTF8(), false)
+TagLibTagReader::TagLibTagReader(const File& input)   :   AudioMetadataReader(input), metadataFile(fileToRead.getFullPathName().toUTF8(), false)
 {
     metadata = metadataFile.tag();
     metadata->setGenre("");
@@ -54,17 +54,17 @@ void TagLibTagReader::setTrackNum(int newTrackNum)
     metadata->setTrack(newTrackNum);
 }
 
-void TagLibTagReader::setTrackTitle(String newTrackTitle)
+void TagLibTagReader::setTrackTitle(const String& newTrackTitle)
 {
     metadata->setTitle(TagLib::String(newTrackTitle.toUTF8()));
 }
 
-void TagLibTagReader::setArtistName(String newArtistName)
+void TagLibTagReader::setArtistName(const String& newArtistName)
 {
     metadata->setArtist(TagLib::String(newArtistName.toUTF8()));
 }
 
-void TagLibTagReader::setAlbumName(String newAlbumName)
+void TagLibTagReader::setAlbumName(const String& newAlbumName)
 {
     metadata->setAlbum(TagLib::String(newAlbumName.toUTF8()));
 }

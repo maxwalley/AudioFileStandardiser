@@ -78,7 +78,7 @@ private:
 
     void actionListenerCallback(const String& message) override;
     
-    void changeMetadataForCellComponent(int cellColumn, int row, String newData);
+    void changeMetadataForCellComponent(int cellColumn, int row, const String& newData);
     
     bool isAnyTableButtonOn();
     

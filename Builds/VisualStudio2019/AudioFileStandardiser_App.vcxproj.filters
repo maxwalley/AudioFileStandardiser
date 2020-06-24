@@ -412,7 +412,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\IntroComponent.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Logger.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FileInitialiser.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\DataHandler.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Mediator.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\FilePathWildcardInterpretter.cpp">
@@ -2358,10 +2370,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\IntroComponent.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Logger.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\FileInitialiser.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\DataHandler.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\SelectionArray.h">
+    <ClInclude Include="..\..\Source\Mediator.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\FilePathWildcardInterpretter.h">

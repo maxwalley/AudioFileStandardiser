@@ -12,12 +12,12 @@
 
 DataHandler::DataHandler()
 {
-    
+    mediator = Mediator::getInstance();
 }
 
 DataHandler::~DataHandler()
 {
-    
+    clearData();
 }
 
 void DataHandler::setDataForItem(DataConcerned typeOfData, int itemIndex, String newData)
@@ -27,27 +27,27 @@ void DataHandler::setDataForItem(DataConcerned typeOfData, int itemIndex, String
         switch (typeOfData)
         {
             case trackNum:
-                readers[itemIndex]->setTrackNum(newData.getIntValue());
+                readers[itemIndex].object->setTrackNum(newData.getIntValue());
                 break;
                 
             case trackTitle:
-                readers[itemIndex]->setTrackTitle(newData);
+                readers[itemIndex].object->setTrackTitle(newData);
                 break;
                 
             case artistName:
-                readers[itemIndex]->setArtistName(newData);
+                readers[itemIndex].object->setArtistName(newData);
                 break;
                 
             case albumName:
-                readers[itemIndex]->setAlbumName(newData);
+                readers[itemIndex].object->setAlbumName(newData);
                 break;
                 
             case year:
-                readers[itemIndex]->setYear(newData.getIntValue());
+                readers[itemIndex].object->setYear(newData.getIntValue());
                 break;
                 
             case fileName:
-                readers[itemIndex]->changeFileName(newData);
+                readers[itemIndex].object->changeFileName(newData);
                 break;
                 
             case fileExtension:
@@ -57,126 +57,130 @@ void DataHandler::setDataForItem(DataConcerned typeOfData, int itemIndex, String
     }
 }
 
-String DataHandler::getDataForItem(DataConcerned typeOfData, AudioMetadataReader* reader)
+String DataHandler::getDataForItem(DataConcerned typeOfData, int index)
 {
-    if(reader != nullptr)
+    switch (typeOfData)
     {
-        switch (typeOfData)
-        {
-            case trackNum:
-                return String(reader->getTrackNum());
-                break;
+        case trackNum:
+            return String(readers[index].object->getTrackNum());
+            break;
                 
-            case trackTitle:
-                return reader->getTrackTitle();
-                break;
+        case trackTitle:
+            return readers[index].object->getTrackTitle();
+            break;
                 
-            case artistName:
-                return reader->getArtistName();
-                break;
+        case artistName:
+            return readers[index].object->getArtistName();
+            break;
                 
-            case albumName:
-                return reader->getAlbumName();
-                break;
+        case albumName:
+            return readers[index].object->getAlbumName();
+            break;
                 
-            case year:
-                return String(reader->getYear());
-                break;
+        case year:
+            return String(readers[index].object->getYear());
+            break;
                 
-            case fileName:
-                return reader->getFile().getFileNameWithoutExtension();
-                break;
+        case fileName:
+            return readers[index].object->getFile().getFileNameWithoutExtension();
+            break;
                 
-            case fileExtension:
-                return reader->getFile().getFileExtension();
-                break;
-        }
+        case fileExtension:
+            return readers[index].object->getFile().getFileExtension();
+            break;
     }
+}
+
+void DataHandler::setItemSelection(int index, bool selected)
+{
+    readers[index].selection = selected;
+}
+
+bool DataHandler::getItemSelection(int index) const
+{
+    return readers[index].selection;
 }
 
 bool DataHandler::isSelectedDataTheSame(DataConcerned typeOfData, bool selected)
 {
-    std::vector<AudioMetadataReader*> tempReaders = readers.getItemsBasedOnSelection(selected);
+    String comparisonString;
     
-    if(tempReaders.size() != 0)
+    for(int i = 0; i < readers.size(); i++)
     {
-        bool differenceFound = false;
-        String comparatorString = getDataForItem(typeOfData, tempReaders[0]);
-        
-        for(int i = 1; i < tempReaders.size() && !differenceFound; i++)
+        if(readers[i].selection == selected)
         {
-            if(getDataForItem(typeOfData, tempReaders[i]) != comparatorString)
+            if(comparisonString.isEmpty())
             {
-                return false;
+                comparisonString = getDataForItem(typeOfData, i);
+            }
+            
+            else
+            {
+                if(getDataForItem(typeOfData, i).compare(comparisonString) != 0)
+                {
+                    return false;
+                }
             }
         }
-        return true;
     }
-    return false;
+    return true;
 }
 
-int DataHandler::getIndexForArtist(String artistName)
+void DataHandler::addData(std::vector<AudioMetadataReader*>& readersToAdd)
+{
+    for(int i = 0; i < readersToAdd.size(); i++)
+    {
+        readers.push_back(SelectionData<AudioMetadataReader*>(readersToAdd[i], false));
+        
+        readersToAdd[i] = nullptr;
+    }
+    
+}
+
+void DataHandler::addData(AudioMetadataReader* readerToAdd)
+{
+    SelectionData<AudioMetadataReader*> temp = {readerToAdd, false};
+    
+    readerToAdd = nullptr;
+    
+    readers.push_back(temp);
+}
+
+void DataHandler::clearData()
 {
     for(int i = 0; i < readers.size(); i++)
     {
-        if(readers[i]->getArtistName().compare(artistName) == 0)
-        {
-            return i;
-        }
+        delete readers[i].object;
     }
-    return -1;
+    
+    readers.erase(readers.begin(), readers.end());
 }
 
-int DataHandler::getIndexForAlbum(String albumName)
+void DataHandler::clearData(int firstIndex, int lastIndex)
 {
-    for(int i = 0; i < readers.size(); i++)
+    for(int i = firstIndex; i < lastIndex; i++)
     {
-        if(readers[i]->getAlbumName().compare(albumName) == 0)
-        {
-            return i;
-        }
+        delete readers[i].object;
     }
-    return -1;
+    
+    readers.erase(readers.begin() + firstIndex, readers.begin() + lastIndex);
 }
 
-int DataHandler::getIndexForTrack(String trackTitle)
+int DataHandler::numEntries()
 {
-    for(int i = 0; i < readers.size(); i++)
-    {
-        if(readers[i]->getTrackTitle().compare(trackTitle) == 0)
-        {
-            return i;
-        }
-    }
-    return -1;
+    return readers.size();
 }
 
-bool DataHandler::compareDataAtIndexes(DataConcerned typeOfData, int index1, int index2)
+bool compare(SelectionData<AudioMetadataReader*> first, SelectionData<AudioMetadataReader*> second)
 {
-    if(getDataForItem(typeOfData, readers[index1]) != getDataForItem(typeOfData, readers[index2]))
+    if(first.object->getArtistName().compare(second.object->getArtistName()) < 0)
     {
         return false;
     }
     return true;
 }
 
-bool DataHandler::compareDataAtIndexes(DataConcerned typeOfData, std::vector<int> indexesToCompare)
+void DataHandler::sort()
 {
-    if(indexesToCompare.size() == 0)
-    {
-        return false;
-    }
-    else
-    {
-        String comparisonString = getDataForItem(typeOfData, readers[indexesToCompare[0]]);
-        
-        for(int i = 1; i < indexesToCompare.size(); i++)
-        {
-            if(getDataForItem(typeOfData, readers[indexesToCompare[i]]).compare(comparisonString) != 0)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
+    std::sort(readers.begin(), readers.end(), compare);
 }

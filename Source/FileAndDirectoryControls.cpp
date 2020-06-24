@@ -72,7 +72,7 @@ void FileAndDirectoryControls::setDataSet(bool isDataSet)
     dataSet = isDataSet;
 }
 
-void FileAndDirectoryControls::setCurrentDirectory(String newDirectory)
+void FileAndDirectoryControls::setCurrentDirectory(const String& newDirectory)
 {
     currentDirectoryDataLabel.setText(newDirectory, dontSendNotification);
 }

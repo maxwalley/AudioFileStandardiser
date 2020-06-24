@@ -31,13 +31,9 @@ protected:
 class TableTextEditorComponent  :   public TableCellComponent, public TextEditor
 {
 public:
-    //TableTextEditorComponent();
-    //~TableTextEditorComponent();
 };
 
 class TableToggleButtonComponent  :   public TableCellComponent, public ToggleButton
 {
 public:
-    //TableToggleButtonComponent();
-    //~TableToggleButtonComponent();
 };

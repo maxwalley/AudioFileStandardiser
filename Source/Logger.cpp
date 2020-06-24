@@ -14,9 +14,9 @@ std::ofstream LoggerC::logFile;
 
 std::string LoggerC::timeFormat = "%T";
 
-LoggerC::LoggerC()  :   timeSet(false)
+LoggerC::LoggerC(const std::string& logFilePath)  :   timeSet(false)
 {
-    
+    setLogFile(logFilePath);
 }
 
 LoggerC::~LoggerC()
@@ -27,7 +27,7 @@ LoggerC::~LoggerC()
     }
 }
 
-bool LoggerC::logMessage(std::string message, bool logTime)
+bool LoggerC::logMessage(const std::string& message, bool logTime)
 {
     if(logFile.is_open())
     {
@@ -42,7 +42,7 @@ bool LoggerC::logMessage(std::string message, bool logTime)
     return false;
 }
 
-bool LoggerC::setLogFile(std::string filePath)
+bool LoggerC::setLogFile(const std::string& filePath)
 {
     if(logFile.is_open())
     {
@@ -64,7 +64,7 @@ void LoggerC::startTimer()
     timeSet = true;
 }
 
-void LoggerC::setTimeFormat(std::string newTimeFormat)
+void LoggerC::setTimeFormat(const std::string& newTimeFormat)
 {
     timeFormat = newTimeFormat;
 }

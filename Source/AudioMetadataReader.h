@@ -15,7 +15,7 @@
 class AudioMetadataReader
 {
 public:
-    AudioMetadataReader(File& inputFile);
+    AudioMetadataReader(const File& inputFile);
     virtual ~AudioMetadataReader();
     
     virtual int getTrackNum() = 0;
@@ -25,13 +25,13 @@ public:
     virtual int getYear() = 0;
     
     virtual void setTrackNum(int newTrackNum) = 0;
-    virtual void setTrackTitle(String newTrackTitle) = 0;
-    virtual void setArtistName(String newArtistName) = 0;
-    virtual void setAlbumName(String newAlbumName) = 0;
+    virtual void setTrackTitle(const String& newTrackTitle) = 0;
+    virtual void setArtistName(const String& newArtistName) = 0;
+    virtual void setAlbumName(const String& newAlbumName) = 0;
     virtual void setYear(int newYear) = 0;
     
-    virtual void moveFileToNewDirectory(String newLocation);
-    virtual void changeFileName(String newName);
+    virtual void moveFileToNewDirectory(const String& newLocation);
+    virtual void changeFileName(const String& newName);
     virtual File& getFile();
     
 protected:

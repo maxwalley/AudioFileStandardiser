@@ -20,7 +20,7 @@ AudioMetadataManager::~AudioMetadataManager()
     
 }
 
-std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(File& file)
+std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(const File& file)
 {
     AudioFormatManager manager;
     manager.registerBasicFormats();
@@ -35,17 +35,17 @@ std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(
     return nullptr;
 }
 
-bool AudioMetadataManager::moveFileBasedOnWildcardPath(AudioMetadataReader* fileToMove, String newLocationWithWildcards)
+bool AudioMetadataManager::moveFileBasedOnWildcardPath(AudioMetadataReader* fileToMove, const String& newLocationWithWildcards)
 {
-    String convertedPath = wildcardInterpretter.interpretString(newLocationWithWildcards, fileToMove);
+    String convertedLocation = wildcardInterpretter.interpretString(newLocationWithWildcards, fileToMove);
     
-    if(!File(convertedPath).exists())
+    if(!File(convertedLocation).exists())
     {
-        File(convertedPath).createDirectory();
+        File(convertedLocation).createDirectory();
     }
     
     //convertedPath = convertedPath + "/" + fileToMove->getFile().getFileName();
     
-    fileToMove->moveFileToNewDirectory(convertedPath);
+    fileToMove->moveFileToNewDirectory(convertedLocation);
 }
 

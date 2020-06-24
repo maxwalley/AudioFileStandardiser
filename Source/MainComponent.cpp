@@ -24,6 +24,25 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(fal
     
     setMacMainMenu(this);
     
+    DataHandler testHandler;
+    std::vector<AudioMetadataReader*> testVector;
+    AudioMetadataManager manager;
+    
+    std::unique_ptr<AudioMetadataReader> testReader = manager.createMetadataReader(File("/Users/maxwalley/Desktop/Childish Gambino - 3.15.20/03.Time.mp3"));
+    
+    std::unique_ptr<AudioMetadataReader> testReader2 = manager.createMetadataReader(File("/Users/maxwalley/Desktop/Childish Gambino - 3.15.20/01.0.00.mp3"));
+    
+    testVector.push_back(testReader.release());
+    
+    testHandler.addData(testVector);
+    
+    testHandler.addData(testReader2.release());
+    
+    for(int i = 0; i < testHandler.numEntries(); i++)
+    {
+        DBG(testHandler.getDataForItem(DataHandler::artistName, i));
+    }
+    
 }
     
 MainComponent::~MainComponent()

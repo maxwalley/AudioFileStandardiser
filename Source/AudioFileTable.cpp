@@ -707,7 +707,7 @@ void AudioFileTable::actionListenerCallback(const String& message)
     }
 }
 
-void AudioFileTable::changeMetadataForCellComponent(int cellColumn, int row, String newData)
+void AudioFileTable::changeMetadataForCellComponent(int cellColumn, int row, const String& newData)
 {
     switch (cellColumn)
     {

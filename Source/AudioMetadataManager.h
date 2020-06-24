@@ -23,19 +23,12 @@ public:
     AudioMetadataManager();
     ~AudioMetadataManager();
     
-    std::unique_ptr<AudioMetadataReader> createMetadataReader(File& file);
+    std::unique_ptr<AudioMetadataReader> createMetadataReader(const File& file);
     
-    bool moveFileBasedOnWildcardPath(AudioMetadataReader* fileToMove, String newLocationWithWildcards);
+    bool moveFileBasedOnWildcardPath(AudioMetadataReader* fileToMove, const String& newLocationWithWildcards);
     
 private:
     
     AudioFormatManager formatManager;
     FilePathWildcardInterpretter wildcardInterpretter;
 };
-
-//TO DO
-//Abstract this out to metadataManager
-//Rename this to audioMetadataManager
-
-//rename AudioMetadataReader to audioMetadataReader
-//Follows library pattern found at: https://sourcemaking.com/design_patterns/factory_method/cpp/2

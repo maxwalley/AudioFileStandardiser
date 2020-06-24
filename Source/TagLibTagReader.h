@@ -16,7 +16,7 @@
 class TagLibTagReader : public AudioMetadataReader
 {
 public:
-    TagLibTagReader(File& input);
+    TagLibTagReader(const File& input);
     ~TagLibTagReader();
     
     int getTrackNum() override;
@@ -26,9 +26,9 @@ public:
     int getYear() override;
     
     void setTrackNum(int newTrackNum) override;
-    void setTrackTitle(String newTrackTitle) override;
-    void setArtistName(String newArtistName) override;
-    void setAlbumName(String newAlbumName) override;
+    void setTrackTitle(const String& newTrackTitle) override;
+    void setArtistName(const String& newArtistName) override;
+    void setAlbumName(const String& newAlbumName) override;
     void setYear(int newYear) override;
     
 private:

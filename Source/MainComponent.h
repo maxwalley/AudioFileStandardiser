@@ -12,8 +12,11 @@
 #include "AudioFileTable.h"
 #include "AudioMetadataManager.h"
 #include "StringChecker.h"
-#include "SelectionArray.h"
+#include "DataHandler.h"
+#include "Mediator.h"
+#include "Logger.h"
 //==============================================================================
+
 
 class MainComponent   : public Component,
                         public Button::Listener,

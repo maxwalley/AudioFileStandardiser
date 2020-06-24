@@ -17,19 +17,19 @@
 class LoggerC
 {
 public:
-    LoggerC();
+    LoggerC(const std::string& logFilePath);
     ~LoggerC();
     
     //returns false if no file is opened
-    static bool logMessage(std::string message, bool logTime);
+    static bool logMessage(const std::string& message, bool logTime);
     
     //Must be called before logging any messages returns if the file was opened succesfully
-    bool setLogFile(std::string filePath);
+    bool setLogFile(const std::string& filePath);
     
     void startTimer();
     
     template <class durationToUse>// this should be of type std::chrono::duration
-    durationToUse stopTimer(bool log, std::string message = "")
+    durationToUse stopTimer(bool log, const std::string& message = "")
     {
         if(timeSet)
         {
@@ -47,7 +47,7 @@ public:
     };
     
     //time format should comply with std::putTime
-    static void setTimeFormat(std::string newTimeFormat);
+    static void setTimeFormat(const std::string& newTimeFormat);
     
 private:
     

@@ -3,10 +3,20 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               jucerVersion="5.4.5">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
+    <FILE id="UdVaHf" name="IntroComponent.h" compile="0" resource="0"
+          file="Source/IntroComponent.h"/>
+    <FILE id="P3ZKQH" name="IntroComponent.cpp" compile="1" resource="0"
+          file="Source/IntroComponent.cpp"/>
+    <FILE id="Rs9UjD" name="Logger.h" compile="0" resource="0" file="Source/Logger.h"/>
+    <FILE id="oBHTEs" name="Logger.cpp" compile="1" resource="0" file="Source/Logger.cpp"/>
+    <FILE id="LaOS93" name="FileInitialiser.h" compile="0" resource="0"
+          file="Source/FileInitialiser.h"/>
+    <FILE id="yX2CW9" name="FileInitialiser.cpp" compile="1" resource="0"
+          file="Source/FileInitialiser.cpp"/>
     <FILE id="uaTkbk" name="DataHandler.h" compile="0" resource="0" file="Source/DataHandler.h"/>
     <FILE id="f7NUAw" name="DataHandler.cpp" compile="1" resource="0" file="Source/DataHandler.cpp"/>
-    <FILE id="UjPsQb" name="SelectionArray.h" compile="0" resource="0"
-          file="Source/SelectionArray.h"/>
+    <FILE id="dtB9yv" name="Mediator.h" compile="0" resource="0" file="Source/Mediator.h"/>
+    <FILE id="UA7AB9" name="Mediator.cpp" compile="1" resource="0" file="Source/Mediator.cpp"/>
     <FILE id="vBpyxG" name="FilePathWildcardInterpretter.h" compile="0"
           resource="0" file="Source/FilePathWildcardInterpretter.h"/>
     <FILE id="ZgxrJO" name="FilePathWildcardInterpretter.cpp" compile="1"

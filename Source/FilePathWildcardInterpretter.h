@@ -26,7 +26,7 @@ public:
     
     void setTrackNumFormat();
     
-    String interpretString(String input, AudioMetadataReader* file);
+    String interpretString(const String& input, AudioMetadataReader* file);
     
     StringArray getCompatibleWildcards() const;
     
