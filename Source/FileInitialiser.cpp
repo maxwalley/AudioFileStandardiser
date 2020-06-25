@@ -12,9 +12,11 @@
 
 #include "FileInitialiser.h"
 
-FileInitialiser::FileInitialiser()
+#include "Mediator.h"
+
+FileInitialiser::FileInitialiser()  :   ownershipLost(false)
 {
-    mediator = Mediator::getInstance();
+    
 }
 
 FileInitialiser::~FileInitialiser()
@@ -129,10 +131,12 @@ File FileInitialiser::decompressZipToLocation(const File& zip)
 
 void FileInitialiser::clearCurrentFiles()
 {
+    
     for(int i = 0; i < currentFiles.size(); i++)
     {
         delete currentFiles[i];
     }
     
-    currentFiles.erase(currentFiles.begin());
+    currentFiles.clear();
+    
 }

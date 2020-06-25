@@ -12,7 +12,7 @@
 
 DataHandler::DataHandler()
 {
-    mediator = Mediator::getInstance();
+    
 }
 
 DataHandler::~DataHandler()

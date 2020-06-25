@@ -16,8 +16,7 @@
 //==============================================================================
 /*
 */
-class IntroComponent    :   public Component,
-                            public ActionBroadcaster
+class IntroComponent    :   public Component
 {
 public:
     IntroComponent();

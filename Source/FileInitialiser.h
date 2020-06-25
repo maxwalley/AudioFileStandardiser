@@ -11,8 +11,9 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "Mediator.h"
 #include "AudioMetadataManager.h"
+
+class Mediator;
 
 class FileInitialiser
 {
@@ -29,7 +30,8 @@ private:
     
     void clearCurrentFiles();
     
-    Mediator* mediator;
+    bool ownershipLost;
+    
     AudioMetadataManager metadataManager;
     
     std::vector<AudioMetadataReader*> currentFiles;

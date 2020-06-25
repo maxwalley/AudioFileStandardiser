@@ -62,7 +62,6 @@ public:
     void sort();
     
 private:
-    Mediator* mediator;
     
     std::vector<SelectionData<AudioMetadataReader*>> readers;
 };

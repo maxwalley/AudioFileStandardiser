@@ -12,11 +12,10 @@
 #include "IntroComponent.h"
 
 //==============================================================================
-IntroComponent::IntroComponent()    :   openSourceButton("OpenSource")
+IntroComponent::IntroComponent()    :   openSourceButton("Open Source")
 {
     addAndMakeVisible(openSourceButton);
     
-    addActionListener(Mediator::getInstance());
     openSourceButton.addListener(Mediator::getInstance());
     
     openSourceButton.setComponentID("intro_openSourceButton");

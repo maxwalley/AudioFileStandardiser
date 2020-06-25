@@ -22,7 +22,7 @@ Mediator* Mediator::getInstance()
     return instance;
 }
 
-Mediator::~Mediator()
+void Mediator::closeInstance()
 {
     if(instance != nullptr)
     {
@@ -40,6 +40,10 @@ void Mediator::buttonClicked(Button* button)
 {
     if(button->getComponentID().compare("intro_openSourceButton") == 0)
     {
-        
+        if(initialiser.lookForNewFiles())
+        {
+           
+        }
     }
 }
+
