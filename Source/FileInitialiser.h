@@ -30,7 +30,7 @@ private:
     
     void clearCurrentFiles();
     
-    bool ownershipLost;
+    bool hasOwnership;
     
     AudioMetadataManager metadataManager;
     

@@ -126,15 +126,12 @@ bool DataHandler::isSelectedDataTheSame(DataConcerned typeOfData, bool selected)
     return true;
 }
 
-void DataHandler::addData(std::vector<AudioMetadataReader*>& readersToAdd)
+void DataHandler::addData(const std::vector<AudioMetadataReader*>& readersToAdd)
 {
     for(int i = 0; i < readersToAdd.size(); i++)
     {
         readers.push_back(SelectionData<AudioMetadataReader*>(readersToAdd[i], false));
-        
-        readersToAdd[i] = nullptr;
     }
-    
 }
 
 void DataHandler::addData(AudioMetadataReader* readerToAdd)

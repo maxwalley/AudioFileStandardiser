@@ -14,7 +14,7 @@
 
 #include "Mediator.h"
 
-FileInitialiser::FileInitialiser()  :   ownershipLost(false)
+FileInitialiser::FileInitialiser()  :   hasOwnership(false)
 {
     
 }
@@ -26,8 +26,6 @@ FileInitialiser::~FileInitialiser()
 
 bool FileInitialiser::lookForNewFiles()
 {
-    clearCurrentFiles();
-    
     FileChooser chooser("Pick a folder", File(), "*.zip;*.mp3;*.flac;*.wav;*.wave;*.aac;*.wma;*.aif;*.m4a", true, false, nullptr);
     
     //Looks and opens the file
@@ -88,12 +86,13 @@ bool FileInitialiser::lookForNewFiles()
             }
         }
     }
-
+    hasOwnership = true;
     return true;
 }
 
 std::vector<AudioMetadataReader*> FileInitialiser::getResult()
 {
+    hasOwnership = false;
     return currentFiles;
 }
 
@@ -131,10 +130,12 @@ File FileInitialiser::decompressZipToLocation(const File& zip)
 
 void FileInitialiser::clearCurrentFiles()
 {
-    
-    for(int i = 0; i < currentFiles.size(); i++)
+    if(hasOwnership)
     {
-        delete currentFiles[i];
+        for(int i = 0; i < currentFiles.size(); i++)
+        {
+            delete currentFiles[i];
+        }
     }
     
     currentFiles.clear();

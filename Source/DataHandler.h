@@ -11,7 +11,6 @@
 #pragma once
 
 #include "TagLibTagReader.h"
-#include "Mediator.h"
 
 template <class t>
 struct SelectionData
@@ -51,7 +50,9 @@ public:
     
     bool isSelectedDataTheSame(DataConcerned typeOfData, bool selected);
     
-    void addData(std::vector<AudioMetadataReader*>& readersToAdd);
+    //Vector passed into here must have released ownership to data!
+    void addData(const std::vector<AudioMetadataReader*>& readersToAdd);
+    
     void addData(AudioMetadataReader* readerToAdd);
     
     void clearData();

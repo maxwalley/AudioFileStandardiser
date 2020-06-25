@@ -13,6 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Logger.h"
 #include "FileInitialiser.h"
+#include "DataHandler.h"
 
 class Mediator  :   public ActionListener,
                     public Button::Listener
@@ -33,4 +34,5 @@ private:
     void buttonClicked(Button* button) override;
     
     FileInitialiser initialiser;
+    DataHandler dataHandler;
 };

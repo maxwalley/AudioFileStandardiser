@@ -42,7 +42,7 @@ void Mediator::buttonClicked(Button* button)
     {
         if(initialiser.lookForNewFiles())
         {
-           
+            dataHandler.addData(initialiser.getResult());
         }
     }
 }
