@@ -12,10 +12,10 @@
 #include "NewMainComponent.h"
 
 //==============================================================================
-NewMainComponent::NewMainComponent()
+NewMainComponent::NewMainComponent()    :   currentComponents(intro)
 {
-    addAndMakeVisible(introComponent);
     setSize(introComponent.getWidth(), introComponent.getHeight());
+    addAndMakeVisible(introComponent);
 }
 
 NewMainComponent::~NewMainComponent()
@@ -30,5 +30,13 @@ void NewMainComponent::paint (Graphics& g)
 
 void NewMainComponent::resized()
 {
-    introComponent.setBounds(0, 0, getWidth(), getHeight());
+    if(currentComponents == 0)
+    {
+        introComponent.setBounds(0, 0, getWidth(), getHeight());
+    }
+}
+
+void NewMainComponent::setComponentToDisplay(componentsToDisplay component)
+{
+    currentComponents = component;
 }

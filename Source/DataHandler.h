@@ -17,8 +17,6 @@ struct SelectionData
 {
     SelectionData(t newObject, bool newSelection)   :   object(newObject), selection(newSelection){};
     
-    //SelectionData(const SelectionData& otherData){};
-    
     t object;
     bool selection;
 };
@@ -50,8 +48,9 @@ public:
     
     bool isSelectedDataTheSame(DataConcerned typeOfData, bool selected);
     
-    //Vector passed into here must have released ownership to data!
-    void addData(const std::vector<AudioMetadataReader*>& readersToAdd);
+    void addData(std::vector<AudioMetadataReader*>& readersToAdd);
+    
+    void addData(std::vector<std::unique_ptr<AudioMetadataReader>> readersToAdd);
     
     void addData(AudioMetadataReader* readerToAdd);
     

@@ -10,7 +10,11 @@
 
 #include "Mediator.h"
 
+#include "NewMainComponent.h"
+
 Mediator* Mediator::instance = 0;
+
+NewMainComponent* Mediator::mainComponent;
 
 Mediator* Mediator::getInstance()
 {
@@ -18,7 +22,6 @@ Mediator* Mediator::getInstance()
     {
         instance = new Mediator();
     }
-    
     return instance;
 }
 
@@ -29,6 +32,15 @@ void Mediator::closeInstance()
         delete instance;
         instance = nullptr;
     }
+}
+
+NewMainComponent* Mediator::getMainComponent()
+{
+    if(mainComponent == nullptr)
+    {
+        mainComponent = new NewMainComponent;
+    }
+    return mainComponent;
 }
 
 void Mediator::actionListenerCallback (const String &message)
@@ -42,7 +54,7 @@ void Mediator::buttonClicked(Button* button)
     {
         if(initialiser.lookForNewFiles())
         {
-            dataHandler.addData(initialiser.getResult());
+            dataHandler.addData(std::move(initialiser.getResult()));
         }
     }
 }

@@ -11,6 +11,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "MainComponent.h"
 #include "NewMainComponent.h"
+#include "Mediator.h"
 
 //==============================================================================
 class AudioFileStandardiserApplication  : public JUCEApplication
@@ -67,7 +68,7 @@ public:
                                                     DocumentWindow::allButtons)
         {
             setUsingNativeTitleBar (true);
-            setContentOwned (new NewMainComponent(), true);
+            setContentOwned (Mediator::getMainComponent(), true);
 
            #if JUCE_IOS || JUCE_ANDROID
             setFullScreen (true);

@@ -21,13 +21,23 @@
 class NewMainComponent    : public Component
 {
 public:
+    enum componentsToDisplay
+    {
+        intro = 0,
+        table = 1
+    };
+    
     NewMainComponent();
     ~NewMainComponent();
 
     void paint (Graphics&) override;
     void resized() override;
+    
+    void setComponentToDisplay(componentsToDisplay component);
 
 private:
+    
+    componentsToDisplay currentComponents;
     
     IntroComponent introComponent;
     

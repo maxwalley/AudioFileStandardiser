@@ -82,7 +82,7 @@ bool FileInitialiser::lookForNewFiles()
             }
             else
             {
-                currentFiles.push_back(currentReader.release());
+                currentFiles.push_back(std::move(currentReader));
             }
         }
     }
@@ -90,7 +90,7 @@ bool FileInitialiser::lookForNewFiles()
     return true;
 }
 
-std::vector<AudioMetadataReader*> FileInitialiser::getResult()
+std::vector<std::unique_ptr<AudioMetadataReader>>& FileInitialiser::getResult()
 {
     hasOwnership = false;
     return currentFiles;
@@ -130,14 +130,5 @@ File FileInitialiser::decompressZipToLocation(const File& zip)
 
 void FileInitialiser::clearCurrentFiles()
 {
-    if(hasOwnership)
-    {
-        for(int i = 0; i < currentFiles.size(); i++)
-        {
-            delete currentFiles[i];
-        }
-    }
-    
     currentFiles.clear();
-    
 }

@@ -23,7 +23,7 @@ public:
     
     bool lookForNewFiles();
     
-    std::vector<AudioMetadataReader*> getResult();
+    std::vector<std::unique_ptr<AudioMetadataReader>>& getResult();
     
 private:
     File decompressZipToLocation(const File& zip);
@@ -34,5 +34,5 @@ private:
     
     AudioMetadataManager metadataManager;
     
-    std::vector<AudioMetadataReader*> currentFiles;
+    std::vector<std::unique_ptr<AudioMetadataReader>> currentFiles;
 };

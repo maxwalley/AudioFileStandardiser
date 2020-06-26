@@ -15,6 +15,8 @@
 #include "FileInitialiser.h"
 #include "DataHandler.h"
 
+class NewMainComponent;
+
 class Mediator  :   public ActionListener,
                     public Button::Listener
 {
@@ -23,6 +25,8 @@ public:
     static Mediator* getInstance();
     
     static void closeInstance();
+    
+    static NewMainComponent* getMainComponent();
     
 private:
     Mediator(){};
@@ -35,4 +39,6 @@ private:
     
     FileInitialiser initialiser;
     DataHandler dataHandler;
+    
+    static NewMainComponent* mainComponent;
 };

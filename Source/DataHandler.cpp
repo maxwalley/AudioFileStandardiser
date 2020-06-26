@@ -126,7 +126,7 @@ bool DataHandler::isSelectedDataTheSame(DataConcerned typeOfData, bool selected)
     return true;
 }
 
-void DataHandler::addData(const std::vector<AudioMetadataReader*>& readersToAdd)
+void DataHandler::addData(std::vector<AudioMetadataReader*>& readersToAdd)
 {
     for(int i = 0; i < readersToAdd.size(); i++)
     {
@@ -134,15 +134,38 @@ void DataHandler::addData(const std::vector<AudioMetadataReader*>& readersToAdd)
     }
 }
 
+void DataHandler::addData(std::vector<std::unique_ptr<AudioMetadataReader>> readersToAdd)
+{
+    for(int i = 0; i < readersToAdd.size(); i++)
+    {
+        readers.push_back(SelectionData<AudioMetadataReader*>(readersToAdd[i].release(), false));
+    }
+}
+
 void DataHandler::addData(AudioMetadataReader* readerToAdd)
 {
-    SelectionData<AudioMetadataReader*> temp = {readerToAdd, false};
+    readers.push_back(SelectionData<AudioMetadataReader*>(readerToAdd, false));
+}
+
+/*void DataHandler::addData(const std::vector<std::unique_ptr<AudioMetadataReader>>& readersToAdd)
+{
+    for(int i = 0; i < readersToAdd.size(); i++)
+    {
+        //readers.push_back(SelectionData<AudioMetadataReader*>(readersToAdd[i], false));
+        
+        readers.push_back(SelectionData<std::unique_ptr<AudioMetadataReader>>())
+    }
+}
+
+void DataHandler::addData(std::unique_ptr<AudioMetadataReader> readerToAdd)
+{
+    SelectionData<std::unique_ptr<AudioMetadataReader>> temp = {std::move(readerToAdd), false};
     
     readerToAdd = nullptr;
     
     readers.push_back(temp);
 }
-
+*/
 void DataHandler::clearData()
 {
     for(int i = 0; i < readers.size(); i++)
@@ -150,17 +173,20 @@ void DataHandler::clearData()
         delete readers[i].object;
     }
     
-    readers.erase(readers.begin(), readers.end());
+    readers.clear();
 }
 
 void DataHandler::clearData(int firstIndex, int lastIndex)
 {
-    for(int i = firstIndex; i < lastIndex; i++)
+    if(firstIndex <= lastIndex && firstIndex < numEntries() && lastIndex < numEntries() && firstIndex > 0 && lastIndex > 0)
     {
-        delete readers[i].object;
-    }
+        for(int i = firstIndex; i < lastIndex; i++)
+        {
+            delete readers[i].object;
+        }
     
-    readers.erase(readers.begin() + firstIndex, readers.begin() + lastIndex);
+        readers.erase(readers.begin() + firstIndex, readers.begin() + lastIndex);
+    }
 }
 
 int DataHandler::numEntries()
