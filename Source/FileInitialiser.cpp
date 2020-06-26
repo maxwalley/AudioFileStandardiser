@@ -58,32 +58,29 @@ bool FileInitialiser::lookForNewFiles()
         return false;
     }
     
-    for(int i = 0; i < chosenFiles.size() + 1; i++)
+    for(int i = 0; i < chosenFiles.size(); i++)
     {
-        if(i != chosenFiles.size())
+        std::unique_ptr<AudioMetadataReader> currentReader = metadataManager.createMetadataReader(chosenFiles[i]);
+                
+        //If it = null pointer
+        if(!currentReader)
         {
-            std::unique_ptr<AudioMetadataReader> currentReader = metadataManager.createMetadataReader(chosenFiles[i]);
-                
-            //If it = null pointer
-            if(!currentReader)
+            AlertWindow::showMessageBox(AlertWindow::WarningIcon, "File Error", "The file: " + chosenFiles[i].getFileName() + " does not use supported metadata and will not be included");
+            
+            chosenFiles.remove(i);
+            
+            i--;
+            
+            if(chosenFiles.size() == 0)
             {
-                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "File Error", "The file: " + chosenFiles[i].getFileName() + " does not use supported metadata and will not be included");
+                AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error - All files are incompatible", "None of the files in the selected folder have compatable metadata objects");
                 
-                chosenFiles.remove(i);
-                
-                i--;
-                
-                if(chosenFiles.size() == 0)
-                {
-                    AlertWindow::showMessageBox(AlertWindow::WarningIcon, "Error - All files are incompatible", "None of the files in the selected folder have compatable metadata objects");
-                    
-                    return false;
-                }
+                return false;
             }
-            else
-            {
-                currentFiles.push_back(std::move(currentReader));
-            }
+        }
+        else
+        {
+            currentFiles.push_back(std::move(currentReader));
         }
     }
     hasOwnership = true;

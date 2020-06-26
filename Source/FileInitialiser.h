@@ -21,6 +21,7 @@ public:
     FileInitialiser();
     ~FileInitialiser();
     
+    //Returns false if error when choosing or empty folder chosen
     bool lookForNewFiles();
     
     std::vector<std::unique_ptr<AudioMetadataReader>>& getResult();

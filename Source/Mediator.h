@@ -14,6 +14,7 @@
 #include "Logger.h"
 #include "FileInitialiser.h"
 #include "DataHandler.h"
+#include "TableModel.h"
 
 class NewMainComponent;
 
@@ -28,6 +29,8 @@ public:
     
     static NewMainComponent* getMainComponent();
     
+    static TableModel* getTableModel();
+    
 private:
     Mediator(){};
     
@@ -39,6 +42,8 @@ private:
     
     FileInitialiser initialiser;
     DataHandler dataHandler;
+    
+    static TableModel tableModel;
     
     static NewMainComponent* mainComponent;
 };

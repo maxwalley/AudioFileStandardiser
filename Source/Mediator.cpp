@@ -16,6 +16,8 @@ Mediator* Mediator::instance = 0;
 
 NewMainComponent* Mediator::mainComponent;
 
+TableModel Mediator::tableModel;
+
 Mediator* Mediator::getInstance()
 {
     if(instance == nullptr)
@@ -43,6 +45,11 @@ NewMainComponent* Mediator::getMainComponent()
     return mainComponent;
 }
 
+TableModel* Mediator::getTableModel()
+{
+    return &tableModel;
+}
+
 void Mediator::actionListenerCallback (const String &message)
 {
     
@@ -55,6 +62,9 @@ void Mediator::buttonClicked(Button* button)
         if(initialiser.lookForNewFiles())
         {
             dataHandler.addData(std::move(initialiser.getResult()));
+            
+            mainComponent->setComponentToDisplay(NewMainComponent::Table);
+            mainComponent->resized();
         }
     }
 }

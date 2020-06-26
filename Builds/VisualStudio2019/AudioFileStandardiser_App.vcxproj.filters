@@ -412,6 +412,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\TableModel.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\NewMainComponent.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
@@ -2373,6 +2376,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\TableModel.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\NewMainComponent.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>

@@ -23,8 +23,8 @@ class NewMainComponent    : public Component
 public:
     enum componentsToDisplay
     {
-        intro = 0,
-        table = 1
+        Intro = 0,
+        Table = 1
     };
     
     NewMainComponent();
@@ -40,6 +40,7 @@ private:
     componentsToDisplay currentComponents;
     
     IntroComponent introComponent;
+    TableListBox table;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewMainComponent)
 };
