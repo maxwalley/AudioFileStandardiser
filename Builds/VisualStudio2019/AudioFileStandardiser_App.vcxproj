@@ -138,6 +138,7 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\LookAndFeels.cpp"/>
     <ClCompile Include="..\..\Source\TableModel.cpp"/>
     <ClCompile Include="..\..\Source\NewMainComponent.cpp"/>
     <ClCompile Include="..\..\Source\IntroComponent.cpp"/>
@@ -1923,6 +1924,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\LookAndFeels.h"/>
     <ClInclude Include="..\..\Source\TableModel.h"/>
     <ClInclude Include="..\..\Source\NewMainComponent.h"/>
     <ClInclude Include="..\..\Source\IntroComponent.h"/>

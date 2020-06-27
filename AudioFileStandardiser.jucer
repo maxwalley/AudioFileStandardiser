@@ -3,6 +3,9 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               jucerVersion="5.4.5">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
+    <FILE id="JVnUjm" name="LookAndFeels.h" compile="0" resource="0" file="Source/LookAndFeels.h"/>
+    <FILE id="qLQSj0" name="LookAndFeels.cpp" compile="1" resource="0"
+          file="Source/LookAndFeels.cpp"/>
     <FILE id="asx2Y6" name="TableModel.h" compile="0" resource="0" file="Source/TableModel.h"/>
     <FILE id="UTBQuf" name="TableModel.cpp" compile="1" resource="0" file="Source/TableModel.cpp"/>
     <FILE id="e95I4m" name="NewMainComponent.h" compile="0" resource="0"

@@ -61,6 +61,10 @@
 			isa = PBXBuildFile;
 			fileRef = 5A15C4E4BFD977D25E18ACFE;
 		};
+		434E95FBDCB87E41CB5A47CF = {
+			isa = PBXBuildFile;
+			fileRef = 5FDBA04B04FD240B6EA39017;
+		};
 		45DB37642974B829454A1BB1 = {
 			isa = PBXBuildFile;
 			fileRef = D4C75C57D5A55E40BDE3822C;
@@ -395,6 +399,13 @@
 			path = "../../JuceLibraryCode/include_juce_data_structures.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		5FDBA04B04FD240B6EA39017 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = LookAndFeels.cpp;
+			path = ../../Source/LookAndFeels.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		602E527948C06956379652E8 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -519,6 +530,13 @@
 			lastKnownFileType = text.plist.xml;
 			name = "Info-App.plist";
 			path = "Info-App.plist";
+			sourceTree = "SOURCE_ROOT";
+		};
+		A084B08132742705A4718599 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = LookAndFeels.h;
+			path = ../../Source/LookAndFeels.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		A114C8A3EA7EA085B47A02C6 = {
@@ -757,6 +775,8 @@
 		329608004BEDC20C07FBE1D7 = {
 			isa = PBXGroup;
 			children = (
+				A084B08132742705A4718599,
+				5FDBA04B04FD240B6EA39017,
 				602E527948C06956379652E8,
 				D4C75C57D5A55E40BDE3822C,
 				30B05E1C0E8D7384BB1C0C21,
@@ -1105,6 +1125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				434E95FBDCB87E41CB5A47CF,
 				45DB37642974B829454A1BB1,
 				A2BD1D79AFA185B4A7193C39,
 				9715EB7BB1F4BCD8AE8AB8F9,

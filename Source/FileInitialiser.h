@@ -13,7 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "AudioMetadataManager.h"
 
-class Mediator;
+//class Mediator;
 
 class FileInitialiser
 {
@@ -30,8 +30,6 @@ private:
     File decompressZipToLocation(const File& zip);
     
     void clearCurrentFiles();
-    
-    bool hasOwnership;
     
     AudioMetadataManager metadataManager;
     

@@ -19,7 +19,8 @@
 class NewMainComponent;
 
 class Mediator  :   public ActionListener,
-                    public Button::Listener
+                    public Button::Listener,
+                    public TextEditor::Listener
 {
 public:
     
@@ -39,6 +40,8 @@ private:
     void actionListenerCallback (const String &message) override;
     
     void buttonClicked(Button* button) override;
+    
+    void textEditorTextChanged(TextEditor& editor) override;
     
     FileInitialiser initialiser;
     DataHandler dataHandler;

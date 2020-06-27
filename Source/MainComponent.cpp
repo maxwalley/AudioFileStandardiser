@@ -34,9 +34,9 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(fal
     
     testVector.push_back(testReader.release());
     
-    testHandler.addData(testVector);
+    //testHandler.addData(testVector);
     
-    testHandler.addData(testReader2.release());
+    //testHandler.addData(testReader2.release());
     
     for(int i = 0; i < testHandler.numEntries(); i++)
     {

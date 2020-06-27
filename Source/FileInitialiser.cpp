@@ -14,7 +14,7 @@
 
 #include "Mediator.h"
 
-FileInitialiser::FileInitialiser()  :   hasOwnership(false)
+FileInitialiser::FileInitialiser()
 {
     
 }
@@ -83,13 +83,11 @@ bool FileInitialiser::lookForNewFiles()
             currentFiles.push_back(std::move(currentReader));
         }
     }
-    hasOwnership = true;
     return true;
 }
 
 std::vector<std::unique_ptr<AudioMetadataReader>>& FileInitialiser::getResult()
 {
-    hasOwnership = false;
     return currentFiles;
 }
 

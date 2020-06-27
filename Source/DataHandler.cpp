@@ -17,7 +17,7 @@ DataHandler::DataHandler()
 
 DataHandler::~DataHandler()
 {
-    clearData();
+    //clearData();
 }
 
 void DataHandler::setDataForItem(DataConcerned typeOfData, int itemIndex, String newData)
@@ -126,23 +126,31 @@ bool DataHandler::isSelectedDataTheSame(DataConcerned typeOfData, bool selected)
     return true;
 }
 
-void DataHandler::addData(std::vector<AudioMetadataReader*>& readersToAdd)
+/*void DataHandler::addData(std::vector<AudioMetadataReader*>& readersToAdd)
 {
     for(int i = 0; i < readersToAdd.size(); i++)
     {
         readers.push_back(SelectionData<AudioMetadataReader*>(readersToAdd[i], false));
     }
-}
+}*/
 
-void DataHandler::addData(std::vector<std::unique_ptr<AudioMetadataReader>> readersToAdd)
+void DataHandler::addData(std::vector<std::unique_ptr<AudioMetadataReader>>& readersToAdd)
 {
     for(int i = 0; i < readersToAdd.size(); i++)
     {
-        readers.push_back(SelectionData<AudioMetadataReader*>(readersToAdd[i].release(), false));
+        readers.push_back(SelectionData<std::unique_ptr<AudioMetadataReader>>(std::move(readersToAdd[i]), false));
     }
 }
 
-void DataHandler::addData(AudioMetadataReader* readerToAdd)
+void DataHandler::printTest()
+{
+    for(int i = 0; i < numEntries(); i++)
+    {
+        DBG(readers[i].object->getTrackTitle());
+    }
+}
+
+/*void DataHandler::addData(AudioMetadataReader* readerToAdd)
 {
     readers.push_back(SelectionData<AudioMetadataReader*>(readerToAdd, false));
 }
@@ -165,7 +173,7 @@ void DataHandler::addData(std::unique_ptr<AudioMetadataReader> readerToAdd)
     
     readers.push_back(temp);
 }
-*/
+
 void DataHandler::clearData()
 {
     for(int i = 0; i < readers.size(); i++)
@@ -188,7 +196,7 @@ void DataHandler::clearData(int firstIndex, int lastIndex)
         readers.erase(readers.begin() + firstIndex, readers.begin() + lastIndex);
     }
 }
-
+*/
 int DataHandler::numEntries()
 {
     return readers.size();
@@ -203,7 +211,7 @@ bool compare(SelectionData<AudioMetadataReader*> first, SelectionData<AudioMetad
     return true;
 }
 
-void DataHandler::sort()
+/*void DataHandler::sort()
 {
     std::sort(readers.begin(), readers.end(), compare);
-}
+}*/

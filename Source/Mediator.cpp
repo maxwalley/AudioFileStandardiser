@@ -61,11 +61,17 @@ void Mediator::buttonClicked(Button* button)
     {
         if(initialiser.lookForNewFiles())
         {
-            dataHandler.addData(std::move(initialiser.getResult()));
+            dataHandler.addData(initialiser.getResult());
             
-            mainComponent->setComponentToDisplay(NewMainComponent::Table);
-            mainComponent->resized();
+            dataHandler.printTest();
+            
+            //mainComponent->setComponentToDisplay(NewMainComponent::Table);
+            //mainComponent->resized();
         }
     }
 }
 
+void Mediator::textEditorTextChanged(TextEditor& editor)
+{
+    
+}

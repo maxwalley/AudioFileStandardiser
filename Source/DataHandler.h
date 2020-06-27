@@ -15,7 +15,9 @@
 template <class t>
 struct SelectionData
 {
-    SelectionData(t newObject, bool newSelection)   :   object(newObject), selection(newSelection){};
+    //SelectionData(t newObject, bool newSelection)   :   object(newObject), selection(newSelection){};
+    
+    SelectionData(t&& newObject, bool newSelection) :   object(std::move(newObject)), selection(newSelection){};
     
     t object;
     bool selection;
@@ -48,7 +50,11 @@ public:
     
     bool isSelectedDataTheSame(DataConcerned typeOfData, bool selected);
     
-    void addData(std::vector<AudioMetadataReader*>& readersToAdd);
+    void addData(std::vector<std::unique_ptr<AudioMetadataReader>>& readersToAdd);
+    
+    void printTest();
+    
+    /*void addData(std::vector<AudioMetadataReader*>& readersToAdd);
     
     void addData(std::vector<std::unique_ptr<AudioMetadataReader>> readersToAdd);
     
@@ -56,12 +62,12 @@ public:
     
     void clearData();
     void clearData(int firstIndex, int lastIndex);
-    
+    */
     int numEntries();
     
-    void sort();
+    //void sort();
     
 private:
     
-    std::vector<SelectionData<AudioMetadataReader*>> readers;
+    std::vector<SelectionData<std::unique_ptr<AudioMetadataReader>>> readers;
 };
