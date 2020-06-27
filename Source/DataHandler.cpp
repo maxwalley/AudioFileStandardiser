@@ -126,20 +126,46 @@ bool DataHandler::isSelectedDataTheSame(DataConcerned typeOfData, bool selected)
     return true;
 }
 
-/*void DataHandler::addData(std::vector<AudioMetadataReader*>& readersToAdd)
-{
-    for(int i = 0; i < readersToAdd.size(); i++)
-    {
-        readers.push_back(SelectionData<AudioMetadataReader*>(readersToAdd[i], false));
-    }
-}*/
-
 void DataHandler::addData(std::vector<std::unique_ptr<AudioMetadataReader>>& readersToAdd)
 {
     for(int i = 0; i < readersToAdd.size(); i++)
     {
         readers.push_back(SelectionData<std::unique_ptr<AudioMetadataReader>>(std::move(readersToAdd[i]), false));
     }
+}
+
+void DataHandler::removeData(int index)
+{
+    //Bounds checking
+    if(index >= 0 && index < numEntries())
+    {
+        readers.erase(readers.begin()+index);
+    }
+}
+
+
+void DataHandler::removeData(int startIndex, int endIndex)
+{
+    if(startIndex >= 0 && endIndex >=0 && startIndex < numEntries() && endIndex < numEntries() && startIndex < endIndex)
+    {
+        readers.erase(readers.begin()+startIndex, readers.begin()+endIndex);
+    }
+}
+
+int DataHandler::removeData(DataConcerned typeToCompare, const String& dataToCompare)
+{
+    int numRemoves = 0;
+    
+    for(int i = 0; i < numEntries(); i++)
+    {
+        if(getDataForItem(typeToCompare, i).compare(dataToCompare) == 0)
+        {
+            readers.erase(readers.begin()+i);
+            numRemoves++;
+        }
+    }
+    
+    return numRemoves;
 }
 
 void DataHandler::printTest()
@@ -150,53 +176,6 @@ void DataHandler::printTest()
     }
 }
 
-/*void DataHandler::addData(AudioMetadataReader* readerToAdd)
-{
-    readers.push_back(SelectionData<AudioMetadataReader*>(readerToAdd, false));
-}
-
-/*void DataHandler::addData(const std::vector<std::unique_ptr<AudioMetadataReader>>& readersToAdd)
-{
-    for(int i = 0; i < readersToAdd.size(); i++)
-    {
-        //readers.push_back(SelectionData<AudioMetadataReader*>(readersToAdd[i], false));
-        
-        readers.push_back(SelectionData<std::unique_ptr<AudioMetadataReader>>())
-    }
-}
-
-void DataHandler::addData(std::unique_ptr<AudioMetadataReader> readerToAdd)
-{
-    SelectionData<std::unique_ptr<AudioMetadataReader>> temp = {std::move(readerToAdd), false};
-    
-    readerToAdd = nullptr;
-    
-    readers.push_back(temp);
-}
-
-void DataHandler::clearData()
-{
-    for(int i = 0; i < readers.size(); i++)
-    {
-        delete readers[i].object;
-    }
-    
-    readers.clear();
-}
-
-void DataHandler::clearData(int firstIndex, int lastIndex)
-{
-    if(firstIndex <= lastIndex && firstIndex < numEntries() && lastIndex < numEntries() && firstIndex > 0 && lastIndex > 0)
-    {
-        for(int i = firstIndex; i < lastIndex; i++)
-        {
-            delete readers[i].object;
-        }
-    
-        readers.erase(readers.begin() + firstIndex, readers.begin() + lastIndex);
-    }
-}
-*/
 int DataHandler::numEntries()
 {
     return readers.size();

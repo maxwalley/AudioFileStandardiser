@@ -52,17 +52,16 @@ public:
     
     void addData(std::vector<std::unique_ptr<AudioMetadataReader>>& readersToAdd);
     
+    //Deletes item at index with bounds checking
+    void removeData(int index);
+    
+    void removeData(int startIndex, int endIndex);
+    
+    //removes data based on a comparison of the type set - returns the number of items removed
+    int removeData(DataConcerned typeToCompare, const String& dataToCompare);
+    
     void printTest();
     
-    /*void addData(std::vector<AudioMetadataReader*>& readersToAdd);
-    
-    void addData(std::vector<std::unique_ptr<AudioMetadataReader>> readersToAdd);
-    
-    void addData(AudioMetadataReader* readerToAdd);
-    
-    void clearData();
-    void clearData(int firstIndex, int lastIndex);
-    */
     int numEntries();
     
     //void sort();
