@@ -13,35 +13,33 @@
 
 TableModel::TableModel()
 {
-    //textEditorDrawer = new TableTextEditorLAndF();
+    textEditorDrawer = std::make_unique<TableTextEditorLAndF>();
 }
 
 TableModel::~TableModel()
 {
-    //delete textEditorDrawer;
-    
-    for (int i = 0; i < getNumRows(); i++)
+    for(int i = 0; i < componentWeakPointers.size(); i++)
     {
-        
+        componentWeakPointers[i]->setLookAndFeel(nullptr);
     }
 }
     
 int TableModel::getNumRows()
 {
-    return 0;
+    return Mediator::getInstance()->getNumberOfRowsToDisplay();
 }
 
 void TableModel::paintRowBackground(Graphics& g, int rowNumber, int width, int height, bool rowIsSelected)
 {
     if(rowNumber % 2 == 0)
     {
-        g.fillAll(Colours::blue);
+        g.fillAll(Colours::silver);
     }
     else
     {
-        g.fillAll(Colours::red);
+        g.fillAll(Colours::lightgrey);
     }
-    
+    g.drawLine(0, height, width, height);
 }
 
 void TableModel::paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
@@ -69,7 +67,8 @@ Component* TableModel::refreshComponentForCell(int rowNumber, int columnId, bool
         componentToAdd->setLocationInTable(columnId, rowNumber);
         componentToAdd->setColour(TextEditor::textColourId, Colours::black);
         componentToAdd->setColour(TextEditor::outlineColourId, Colours::black);
-        //componentToAdd->setLookAndFeel(textEditorDrawer);
+        componentToAdd->setLookAndFeel(textEditorDrawer.get());
+        componentWeakPointers.push_back(componentToAdd);
         
         if(rowNumber % 2 == 0)
         {
@@ -98,4 +97,22 @@ Component* TableModel::refreshComponentForCell(int rowNumber, int columnId, bool
         
         return componentToAdd;
     }
+    
+    //If a component is already there
+    if(columnId != 7)
+    {
+        //Casts the component to the table specific class
+        TableTextEditorComponent* componentToUpdate = dynamic_cast<TableTextEditorComponent*>(existingComponentToUpdate);
+        
+        componentToUpdate->setLocationInTable(columnId, rowNumber);
+    
+        if(rowNumber < getNumRows())
+        {
+            componentToUpdate->setText(Mediator::getInstance()->getDataForCell(rowNumber, columnId));
+            
+            return componentToUpdate;
+        }
+    }
+    
+    return existingComponentToUpdate;
 }

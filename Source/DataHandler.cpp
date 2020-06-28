@@ -46,12 +46,12 @@ void DataHandler::setDataForItem(DataConcerned typeOfData, int itemIndex, String
                 readers[itemIndex].object->setYear(newData.getIntValue());
                 break;
                 
-            case fileName:
-                readers[itemIndex].object->changeFileName(newData);
-                break;
-                
             case fileExtension:
                 //ERROR
+                break;
+                
+            case fileName:
+                readers[itemIndex].object->changeFileName(newData);
                 break;
         }
     }
@@ -81,12 +81,12 @@ String DataHandler::getDataForItem(DataConcerned typeOfData, int index)
             return String(readers[index].object->getYear());
             break;
                 
-        case fileName:
-            return readers[index].object->getFile().getFileNameWithoutExtension();
-            break;
-                
         case fileExtension:
             return readers[index].object->getFile().getFileExtension();
+            break;
+            
+        case fileName:
+            return readers[index].object->getFile().getFileNameWithoutExtension();
             break;
     }
 }
@@ -183,10 +183,40 @@ int DataHandler::numEntries()
 
 bool compare(SelectionData<std::unique_ptr<AudioMetadataReader>>& first, SelectionData<std::unique_ptr<AudioMetadataReader>>& second)
 {
-    if(first.object->getArtistName().compare(second.object->getArtistName()) < 0)
+    int artistCompareResult = first.object->getArtistName().compare(second.object->getArtistName());
+    
+    if(artistCompareResult != 0)
+    {
+        if(artistCompareResult < 0)
+        {
+            return true;
+        }
+        else if(artistCompareResult > 0)
+        {
+            return false;
+        }
+    }
+    //Only get to here if artist names are the same
+    
+    int albumCompareResult = first.object->getAlbumName().compare(second.object->getAlbumName());
+        
+    if (albumCompareResult != 0)
+    {
+        if(artistCompareResult < 0)
+        {
+            return true;
+        }
+        else if(artistCompareResult > 0)
+        {
+            return false;
+        }
+    }
+    
+    if(first.object->getTrackNum() < second.object->getTrackNum())
     {
         return true;
     }
+    
     return false;
 }
 

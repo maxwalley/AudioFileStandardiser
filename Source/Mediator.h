@@ -30,7 +30,14 @@ public:
     
     static NewMainComponent* getMainComponent();
     
-    static TableModel* getTableModel();
+    void initialiseComponents();
+    
+    TableModel* getTableModel();
+    
+    static DataHandler* getDataHandler();
+    
+    virtual int getNumberOfRowsToDisplay();
+    virtual String getDataForCell(int rowNumber, int column);
     
 private:
     Mediator(){};
@@ -44,9 +51,10 @@ private:
     void textEditorTextChanged(TextEditor& editor) override;
     
     FileInitialiser initialiser;
-    DataHandler dataHandler;
     
-    static TableModel tableModel;
+    static DataHandler dataHandler;
+    
+    std::unique_ptr<TableModel> tableModel;
     
     static NewMainComponent* mainComponent;
 };

@@ -31,13 +31,13 @@ public:
     
     enum DataConcerned
     {
-        trackNum = 0,
-        trackTitle = 1,
-        artistName = 2,
-        albumName = 3,
-        year = 4,
-        fileName = 5,
-        fileExtension = 6
+        trackNum = 1,
+        trackTitle = 2,
+        artistName = 3,
+        albumName = 4,
+        year = 5,
+        fileExtension = 6,
+        fileName = 7
     };
     
     void setDataForItem(DataConcerned typeOfData, int itemIndex, String newData);
