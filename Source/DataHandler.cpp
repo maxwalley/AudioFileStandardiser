@@ -17,7 +17,7 @@ DataHandler::DataHandler()
 
 DataHandler::~DataHandler()
 {
-    //clearData();
+    DBG("Destructed");
 }
 
 void DataHandler::setDataForItem(DataConcerned typeOfData, int itemIndex, String newData)
@@ -181,16 +181,16 @@ int DataHandler::numEntries()
     return readers.size();
 }
 
-bool compare(SelectionData<AudioMetadataReader*> first, SelectionData<AudioMetadataReader*> second)
+bool compare(SelectionData<std::unique_ptr<AudioMetadataReader>>& first, SelectionData<std::unique_ptr<AudioMetadataReader>>& second)
 {
     if(first.object->getArtistName().compare(second.object->getArtistName()) < 0)
     {
-        return false;
+        return true;
     }
-    return true;
+    return false;
 }
 
-/*void DataHandler::sort()
+void DataHandler::sort()
 {
     std::sort(readers.begin(), readers.end(), compare);
-}*/
+}

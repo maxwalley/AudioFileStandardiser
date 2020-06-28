@@ -91,6 +91,11 @@ std::vector<std::unique_ptr<AudioMetadataReader>>& FileInitialiser::getResult()
     return currentFiles;
 }
 
+void FileInitialiser::clearCurrentFiles()
+{
+    currentFiles.clear();
+}
+
 File FileInitialiser::decompressZipToLocation(const File& zip)
 {
     if(zip.exists() && zip.getFileExtension().compare(".zip") == 0)
@@ -121,9 +126,4 @@ File FileInitialiser::decompressZipToLocation(const File& zip)
         return File(newDirName);
     }
     return zip;
-}
-
-void FileInitialiser::clearCurrentFiles()
-{
-    currentFiles.clear();
 }

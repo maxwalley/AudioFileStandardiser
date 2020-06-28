@@ -62,7 +62,8 @@ void Mediator::buttonClicked(Button* button)
         if(initialiser.lookForNewFiles())
         {
             dataHandler.addData(initialiser.getResult());
-            
+            initialiser.clearCurrentFiles();
+            dataHandler.sort();
             dataHandler.printTest();
             
             //mainComponent->setComponentToDisplay(NewMainComponent::Table);

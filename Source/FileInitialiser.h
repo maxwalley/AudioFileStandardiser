@@ -26,10 +26,10 @@ public:
     
     std::vector<std::unique_ptr<AudioMetadataReader>>& getResult();
     
+    void clearCurrentFiles();
+    
 private:
     File decompressZipToLocation(const File& zip);
-    
-    void clearCurrentFiles();
     
     AudioMetadataManager metadataManager;
     

@@ -55,6 +55,7 @@ public:
     //Deletes item at index with bounds checking
     void removeData(int index);
     
+    //Includes bounds checking
     void removeData(int startIndex, int endIndex);
     
     //removes data based on a comparison of the type set - returns the number of items removed
@@ -64,7 +65,7 @@ public:
     
     int numEntries();
     
-    //void sort();
+    void sort();
     
 private:
     
