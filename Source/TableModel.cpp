@@ -64,6 +64,8 @@ Component* TableModel::refreshComponentForCell(int rowNumber, int columnId, bool
         
         TableTextEditorComponent* componentToAdd = new TableTextEditorComponent();
         componentToAdd->addListener(Mediator::getInstance());
+        //Sets the name for identification by a listener
+        componentToAdd->setComponentID("table_editor");
         componentToAdd->setLocationInTable(columnId, rowNumber);
         componentToAdd->setColour(TextEditor::textColourId, Colours::black);
         componentToAdd->setColour(TextEditor::outlineColourId, Colours::black);
@@ -103,15 +105,25 @@ Component* TableModel::refreshComponentForCell(int rowNumber, int columnId, bool
     {
         //Casts the component to the table specific class
         TableTextEditorComponent* componentToUpdate = dynamic_cast<TableTextEditorComponent*>(existingComponentToUpdate);
-        
+            
         componentToUpdate->setLocationInTable(columnId, rowNumber);
     
         if(rowNumber < getNumRows())
         {
-            componentToUpdate->setText(Mediator::getInstance()->getDataForCell(rowNumber, columnId));
+            componentToUpdate->setText(Mediator::getInstance()->getDataForCell(rowNumber, columnId), dontSendNotification);
             
             return componentToUpdate;
         }
+    }
+    
+    //If column id is 7
+    if(rowNumber < getNumRows() -1)
+    {
+        TableToggleButtonComponent* componentToUpdate = dynamic_cast<TableToggleButtonComponent*>(existingComponentToUpdate);
+        
+        componentToUpdate->setToggleState(Mediator::getInstance()->getSelectedForRow(rowNumber), dontSendNotification);
+        
+        return componentToUpdate;
     }
     
     return existingComponentToUpdate;

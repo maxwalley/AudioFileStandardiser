@@ -34,6 +34,8 @@ public:
     void resized() override;
     
     void setComponentToDisplay(componentsToDisplay component);
+    
+    void updateTable();
 
 private:
     

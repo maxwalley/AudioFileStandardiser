@@ -17,10 +17,10 @@ DataHandler::DataHandler()
 
 DataHandler::~DataHandler()
 {
-    DBG("Destructed");
+    
 }
 
-void DataHandler::setDataForItem(DataConcerned typeOfData, int itemIndex, String newData)
+void DataHandler::setDataForItem(DataConcerned typeOfData, int itemIndex, const String& newData)
 {
     if(itemIndex < readers.size())
     {
@@ -53,6 +53,17 @@ void DataHandler::setDataForItem(DataConcerned typeOfData, int itemIndex, String
             case fileName:
                 readers[itemIndex].object->changeFileName(newData);
                 break;
+        }
+    }
+}
+
+void DataHandler::setDataForSelectedItems(DataConcerned typeOfData, bool selected, const String& newData)
+{
+    for(int i = 0; i < readers.size(); i++)
+    {
+        if(readers[i].selection)
+        {
+            setDataForItem(typeOfData, i, newData);
         }
     }
 }
@@ -96,6 +107,22 @@ void DataHandler::setItemSelection(int index, bool selected)
     readers[index].selection = selected;
 }
 
+void DataHandler::setItemSelection(int startIndex, int endIndex, bool selected)
+{
+    for(int i = startIndex; i < endIndex + 1; i++)
+    {
+        readers[i].selection = selected;
+    }
+}
+
+void DataHandler::setAllItemsSelection(bool selected)
+{
+    for(int i = 0; i < readers.size(); i++)
+    {
+        readers[i].selection = selected;
+    }
+}
+
 bool DataHandler::getItemSelection(int index) const
 {
     return readers[index].selection;
@@ -124,6 +151,31 @@ bool DataHandler::isSelectedDataTheSame(DataConcerned typeOfData, bool selected)
         }
     }
     return true;
+}
+
+String DataHandler::getSimilarDataForSelectedItems(DataConcerned typeOfData)
+{
+    String comparisonString;
+    
+    for(int i = 0; i < readers.size(); i++)
+    {
+        if(readers[i].selection)
+        {
+            if(comparisonString.isEmpty())
+            {
+                comparisonString = getDataForItem(typeOfData, i);
+            }
+            
+            else
+            {
+                if(getDataForItem(typeOfData, i).compare(comparisonString) != 0)
+                {
+                    return String();
+                }
+            }
+        }
+    }
+    return comparisonString;
 }
 
 void DataHandler::addData(std::vector<std::unique_ptr<AudioMetadataReader>>& readersToAdd)

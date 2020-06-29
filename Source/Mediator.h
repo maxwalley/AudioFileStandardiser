@@ -38,6 +38,7 @@ public:
     
     virtual int getNumberOfRowsToDisplay();
     virtual String getDataForCell(int rowNumber, int column);
+    virtual bool getSelectedForRow(int rowNumber);
     
 private:
     Mediator(){};

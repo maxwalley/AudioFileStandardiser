@@ -40,15 +40,24 @@ public:
         fileName = 7
     };
     
-    void setDataForItem(DataConcerned typeOfData, int itemIndex, String newData);
+    void setDataForItem(DataConcerned typeOfData, int itemIndex, const String& newData);
+    
+    void setDataForSelectedItems(DataConcerned typeOfData, bool selected, const String& newData);
     
     //Essentially a shortcut to stop the switch being explicitly implemented into lots of other funcs
     String getDataForItem(DataConcerned typeOfData, int index);
     
     void setItemSelection(int index, bool selected);
+    void setItemSelection(int startIndex, int endIndex, bool selected);
+    
+    void setAllItemsSelection(bool selected);
+    
     bool getItemSelection(int index) const;
     
     bool isSelectedDataTheSame(DataConcerned typeOfData, bool selected);
+    
+    //If no similar data is found will return an empty string
+    String getSimilarDataForSelectedItems(DataConcerned typeOfData);
     
     void addData(std::vector<std::unique_ptr<AudioMetadataReader>>& readersToAdd);
     

@@ -53,12 +53,21 @@ void NewMainComponent::resized()
     //Table is viewable
     else if(currentComponents % 1 == 0)
     {
-        setSize(650, 300);
-        table.setBounds(0, 0, 650, 300);
+        int tableHeight = table.getHeaderHeight() + (Mediator::getInstance()->getNumberOfRowsToDisplay() * table.getRowHeight());
+        
+        int componentHeight = tableHeight > 600  ?   600 :   tableHeight;
+        
+        setSize(650, componentHeight);
+        table.setBounds(0, 0, 650, getHeight());
     }
 }
 
 void NewMainComponent::setComponentToDisplay(componentsToDisplay component)
 {
     currentComponents = component;
+}
+
+void NewMainComponent::updateTable()
+{
+    table.updateContent();
 }
