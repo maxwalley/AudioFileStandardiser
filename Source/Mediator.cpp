@@ -50,6 +50,8 @@ NewMainComponent* Mediator::getMainComponent()
 void Mediator::initialiseComponents()
 {
     tableModel = std::make_unique<TableModel>();
+    menu = std::make_unique<MenuModel>();
+    menu->addActionListener(this);
 }
 
 TableModel* Mediator::getTableModel()
@@ -89,24 +91,20 @@ bool Mediator::getSelectedForRow(int rowNumber)
 
 void Mediator::actionListenerCallback (const String &message)
 {
-    
+    if(message.compare("menu_add_files") == 0)
+    {
+        addNewFiles();
+        mainComponent->resized();
+    }
 }
 
 void Mediator::buttonClicked(Button* button)
 {
     if(button->getComponentID().compare("intro_openSourceButton") == 0)
     {
-        if(initialiser.lookForNewFiles())
-        {
-            dataHandler.addData(initialiser.getResult());
-            initialiser.clearCurrentFiles();
-            dataHandler.sort();
-            //dataHandler.printTest();
-            
-            mainComponent->setComponentToDisplay(NewMainComponent::Table);
-            mainComponent->setSize(650, 300);
-            mainComponent->resized();
-        }
+        addNewFiles();
+        mainComponent->setComponentToDisplay(NewMainComponent::Table);
+        mainComponent->resized();
     }
     
     else if(button->getComponentID().compare("table_button") == 0)
@@ -143,5 +141,16 @@ void Mediator::textEditorTextChanged(TextEditor& editor)
         }
         
         mainComponent->updateTable();
+    }
+}
+
+void Mediator::addNewFiles()
+{
+    if(initialiser.lookForNewFiles())
+    {
+        dataHandler.addData(initialiser.getResult());
+        initialiser.clearCurrentFiles();
+        dataHandler.sort();
+        //dataHandler.printTest();
     }
 }

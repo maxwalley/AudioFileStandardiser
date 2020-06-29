@@ -15,6 +15,7 @@
 #include "FileInitialiser.h"
 #include "DataHandler.h"
 #include "TableModel.h"
+#include "MenuModel.h"
 
 class NewMainComponent;
 
@@ -55,7 +56,10 @@ private:
     
     static DataHandler dataHandler;
     
+    void addNewFiles();
+    
     std::unique_ptr<TableModel> tableModel;
+    std::unique_ptr<MenuModel> menu;
     
     static NewMainComponent* mainComponent;
 };

@@ -61,6 +61,10 @@
 			isa = PBXBuildFile;
 			fileRef = 5A15C4E4BFD977D25E18ACFE;
 		};
+		1CC64D3143F5BC96AA9AB1F1 = {
+			isa = PBXBuildFile;
+			fileRef = 1C9411EAC797752A18F6EDE1;
+		};
 		434E95FBDCB87E41CB5A47CF = {
 			isa = PBXBuildFile;
 			fileRef = 5FDBA04B04FD240B6EA39017;
@@ -259,6 +263,13 @@
 			path = System/Library/Frameworks/Accelerate.framework;
 			sourceTree = SDKROOT;
 		};
+		1C9411EAC797752A18F6EDE1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = MenuModel.cpp;
+			path = ../../Source/MenuModel.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		21E4278137509D440C9FE525 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -334,6 +345,13 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_audio_processors.mm";
 			path = "../../JuceLibraryCode/include_juce_audio_processors.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		4AA85B54DCEA3FCA707A1C30 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = MenuModel.h;
+			path = ../../Source/MenuModel.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		4B386E9C13E6839EEAA12629 = {
@@ -775,6 +793,8 @@
 		329608004BEDC20C07FBE1D7 = {
 			isa = PBXGroup;
 			children = (
+				4AA85B54DCEA3FCA707A1C30,
+				1C9411EAC797752A18F6EDE1,
 				A084B08132742705A4718599,
 				5FDBA04B04FD240B6EA39017,
 				602E527948C06956379652E8,
@@ -1125,6 +1145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CC64D3143F5BC96AA9AB1F1,
 				434E95FBDCB87E41CB5A47CF,
 				45DB37642974B829454A1BB1,
 				A2BD1D79AFA185B4A7193C39,
