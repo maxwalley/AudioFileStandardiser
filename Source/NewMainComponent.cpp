@@ -68,10 +68,16 @@ void NewMainComponent::resized()
     {
         int tableHeight = table.getHeaderHeight() + (Mediator::getInstance()->getNumberOfRowsToDisplay() * table.getRowHeight());
         
-        int componentHeight = tableHeight > 600  ?   600 :   tableHeight;
-        
-        setSize(650, componentHeight);
-        table.setBounds(0, 0, 650, getHeight());
+        if(tableHeight > 600)
+        {
+            setSize(658, 600);
+            table.setBounds(0, 0, 658, getHeight());
+        }
+        else
+        {
+            setSize(650, tableHeight);
+            table.setBounds(0, 0, 650, getHeight());
+        }
     }
 }
 
