@@ -13,15 +13,12 @@
 
 TableModel::TableModel()
 {
-    textEditorDrawer = std::make_unique<TableTextEditorLAndF>();
+    textEditorDrawer = std::make_shared<TableTextEditorLAndF>();
 }
 
 TableModel::~TableModel()
 {
-    for(int i = 0; i < componentWeakPointers.size(); i++)
-    {
-        componentWeakPointers[i]->setLookAndFeel(nullptr);
-    }
+    
 }
     
 int TableModel::getNumRows()
@@ -70,7 +67,6 @@ Component* TableModel::refreshComponentForCell(int rowNumber, int columnId, bool
         componentToAdd->setColour(TextEditor::textColourId, Colours::black);
         componentToAdd->setColour(TextEditor::outlineColourId, Colours::black);
         componentToAdd->setLookAndFeel(textEditorDrawer.get());
-        componentWeakPointers.push_back(componentToAdd);
         
         if(rowNumber % 2 == 0)
         {

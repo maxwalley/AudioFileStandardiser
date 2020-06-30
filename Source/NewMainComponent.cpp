@@ -18,8 +18,6 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
     
     addAndMakeVisible(introComponent);
     
-    Mediator::getInstance()->initialiseComponents();
-    
     addAndMakeVisible(table);
     table.setHeader(new TableHeaderComponent);
     table.getHeader().addColumn("Track", 1, 50, 50, 50, 1);
@@ -29,11 +27,26 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
     table.getHeader().addColumn("Year", 5, 50, 50, 50, 1);
     table.getHeader().addColumn("File Type", 6, 50, 50, 50, 1);
     table.getHeader().addColumn("Selected", 7, 50, 50, 50, 1);
+    
     table.setModel(Mediator::getInstance()->getTableModel());
 }
 
 NewMainComponent::~NewMainComponent()
 {
+    //To stop an error in look and feel
+    for(int j = 1; j < table.getHeader().getNumColumns(false); j++)
+    {
+        for(int i = 0; i < Mediator::getInstance()->getNumberOfRowsToDisplay(); i++)
+        {
+            Component* currentComponent = table.getCellComponent(j, i);
+            
+            if(currentComponent != nullptr)
+            {
+                currentComponent->setLookAndFeel(nullptr);
+            }
+        }
+    }
+    
     Mediator::closeInstance();
 }
 

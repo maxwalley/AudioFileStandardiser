@@ -29,7 +29,7 @@ public:
     
     static void closeInstance();
     
-    static NewMainComponent* getMainComponent();
+    NewMainComponent* getMainComponent();
     
     void initialiseComponents();
     
@@ -58,8 +58,10 @@ private:
     
     void addNewFiles();
     
-    std::unique_ptr<TableModel> tableModel;
     std::unique_ptr<MenuModel> menu;
     
-    static NewMainComponent* mainComponent;
+    //This can't be a unique pointer because it is an incomplete type - can be done but complicated
+    NewMainComponent* mainComponent;
+    
+    std::unique_ptr<TableModel> tableModel;
 };

@@ -26,8 +26,5 @@ private:
     void paintCell(Graphics& g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) override;
     Component* refreshComponentForCell(int rowNumber, int columnId, bool isRowSelected, Component *existingComponentToUpdate) override;
     
-    //Vector used for setting null look and feels
-    std::vector<TableTextEditorComponent*> componentWeakPointers;
-    
-    std::unique_ptr<TableTextEditorLAndF> textEditorDrawer;
+    std::shared_ptr<TableTextEditorLAndF> textEditorDrawer;
 };

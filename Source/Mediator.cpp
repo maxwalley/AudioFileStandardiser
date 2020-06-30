@@ -14,10 +14,6 @@
 
 Mediator* Mediator::instance = 0;
 
-NewMainComponent* Mediator::mainComponent;
-
-//TableModel Mediator::tableModel;
-
 DataHandler Mediator::dataHandler;
 
 Mediator* Mediator::getInstance()
@@ -40,16 +36,13 @@ void Mediator::closeInstance()
 
 NewMainComponent* Mediator::getMainComponent()
 {
-    if(mainComponent == nullptr)
-    {
-        mainComponent = new NewMainComponent;
-    }
     return mainComponent;
 }
 
 void Mediator::initialiseComponents()
 {
     tableModel = std::make_unique<TableModel>();
+    mainComponent = new NewMainComponent();
     menu = std::make_unique<MenuModel>();
     menu->addActionListener(this);
 }
@@ -95,6 +88,7 @@ void Mediator::actionListenerCallback (const String &message)
     {
         addNewFiles();
         mainComponent->resized();
+        mainComponent->updateTable();
     }
 }
 

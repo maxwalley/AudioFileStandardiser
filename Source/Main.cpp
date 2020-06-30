@@ -27,8 +27,8 @@ public:
     //==============================================================================
     void initialise (const String& commandLine) override
     {
+        Mediator::getInstance()->initialiseComponents();
         // This method is where you should put your application's initialisation code..
-
         mainWindow.reset (new MainWindow (getApplicationName()));
     }
 
@@ -68,7 +68,8 @@ public:
                                                     DocumentWindow::allButtons)
         {
             setUsingNativeTitleBar (true);
-            setContentOwned (Mediator::getMainComponent(), true);
+            
+            setContentOwned (Mediator::getInstance()->getMainComponent(), true);
 
            #if JUCE_IOS || JUCE_ANDROID
             setFullScreen (true);
