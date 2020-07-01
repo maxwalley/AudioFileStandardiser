@@ -20,6 +20,18 @@ BatchControlsImplementation::~BatchControlsImplementation()
     
 }
 
+BatchRenameControls::ButtonsActive BatchControlsImplementation::getActiveDataButtons() const
+{
+    return guiControls->getButtonsActive();
+}
+
+String BatchControlsImplementation::manipulateStringAccordingToGUI(const String& inputString)
+{
+    String newString = inputString.toUpperCase();
+    
+    return newString;
+}
+
 void BatchControlsImplementation::test()
 {
     DBG(int(guiControls->getButtonsActive() & BatchRenameControls::titleButton));

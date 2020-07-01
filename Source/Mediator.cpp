@@ -140,7 +140,14 @@ void Mediator::buttonClicked(Button* button)
     
     else if(button->getComponentID().compare("batch_apply") == 0)
     {
-        batchControlsImp->test();
+        for(int i = 0; i < dataHandler.numEntries(); i++)
+        {
+            if(dataHandler.getItemSelection(i))
+            {
+                dataHandler.setDataForItem(DataHandler::DataConcerned(3), i, batchControlsImp->manipulateStringAccordingToGUI(dataHandler.getDataForItem(DataHandler::DataConcerned(3), i)));
+            }
+        }
+        mainComponent->updateTable();
     }
 }
 

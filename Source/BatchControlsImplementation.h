@@ -8,6 +8,8 @@
   ==============================================================================
 */
 
+//This class receives strings and will process them according to the settings held in the batch controls GUI
+
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
@@ -16,8 +18,13 @@
 class BatchControlsImplementation
 {
 public:
+    
     BatchControlsImplementation(BatchRenameControls* batchGUIControls);
     ~BatchControlsImplementation();
+    
+    BatchRenameControls::ButtonsActive getActiveDataButtons() const;
+    
+    String manipulateStringAccordingToGUI(const String& inputString);
     
     void test();
     

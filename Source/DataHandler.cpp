@@ -26,31 +26,31 @@ void DataHandler::setDataForItem(DataConcerned typeOfData, int itemIndex, const 
     {
         switch (typeOfData)
         {
-            case trackNum:
+            case DataConcerned::trackNum:
                 readers[itemIndex].object->setTrackNum(newData.getIntValue());
                 break;
                 
-            case trackTitle:
+            case DataConcerned::trackTitle:
                 readers[itemIndex].object->setTrackTitle(newData);
                 break;
                 
-            case artistName:
+            case DataConcerned::artistName:
                 readers[itemIndex].object->setArtistName(newData);
                 break;
                 
-            case albumName:
+            case DataConcerned::albumName:
                 readers[itemIndex].object->setAlbumName(newData);
                 break;
                 
-            case year:
+            case DataConcerned::year:
                 readers[itemIndex].object->setYear(newData.getIntValue());
                 break;
                 
-            case fileExtension:
+            case DataConcerned::fileExtension:
                 //ERROR
                 break;
                 
-            case fileName:
+            case DataConcerned::fileName:
                 readers[itemIndex].object->changeFileName(newData);
                 break;
         }
@@ -68,35 +68,35 @@ void DataHandler::setDataForSelectedItems(DataConcerned typeOfData, bool selecte
     }
 }
 
-String DataHandler::getDataForItem(DataConcerned typeOfData, int index)
+String DataHandler::getDataForItem(DataConcerned typeOfData, int index) const
 {
     switch (typeOfData)
     {
-        case trackNum:
+        case DataConcerned::trackNum:
             return String(readers[index].object->getTrackNum());
             break;
                 
-        case trackTitle:
+        case DataConcerned::trackTitle:
             return readers[index].object->getTrackTitle();
             break;
                 
-        case artistName:
+        case DataConcerned::artistName:
             return readers[index].object->getArtistName();
             break;
                 
-        case albumName:
+        case DataConcerned::albumName:
             return readers[index].object->getAlbumName();
             break;
                 
-        case year:
+        case DataConcerned::year:
             return String(readers[index].object->getYear());
             break;
                 
-        case fileExtension:
+        case DataConcerned::fileExtension:
             return readers[index].object->getFile().getFileExtension();
             break;
             
-        case fileName:
+        case DataConcerned::fileName:
             return readers[index].object->getFile().getFileNameWithoutExtension();
             break;
     }

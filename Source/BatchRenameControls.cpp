@@ -116,7 +116,6 @@ BatchRenameControls::~BatchRenameControls()
 
 void BatchRenameControls::paint (Graphics& g)
 {
-    
         g.setColour(Colours::white);
         g.setFont(Font(20));
         g.drawText("Batch Rename", 0, 5, getWidth(), 30, Justification::centred);

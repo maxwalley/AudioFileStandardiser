@@ -34,6 +34,7 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
     
     addAndMakeVisible(renameControls);
     addAndMakeVisible(extraInfoViewport);
+    
 }
 
 NewMainComponent::~NewMainComponent()

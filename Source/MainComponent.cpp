@@ -40,7 +40,7 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(fal
     
     for(int i = 0; i < testHandler.numEntries(); i++)
     {
-        DBG(testHandler.getDataForItem(DataHandler::artistName, i));
+        DBG(testHandler.getDataForItem(DataHandler::DataConcerned::artistName, i));
     }
     
 }

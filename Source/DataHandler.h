@@ -29,7 +29,7 @@ public:
     DataHandler();
     ~DataHandler();
     
-    enum DataConcerned
+    enum class DataConcerned
     {
         trackNum = 1,
         trackTitle = 2,
@@ -45,7 +45,7 @@ public:
     void setDataForSelectedItems(DataConcerned typeOfData, bool selected, const String& newData);
     
     //Essentially a shortcut to stop the switch being explicitly implemented into lots of other funcs
-    String getDataForItem(DataConcerned typeOfData, int index);
+    String getDataForItem(DataConcerned typeOfData, int index) const;
     
     void setItemSelection(int index, bool selected);
     void setItemSelection(int startIndex, int endIndex, bool selected);
