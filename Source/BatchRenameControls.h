@@ -37,27 +37,25 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    void setDataSet(bool hasDataBeenSet);
-    
     ButtonsActive getButtonsActive();
     
-    String getCharsToRemove();
+    std::optional<String> getCharsToRemove();
     
-    int getNumStartCharsToRemove();
+    std::optional<int> getNumStartCharsToRemove();
     
-    int getNumEndCharsToRemove();
+    std::optional<int> getNumEndCharsToRemove();
     
-    String getCharsToAddToStart();
+    std::optional<String> getCharsToAddToStart();
     
-    String getCharsToAddToPosition();
+    std::optional<String> getCharsToAddToPosition();
     
-    int getPositionToAdd();
+    std::optional<int> getPositionToAdd();
     
-    String getCharsToAddToEnd();
+    std::optional<String> getCharsToAddToEnd();
     
-    String getCharToReplace();
+    std::optional<String> getCharToReplace();
     
-    String getCharToReplaceWith();
+    std::optional<String> getCharToReplaceWith();
     
     bool getDefaultCapSettings() const;
     
@@ -65,11 +63,11 @@ public:
     
     bool getDecapAllWords() const;
     
-    String getCapWord() const;
+    std::optional<String> getCapWord() const;
     
     bool getCapStartOfAllWords() const;
     
-    String getCapStartOfWord() const;
+    std::optional<String> getCapStartOfWord() const;
 
 private:
     
@@ -77,9 +75,6 @@ private:
     
     void mouseDown(const MouseEvent& event) override;
 
-    
-    bool dataSet;
-    
     ToggleButton titleToggle;
     ToggleButton artistToggle;
     ToggleButton albumToggle;

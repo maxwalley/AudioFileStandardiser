@@ -10,7 +10,7 @@
 
 #include "MenuModel.h"
 
-MenuModel::MenuModel()
+MenuModel::MenuModel()  :   menuNames("File")
 {
     setMacMainMenu(this);
 }
@@ -20,28 +20,39 @@ MenuModel::~MenuModel()
     setMacMainMenu(nullptr);
 }
 
+void MenuModel::setMenuItemVisible(MenuNames menuName, bool setVisible, int index)
+{
+    String menuNameToSet = menuNamesToString(menuName);
+    
+    //Checks that the array doesn't already contain it
+    if(setVisible == true && !menuNames.contains(menuNameToSet))
+    {
+        menuNames.insert(index, menuNamesToString(menuName));
+    }
+    
+    else
+    {
+        menuNames.removeString(menuNamesToString(menuName));
+    }
+}
+
 StringArray MenuModel::getMenuBarNames()
 {
-    StringArray menuNames("File", "Settings");
-    
-    /*if fileLoaded menuNames.add("view")*/
-    
     return menuNames;
-    
 }
 
 PopupMenu MenuModel::getMenuForIndex(int topLevelMenuIndex, const String &menuName)
 {
     PopupMenu menu;
     
-    if(topLevelMenuIndex == 0)
+    if(menuName.compare("File") == 0)
     {
         menu.addItem(1, "Add new files", true, false);
     }
     
-    else if(topLevelMenuIndex == 2)
+    else if(menuName.compare("View") == 0)
     {
-        //menu.addItem(1, "Add new files", true, false);
+        menu.addItem(10, "Show Batch Controls");
     }
     
     return menu;
@@ -57,5 +68,24 @@ void MenuModel::menuItemSelected(int menuItemID, int topLevelMenuIndex)
         {
             sendActionMessage("menu_add_files");
         }
+    }
+    
+    else if(menuItemID == 10)
+    {
+        sendActionMessage("menu_show_batch");
+    }
+}
+
+String MenuModel::menuNamesToString(MenuNames menuName)
+{
+    switch (menuName)
+    {
+        case MenuNames::File:
+            return "File";
+            break;
+            
+        case MenuNames::View:
+            return "View";
+            break;
     }
 }

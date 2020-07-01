@@ -10,9 +10,10 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "BatchRenameControls.h"
+#include "Mediator.h"
 
 //==============================================================================
-BatchRenameControls::BatchRenameControls() : dataSet(false), applyButton("Apply"), resetButton("Reset"), closeButton("Close")
+BatchRenameControls::BatchRenameControls() : applyButton("Apply"), resetButton("Reset"), closeButton("Close")
 {
     addAndMakeVisible(titleToggle);
     addAndMakeVisible(artistToggle);
@@ -98,13 +99,14 @@ BatchRenameControls::BatchRenameControls() : dataSet(false), applyButton("Apply"
     
     
     addAndMakeVisible(applyButton);
-    applyButton.addListener(this);
+    applyButton.addListener(Mediator::getInstance());
+    applyButton.setComponentID("batch_apply");
     
     addAndMakeVisible(resetButton);
     resetButton.addListener(this);
     
     addAndMakeVisible(closeButton);
-    closeButton.addListener(this);
+    closeButton.addListener(Mediator::getInstance());
 }
 
 BatchRenameControls::~BatchRenameControls()
@@ -114,8 +116,7 @@ BatchRenameControls::~BatchRenameControls()
 
 void BatchRenameControls::paint (Graphics& g)
 {
-    if(dataSet == true)
-    {
+    
         g.setColour(Colours::white);
         g.setFont(Font(20));
         g.drawText("Batch Rename", 0, 5, getWidth(), 30, Justification::centred);
@@ -159,13 +160,10 @@ void BatchRenameControls::paint (Graphics& g)
         path.lineTo(20, 540);
         
         g.strokePath(path, PathStrokeType(1.0f));
-    }
 }
 
 void BatchRenameControls::resized()
 {
-    if(dataSet == true)
-    {
         //Made to be same size as table toggle buttons
         titleToggle.setBounds(3, 35, 25, 22);
         artistToggle.setBounds(66, 35, 25, 22);
@@ -231,12 +229,6 @@ void BatchRenameControls::resized()
         resetButton.setBounds(6, 810, 178, 30);
         
         closeButton.setBounds(6, 850, 178, 30);
-    }
-}
-
-void BatchRenameControls::setDataSet(bool hasDataBeenSet)
-{
-    dataSet = hasDataBeenSet;
 }
 
 BatchRenameControls::ButtonsActive BatchRenameControls::getButtonsActive()
@@ -261,19 +253,18 @@ BatchRenameControls::ButtonsActive BatchRenameControls::getButtonsActive()
     return activeButtons;
 }
 
-String BatchRenameControls::getCharsToRemove()
+std::optional<String> BatchRenameControls::getCharsToRemove()
 {
-    return removeCharsEditor.getText();
+    if(!removeCharsEditor.isEmpty())
+    {
+        return removeCharsEditor.getText();
+    }
+    return std::nullopt;
 }
 
 void BatchRenameControls::buttonClicked(Button* button)
 {
-    if(button == &applyButton)
-    {
-        sendActionMessage("Apply Button Clicked");
-    }
-    
-    else if(button == &resetButton)
+    if(button == &resetButton)
     {
         titleToggle.setToggleState(false, dontSendNotification);
         artistToggle.setToggleState(false, dontSendNotification);
@@ -362,44 +353,76 @@ void BatchRenameControls::mouseDown(const MouseEvent& event)
     }
 }
 
-int BatchRenameControls::getNumStartCharsToRemove()
+std::optional<int> BatchRenameControls::getNumStartCharsToRemove()
 {
-    return removeStartCharsEditor.getText().getIntValue();
+    if(!removeStartCharsEditor.isEmpty())
+    {
+        return removeStartCharsEditor.getText().getIntValue();
+    }
+    return std::nullopt;
 }
 
-int BatchRenameControls::getNumEndCharsToRemove()
+std::optional<int> BatchRenameControls::getNumEndCharsToRemove()
 {
-    return removeEndCharsEditor.getText().getIntValue();
+    if(!removeEndCharsEditor.isEmpty())
+    {
+        return removeEndCharsEditor.getText().getIntValue();
+    }
+    return std::nullopt;
 }
 
-String BatchRenameControls::getCharsToAddToStart()
+std::optional<String> BatchRenameControls::getCharsToAddToStart()
 {
-    return addCharsToStartEditor.getText();
+    if(!addCharsToStartEditor.isEmpty())
+    {
+        return addCharsToStartEditor.getText();
+    }
+    return std::nullopt;
 }
 
-String BatchRenameControls::getCharsToAddToPosition()
+std::optional<String> BatchRenameControls::getCharsToAddToPosition()
 {
-    return addCharsToPositionEditor.getText();
+    if(!addCharsToPositionEditor.isEmpty())
+    {
+        return addCharsToPositionEditor.getText();
+    }
+    return std::nullopt;
 }
 
-int BatchRenameControls::getPositionToAdd()
+std::optional<int> BatchRenameControls::getPositionToAdd()
 {
-    return positionToAddToEditor.getText().getIntValue();
+    if(!positionToAddToEditor.isEmpty())
+    {
+        return positionToAddToEditor.getText().getIntValue();
+    }
+    return std::nullopt;
 }
 
-String BatchRenameControls::getCharsToAddToEnd()
+std::optional<String> BatchRenameControls::getCharsToAddToEnd()
 {
-    return addCharsToEndEditor.getText();
+    if(!addCharsToEndEditor.isEmpty())
+    {
+        return addCharsToEndEditor.getText();
+    }
+    return std::nullopt;
 }
 
-String BatchRenameControls::getCharToReplace()
+std::optional<String> BatchRenameControls::getCharToReplace()
 {
-    return replaceCharEditor.getText();
+    if(!replaceCharEditor.isEmpty())
+    {
+        return replaceCharEditor.getText();
+    }
+    return std::nullopt;
 }
 
-String BatchRenameControls::getCharToReplaceWith()
+std::optional<String> BatchRenameControls::getCharToReplaceWith()
 {
-    return replaceCharWithEditor.getText();
+    if(!replaceCharWithEditor.isEmpty())
+    {
+        return replaceCharWithEditor.getText();
+    }
+    return std::nullopt;
 }
 
 bool BatchRenameControls::getDefaultCapSettings() const
@@ -417,9 +440,13 @@ bool BatchRenameControls::getDecapAllWords() const
     return decapAllWordsToggle.getToggleState();
 }
 
-String BatchRenameControls::getCapWord() const
+std::optional<String> BatchRenameControls::getCapWord() const
 {
-    return capWordEditor.getText();
+    if(!capWordEditor.isEmpty())
+    {
+        return capWordEditor.getText();
+    }
+    return std::nullopt;
 }
 
 bool BatchRenameControls::getCapStartOfAllWords() const
@@ -427,7 +454,11 @@ bool BatchRenameControls::getCapStartOfAllWords() const
     return capStartOfAllWordsToggle.getToggleState();
 }
 
-String BatchRenameControls::getCapStartOfWord() const
+std::optional<String> BatchRenameControls::getCapStartOfWord() const
 {
-    return capStartOfWordEditor.getText();
+    if(!capStartOfWordEditor.isEmpty())
+    {
+        return capStartOfWordEditor.getText();
+    }
+    return std::nullopt;
 }

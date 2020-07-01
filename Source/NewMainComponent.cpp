@@ -27,8 +27,13 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
     table.getHeader().addColumn("Year", 5, 50, 50, 50, 1);
     table.getHeader().addColumn("File Type", 6, 50, 50, 50, 1);
     table.getHeader().addColumn("Selected", 7, 50, 50, 50, 1);
-    
+
     table.setModel(Mediator::getInstance()->getTableModel());
+    
+    renameControls = Mediator::getInstance()->getBatchControls();
+    
+    addAndMakeVisible(renameControls);
+    addAndMakeVisible(extraInfoViewport);
 }
 
 NewMainComponent::~NewMainComponent()
@@ -62,29 +67,51 @@ void NewMainComponent::resized()
     {
         introComponent.setBounds(0, 0, getWidth(), getHeight());
     }
-    
-    //Table is viewable
-    else if(currentComponents % 1 == 0)
+    else
     {
         int tableHeight = table.getHeaderHeight() + (Mediator::getInstance()->getNumberOfRowsToDisplay() * table.getRowHeight());
+        int tableWidth;
         
-        //Adjusts width and height to deal with the scroll bar
         if(tableHeight > 600)
         {
-            setSize(658, 600);
-            table.setBounds(0, 0, 658, getHeight());
+            tableWidth = 658;
+            tableHeight = 600;
         }
         else
         {
-            setSize(650, tableHeight);
-            table.setBounds(0, 0, 650, getHeight());
+            tableWidth = 650;
+        }
+        
+        table.setBounds(0, 0, tableWidth, tableHeight);
+        
+        DBG(currentComponents);
+        
+        //Table is viewable only
+        if(currentComponents == 1)
+        {
+            setSize(tableWidth, tableHeight);
+        }
+        //Table is not alone
+        else
+        {
+            setSize(tableWidth + 200, tableHeight);
+            
+            extraInfoViewport.setBounds(tableWidth, 0, 200, getHeight());
+            
+            //Batch controls Viewable
+            if(currentComponents & RenameControls)
+            {
+                extraInfoViewport.setViewedComponent(renameControls);
+                renameControls->setSize(190, 900);
+            }
+            
         }
     }
 }
 
-void NewMainComponent::setComponentToDisplay(componentsToDisplay component)
+void NewMainComponent::setComponentsToDisplay(int components)
 {
-    currentComponents = component;
+    currentComponents = componentsToDisplay(components);
 }
 
 void NewMainComponent::updateTable()

@@ -3,10 +3,10 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               jucerVersion="5.4.5" cppLanguageStandard="17">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
-    <FILE id="teSmVE" name="DynamicallyModifiableMenuModel.h" compile="0"
-          resource="0" file="Source/DynamicallyModifiableMenuModel.h"/>
-    <FILE id="rXtfuJ" name="DynamicallyModifiableMenuModel.cpp" compile="1"
-          resource="0" file="Source/DynamicallyModifiableMenuModel.cpp"/>
+    <FILE id="adEBsK" name="BatchControlsImplementation.h" compile="0"
+          resource="0" file="Source/BatchControlsImplementation.h"/>
+    <FILE id="PVXRrW" name="BatchControlsImplementation.cpp" compile="1"
+          resource="0" file="Source/BatchControlsImplementation.cpp"/>
     <FILE id="NFWDVJ" name="MenuModel.h" compile="0" resource="0" file="Source/MenuModel.h"/>
     <FILE id="mquswH" name="MenuModel.cpp" compile="1" resource="0" file="Source/MenuModel.cpp"/>
     <FILE id="JVnUjm" name="LookAndFeels.h" compile="0" resource="0" file="Source/LookAndFeels.h"/>

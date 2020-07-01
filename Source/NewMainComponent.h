@@ -14,6 +14,7 @@
 
 #include "IntroComponent.h"
 #include "Mediator.h"
+#include "BatchRenameControls.h"
 
 //==============================================================================
 /*
@@ -24,7 +25,8 @@ public:
     enum componentsToDisplay
     {
         Intro = 0,
-        Table = 1
+        Table = 1,
+        RenameControls = 2
     };
     
     NewMainComponent();
@@ -33,7 +35,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    void setComponentToDisplay(componentsToDisplay component);
+    void setComponentsToDisplay(int components);
     
     void updateTable();
 
@@ -43,6 +45,9 @@ private:
     
     IntroComponent introComponent;
     TableListBox table;
+    BatchRenameControls* renameControls;
+    
+    Viewport extraInfoViewport;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewMainComponent)
 };

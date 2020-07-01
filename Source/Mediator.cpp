@@ -42,6 +42,8 @@ NewMainComponent* Mediator::getMainComponent()
 void Mediator::initialiseComponents()
 {
     tableModel = std::make_unique<TableModel>();
+    batchControls = std::make_unique<BatchRenameControls>();
+    batchControlsImp = std::make_unique<BatchControlsImplementation>(batchControls.get());
     mainComponent = new NewMainComponent();
     menu = std::make_unique<MenuModel>();
     menu->addActionListener(this);
@@ -55,6 +57,11 @@ TableModel* Mediator::getTableModel()
 DataHandler* Mediator::getDataHandler()
 {
     return &dataHandler;
+}
+
+BatchRenameControls* Mediator::getBatchControls()
+{
+    return batchControls.get();
 }
 
 int Mediator::getNumberOfRowsToDisplay()
@@ -82,6 +89,14 @@ bool Mediator::getSelectedForRow(int rowNumber)
     return dataHandler.getItemSelection(rowNumber);
 }
 
+void Mediator::setDataForCell(int rowNumber, int column, const String& newData)
+{
+    if(rowNumber < getNumberOfRowsToDisplay() -1)
+    {
+        dataHandler.setDataForItem(DataHandler::DataConcerned(column), rowNumber, newData);
+    }
+}
+
 void Mediator::actionListenerCallback (const String &message)
 {
     if(message.compare("menu_add_files") == 0)
@@ -90,6 +105,12 @@ void Mediator::actionListenerCallback (const String &message)
         mainComponent->resized();
         mainComponent->updateTable();
     }
+    
+    else if(message.compare("menu_show_batch") == 0)
+    {
+        mainComponent->setComponentsToDisplay(NewMainComponent::Table | NewMainComponent::RenameControls);
+        mainComponent->resized();
+    }
 }
 
 void Mediator::buttonClicked(Button* button)
@@ -97,7 +118,7 @@ void Mediator::buttonClicked(Button* button)
     if(button->getComponentID().compare("intro_openSourceButton") == 0)
     {
         addNewFiles();
-        mainComponent->setComponentToDisplay(NewMainComponent::Table);
+        mainComponent->setComponentsToDisplay(NewMainComponent::Table);
         mainComponent->resized();
     }
     
@@ -116,6 +137,11 @@ void Mediator::buttonClicked(Button* button)
         
         mainComponent->updateTable();
     }
+    
+    else if(button->getComponentID().compare("batch_apply") == 0)
+    {
+        batchControlsImp->test();
+    }
 }
 
 void Mediator::textEditorTextChanged(TextEditor& editor)
@@ -126,7 +152,7 @@ void Mediator::textEditorTextChanged(TextEditor& editor)
         
         if(tempEditor.getRowNumber() < getNumberOfRowsToDisplay() - 1)
         {
-            dataHandler.setDataForItem(DataHandler::DataConcerned(tempEditor.getColumnID()), tempEditor.getRowNumber(), tempEditor.getText());
+            setDataForCell(tempEditor.getRowNumber(), tempEditor.getColumnID(), tempEditor.getText());
         }
         
         else if(tempEditor.getRowNumber() == getNumberOfRowsToDisplay() - 1)
@@ -145,6 +171,7 @@ void Mediator::addNewFiles()
         dataHandler.addData(initialiser.getResult());
         initialiser.clearCurrentFiles();
         dataHandler.sort();
+        menu->setMenuItemVisible(MenuModel::MenuNames::View, true);
         //dataHandler.printTest();
     }
 }

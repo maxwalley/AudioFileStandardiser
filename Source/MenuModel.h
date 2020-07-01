@@ -19,8 +19,20 @@ public:
     MenuModel();
     ~MenuModel();
     
+    enum class MenuNames
+    {
+        File,
+        View
+    };
+    
+    void setMenuItemVisible(MenuNames menuName, bool setVisible, int index = -1);
+    
 private:
     StringArray getMenuBarNames() override;
     PopupMenu getMenuForIndex(int topLevelMenuIndex, const String &menuName) override;
     void menuItemSelected(int menuItemID, int topLevelMenuIndex) override;
+    
+    StringArray menuNames;
+    
+    String menuNamesToString(MenuNames menuName);
 };

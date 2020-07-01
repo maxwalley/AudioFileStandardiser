@@ -412,7 +412,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\DynamicallyModifiableMenuModel.cpp">
+    <ClCompile Include="..\..\Source\BatchControlsImplementation.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\MenuModel.cpp">
@@ -2385,7 +2385,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\DynamicallyModifiableMenuModel.h">
+    <ClInclude Include="..\..\Source\BatchControlsImplementation.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MenuModel.h">

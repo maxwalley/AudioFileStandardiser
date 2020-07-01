@@ -16,6 +16,8 @@
 #include "DataHandler.h"
 #include "TableModel.h"
 #include "MenuModel.h"
+#include "BatchControlsImplementation.h"
+#include "BatchRenameControls.h"
 
 class NewMainComponent;
 
@@ -37,9 +39,13 @@ public:
     
     static DataHandler* getDataHandler();
     
+    BatchRenameControls* getBatchControls();
+    
     virtual int getNumberOfRowsToDisplay();
     virtual String getDataForCell(int rowNumber, int column);
     virtual bool getSelectedForRow(int rowNumber);
+    
+    virtual void setDataForCell(int rowNumber, int column, const String& newData);
     
 private:
     Mediator(){};
@@ -64,4 +70,8 @@ private:
     NewMainComponent* mainComponent;
     
     std::unique_ptr<TableModel> tableModel;
+    
+    std::unique_ptr<BatchControlsImplementation> batchControlsImp;
+    
+    std::unique_ptr<BatchRenameControls> batchControls;
 };

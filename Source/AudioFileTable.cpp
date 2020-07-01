@@ -251,7 +251,6 @@ bool AudioFileTable::setFiles()
         lastArrayUsed.clear();
     }
     
-    batchControls.setDataSet(true);
     fileAndDirectoryControls.setDataSet(true);
     metadataReaders.sort(arraySorter);
     
@@ -577,7 +576,7 @@ void AudioFileTable::actionListenerCallback(const String& message)
                         break;
                 }
                 
-                if(comparator != 0)
+                /*if(comparator != 0)
                 {
                     for(int i = 0; i < metadataReaders.size(); i++)
                     {
@@ -681,7 +680,7 @@ void AudioFileTable::actionListenerCallback(const String& message)
                             changeMetadataForCellComponent(column, i, textToReplace);
                         }
                     }
-                }
+                }*/
             }
         }
         table.updateContent();
