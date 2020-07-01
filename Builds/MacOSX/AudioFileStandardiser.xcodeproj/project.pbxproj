@@ -61,6 +61,10 @@
 			isa = PBXBuildFile;
 			fileRef = 5A15C4E4BFD977D25E18ACFE;
 		};
+		3B6EC883CCE1591C640CCF86 = {
+			isa = PBXBuildFile;
+			fileRef = 8AE2F1692DF9C11BC01567A0;
+		};
 		1CC64D3143F5BC96AA9AB1F1 = {
 			isa = PBXBuildFile;
 			fileRef = 1C9411EAC797752A18F6EDE1;
@@ -326,6 +330,13 @@
 			path = ../../Source/TagLibTagReader.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		3D561C05E684B3E4FEFB95E8 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = DynamicallyModifiableMenuModel.h;
+			path = ../../Source/DynamicallyModifiableMenuModel.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		446698E77531E184FC00091E = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -479,6 +490,13 @@
 			name = CoreAudioKit.framework;
 			path = System/Library/Frameworks/CoreAudioKit.framework;
 			sourceTree = SDKROOT;
+		};
+		8AE2F1692DF9C11BC01567A0 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = DynamicallyModifiableMenuModel.cpp;
+			path = ../../Source/DynamicallyModifiableMenuModel.cpp;
+			sourceTree = "SOURCE_ROOT";
 		};
 		8FD8047ACBD243EEBD2FA4F0 = {
 			isa = PBXFileReference;
@@ -793,6 +811,8 @@
 		329608004BEDC20C07FBE1D7 = {
 			isa = PBXGroup;
 			children = (
+				3D561C05E684B3E4FEFB95E8,
+				8AE2F1692DF9C11BC01567A0,
 				4AA85B54DCEA3FCA707A1C30,
 				1C9411EAC797752A18F6EDE1,
 				A084B08132742705A4718599,
@@ -922,7 +942,7 @@
 		CB51885B95395D7F23024366 = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -971,7 +991,7 @@
 		9F69DEEB2D97E3FD15A8A738 = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_LINK_OBJC_RUNTIME = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1145,6 +1165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B6EC883CCE1591C640CCF86,
 				1CC64D3143F5BC96AA9AB1F1,
 				434E95FBDCB87E41CB5A47CF,
 				45DB37642974B829454A1BB1,

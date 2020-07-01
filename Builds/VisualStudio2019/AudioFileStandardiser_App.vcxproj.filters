@@ -412,6 +412,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\DynamicallyModifiableMenuModel.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\MenuModel.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
@@ -2382,6 +2385,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\DynamicallyModifiableMenuModel.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\MenuModel.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>

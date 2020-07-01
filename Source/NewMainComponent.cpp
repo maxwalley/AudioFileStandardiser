@@ -68,6 +68,7 @@ void NewMainComponent::resized()
     {
         int tableHeight = table.getHeaderHeight() + (Mediator::getInstance()->getNumberOfRowsToDisplay() * table.getRowHeight());
         
+        //Adjusts width and height to deal with the scroll bar
         if(tableHeight > 600)
         {
             setSize(658, 600);
