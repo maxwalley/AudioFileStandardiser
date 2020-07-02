@@ -215,6 +215,11 @@ void Mediator::buttonClicked(Button* button)
         mainComponent->setComponentsToDisplay(NewMainComponent::Table);
         mainComponent->resized();
     }
+    
+    else if(button->getComponentID().compare("file_controls_move") == 0)
+    {
+        dataHandler.moveSelectedItemsBasedOnWildcards(*fileControls->getNewDirAndWildcardPath(), true);
+    }
 }
 
 void Mediator::textEditorTextChanged(TextEditor& editor)

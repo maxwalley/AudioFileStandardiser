@@ -68,6 +68,38 @@ void DataHandler::setDataForSelectedItems(DataConcerned typeOfData, bool selecte
     }
 }
 
+void DataHandler::moveItemToNewDirectory(int itemIndex, const String& newDirectory)
+{
+    readers[itemIndex].object->moveFileToNewDirectory(newDirectory);
+}
+
+void DataHandler::moveSelectedItemsToNewDirectory(const String& newDirectory, bool selected)
+{
+    for(int i = 0; i < readers.size(); i++)
+    {
+        if(readers[i].selection == selected)
+        {
+            readers[i].object->moveFileToNewDirectory(newDirectory);
+        }
+    }
+}
+
+void DataHandler::moveItemBasedOnWildcard(int itemIndex, const String& newWildcardDirectory)
+{
+    manager.moveFileBasedOnWildcardPath(readers[itemIndex].object.get(), newWildcardDirectory);
+}
+
+void DataHandler::moveSelectedItemsBasedOnWildcards(const String& newWildcardDirectory, bool selected)
+{
+    for(int i = 0; i < readers.size(); i++)
+    {
+        if(readers[i].selection == selected)
+        {
+            manager.moveFileBasedOnWildcardPath(readers[i].object.get(), newWildcardDirectory);
+        }
+    }
+}
+
 String DataHandler::getDataForItem(DataConcerned typeOfData, int index) const
 {
     switch (typeOfData)

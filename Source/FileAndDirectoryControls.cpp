@@ -85,7 +85,16 @@ std::optional<String> FileAndDirectoryControls::getWildcardPath() const
     {
         return std::nullopt;
     }
-    return folderHierachyEditor.getText();
+    
+    String wildcardPath = folderHierachyEditor.getText();
+    
+    //Removes the first forward slash that an inexperienced user may input
+    if(wildcardPath.startsWith("/"))
+    {
+        wildcardPath = wildcardPath.substring(1);
+    }
+    
+    return wildcardPath;
 }
 
 std::optional<String> FileAndDirectoryControls::getNewDirAndWildcardPath() const

@@ -11,6 +11,7 @@
 #pragma once
 
 #include "TagLibTagReader.h"
+#include "AudioMetadataManager.h"
 
 template <class t>
 struct SelectionData
@@ -43,6 +44,14 @@ public:
     void setDataForItem(DataConcerned typeOfData, int itemIndex, const String& newData);
     
     void setDataForSelectedItems(DataConcerned typeOfData, bool selected, const String& newData);
+    
+    void moveItemToNewDirectory(int itemIndex, const String& newDirectory);
+    
+    void moveSelectedItemsToNewDirectory(const String& newDirectory, bool selected);
+    
+    void moveItemBasedOnWildcard(int itemIndex, const String& newWildcardDirectory);
+    
+    void moveSelectedItemsBasedOnWildcards(const String& newWildcardDirectory, bool selected);
     
     //Essentially a shortcut to stop the switch being explicitly implemented into lots of other funcs
     String getDataForItem(DataConcerned typeOfData, int index) const;
@@ -77,6 +86,8 @@ public:
     void sort();
     
 private:
+    
+    AudioMetadataManager manager;
     
     std::vector<SelectionData<std::unique_ptr<AudioMetadataReader>>> readers;
 };

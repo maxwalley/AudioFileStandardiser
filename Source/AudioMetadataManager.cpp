@@ -44,8 +44,6 @@ bool AudioMetadataManager::moveFileBasedOnWildcardPath(AudioMetadataReader* file
         File(convertedLocation).createDirectory();
     }
     
-    //convertedPath = convertedPath + "/" + fileToMove->getFile().getFileName();
-    
     fileToMove->moveFileToNewDirectory(convertedLocation);
 }
 

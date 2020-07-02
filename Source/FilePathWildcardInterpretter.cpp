@@ -32,7 +32,7 @@ StringArray FilePathWildcardInterpretter::getCompatibleWildcards() const
 
 String FilePathWildcardInterpretter::interpretString(const String& input, AudioMetadataReader* file)
 {
-    String stringToReturn;
+    String stringToReturn = input;
     
     //Checks that there is a wildcard in the input string
     if(stringToReturn.contains("$"))
@@ -64,4 +64,6 @@ String FilePathWildcardInterpretter::interpretString(const String& input, AudioM
         stringToReturn = stringToReturn.replace("$year", String(file->getYear()));
         stringToReturn = stringToReturn.replace("$fileformat", file->getFile().getFileExtension());
     }
+    
+    return stringToReturn;
 }
