@@ -44,6 +44,7 @@ void Mediator::initialiseComponents()
     tableModel = std::make_unique<TableModel>();
     batchControls = std::make_unique<BatchRenameControls>();
     batchControlsImp = std::make_unique<BatchControlsImplementation>(batchControls.get());
+    fileControls = std::make_unique<FileAndDirectoryControls>();
     mainComponent = new NewMainComponent();
     menu = std::make_unique<MenuModel>();
     menu->addActionListener(this);
@@ -62,6 +63,11 @@ DataHandler* Mediator::getDataHandler()
 BatchRenameControls* Mediator::getBatchControls()
 {
     return batchControls.get();
+}
+
+FileAndDirectoryControls* Mediator::getFileAndDirectoryControls()
+{
+    return fileControls.get();
 }
 
 int Mediator::getNumberOfRowsToDisplay()
@@ -108,7 +114,29 @@ void Mediator::actionListenerCallback (const String &message)
     
     else if(message.compare("menu_show_batch") == 0)
     {
-        mainComponent->setComponentsToDisplay(NewMainComponent::Table | NewMainComponent::RenameControls);
+        if(menu->getBatchControlsShown())
+        {
+            menu->setFileControlsShown(false);
+            mainComponent->setComponentsToDisplay(NewMainComponent::Table | NewMainComponent::RenameControls);
+        }
+        else
+        {
+            mainComponent->setComponentsToDisplay(NewMainComponent::Table);
+        }
+        mainComponent->resized();
+    }
+    
+    else if(message.compare("menu_show_file_controls") == 0)
+    {
+        if(menu->getFileControlsShown())
+        {
+            menu->setBatchControlsShown(false);
+            mainComponent->setComponentsToDisplay(NewMainComponent::Table | NewMainComponent::FileAndFolderControls);
+        }
+        else
+        {
+            mainComponent->setComponentsToDisplay(NewMainComponent::Table);
+        }
         mainComponent->resized();
     }
 }
@@ -140,11 +168,41 @@ void Mediator::buttonClicked(Button* button)
     
     else if(button->getComponentID().compare("batch_apply") == 0)
     {
-        for(int i = 0; i < dataHandler.numEntries(); i++)
+        //Iterates through the 3 possible data types that could be edited by batch controls
+        for(int i = 0; i < 3; i++)
         {
-            if(dataHandler.getItemSelection(i))
+            int columnId;
+            int buttonActive;
+            
+            //Switches to the relevant data type for this iteration
+            switch(i)
             {
-                dataHandler.setDataForItem(DataHandler::DataConcerned(3), i, batchControlsImp->manipulateStringAccordingToGUI(dataHandler.getDataForItem(DataHandler::DataConcerned(3), i)));
+                case 0:
+                    buttonActive = batchControlsImp->getActiveDataButtons() & BatchRenameControls::titleButton;
+                    columnId = 2;
+                    break;
+                    
+                case 1:
+                    buttonActive = batchControlsImp->getActiveDataButtons() & BatchRenameControls::artistButton;
+                    columnId = 3;
+                    break;
+                    
+                case 2:
+                    buttonActive = batchControlsImp->getActiveDataButtons() & BatchRenameControls::albumButton;
+                    columnId = 4;
+                    break;
+            }
+            
+            //Checks if the button in batch controls for that data type was on
+            if(buttonActive != 0)
+            {
+                for(int i = 0; i < dataHandler.numEntries(); i++)
+                {
+                    if(dataHandler.getItemSelection(i))
+                    {
+                        setDataForCell(i, columnId, batchControlsImp->manipulateStringAccordingToGUI(getDataForCell(i, columnId)));
+                    }
+                }
             }
         }
         mainComponent->updateTable();

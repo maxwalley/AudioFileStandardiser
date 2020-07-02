@@ -15,6 +15,7 @@
 #include "IntroComponent.h"
 #include "Mediator.h"
 #include "BatchRenameControls.h"
+#include "FileAndDirectoryControls.h"
 
 //==============================================================================
 /*
@@ -26,7 +27,8 @@ public:
     {
         Intro = 0,
         Table = 1,
-        RenameControls = 2
+        RenameControls = 2,
+        FileAndFolderControls = 4
     };
     
     NewMainComponent();
@@ -46,6 +48,7 @@ private:
     IntroComponent introComponent;
     TableListBox table;
     BatchRenameControls* renameControls;
+    FileAndDirectoryControls* fileControls;
     
     Viewport extraInfoViewport;
     

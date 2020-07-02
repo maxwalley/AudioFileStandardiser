@@ -26,8 +26,6 @@ public:
     void paint (Graphics&) override;
     void resized() override;
     
-    void setDataSet(bool isDataSet);
-    
     void setCurrentDirectory(const String& newDirectory);
     String getCurrentDirectoryDisplayed() const;
     
@@ -37,8 +35,6 @@ public:
 private:
     
     void buttonClicked(Button* button) override;
-    
-    bool dataSet;
     
     Label currentDirectoryLabel;
     Label currentDirectoryDataLabel;

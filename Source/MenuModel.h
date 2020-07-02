@@ -27,6 +27,12 @@ public:
     
     void setMenuItemVisible(MenuNames menuName, bool setVisible, int index = -1);
     
+    void setBatchControlsShown(bool set);
+    bool getBatchControlsShown() const;
+    
+    void setFileControlsShown(bool set);
+    bool getFileControlsShown() const;
+    
 private:
     StringArray getMenuBarNames() override;
     PopupMenu getMenuForIndex(int topLevelMenuIndex, const String &menuName) override;
@@ -35,4 +41,7 @@ private:
     StringArray menuNames;
     
     String menuNamesToString(MenuNames menuName);
+    
+    bool batchControlsShown;
+    bool fileAndFolderControlsShown;
 };

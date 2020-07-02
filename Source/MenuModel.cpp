@@ -10,7 +10,7 @@
 
 #include "MenuModel.h"
 
-MenuModel::MenuModel()  :   menuNames("File")
+MenuModel::MenuModel()  :   menuNames("File"), batchControlsShown(false)
 {
     setMacMainMenu(this);
 }
@@ -36,6 +36,26 @@ void MenuModel::setMenuItemVisible(MenuNames menuName, bool setVisible, int inde
     }
 }
 
+void MenuModel::setBatchControlsShown(bool set)
+{
+    batchControlsShown = set;
+}
+
+bool MenuModel::getBatchControlsShown() const
+{
+    return batchControlsShown;
+}
+
+void MenuModel::setFileControlsShown(bool set)
+{
+    fileAndFolderControlsShown = set;
+}
+
+bool MenuModel::getFileControlsShown() const
+{
+    return fileAndFolderControlsShown;
+}
+
 StringArray MenuModel::getMenuBarNames()
 {
     return menuNames;
@@ -52,7 +72,8 @@ PopupMenu MenuModel::getMenuForIndex(int topLevelMenuIndex, const String &menuNa
     
     else if(menuName.compare("View") == 0)
     {
-        menu.addItem(10, "Show Batch Controls");
+        menu.addItem(10, "Show Batch Controls", true, batchControlsShown);
+        menu.addItem(11, "Show File and Folder Controls", true, fileAndFolderControlsShown);
     }
     
     return menu;
@@ -73,6 +94,13 @@ void MenuModel::menuItemSelected(int menuItemID, int topLevelMenuIndex)
     else if(menuItemID == 10)
     {
         sendActionMessage("menu_show_batch");
+        batchControlsShown = !batchControlsShown;
+    }
+    
+    else if(menuItemID == 11)
+    {
+        sendActionMessage("menu_show_file_controls");
+        fileAndFolderControlsShown = !fileAndFolderControlsShown;
     }
 }
 

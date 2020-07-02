@@ -354,7 +354,8 @@ void BatchRenameControls::mouseDown(const MouseEvent& event)
 
 std::optional<int> BatchRenameControls::getNumStartCharsToRemove()
 {
-    if(!removeStartCharsEditor.isEmpty())
+    //Returns false if editor is empty or its text value = 0
+    if(!removeStartCharsEditor.isEmpty() || removeStartCharsEditor.getText().getIntValue() == 0)
     {
         return removeStartCharsEditor.getText().getIntValue();
     }
@@ -363,7 +364,8 @@ std::optional<int> BatchRenameControls::getNumStartCharsToRemove()
 
 std::optional<int> BatchRenameControls::getNumEndCharsToRemove()
 {
-    if(!removeEndCharsEditor.isEmpty())
+    //Returns false if editor is empty or its text value = 0
+    if(!removeEndCharsEditor.isEmpty() || removeEndCharsEditor.getText().getIntValue() == 0)
     {
         return removeEndCharsEditor.getText().getIntValue();
     }

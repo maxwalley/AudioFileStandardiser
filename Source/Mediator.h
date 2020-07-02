@@ -18,6 +18,7 @@
 #include "MenuModel.h"
 #include "BatchControlsImplementation.h"
 #include "BatchRenameControls.h"
+#include "FileAndDirectoryControls.h"
 
 class NewMainComponent;
 
@@ -40,6 +41,8 @@ public:
     static DataHandler* getDataHandler();
     
     BatchRenameControls* getBatchControls();
+    
+    FileAndDirectoryControls* getFileAndDirectoryControls();
     
     virtual int getNumberOfRowsToDisplay();
     virtual String getDataForCell(int rowNumber, int column);
@@ -74,4 +77,6 @@ private:
     std::unique_ptr<BatchControlsImplementation> batchControlsImp;
     
     std::unique_ptr<BatchRenameControls> batchControls;
+    
+    std::unique_ptr<FileAndDirectoryControls> fileControls;
 };

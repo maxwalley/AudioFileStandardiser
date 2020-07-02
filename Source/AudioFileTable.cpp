@@ -251,7 +251,7 @@ bool AudioFileTable::setFiles()
         lastArrayUsed.clear();
     }
     
-    fileAndDirectoryControls.setDataSet(true);
+    //fileAndDirectoryControls.setDataSet(true);
     metadataReaders.sort(arraySorter);
     
     if(fileNamesToChangeWithTitle)

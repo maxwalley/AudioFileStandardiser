@@ -32,9 +32,11 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
     
     renameControls = Mediator::getInstance()->getBatchControls();
     
-    addAndMakeVisible(renameControls);
-    addAndMakeVisible(extraInfoViewport);
+    fileControls = Mediator::getInstance()->getFileAndDirectoryControls();
     
+    addAndMakeVisible(renameControls);
+    addAndMakeVisible(fileControls);
+    addAndMakeVisible(extraInfoViewport);
 }
 
 NewMainComponent::~NewMainComponent()
@@ -85,8 +87,6 @@ void NewMainComponent::resized()
         
         table.setBounds(0, 0, tableWidth, tableHeight);
         
-        DBG(currentComponents);
-        
         //Table is viewable only
         if(currentComponents == 1)
         {
@@ -102,8 +102,15 @@ void NewMainComponent::resized()
             //Batch controls Viewable
             if(currentComponents & RenameControls)
             {
-                extraInfoViewport.setViewedComponent(renameControls);
+                extraInfoViewport.setViewedComponent(renameControls, false);
                 renameControls->setSize(190, 900);
+            }
+            
+            //File and dir controls viewable
+            if(currentComponents & FileAndFolderControls)
+            {
+                extraInfoViewport.setViewedComponent(fileControls, false);
+                fileControls->setSize(190, 330);
             }
             
         }

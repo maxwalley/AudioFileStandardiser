@@ -14,6 +14,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "BatchRenameControls.h"
+#include "StringChecker.h"
 
 class BatchControlsImplementation
 {
