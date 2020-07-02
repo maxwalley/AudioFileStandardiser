@@ -107,6 +107,7 @@ BatchRenameControls::BatchRenameControls() : applyButton("Apply"), resetButton("
     
     addAndMakeVisible(closeButton);
     closeButton.addListener(Mediator::getInstance());
+    closeButton.setComponentID("extra_info_close");
 }
 
 BatchRenameControls::~BatchRenameControls()
@@ -289,11 +290,6 @@ void BatchRenameControls::buttonClicked(Button* button)
         capStartOfWordEditor.clear();
         
         repaint();
-    }
-    
-    else if(button == &closeButton)
-    {
-        sendActionMessage("Extra Info Close Button Clicked");
     }
     
     else if(button == &defaultCapSettingsToggle)

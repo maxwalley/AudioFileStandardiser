@@ -692,7 +692,7 @@ void AudioFileTable::actionListenerCallback(const String& message)
         {
             if(selectionButtonsValues[i])
             {
-                metadataManager.moveFileBasedOnWildcardPath(metadataReaders[i], fileAndDirectoryControls.getNewDirAndWildcardPath());
+                //metadataManager.moveFileBasedOnWildcardPath(metadataReaders[i], fileAndDirectoryControls.getNewDirAndWildcardPath());
             }
         }
         sendDirectoryDataToControls();

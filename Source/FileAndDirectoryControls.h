@@ -27,11 +27,13 @@ public:
     void resized() override;
     
     void setCurrentDirectory(const String& newDirectory);
-    String getCurrentDirectoryDisplayed() const;
+    std::optional<String> getCurrentDirectoryDisplayed() const;
     
-    String getWildcardPath() const;
+    std::optional<String> getWildcardPath() const;
 
-    String getNewDirAndWildcardPath() const;
+    //Returns the current directory with the wildcard path appended to the end
+    //Returns std::nullopt if current directory is empty
+    std::optional<String> getNewDirAndWildcardPath() const;
 private:
     
     void buttonClicked(Button* button) override;

@@ -207,6 +207,14 @@ void Mediator::buttonClicked(Button* button)
         }
         mainComponent->updateTable();
     }
+    
+    else if(button->getComponentID().compare("extra_info_close") == 0)
+    {
+        menu->setFileControlsShown(false);
+        menu->setBatchControlsShown(false);
+        mainComponent->setComponentsToDisplay(NewMainComponent::Table);
+        mainComponent->resized();
+    }
 }
 
 void Mediator::textEditorTextChanged(TextEditor& editor)

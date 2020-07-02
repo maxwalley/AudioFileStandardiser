@@ -10,6 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "FileAndDirectoryControls.h"
+#include "Mediator.h"
 
 //==============================================================================
 FileAndDirectoryControls::FileAndDirectoryControls()    :   changeDirectoryButton("Select New Directory"), moveButton("Move Files"), closeButton("Close")
@@ -29,10 +30,12 @@ FileAndDirectoryControls::FileAndDirectoryControls()    :   changeDirectoryButto
     addAndMakeVisible(folderHierachyEditor);
     
     addAndMakeVisible(moveButton);
-    moveButton.addListener(this);
+    moveButton.addListener(Mediator::getInstance());
+    moveButton.setComponentID("file_controls_move");
     
     addAndMakeVisible(closeButton);
-    closeButton.addListener(this);
+    closeButton.addListener(Mediator::getInstance());
+    closeButton.setComponentID("extra_info_close");
 }
 
 FileAndDirectoryControls::~FileAndDirectoryControls()
@@ -67,13 +70,36 @@ void FileAndDirectoryControls::setCurrentDirectory(const String& newDirectory)
     currentDirectoryDataLabel.setText(newDirectory, dontSendNotification);
 }
 
-String FileAndDirectoryControls::getCurrentDirectoryDisplayed() const
+std::optional<String> FileAndDirectoryControls::getCurrentDirectoryDisplayed() const
 {
+    if(currentDirectoryDataLabel.getText().isEmpty())
+    {
+        return std::nullopt;
+    }
     return currentDirectoryDataLabel.getText();
+}
+
+std::optional<String> FileAndDirectoryControls::getWildcardPath() const
+{
+    if(folderHierachyEditor.isEmpty())
+    {
+        return std::nullopt;
+    }
+    return folderHierachyEditor.getText();
+}
+
+std::optional<String> FileAndDirectoryControls::getNewDirAndWildcardPath() const
+{
+    if(!getCurrentDirectoryDisplayed())
+    {
+        return std::nullopt;
+    }
+    return *getCurrentDirectoryDisplayed() + "/" + getWildcardPath().value_or("");
 }
 
 void FileAndDirectoryControls::buttonClicked(Button* button)
 {
+    //Puts the new directory path in the current directory editor
     if(button == &changeDirectoryButton)
     {
         FileChooser chooser("Select New Directory");
@@ -85,31 +111,4 @@ void FileAndDirectoryControls::buttonClicked(Button* button)
             currentDirectoryDataLabel.setText(newDirectory.getFullPathName(), dontSendNotification);
         }
     }
-    
-    else if(button == &moveButton)
-    {
-        if(currentDirectoryDataLabel.getText().isNotEmpty())
-        {
-            sendActionMessage("File and Dir Apply Button Clicked");
-        }
-    }
-    
-    else if(button == &closeButton)
-    {
-        sendActionMessage("Extra Info Close Button Clicked");
-    }
-}
-
-String FileAndDirectoryControls::getWildcardPath() const
-{
-    return folderHierachyLabel.getText();
-}
-
-String FileAndDirectoryControls::getNewDirAndWildcardPath() const
-{
-    if(currentDirectoryDataLabel.getText().isNotEmpty())
-    {
-        return currentDirectoryDataLabel.getText() + "/" + folderHierachyEditor.getText();
-    }
-    return currentDirectoryDataLabel.getText();
 }
