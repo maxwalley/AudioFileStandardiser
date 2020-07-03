@@ -138,6 +138,7 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\ID3v2MetadataReader.cpp"/>
     <ClCompile Include="..\..\Source\BatchControlsImplementation.cpp"/>
     <ClCompile Include="..\..\Source\MenuModel.cpp"/>
     <ClCompile Include="..\..\Source\LookAndFeels.cpp"/>
@@ -1926,6 +1927,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\ID3v2MetadataReader.h"/>
     <ClInclude Include="..\..\Source\BatchControlsImplementation.h"/>
     <ClInclude Include="..\..\Source\MenuModel.h"/>
     <ClInclude Include="..\..\Source\LookAndFeels.h"/>

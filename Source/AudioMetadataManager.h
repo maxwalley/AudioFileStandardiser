@@ -10,10 +10,10 @@
 
 #pragma once
 
-#include "AudioMetadataReader.h"
-#include "TagLibTagReader.h"
+#include "ID3v2MetadataReader.h"
 #include "fileref.h"
 #include "FilePathWildcardInterpretter.h"
+#include "mpegfile.h"
 
 #include "../JuceLibraryCode/JuceHeader.h"
 

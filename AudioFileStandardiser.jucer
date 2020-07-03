@@ -3,6 +3,10 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               jucerVersion="5.4.5" cppLanguageStandard="17">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
+    <FILE id="OtFUMz" name="ID3v2MetadataReader.h" compile="0" resource="0"
+          file="Source/ID3v2MetadataReader.h"/>
+    <FILE id="GwlfuG" name="ID3v2MetadataReader.cpp" compile="1" resource="0"
+          file="Source/ID3v2MetadataReader.cpp"/>
     <FILE id="adEBsK" name="BatchControlsImplementation.h" compile="0"
           resource="0" file="Source/BatchControlsImplementation.h"/>
     <FILE id="PVXRrW" name="BatchControlsImplementation.cpp" compile="1"

@@ -10,16 +10,16 @@
 
 #include "TagLibTagReader.h"
 
-TagLibTagReader::TagLibTagReader(const File& input)   :   AudioMetadataReader(input), metadataFile(fileToRead.getFullPathName().toUTF8(), false)
+TagLibTagReader::TagLibTagReader(const File& input, TagLib::File* file)   :   AudioMetadataReader(input), metadataFile(file), metadata(metadataFile->tag())
 {
-    metadata = metadataFile.tag();
     metadata->setGenre("");
     metadata->setComment("");
 }
 
 TagLibTagReader::~TagLibTagReader()
 {
-    metadataFile.save();
+    metadataFile->save();
+    delete metadataFile;
 }
 
 int TagLibTagReader::getTrackNum()

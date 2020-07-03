@@ -12,11 +12,12 @@
 
 #include "AudioMetadataReader.h"
 #include "fileref.h"
+#include "tag.h"
 
 class TagLibTagReader : public AudioMetadataReader
 {
 public:
-    TagLibTagReader(const File& input);
+    TagLibTagReader(const File& input, TagLib::File* file);
     ~TagLibTagReader();
     
     int getTrackNum() override;
@@ -31,8 +32,7 @@ public:
     void setAlbumName(const String& newAlbumName) override;
     void setYear(int newYear) override;
     
-private:
-    TagLib::FileRef metadataFile;
+protected:
+    TagLib::File* metadataFile;
     TagLib::Tag* metadata;
-    
 };

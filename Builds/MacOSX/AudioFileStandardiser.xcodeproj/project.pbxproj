@@ -61,6 +61,10 @@
 			isa = PBXBuildFile;
 			fileRef = 5A15C4E4BFD977D25E18ACFE;
 		};
+		1F14D9DE97C952D358E4A0BC = {
+			isa = PBXBuildFile;
+			fileRef = 184D6C08C9BC47FAEDA135D3;
+		};
 		1891F72C4D5F21ED332AE44B = {
 			isa = PBXBuildFile;
 			fileRef = 25548D52DAD2AD5D1E132776;
@@ -258,6 +262,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = IntroComponent.h;
 			path = ../../Source/IntroComponent.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		184D6C08C9BC47FAEDA135D3 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = ID3v2MetadataReader.cpp;
+			path = ../../Source/ID3v2MetadataReader.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		199ED50162E80C1274709BFF = {
@@ -617,6 +628,13 @@
 			path = "../../JuceLibraryCode/include_juce_opengl.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		AC3793903E82360EA4897101 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = ID3v2MetadataReader.h;
+			path = ../../Source/ID3v2MetadataReader.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		AD1D61E3604CBF49036D93F0 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -811,6 +829,8 @@
 		329608004BEDC20C07FBE1D7 = {
 			isa = PBXGroup;
 			children = (
+				AC3793903E82360EA4897101,
+				184D6C08C9BC47FAEDA135D3,
 				93D36B5D4888CCDDAB406AA5,
 				25548D52DAD2AD5D1E132776,
 				4AA85B54DCEA3FCA707A1C30,
@@ -1165,6 +1185,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F14D9DE97C952D358E4A0BC,
 				1891F72C4D5F21ED332AE44B,
 				1CC64D3143F5BC96AA9AB1F1,
 				434E95FBDCB87E41CB5A47CF,
