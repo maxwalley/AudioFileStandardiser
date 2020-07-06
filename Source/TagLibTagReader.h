@@ -17,7 +17,7 @@
 class TagLibTagReader : public AudioMetadataReader
 {
 public:
-    TagLibTagReader(const File& input, TagLib::File* file);
+    TagLibTagReader(TagLib::File* file);
     ~TagLibTagReader();
     
     int getTrackNum() override;

@@ -10,7 +10,7 @@
 
 #include "TagLibTagReader.h"
 
-TagLibTagReader::TagLibTagReader(const File& input, TagLib::File* file)   :   AudioMetadataReader(input), metadataFile(file), metadata(metadataFile->tag())
+TagLibTagReader::TagLibTagReader(TagLib::File* file)   :   AudioMetadataReader(File(String(CharPointer_UTF8(file->name())))), metadataFile(file), metadata(metadataFile->tag())
 {
     metadata->setGenre("");
     metadata->setComment("");

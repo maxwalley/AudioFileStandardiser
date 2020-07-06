@@ -28,7 +28,7 @@ std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(
         
         if(mpegFile->hasID3v2Tag())
         {
-            std::unique_ptr<ID3v2MetadataReader> ptr = std::make_unique<ID3v2MetadataReader>(file, mpegFile, mpegFile->ID3v2Tag());
+            std::unique_ptr<ID3v2MetadataReader> ptr = std::make_unique<ID3v2MetadataReader>(mpegFile);
             return ptr;
         }
     }

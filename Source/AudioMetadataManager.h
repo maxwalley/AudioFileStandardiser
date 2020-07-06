@@ -14,6 +14,7 @@
 #include "fileref.h"
 #include "FilePathWildcardInterpretter.h"
 #include "mpegfile.h"
+#include "fileref.h"
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
