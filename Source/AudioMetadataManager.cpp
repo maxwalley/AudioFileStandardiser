@@ -24,11 +24,13 @@ std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(
 {
     if(file.getFileExtension().compare(".mp3") == 0)
     {
-        TagLib::MPEG::File* mpegFile = new TagLib::MPEG::File(file.getFullPathName().toRawUTF8());
+        //TagLib::MPEG::File* mpegFile = new TagLib::MPEG::File(file.getFullPathName().toRawUTF8());
+        
+        std::unique_ptr<TagLib::MPEG::File> mpegFile = std::make_unique<TagLib::MPEG::File>(file.getFullPathName().toRawUTF8());
         
         if(mpegFile->hasID3v2Tag())
         {
-            std::unique_ptr<ID3v2MetadataReader> ptr = std::make_unique<ID3v2MetadataReader>(mpegFile);
+            std::unique_ptr<ID3v2MetadataReader> ptr = std::make_unique<ID3v2MetadataReader>(std::move(mpegFile));
             return ptr;
         }
     }

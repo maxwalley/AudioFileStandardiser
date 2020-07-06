@@ -10,7 +10,7 @@
 
 #include "ID3v2MetadataReader.h"
 
-ID3v2MetadataReader::ID3v2MetadataReader(TagLib::File* file) :   TagLibTagReader(file), metadataTag(findTag(file))
+ID3v2MetadataReader::ID3v2MetadataReader(std::unique_ptr<TagLib::File> file) :   TagLibTagReader(std::move(file)), metadataTag(findTag(metadataFile.get()))
 {
     std::cout << metadataTag->album() << std::endl;
 }

@@ -17,7 +17,7 @@
 class TagLibTagReader : public AudioMetadataReader
 {
 public:
-    TagLibTagReader(TagLib::File* file);
+    TagLibTagReader(std::unique_ptr<TagLib::File> file);
     ~TagLibTagReader();
     
     int getTrackNum() override;
@@ -33,6 +33,6 @@ public:
     void setYear(int newYear) override;
     
 protected:
-    TagLib::File* metadataFile;
+    std::unique_ptr<TagLib::File> metadataFile;
     TagLib::Tag* metadata;
 };

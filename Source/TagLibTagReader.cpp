@@ -10,7 +10,7 @@
 
 #include "TagLibTagReader.h"
 
-TagLibTagReader::TagLibTagReader(TagLib::File* file)   :   AudioMetadataReader(File(String(CharPointer_UTF8(file->name())))), metadataFile(file), metadata(metadataFile->tag())
+TagLibTagReader::TagLibTagReader(std::unique_ptr<TagLib::File> file)   :   AudioMetadataReader(File(String(CharPointer_UTF8(file->name())))), metadataFile(std::move(file)), metadata(metadataFile->tag())
 {
     metadata->setGenre("");
     metadata->setComment("");
@@ -19,7 +19,6 @@ TagLibTagReader::TagLibTagReader(TagLib::File* file)   :   AudioMetadataReader(F
 TagLibTagReader::~TagLibTagReader()
 {
     metadataFile->save();
-    delete metadataFile;
 }
 
 int TagLibTagReader::getTrackNum()
