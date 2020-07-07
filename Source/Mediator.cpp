@@ -45,6 +45,7 @@ void Mediator::initialiseComponents()
     batchControls = std::make_unique<BatchRenameControls>();
     batchControlsImp = std::make_unique<BatchControlsImplementation>(batchControls.get());
     fileControls = std::make_unique<FileAndDirectoryControls>();
+    audioPlayerControls = std::make_unique<AudioPlayerGUI>();
     mainComponent = new NewMainComponent();
     menu = std::make_unique<MenuModel>();
     menu->addActionListener(this);
@@ -68,6 +69,11 @@ BatchRenameControls* Mediator::getBatchControls()
 FileAndDirectoryControls* Mediator::getFileAndDirectoryControls()
 {
     return fileControls.get();
+}
+
+AudioPlayerGUI* Mediator::getAudioPlayerControls()
+{
+    return audioPlayerControls.get();
 }
 
 int Mediator::getNumberOfRowsToDisplay()
@@ -145,9 +151,11 @@ void Mediator::buttonClicked(Button* button)
 {
     if(button->getComponentID().compare("intro_openSourceButton") == 0)
     {
-        addNewFiles();
-        mainComponent->setComponentsToDisplay(NewMainComponent::Table);
-        mainComponent->resized();
+        if(addNewFiles())
+        {
+            mainComponent->setComponentsToDisplay(NewMainComponent::Table);
+            mainComponent->resized();
+        }
     }
     
     else if(button->getComponentID().compare("table_button") == 0)
@@ -220,6 +228,19 @@ void Mediator::buttonClicked(Button* button)
     {
         dataHandler.moveSelectedItemsBasedOnWildcards(*fileControls->getNewDirAndWildcardPath(), true);
     }
+    
+    else if(button->getComponentID().compare("player_play_button") == 0)
+    {
+        if(audioPlayerControls->getPlayButtonState())
+        {
+            
+        }
+        else
+        {
+            
+        }
+        audioPlayerControls->changePlayButtonState(!(audioPlayerControls->getPlayButtonState()));
+    }
 }
 
 void Mediator::textEditorTextChanged(TextEditor& editor)
@@ -242,7 +263,24 @@ void Mediator::textEditorTextChanged(TextEditor& editor)
     }
 }
 
-void Mediator::addNewFiles()
+void Mediator::mouseDown(const MouseEvent& event)
+{
+    if(event.mods.isRightButtonDown())
+    {
+        TableCellComponent* originalComponent = dynamic_cast<TableCellComponent*>(event.originalComponent);
+        if(originalComponent)
+        {
+            int componentRowNumber = originalComponent->getRowNumber();
+        
+            if(componentRowNumber != getNumberOfRowsToDisplay() - 1)
+            {
+                mainComponent->showTablePopup();
+            }
+        }
+    }
+}
+
+bool Mediator::addNewFiles()
 {
     if(initialiser.lookForNewFiles())
     {
@@ -251,5 +289,7 @@ void Mediator::addNewFiles()
         dataHandler.sort();
         menu->setMenuItemVisible(MenuModel::MenuNames::View, true);
         //dataHandler.printTest();
+        return true;
     }
+    return false;
 }

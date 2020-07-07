@@ -19,12 +19,14 @@
 #include "BatchControlsImplementation.h"
 #include "BatchRenameControls.h"
 #include "FileAndDirectoryControls.h"
+#include "AudioPlayerGUI.h"
 
 class NewMainComponent;
 
 class Mediator  :   public ActionListener,
                     public Button::Listener,
-                    public TextEditor::Listener
+                    public TextEditor::Listener,
+                    public MouseListener
 {
 public:
     
@@ -44,6 +46,8 @@ public:
     
     FileAndDirectoryControls* getFileAndDirectoryControls();
     
+    AudioPlayerGUI* getAudioPlayerControls();
+    
     virtual int getNumberOfRowsToDisplay();
     virtual String getDataForCell(int rowNumber, int column);
     virtual bool getSelectedForRow(int rowNumber);
@@ -61,11 +65,13 @@ private:
     
     void textEditorTextChanged(TextEditor& editor) override;
     
+    void mouseDown(const MouseEvent& event) override;
+    
     FileInitialiser initialiser;
     
     static DataHandler dataHandler;
     
-    void addNewFiles();
+    bool addNewFiles();
     
     std::unique_ptr<MenuModel> menu;
     
@@ -79,4 +85,6 @@ private:
     std::unique_ptr<BatchRenameControls> batchControls;
     
     std::unique_ptr<FileAndDirectoryControls> fileControls;
+    
+    std::unique_ptr<AudioPlayerGUI> audioPlayerControls;
 };

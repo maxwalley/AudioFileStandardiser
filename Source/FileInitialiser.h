@@ -29,7 +29,7 @@ public:
     void clearCurrentFiles();
     
 private:
-    File decompressZipToLocation(const File& zip);
+    std::optional<File> decompressZipToLocation(const File& zip);
     
     AudioMetadataManager metadataManager;
     

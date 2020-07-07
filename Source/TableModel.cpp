@@ -61,6 +61,7 @@ Component* TableModel::refreshComponentForCell(int rowNumber, int columnId, bool
         
         TableTextEditorComponent* componentToAdd = new TableTextEditorComponent();
         componentToAdd->addListener(Mediator::getInstance());
+        componentToAdd->setPopupMenuEnabled(false);
         //Sets the name for identification by a listener
         componentToAdd->setComponentID("table_editor");
         componentToAdd->setLocationInTable(columnId, rowNumber);

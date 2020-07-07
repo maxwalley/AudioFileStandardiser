@@ -27,16 +27,21 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
     table.getHeader().addColumn("Year", 5, 50, 50, 50, 1);
     table.getHeader().addColumn("File Type", 6, 50, 50, 50, 1);
     table.getHeader().addColumn("Selected", 7, 50, 50, 50, 1);
+    table.addMouseListener(Mediator::getInstance(), true);
 
     table.setModel(Mediator::getInstance()->getTableModel());
     
     renameControls = Mediator::getInstance()->getBatchControls();
-    
     fileControls = Mediator::getInstance()->getFileAndDirectoryControls();
+    audioPlayerControls = Mediator::getInstance()->getAudioPlayerControls();
     
     addAndMakeVisible(renameControls);
     addAndMakeVisible(fileControls);
     addAndMakeVisible(extraInfoViewport);
+    addAndMakeVisible(audioPlayerControls);
+    
+    tablePopup.addItem(1, "Play", true, false);
+    tablePopup.addItem(2, "Extra Info", true, false);
 }
 
 NewMainComponent::~NewMainComponent()
@@ -75,10 +80,10 @@ void NewMainComponent::resized()
         int tableHeight = table.getHeaderHeight() + (Mediator::getInstance()->getNumberOfRowsToDisplay() * table.getRowHeight());
         int tableWidth;
         
-        if(tableHeight > 600)
+        if(tableHeight > 530)
         {
             tableWidth = 658;
-            tableHeight = 600;
+            tableHeight = 530;
         }
         else
         {
@@ -86,16 +91,17 @@ void NewMainComponent::resized()
         }
         
         table.setBounds(0, 0, tableWidth, tableHeight);
+        audioPlayerControls->setBounds(0, tableHeight, tableWidth, 70);
         
         //Table is viewable only
         if(currentComponents == 1)
         {
-            setSize(tableWidth, tableHeight);
+            setSize(tableWidth, tableHeight + 70);
         }
         //Table is not alone
         else
         {
-            setSize(tableWidth + 200, tableHeight);
+            setSize(tableWidth + 200, tableHeight + 70);
             
             extraInfoViewport.setBounds(tableWidth, 0, 200, getHeight());
             
@@ -125,4 +131,9 @@ void NewMainComponent::setComponentsToDisplay(int components)
 void NewMainComponent::updateTable()
 {
     table.updateContent();
+}
+
+int NewMainComponent::showTablePopup()
+{
+    return tablePopup.show();
 }

@@ -12,7 +12,7 @@
 
 AudioMetadataManager::AudioMetadataManager()
 {
-    formatManager.registerBasicFormats();
+    
 }
 
 AudioMetadataManager::~AudioMetadataManager()
@@ -24,25 +24,16 @@ std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(
 {
     if(file.getFileExtension().compare(".mp3") == 0)
     {
-        //TagLib::MPEG::File* mpegFile = new TagLib::MPEG::File(file.getFullPathName().toRawUTF8());
-        
         std::unique_ptr<TagLib::MPEG::File> mpegFile = std::make_unique<TagLib::MPEG::File>(file.getFullPathName().toRawUTF8());
         
-        if(mpegFile->hasID3v2Tag())
+        std::unique_ptr<ID3v2MetadataReader> ptr = std::make_unique<ID3v2MetadataReader>(std::move(mpegFile));
+        
+        if(ptr)
         {
-            std::unique_ptr<ID3v2MetadataReader> ptr = std::make_unique<ID3v2MetadataReader>(std::move(mpegFile));
             return ptr;
         }
     }
     
-    /*TagLib::FileRef tFile(file.getFullPathName().toUTF8(), false);
-    
-    //Taglib type metadata reader
-    if(!tFile.tag()->isEmpty())
-    {
-        std::unique_ptr<TagLibTagReader> ptr = std::make_unique<TagLibTagReader>(file);
-        return ptr;
-    }*/
     return nullptr;
 }
 

@@ -16,6 +16,7 @@
 #include "Mediator.h"
 #include "BatchRenameControls.h"
 #include "FileAndDirectoryControls.h"
+#include "AudioPlayerGUI.h"
 
 //==============================================================================
 /*
@@ -40,6 +41,8 @@ public:
     void setComponentsToDisplay(int components);
     
     void updateTable();
+    
+    int showTablePopup();
 
 private:
     
@@ -49,8 +52,11 @@ private:
     TableListBox table;
     BatchRenameControls* renameControls;
     FileAndDirectoryControls* fileControls;
+    AudioPlayerGUI* audioPlayerControls;
     
     Viewport extraInfoViewport;
+    
+    PopupMenu tablePopup;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewMainComponent)
 };

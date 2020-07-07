@@ -40,7 +40,23 @@ bool FileInitialiser::lookForNewFiles()
     {
         if(chosenFiles[i].hasFileExtension(".zip"))
         {
-            chosenFiles.set(i, decompressZipToLocation(chosenFiles[i]));
+            std::optional<File> decompressedFolder = decompressZipToLocation(chosenFiles[i]);
+            
+            //If something went wrong in decompression
+            if(decompressedFolder == std::nullopt)
+            {
+                chosenFiles.remove(i);
+                i--;
+                
+                if(chosenFiles.isEmpty())
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                chosenFiles.set(i, *decompressedFolder);
+            }
         }
         
         if(chosenFiles[i].isDirectory())
@@ -53,7 +69,7 @@ bool FileInitialiser::lookForNewFiles()
     
     if(chosenFiles.size() == 0)
     {
-        AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The folder you have selected contains no supported file types");
+        AlertWindow::showMessageBox(AlertWindow::WarningIcon, "No Suitable Files Detected", "The locationss you have selected contains no supported file types");
             
         return false;
     }
@@ -96,7 +112,7 @@ void FileInitialiser::clearCurrentFiles()
     currentFiles.clear();
 }
 
-File FileInitialiser::decompressZipToLocation(const File& zip)
+std::optional<File> FileInitialiser::decompressZipToLocation(const File& zip)
 {
     if(zip.exists() && zip.getFileExtension().compare(".zip") == 0)
     {
@@ -108,7 +124,7 @@ File FileInitialiser::decompressZipToLocation(const File& zip)
         {
             if(!AlertWindow::showNativeDialogBox("Duplicate folder names", "A folder with this name already exists in this directory, would you like a similar name to be allocated?", true))
             {
-                return zip;
+                return std::nullopt;
             }
             
             bool nameFound = false;

@@ -3,10 +3,38 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               jucerVersion="5.4.5" cppLanguageStandard="17">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
-    <FILE id="OtFUMz" name="ID3v2MetadataReader.h" compile="0" resource="0"
-          file="Source/ID3v2MetadataReader.h"/>
-    <FILE id="GwlfuG" name="ID3v2MetadataReader.cpp" compile="1" resource="0"
-          file="Source/ID3v2MetadataReader.cpp"/>
+    <GROUP id="{9034DDFF-7CA7-F81D-8195-19CAB99CE7FA}" name="AudioPlayer">
+      <FILE id="Fsy6Iz" name="PlayerGUIButton.cpp" compile="1" resource="0"
+            file="Source/PlayerGUIButton.cpp"/>
+      <FILE id="DnTu7q" name="PlayerGUIButton.h" compile="0" resource="0"
+            file="Source/PlayerGUIButton.h"/>
+      <FILE id="zcTdjP" name="AudioPlayerGUI.h" compile="0" resource="0"
+            file="Source/AudioPlayerGUI.h"/>
+      <FILE id="ERSXLr" name="AudioPlayerGUI.cpp" compile="1" resource="0"
+            file="Source/AudioPlayerGUI.cpp"/>
+    </GROUP>
+    <GROUP id="{8A44EC76-44FF-8DE9-9C37-345396F31F5D}" name="Metadata Readers">
+      <FILE id="Wcp8rp" name="AudioMetadataManager.h" compile="0" resource="0"
+            file="Source/AudioMetadataManager.h"/>
+      <FILE id="OcgKO6" name="AudioMetadataManager.cpp" compile="1" resource="0"
+            file="Source/AudioMetadataManager.cpp"/>
+      <FILE id="RPFolg" name="MetadataReader.h" compile="0" resource="0"
+            file="Source/MetadataReader.h"/>
+      <FILE id="hiKfmN" name="MetadataReader.cpp" compile="1" resource="0"
+            file="Source/MetadataReader.cpp"/>
+      <FILE id="T8YHe3" name="AudioMetadataReader.h" compile="0" resource="0"
+            file="Source/AudioMetadataReader.h"/>
+      <FILE id="Vn8ZR2" name="AudioMetadataReader.cpp" compile="1" resource="0"
+            file="Source/AudioMetadataReader.cpp"/>
+      <FILE id="NJ34hU" name="TagLibTagReader.h" compile="0" resource="0"
+            file="Source/TagLibTagReader.h"/>
+      <FILE id="T9x8am" name="TagLibTagReader.cpp" compile="1" resource="0"
+            file="Source/TagLibTagReader.cpp"/>
+      <FILE id="OtFUMz" name="ID3v2MetadataReader.h" compile="0" resource="0"
+            file="Source/ID3v2MetadataReader.h"/>
+      <FILE id="GwlfuG" name="ID3v2MetadataReader.cpp" compile="1" resource="0"
+            file="Source/ID3v2MetadataReader.cpp"/>
+    </GROUP>
     <FILE id="adEBsK" name="BatchControlsImplementation.h" compile="0"
           resource="0" file="Source/BatchControlsImplementation.h"/>
     <FILE id="PVXRrW" name="BatchControlsImplementation.cpp" compile="1"
@@ -44,18 +72,6 @@
           file="Source/TableCellComponent.h"/>
     <FILE id="E3yrMp" name="TableCellComponent.cpp" compile="1" resource="0"
           file="Source/TableCellComponent.cpp"/>
-    <FILE id="Wcp8rp" name="AudioMetadataManager.h" compile="0" resource="0"
-          file="Source/AudioMetadataManager.h"/>
-    <FILE id="OcgKO6" name="AudioMetadataManager.cpp" compile="1" resource="0"
-          file="Source/AudioMetadataManager.cpp"/>
-    <FILE id="T8YHe3" name="AudioMetadataReader.h" compile="0" resource="0"
-          file="Source/AudioMetadataReader.h"/>
-    <FILE id="Vn8ZR2" name="AudioMetadataReader.cpp" compile="1" resource="0"
-          file="Source/AudioMetadataReader.cpp"/>
-    <FILE id="NJ34hU" name="TagLibTagReader.h" compile="0" resource="0"
-          file="Source/TagLibTagReader.h"/>
-    <FILE id="T9x8am" name="TagLibTagReader.cpp" compile="1" resource="0"
-          file="Source/TagLibTagReader.cpp"/>
     <GROUP id="{DAC9FF2B-CDC2-6395-3BB3-4BB855900B73}" name="Source">
       <FILE id="vMXghL" name="FileAndDirectoryControls.h" compile="0" resource="0"
             file="Source/FileAndDirectoryControls.h"/>

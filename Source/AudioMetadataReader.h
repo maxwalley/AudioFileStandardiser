@@ -11,8 +11,9 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "MetadataReader.h"
 
-class AudioMetadataReader
+class AudioMetadataReader   :   public MetadataReader
 {
 public:
     AudioMetadataReader(const File& inputFile);
@@ -29,14 +30,4 @@ public:
     virtual void setArtistName(const String& newArtistName) = 0;
     virtual void setAlbumName(const String& newAlbumName) = 0;
     virtual void setYear(int newYear) = 0;
-    
-    virtual void moveFileToNewDirectory(const String& newLocation);
-    virtual void changeFileName(const String& newName);
-    virtual File& getFile();
-    
-protected:
-    File fileToRead;
-    
-private:
-    
 };

@@ -21,7 +21,12 @@ class ID3v2MetadataReader   :   public TagLibTagReader
 {
 public:
     ID3v2MetadataReader(std::unique_ptr<TagLib::File> file);
+    
     ~ID3v2MetadataReader();
+    
+    static bool isID3v2Type(const TagLib::FileRef& fileToTest);
+    
+    MetadataType getMetadataType() override;
     
 private:
     

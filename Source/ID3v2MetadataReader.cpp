@@ -12,12 +12,17 @@
 
 ID3v2MetadataReader::ID3v2MetadataReader(std::unique_ptr<TagLib::File> file) :   TagLibTagReader(std::move(file)), metadataTag(findTag(metadataFile.get()))
 {
-    std::cout << metadataTag->album() << std::endl;
+    
 }
 
 ID3v2MetadataReader::~ID3v2MetadataReader()
 {
     
+}
+
+MetadataReader::MetadataType ID3v2MetadataReader::getMetadataType()
+{
+    return MetadataType::ID3v2;
 }
 
 TagLib::ID3v2::Tag* ID3v2MetadataReader::findTag(TagLib::File* inputFile)
@@ -40,6 +45,11 @@ TagLib::ID3v2::Tag* ID3v2MetadataReader::findTag(TagLib::File* inputFile)
     if(std::strcmp(inputFile->name() + fileExtensionStartIndex, ".mp3") == 0)
     {
         TagLib::MPEG::File* convertedFile = dynamic_cast<TagLib::MPEG::File*>(inputFile);
+        
+        if(!convertedFile->hasID3v2Tag())
+        {
+            return nullptr;
+        }
         
         return convertedFile->ID3v2Tag();
     }

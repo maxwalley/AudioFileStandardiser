@@ -2,6 +2,12 @@
 
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="AudioFileStandardiser\AudioPlayer">
+      <UniqueIdentifier>{83CE6774-BF3B-3891-9D4C-815AB5F2B4FD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AudioFileStandardiser\Metadata Readers">
+      <UniqueIdentifier>{5EE8E447-85E5-F3C3-C05C-A32F1AE4B241}</UniqueIdentifier>
+    </Filter>
     <Filter Include="AudioFileStandardiser\Source">
       <UniqueIdentifier>{2A53419A-0715-9218-B5D9-B7AC66E1EA36}</UniqueIdentifier>
     </Filter>
@@ -412,8 +418,26 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\PlayerGUIButton.cpp">
+      <Filter>AudioFileStandardiser\AudioPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\AudioPlayerGUI.cpp">
+      <Filter>AudioFileStandardiser\AudioPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\AudioMetadataManager.cpp">
+      <Filter>AudioFileStandardiser\Metadata Readers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MetadataReader.cpp">
+      <Filter>AudioFileStandardiser\Metadata Readers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\AudioMetadataReader.cpp">
+      <Filter>AudioFileStandardiser\Metadata Readers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TagLibTagReader.cpp">
+      <Filter>AudioFileStandardiser\Metadata Readers</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\ID3v2MetadataReader.cpp">
-      <Filter>AudioFileStandardiser</Filter>
+      <Filter>AudioFileStandardiser\Metadata Readers</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\BatchControlsImplementation.cpp">
       <Filter>AudioFileStandardiser</Filter>
@@ -449,15 +473,6 @@
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\TableCellComponent.cpp">
-      <Filter>AudioFileStandardiser</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\AudioMetadataManager.cpp">
-      <Filter>AudioFileStandardiser</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\AudioMetadataReader.cpp">
-      <Filter>AudioFileStandardiser</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\TagLibTagReader.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\FileAndDirectoryControls.cpp">
@@ -2388,8 +2403,26 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\PlayerGUIButton.h">
+      <Filter>AudioFileStandardiser\AudioPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\AudioPlayerGUI.h">
+      <Filter>AudioFileStandardiser\AudioPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\AudioMetadataManager.h">
+      <Filter>AudioFileStandardiser\Metadata Readers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MetadataReader.h">
+      <Filter>AudioFileStandardiser\Metadata Readers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\AudioMetadataReader.h">
+      <Filter>AudioFileStandardiser\Metadata Readers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TagLibTagReader.h">
+      <Filter>AudioFileStandardiser\Metadata Readers</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\ID3v2MetadataReader.h">
-      <Filter>AudioFileStandardiser</Filter>
+      <Filter>AudioFileStandardiser\Metadata Readers</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\BatchControlsImplementation.h">
       <Filter>AudioFileStandardiser</Filter>
@@ -2425,15 +2458,6 @@
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\TableCellComponent.h">
-      <Filter>AudioFileStandardiser</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\AudioMetadataManager.h">
-      <Filter>AudioFileStandardiser</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\AudioMetadataReader.h">
-      <Filter>AudioFileStandardiser</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\TagLibTagReader.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\FileAndDirectoryControls.h">

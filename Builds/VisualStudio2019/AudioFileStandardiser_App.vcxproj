@@ -138,6 +138,12 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\PlayerGUIButton.cpp"/>
+    <ClCompile Include="..\..\Source\AudioPlayerGUI.cpp"/>
+    <ClCompile Include="..\..\Source\AudioMetadataManager.cpp"/>
+    <ClCompile Include="..\..\Source\MetadataReader.cpp"/>
+    <ClCompile Include="..\..\Source\AudioMetadataReader.cpp"/>
+    <ClCompile Include="..\..\Source\TagLibTagReader.cpp"/>
     <ClCompile Include="..\..\Source\ID3v2MetadataReader.cpp"/>
     <ClCompile Include="..\..\Source\BatchControlsImplementation.cpp"/>
     <ClCompile Include="..\..\Source\MenuModel.cpp"/>
@@ -151,9 +157,6 @@
     <ClCompile Include="..\..\Source\Mediator.cpp"/>
     <ClCompile Include="..\..\Source\FilePathWildcardInterpretter.cpp"/>
     <ClCompile Include="..\..\Source\TableCellComponent.cpp"/>
-    <ClCompile Include="..\..\Source\AudioMetadataManager.cpp"/>
-    <ClCompile Include="..\..\Source\AudioMetadataReader.cpp"/>
-    <ClCompile Include="..\..\Source\TagLibTagReader.cpp"/>
     <ClCompile Include="..\..\Source\FileAndDirectoryControls.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
     <ClCompile Include="..\..\Source\Main.cpp"/>
@@ -1927,6 +1930,12 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\PlayerGUIButton.h"/>
+    <ClInclude Include="..\..\Source\AudioPlayerGUI.h"/>
+    <ClInclude Include="..\..\Source\AudioMetadataManager.h"/>
+    <ClInclude Include="..\..\Source\MetadataReader.h"/>
+    <ClInclude Include="..\..\Source\AudioMetadataReader.h"/>
+    <ClInclude Include="..\..\Source\TagLibTagReader.h"/>
     <ClInclude Include="..\..\Source\ID3v2MetadataReader.h"/>
     <ClInclude Include="..\..\Source\BatchControlsImplementation.h"/>
     <ClInclude Include="..\..\Source\MenuModel.h"/>
@@ -1940,9 +1949,6 @@
     <ClInclude Include="..\..\Source\Mediator.h"/>
     <ClInclude Include="..\..\Source\FilePathWildcardInterpretter.h"/>
     <ClInclude Include="..\..\Source\TableCellComponent.h"/>
-    <ClInclude Include="..\..\Source\AudioMetadataManager.h"/>
-    <ClInclude Include="..\..\Source\AudioMetadataReader.h"/>
-    <ClInclude Include="..\..\Source\TagLibTagReader.h"/>
     <ClInclude Include="..\..\Source\FileAndDirectoryControls.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>
     <ClInclude Include="..\..\Source\AudioFileTable.h"/>
