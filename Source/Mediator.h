@@ -20,6 +20,7 @@
 #include "BatchRenameControls.h"
 #include "FileAndDirectoryControls.h"
 #include "AudioPlayerGUI.h"
+#include "AudioPlayer.h"
 
 class NewMainComponent;
 
@@ -87,4 +88,6 @@ private:
     std::unique_ptr<FileAndDirectoryControls> fileControls;
     
     std::unique_ptr<AudioPlayerGUI> audioPlayerControls;
+    
+    std::unique_ptr<AudioPlayer> player;
 };

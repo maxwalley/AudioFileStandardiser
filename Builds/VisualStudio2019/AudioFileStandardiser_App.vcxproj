@@ -138,6 +138,8 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\AudioPlayer.cpp"/>
+    <ClCompile Include="..\..\Source\AudioPlayerListener.cpp"/>
     <ClCompile Include="..\..\Source\PlayerGUIButton.cpp"/>
     <ClCompile Include="..\..\Source\AudioPlayerGUI.cpp"/>
     <ClCompile Include="..\..\Source\AudioMetadataManager.cpp"/>
@@ -1930,6 +1932,8 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\AudioPlayer.h"/>
+    <ClInclude Include="..\..\Source\AudioPlayerListener.h"/>
     <ClInclude Include="..\..\Source\PlayerGUIButton.h"/>
     <ClInclude Include="..\..\Source\AudioPlayerGUI.h"/>
     <ClInclude Include="..\..\Source\AudioMetadataManager.h"/>

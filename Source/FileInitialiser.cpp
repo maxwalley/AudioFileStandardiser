@@ -84,7 +84,6 @@ bool FileInitialiser::lookForNewFiles()
             AlertWindow::showMessageBox(AlertWindow::WarningIcon, "File Error", "The file: " + chosenFiles[i].getFileName() + " does not use supported metadata and will not be included");
             
             chosenFiles.remove(i);
-            
             i--;
             
             if(chosenFiles.size() == 0)

@@ -49,6 +49,7 @@ void Mediator::initialiseComponents()
     mainComponent = new NewMainComponent();
     menu = std::make_unique<MenuModel>();
     menu->addActionListener(this);
+    player = std::make_unique<AudioPlayer>();
 }
 
 TableModel* Mediator::getTableModel()
@@ -233,7 +234,9 @@ void Mediator::buttonClicked(Button* button)
     {
         if(audioPlayerControls->getPlayButtonState())
         {
-            
+            FileChooser chooser("");
+            chooser.browseForFileToOpen();
+            player->loadFile(chooser.getResult());
         }
         else
         {

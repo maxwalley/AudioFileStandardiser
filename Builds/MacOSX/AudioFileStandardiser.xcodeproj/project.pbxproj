@@ -61,6 +61,14 @@
 			isa = PBXBuildFile;
 			fileRef = 5A15C4E4BFD977D25E18ACFE;
 		};
+		CA91BF855E8301AC7C580E3A = {
+			isa = PBXBuildFile;
+			fileRef = A23B139D5691B9799AE9ADCD;
+		};
+		48835DE9F7B164A17F8BBF89 = {
+			isa = PBXBuildFile;
+			fileRef = 23F5C0594562BB6BAF1390D1;
+		};
 		B686EE4F07F2FDB7AAD8CFDF = {
 			isa = PBXBuildFile;
 			fileRef = 4697BABFD8BF539B41036FA3;
@@ -304,6 +312,13 @@
 			path = "../../JuceLibraryCode/include_juce_audio_formats.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		23F5C0594562BB6BAF1390D1 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = AudioPlayerListener.cpp;
+			path = ../../Source/AudioPlayerListener.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		248C65AD052CB1E23B72AADF = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -542,6 +557,13 @@
 			path = System/Library/Frameworks/CoreAudioKit.framework;
 			sourceTree = SDKROOT;
 		};
+		8ACB5E0802A1F28B5B96828E = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = AudioPlayerListener.h;
+			path = ../../Source/AudioPlayerListener.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		8FD8047ACBD243EEBD2FA4F0 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -638,6 +660,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = FileInitialiser.h;
 			path = ../../Source/FileInitialiser.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		A23B139D5691B9799AE9ADCD = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = AudioPlayer.cpp;
+			path = ../../Source/AudioPlayer.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		A3B779CAF22A76956E5AE01C = {
@@ -836,6 +865,13 @@
 			path = "/Users/maxwalley/Documents/C++ Libs and Frameworks/JUCE/modules/juce_audio_devices";
 			sourceTree = "<absolute>";
 		};
+		ECF9D718024674E11AF918C6 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = AudioPlayer.h;
+			path = ../../Source/AudioPlayer.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		EE6DC76DFF16FD41497F8B2F = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -867,6 +903,10 @@
 		E48E3B43B5D51D6FDED17D62 = {
 			isa = PBXGroup;
 			children = (
+				ECF9D718024674E11AF918C6,
+				A23B139D5691B9799AE9ADCD,
+				8ACB5E0802A1F28B5B96828E,
+				23F5C0594562BB6BAF1390D1,
 				4697BABFD8BF539B41036FA3,
 				2D99135E1A042DA6D9F96B7A,
 				74B3B6F938C8597EC98AF2C8,
@@ -1261,6 +1301,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA91BF855E8301AC7C580E3A,
+				48835DE9F7B164A17F8BBF89,
 				B686EE4F07F2FDB7AAD8CFDF,
 				FB6F3C83F68BF75730F258AD,
 				3AC2936C337D888933B2919E,

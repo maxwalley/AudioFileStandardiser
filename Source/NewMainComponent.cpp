@@ -137,3 +137,8 @@ int NewMainComponent::showTablePopup()
 {
     return tablePopup.show();
 }
+
+void NewMainComponent::setAdditionalAudioSource(AudioSource* newAudioSource)
+{
+    additionalAudioSource = newAudioSource;
+}

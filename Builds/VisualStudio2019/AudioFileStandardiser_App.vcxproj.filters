@@ -418,6 +418,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\AudioPlayer.cpp">
+      <Filter>AudioFileStandardiser\AudioPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\AudioPlayerListener.cpp">
+      <Filter>AudioFileStandardiser\AudioPlayer</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\PlayerGUIButton.cpp">
       <Filter>AudioFileStandardiser\AudioPlayer</Filter>
     </ClCompile>
@@ -2403,6 +2409,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\AudioPlayer.h">
+      <Filter>AudioFileStandardiser\AudioPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\AudioPlayerListener.h">
+      <Filter>AudioFileStandardiser\AudioPlayer</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\PlayerGUIButton.h">
       <Filter>AudioFileStandardiser\AudioPlayer</Filter>
     </ClInclude>

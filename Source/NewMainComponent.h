@@ -43,6 +43,8 @@ public:
     void updateTable();
     
     int showTablePopup();
+    
+    void setAdditionalAudioSource(AudioSource* newAudioSource);
 
 private:
     
@@ -53,6 +55,8 @@ private:
     BatchRenameControls* renameControls;
     FileAndDirectoryControls* fileControls;
     AudioPlayerGUI* audioPlayerControls;
+    
+    AudioSource* additionalAudioSource;
     
     Viewport extraInfoViewport;
     

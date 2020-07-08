@@ -4,6 +4,12 @@
               jucerVersion="5.4.5" cppLanguageStandard="17">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
     <GROUP id="{9034DDFF-7CA7-F81D-8195-19CAB99CE7FA}" name="AudioPlayer">
+      <FILE id="JpLbQ5" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
+      <FILE id="XgnrEt" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
+      <FILE id="VpOgBk" name="AudioPlayerListener.h" compile="0" resource="0"
+            file="Source/AudioPlayerListener.h"/>
+      <FILE id="Qqikj8" name="AudioPlayerListener.cpp" compile="1" resource="0"
+            file="Source/AudioPlayerListener.cpp"/>
       <FILE id="Fsy6Iz" name="PlayerGUIButton.cpp" compile="1" resource="0"
             file="Source/PlayerGUIButton.cpp"/>
       <FILE id="DnTu7q" name="PlayerGUIButton.h" compile="0" resource="0"
