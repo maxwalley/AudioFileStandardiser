@@ -62,6 +62,8 @@ private:
     
     static Mediator* instance;
     
+    int currentPlayingIndex;
+    
     void actionListenerCallback (const String &message) override;
     
     void buttonClicked(Button* button) override;
@@ -75,6 +77,8 @@ private:
     static DataHandler dataHandler;
     
     bool addNewFiles();
+    
+    void playIndex(int index);
     
     std::unique_ptr<MenuModel> menu;
     

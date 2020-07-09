@@ -62,7 +62,7 @@ void AudioPlayer::loadFile(const File& fileToPlay)
 
 void AudioPlayer::play()
 {
-    if(fileLoaded && currentState != TransportState::playing)
+    if(fileLoaded)
     {
         if(currentState == TransportState::paused)
         {

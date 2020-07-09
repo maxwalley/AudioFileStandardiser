@@ -55,6 +55,7 @@ void Mediator::initialiseComponents()
     playerWindow->setContentOwned(audioPlayerControls.get(), true);
     playerWindow->setVisible(true);
     playerWindow->setUsingNativeTitleBar(true);
+    currentPlayingIndex = -1;
 }
 
 TableModel* Mediator::getTableModel()
@@ -240,17 +241,23 @@ void Mediator::buttonClicked(Button* button)
         //Button state = 0 which is play
         if(!audioPlayerControls->getPlayButtonState())
         {
-            if(!player->isPlayerPaused())
-            {
-                player->loadFile(dataHandler.getFileForIndex(0));
-            }
-            player->play();
+            playIndex(0);
         }
         else
         {
             player->pause();
+            audioPlayerControls->changePlayButtonState(0);
         }
-        audioPlayerControls->changePlayButtonState(!(audioPlayerControls->getPlayButtonState()));
+    }
+    
+    else if(button->getComponentID().compare("player_next_button") == 0)
+    {
+        playIndex(++currentPlayingIndex);
+    }
+    
+    else if(button->getComponentID().compare("player_last_button") == 0)
+    {
+        playIndex(--currentPlayingIndex);
     }
 }
 
@@ -287,12 +294,13 @@ void Mediator::mouseDown(const MouseEvent& event)
             {
                 int menuClicked = mainComponent->showTablePopup();
                 
+                //Play option
                 if(menuClicked == 1)
                 {
-                    player->loadFile(dataHandler.getFileForIndex(componentRowNumber));
-                    player->play();
-                    audioPlayerControls->changePlayButtonState(1);
+                    playIndex(componentRowNumber);
                 }
+                
+                //Extra info option
                 else if(menuClicked == 2)
                 {
                     std::cout << "Extra info" << std::endl;
@@ -314,4 +322,22 @@ bool Mediator::addNewFiles()
         return true;
     }
     return false;
+}
+
+void Mediator::playIndex(int index)
+{
+    if(index >= 0 && index < getNumberOfRowsToDisplay() - 1)
+    {
+        if(!player->isPlayerPaused() || index != currentPlayingIndex)
+        {
+            player->loadFile(dataHandler.getFileForIndex(index));
+        }
+        player->play();
+        audioPlayerControls->changePlayButtonState(1);
+        currentPlayingIndex = index;
+    }
+    else
+    {
+        player->stop();
+    }
 }
