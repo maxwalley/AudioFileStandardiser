@@ -33,12 +33,10 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
     
     renameControls = Mediator::getInstance()->getBatchControls();
     fileControls = Mediator::getInstance()->getFileAndDirectoryControls();
-    audioPlayerControls = Mediator::getInstance()->getAudioPlayerControls();
     
     addAndMakeVisible(renameControls);
     addAndMakeVisible(fileControls);
     addAndMakeVisible(extraInfoViewport);
-    addAndMakeVisible(audioPlayerControls);
     
     tablePopup.addItem(1, "Play", true, false);
     tablePopup.addItem(2, "Extra Info", true, false);
@@ -91,7 +89,6 @@ void NewMainComponent::resized()
         }
         
         table.setBounds(0, 0, tableWidth, tableHeight);
-        audioPlayerControls->setBounds(0, tableHeight, tableWidth, 70);
         
         //Table is viewable only
         if(currentComponents == 1)

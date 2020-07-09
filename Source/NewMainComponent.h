@@ -16,7 +16,6 @@
 #include "Mediator.h"
 #include "BatchRenameControls.h"
 #include "FileAndDirectoryControls.h"
-#include "AudioPlayerGUI.h"
 
 //==============================================================================
 /*
@@ -54,7 +53,6 @@ private:
     TableListBox table;
     BatchRenameControls* renameControls;
     FileAndDirectoryControls* fileControls;
-    AudioPlayerGUI* audioPlayerControls;
     
     AudioSource* additionalAudioSource;
     

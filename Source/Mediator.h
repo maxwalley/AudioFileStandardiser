@@ -21,13 +21,15 @@
 #include "FileAndDirectoryControls.h"
 #include "AudioPlayerGUI.h"
 #include "AudioPlayer.h"
+#include "AudioPlayerListener.h"
 
 class NewMainComponent;
 
 class Mediator  :   public ActionListener,
                     public Button::Listener,
                     public TextEditor::Listener,
-                    public MouseListener
+                    public MouseListener,
+                    public AudioPlayerListener
 {
 public:
     
@@ -90,4 +92,6 @@ private:
     std::unique_ptr<AudioPlayerGUI> audioPlayerControls;
     
     std::unique_ptr<AudioPlayer> player;
+    
+    std::unique_ptr<DocumentWindow> playerWindow;
 };

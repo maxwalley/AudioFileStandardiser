@@ -20,6 +20,7 @@ AudioPlayerGUI::AudioPlayerGUI()
     addAndMakeVisible(playPauseButton.get());
     playPauseButton->setComponentID("player_play_button");
     playPauseButton->addListener(Mediator::getInstance());
+    setSize(260, 275);
 }
 
 AudioPlayerGUI::~AudioPlayerGUI()
@@ -28,20 +29,17 @@ AudioPlayerGUI::~AudioPlayerGUI()
 
 void AudioPlayerGUI::paint (Graphics& g)
 {
-    g.fillAll(Colours::dimgrey);
+    g.fillAll(Colours::lightgrey);
 }
 
 void AudioPlayerGUI::resized()
 {
-    playPauseButton->setBounds(getWidth()/2 - 20, getHeight()/2 - 20, 40, 40);
+    playPauseButton->setBounds(getWidth()/2 - 20, (getHeight()/3) * 2, 40, 40);
 }
 
 void AudioPlayerGUI::changePlayButtonState(bool state)
 {
-    //if(state < 2 && state >= 0)
-    //{
-        playPauseButton->changeFunction(PlayerGUIButton::ControlType(state));
-    //}
+    playPauseButton->changeFunction(PlayerGUIButton::ControlType(state));
 }
 
 bool AudioPlayerGUI::getPlayButtonState()

@@ -50,6 +50,11 @@ void Mediator::initialiseComponents()
     menu = std::make_unique<MenuModel>();
     menu->addActionListener(this);
     player = std::make_unique<AudioPlayer>();
+    player->addListener(this);
+    playerWindow = std::make_unique<DocumentWindow>("Player", Colours::green, DocumentWindow::allButtons, true);
+    playerWindow->setContentOwned(audioPlayerControls.get(), true);
+    playerWindow->setVisible(true);
+    playerWindow->setUsingNativeTitleBar(true);
 }
 
 TableModel* Mediator::getTableModel()
@@ -232,15 +237,18 @@ void Mediator::buttonClicked(Button* button)
     
     else if(button->getComponentID().compare("player_play_button") == 0)
     {
-        if(audioPlayerControls->getPlayButtonState())
+        //Button state = 0 which is play
+        if(!audioPlayerControls->getPlayButtonState())
         {
-            FileChooser chooser("");
-            chooser.browseForFileToOpen();
-            player->loadFile(chooser.getResult());
+            if(!player->isPlayerPaused())
+            {
+                player->loadFile(dataHandler.getFileForIndex(0));
+            }
+            player->play();
         }
         else
         {
-            
+            player->pause();
         }
         audioPlayerControls->changePlayButtonState(!(audioPlayerControls->getPlayButtonState()));
     }
@@ -277,7 +285,18 @@ void Mediator::mouseDown(const MouseEvent& event)
         
             if(componentRowNumber != getNumberOfRowsToDisplay() - 1)
             {
-                mainComponent->showTablePopup();
+                int menuClicked = mainComponent->showTablePopup();
+                
+                if(menuClicked == 1)
+                {
+                    player->loadFile(dataHandler.getFileForIndex(componentRowNumber));
+                    player->play();
+                    audioPlayerControls->changePlayButtonState(1);
+                }
+                else if(menuClicked == 2)
+                {
+                    std::cout << "Extra info" << std::endl;
+                }
             }
         }
     }

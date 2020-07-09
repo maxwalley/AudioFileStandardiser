@@ -35,14 +35,14 @@ void PlayerGUIButton::paintButton (Graphics &g, bool shouldDrawButtonAsHighlight
     if(buttonFunc == ControlType::play)
     {
         //Draws a triangle
-        path.addTriangle(getWidth()/3, getHeight()/3, getWidth()/3, (getHeight()/3) * 2, (getWidth()/3) * 2, getHeight()/2);
+        path.addTriangle(getWidth()/2 - 5, getHeight()/3, getWidth()/2 - 5, (getHeight()/3) * 2, getWidth()/2 + 5, getHeight()/2);
     }
     
     else if(buttonFunc == ControlType::pause)
     {
         //Draws 2 lines
-        g.drawLine(getWidth()/3, getHeight()/3, getWidth()/3, (getHeight()/3) * 2);
-        g.drawLine((getWidth()/3) * 1.5, getHeight()/3, (getWidth()/3) * 1.5, (getHeight()/3) * 2);
+        g.drawLine(getWidth()/2 - 3, getHeight()/3, getWidth()/2 - 3, (getHeight()/3) * 2);
+        g.drawLine(getWidth()/2 + 3, getHeight()/3, getWidth()/2 + 3, (getHeight()/3) * 2);
     }
     
     else if(buttonFunc == ControlType::stop)

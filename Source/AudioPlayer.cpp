@@ -89,7 +89,17 @@ void AudioPlayer::pause()
         pausePosition = transport.getCurrentPosition();
         transport.stop();
         Timer::stopTimer();
+        currentState = TransportState::paused;
     }
+}
+
+bool AudioPlayer::isPlayerPaused() const
+{
+    if(currentState == TransportState::paused)
+    {
+        return true;
+    }
+    return false;
 }
 
 void AudioPlayer::addListener(AudioPlayerListener* listener)

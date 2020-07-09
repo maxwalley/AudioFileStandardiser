@@ -39,6 +39,8 @@ public:
     void stop();
     void pause();
     
+    bool isPlayerPaused() const;
+    
     void addListener(AudioPlayerListener* listener);
     
 private:

@@ -32,8 +32,6 @@ public:
     
 private:
     
-    
-    
     std::unique_ptr<PlayerGUIButton> playPauseButton;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPlayerGUI)

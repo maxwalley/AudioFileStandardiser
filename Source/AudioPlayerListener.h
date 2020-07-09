@@ -15,9 +15,9 @@
 class AudioPlayerListener
 {
 public:
-    AudioPlayerListener();
-    virtual ~AudioPlayerListener();
+    AudioPlayerListener(){};
+    virtual ~AudioPlayerListener(){};
     
-    virtual void playerFinished(AudioPlayer* playerThatHasFinished);
+    virtual void playerFinished(AudioPlayer* playerThatHasFinished){};
     
 };

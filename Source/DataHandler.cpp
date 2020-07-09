@@ -252,6 +252,11 @@ int DataHandler::removeData(DataConcerned typeToCompare, const String& dataToCom
     return numRemoves;
 }
 
+File& DataHandler::getFileForIndex(int index)
+{
+    return readers[index].object->getFile();
+}
+
 void DataHandler::printTest()
 {
     for(int i = 0; i < numEntries(); i++)
