@@ -445,6 +445,9 @@
     <ClCompile Include="..\..\Source\ID3v2MetadataReader.cpp">
       <Filter>AudioFileStandardiser\Metadata Readers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\ComponentWindow.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\BatchControlsImplementation.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
@@ -2435,6 +2438,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\ID3v2MetadataReader.h">
       <Filter>AudioFileStandardiser\Metadata Readers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ComponentWindow.h">
+      <Filter>AudioFileStandardiser</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\BatchControlsImplementation.h">
       <Filter>AudioFileStandardiser</Filter>

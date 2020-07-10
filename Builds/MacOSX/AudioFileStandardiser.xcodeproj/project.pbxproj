@@ -97,6 +97,10 @@
 			isa = PBXBuildFile;
 			fileRef = 184D6C08C9BC47FAEDA135D3;
 		};
+		84BC4A0CA2F8F1D684C2815A = {
+			isa = PBXBuildFile;
+			fileRef = 237AB13478EC694B0A2C9352;
+		};
 		1891F72C4D5F21ED332AE44B = {
 			isa = PBXBuildFile;
 			fileRef = 25548D52DAD2AD5D1E132776;
@@ -310,6 +314,13 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_audio_formats.mm";
 			path = "../../JuceLibraryCode/include_juce_audio_formats.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		237AB13478EC694B0A2C9352 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = ComponentWindow.cpp;
+			path = ../../Source/ComponentWindow.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		23F5C0594562BB6BAF1390D1 = {
@@ -830,6 +841,13 @@
 			path = ../../Source/NewMainComponent.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		DA0740EB4AE70ED6C8AEBBA3 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = ComponentWindow.h;
+			path = ../../Source/ComponentWindow.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		DCE5D3BD790EB3ECB97125E2 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -953,6 +971,8 @@
 			children = (
 				E48E3B43B5D51D6FDED17D62,
 				8487E93A1F00F32D8917E116,
+				DA0740EB4AE70ED6C8AEBBA3,
+				237AB13478EC694B0A2C9352,
 				93D36B5D4888CCDDAB406AA5,
 				25548D52DAD2AD5D1E132776,
 				4AA85B54DCEA3FCA707A1C30,
@@ -1310,6 +1330,7 @@
 				D53DA832404DF41A85024B64,
 				06C47506EE37BE8441D2DC5B,
 				1F14D9DE97C952D358E4A0BC,
+				84BC4A0CA2F8F1D684C2815A,
 				1891F72C4D5F21ED332AE44B,
 				1CC64D3143F5BC96AA9AB1F1,
 				434E95FBDCB87E41CB5A47CF,

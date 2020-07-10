@@ -9,8 +9,9 @@
 */
 
 #include "ID3v2MetadataReader.h"
+#include "attachedpictureframe.h"
 
-ID3v2MetadataReader::ID3v2MetadataReader(std::unique_ptr<TagLib::File> file) :   TagLibTagReader(std::move(file)), metadataTag(findTag(metadataFile.get()))
+ID3v2MetadataReader::ID3v2MetadataReader(std::unique_ptr<TagLib::File> file) :   TagLibTagReader(std::move(file)), metadataTag(findTag(metadataFile.get())), coverArt(extractImage(metadataTag))
 {
     
 }
@@ -55,4 +56,24 @@ TagLib::ID3v2::Tag* ID3v2MetadataReader::findTag(TagLib::File* inputFile)
     }
     
     return nullptr;
+}
+
+Image ID3v2MetadataReader::extractImage(TagLib::ID3v2::Tag* metadata)
+{
+    int numFrames = metadata->frameList().size();
+    
+    for(int i = 0; i < numFrames; i++)
+    {
+        std::cout << "Frame number " << i+1 << "is a " << metadataTag->frameList()[i]->toString().to8Bit() << std::endl;
+        
+        if(metadata->frameList()[i]->toString() == "[image/jpeg]")
+        {
+            TagLib::ID3v2::AttachedPictureFrame* frame = dynamic_cast<TagLib::ID3v2::AttachedPictureFrame*>(metadata->frameList()[i]);
+            
+            
+            Image testImage = ImageFileFormat::loadFrom(frame->picture().data(), frame->size());
+            
+            std::cout << testImage.isValid() << std::endl;
+        }
+    }
 }

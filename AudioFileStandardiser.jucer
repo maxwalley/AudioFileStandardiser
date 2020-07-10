@@ -41,6 +41,10 @@
       <FILE id="GwlfuG" name="ID3v2MetadataReader.cpp" compile="1" resource="0"
             file="Source/ID3v2MetadataReader.cpp"/>
     </GROUP>
+    <FILE id="MfZKWB" name="ComponentWindow.h" compile="0" resource="0"
+          file="Source/ComponentWindow.h"/>
+    <FILE id="TRPgBw" name="ComponentWindow.cpp" compile="1" resource="0"
+          file="Source/ComponentWindow.cpp"/>
     <FILE id="adEBsK" name="BatchControlsImplementation.h" compile="0"
           resource="0" file="Source/BatchControlsImplementation.h"/>
     <FILE id="PVXRrW" name="BatchControlsImplementation.cpp" compile="1"

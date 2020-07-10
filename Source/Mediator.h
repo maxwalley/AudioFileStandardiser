@@ -22,6 +22,7 @@
 #include "AudioPlayerGUI.h"
 #include "AudioPlayer.h"
 #include "AudioPlayerListener.h"
+#include "ComponentWindow.h"
 
 class NewMainComponent;
 
@@ -97,5 +98,5 @@ private:
     
     std::unique_ptr<AudioPlayer> player;
     
-    std::unique_ptr<DocumentWindow> playerWindow;
+    std::unique_ptr<ComponentWindow> playerWindow;
 };

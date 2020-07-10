@@ -51,10 +51,9 @@ void Mediator::initialiseComponents()
     menu->addActionListener(this);
     player = std::make_unique<AudioPlayer>();
     player->addListener(this);
-    playerWindow = std::make_unique<DocumentWindow>("Player", Colours::green, DocumentWindow::allButtons, true);
-    playerWindow->setContentOwned(audioPlayerControls.get(), true);
-    playerWindow->setVisible(true);
-    playerWindow->setUsingNativeTitleBar(true);
+    playerWindow = std::make_unique<ComponentWindow>("Player", Colours::green, DocumentWindow::allButtons);
+    playerWindow->setContentNonOwned(audioPlayerControls.get(), true);
+    //playerWindow->setVisible(false);
     currentPlayingIndex = -1;
 }
 
@@ -326,6 +325,11 @@ bool Mediator::addNewFiles()
 
 void Mediator::playIndex(int index)
 {
+    if(!playerWindow->isVisible())
+    {
+        playerWindow->setVisible(true);
+    }
+    
     if(index >= 0 && index < getNumberOfRowsToDisplay() - 1)
     {
         if(!player->isPlayerPaused() || index != currentPlayingIndex)

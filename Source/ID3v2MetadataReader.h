@@ -32,7 +32,11 @@ private:
     
     TagLib::ID3v2::Tag* metadataTag;
     
+    Image coverArt;
+    
     //Function that will find the ID3v2 tag in a file. If none exists it will return nullptr
     TagLib::ID3v2::Tag* findTag(TagLib::File* inputFile);
+    
+    Image extractImage(TagLib::ID3v2::Tag* metadata);
     
 };

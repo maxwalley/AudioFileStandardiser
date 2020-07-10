@@ -14,6 +14,18 @@
 
 class AudioPlayerListener;
 
+class AudioPlayerWindow :   public DocumentWindow
+{
+public:
+    AudioPlayerWindow();
+    ~AudioPlayerWindow();
+    
+    void closeButtonPressed() override;
+    
+private:
+    
+};
+
 class AudioPlayer   :   public AudioAppComponent,
                         public Timer
 {
