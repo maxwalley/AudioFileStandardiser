@@ -10,7 +10,7 @@
 
 #include "MenuModel.h"
 
-MenuModel::MenuModel()  :   menuNames("File"), batchControlsShown(false)
+MenuModel::MenuModel()  :   menuNames("File"), batchControlsShown(false), fileAndFolderControlsShown(false), playerWindowOpen(false)
 {
     setMacMainMenu(this);
 }
@@ -56,6 +56,16 @@ bool MenuModel::getFileControlsShown() const
     return fileAndFolderControlsShown;
 }
 
+void MenuModel::setPlayerWindowOpen(bool set)
+{
+    playerWindowOpen = set;
+}
+
+bool MenuModel::getPlayerWindowOpen() const
+{
+    return playerWindowOpen;
+}
+
 StringArray MenuModel::getMenuBarNames()
 {
     return menuNames;
@@ -74,6 +84,11 @@ PopupMenu MenuModel::getMenuForIndex(int topLevelMenuIndex, const String &menuNa
     {
         menu.addItem(10, "Show Batch Controls", true, batchControlsShown);
         menu.addItem(11, "Show File and Folder Controls", true, fileAndFolderControlsShown);
+    }
+    
+    else if(menuName.compare("Window") == 0)
+    {
+        menu.addItem(20, "Show Player", true, playerWindowOpen);
     }
     
     return menu;
@@ -102,6 +117,12 @@ void MenuModel::menuItemSelected(int menuItemID, int topLevelMenuIndex)
         sendActionMessage("menu_show_file_controls");
         fileAndFolderControlsShown = !fileAndFolderControlsShown;
     }
+    
+    else if(menuItemID == 20)
+    {
+        sendActionMessage("menu_show_player");
+        playerWindowOpen = !playerWindowOpen;
+    }
 }
 
 String MenuModel::menuNamesToString(MenuNames menuName)
@@ -114,6 +135,10 @@ String MenuModel::menuNamesToString(MenuNames menuName)
             
         case MenuNames::View:
             return "View";
+            break;
+            
+        case MenuNames::Window:
+            return "Window";
             break;
     }
 }

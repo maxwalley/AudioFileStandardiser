@@ -22,7 +22,8 @@ public:
     enum class MenuNames
     {
         File,
-        View
+        View,
+        Window
     };
     
     void setMenuItemVisible(MenuNames menuName, bool setVisible, int index = -1);
@@ -32,6 +33,9 @@ public:
     
     void setFileControlsShown(bool set);
     bool getFileControlsShown() const;
+    
+    void setPlayerWindowOpen(bool set);
+    bool getPlayerWindowOpen() const;
     
 private:
     StringArray getMenuBarNames() override;
@@ -44,4 +48,5 @@ private:
     
     bool batchControlsShown;
     bool fileAndFolderControlsShown;
+    bool playerWindowOpen;
 };

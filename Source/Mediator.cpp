@@ -140,6 +140,11 @@ void Mediator::actionListenerCallback (const String &message)
         }
         mainComponent->resized();
     }
+    
+    else if(message.compare("menu_show_player") == 0)
+    {
+        showPlayer(menu->getPlayerWindowOpen());
+    }
 }
 
 void Mediator::buttonClicked(Button* button)
@@ -150,6 +155,8 @@ void Mediator::buttonClicked(Button* button)
         {
             mainComponent->setComponentsToDisplay(NewMainComponent::Table);
             mainComponent->resized();
+            menu->setMenuItemVisible(MenuModel::MenuNames::View, true);
+            menu->setMenuItemVisible(MenuModel::MenuNames::Window, true);
         }
     }
     
@@ -286,6 +293,7 @@ void Mediator::mouseDown(const MouseEvent& event)
                 if(menuClicked == 1)
                 {
                     playIndex(componentRowNumber);
+                    showPlayer(true);
                 }
                 
                 //Extra info option
@@ -318,7 +326,6 @@ bool Mediator::addNewFiles()
         dataHandler->addData(initialiser.getResult());
         initialiser.clearCurrentFiles();
         dataHandler->sort();
-        menu->setMenuItemVisible(MenuModel::MenuNames::View, true);
         //dataHandler.printTest();
         return true;
     }
@@ -327,11 +334,6 @@ bool Mediator::addNewFiles()
 
 void Mediator::playIndex(int index)
 {
-    if(!playerWindow->isVisible())
-    {
-        playerWindow->setVisible(true);
-    }
-    
     if(index >= 0 && index < getNumberOfRowsToDisplay() - 1)
     {
         if(!player->isPlayerPaused() || index != currentPlayingIndex)
@@ -354,4 +356,10 @@ void Mediator::playIndex(int index)
         player->stop();
         audioPlayerControls->changePlayButtonState(0);
     }
+}
+
+void Mediator::showPlayer(bool show)
+{
+    playerWindow->setVisible(show);
+    menu->setPlayerWindowOpen(show);
 }
