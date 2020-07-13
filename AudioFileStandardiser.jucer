@@ -3,6 +3,10 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               jucerVersion="5.4.5" cppLanguageStandard="17">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
+    <FILE id="I1eyuV" name="AudioFileStandardiserApplication.h" compile="0"
+          resource="0" file="Source/AudioFileStandardiserApplication.h"/>
+    <FILE id="SImdTD" name="AudioFileStandardiserApplication.cpp" compile="1"
+          resource="0" file="Source/AudioFileStandardiserApplication.cpp"/>
     <GROUP id="{9034DDFF-7CA7-F81D-8195-19CAB99CE7FA}" name="AudioPlayer">
       <FILE id="JpLbQ5" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
       <FILE id="XgnrEt" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>

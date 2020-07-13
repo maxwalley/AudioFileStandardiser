@@ -29,7 +29,10 @@ public:
     virtual void changeFileName(const String& newName);
     virtual File& getFile();
     
+    virtual Image* getArtwork();
+    
 protected:
     File fileToRead;
     
+    //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MetadataReader)
 };

@@ -10,6 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "NewMainComponent.h"
+#include "AudioFileStandardiserApplication.h"
 
 //==============================================================================
 NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
@@ -27,12 +28,12 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
     table.getHeader().addColumn("Year", 5, 50, 50, 50, 1);
     table.getHeader().addColumn("File Type", 6, 50, 50, 50, 1);
     table.getHeader().addColumn("Selected", 7, 50, 50, 50, 1);
-    table.addMouseListener(Mediator::getInstance(), true);
+    table.addMouseListener(AudioFileStandardiserApplication::getMediator(), true);
 
-    table.setModel(Mediator::getInstance()->getTableModel());
+    table.setModel(AudioFileStandardiserApplication::getMediator()->getTableModel());
     
-    renameControls = Mediator::getInstance()->getBatchControls();
-    fileControls = Mediator::getInstance()->getFileAndDirectoryControls();
+    renameControls = AudioFileStandardiserApplication::getMediator()->getBatchControls();
+    fileControls = AudioFileStandardiserApplication::getMediator()->getFileAndDirectoryControls();
     
     addAndMakeVisible(renameControls);
     addAndMakeVisible(fileControls);
@@ -45,9 +46,9 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
 NewMainComponent::~NewMainComponent()
 {
     //To stop an error in look and feel
-    for(int j = 1; j < table.getHeader().getNumColumns(false); j++)
+    /*for(int j = 1; j < table.getHeader().getNumColumns(false); j++)
     {
-        for(int i = 0; i < Mediator::getInstance()->getNumberOfRowsToDisplay(); i++)
+        for(int i = 0; i < AudioFileStandardiserApplication::getMediator()->getNumberOfRowsToDisplay(); i++)
         {
             Component* currentComponent = table.getCellComponent(j, i);
             
@@ -56,9 +57,9 @@ NewMainComponent::~NewMainComponent()
                 currentComponent->setLookAndFeel(nullptr);
             }
         }
-    }
+    }*/
     
-    Mediator::closeInstance();
+    //Mediator::closeInstance();
 }
 
 void NewMainComponent::paint (Graphics& g)
@@ -75,7 +76,7 @@ void NewMainComponent::resized()
     }
     else
     {
-        int tableHeight = table.getHeaderHeight() + (Mediator::getInstance()->getNumberOfRowsToDisplay() * table.getRowHeight());
+        int tableHeight = table.getHeaderHeight() + (AudioFileStandardiserApplication::getMediator()->getNumberOfRowsToDisplay() * table.getRowHeight());
         int tableWidth;
         
         if(tableHeight > 530)

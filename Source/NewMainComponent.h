@@ -13,7 +13,6 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 #include "IntroComponent.h"
-#include "Mediator.h"
 #include "BatchRenameControls.h"
 #include "FileAndDirectoryControls.h"
 

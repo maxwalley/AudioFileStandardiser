@@ -12,26 +12,14 @@
 
 #include "NewMainComponent.h"
 
-Mediator* Mediator::instance = 0;
-
-DataHandler Mediator::dataHandler;
-
-Mediator* Mediator::getInstance()
+Mediator::Mediator()
 {
-    if(instance == nullptr)
-    {
-        instance = new Mediator();
-    }
-    return instance;
+    
 }
 
-void Mediator::closeInstance()
+Mediator::~Mediator()
 {
-    if(instance != nullptr)
-    {
-        delete instance;
-        instance = nullptr;
-    }
+    delete mainComponent;
 }
 
 NewMainComponent* Mediator::getMainComponent()
@@ -41,6 +29,7 @@ NewMainComponent* Mediator::getMainComponent()
 
 void Mediator::initialiseComponents()
 {
+    dataHandler = std::make_unique<DataHandler>();
     tableModel = std::make_unique<TableModel>();
     batchControls = std::make_unique<BatchRenameControls>();
     batchControlsImp = std::make_unique<BatchControlsImplementation>(batchControls.get());
@@ -64,7 +53,7 @@ TableModel* Mediator::getTableModel()
 
 DataHandler* Mediator::getDataHandler()
 {
-    return &dataHandler;
+    return dataHandler.get();
 }
 
 BatchRenameControls* Mediator::getBatchControls()
@@ -84,11 +73,11 @@ AudioPlayerGUI* Mediator::getAudioPlayerControls()
 
 int Mediator::getNumberOfRowsToDisplay()
 {
-    int numEntries = dataHandler.numEntries();
+    int numEntries = dataHandler->numEntries();
     
     if(numEntries != 0)
     {
-        return dataHandler.numEntries() + 1;
+        return dataHandler->numEntries() + 1;
     }
     return 0;
 }
@@ -97,21 +86,21 @@ String Mediator::getDataForCell(int rowNumber, int column)
 {
     if(rowNumber < getNumberOfRowsToDisplay() - 1)
     {
-        return dataHandler.getDataForItem(DataHandler::DataConcerned(column), rowNumber);
+        return dataHandler->getDataForItem(DataHandler::DataConcerned(column), rowNumber);
     }
-    return dataHandler.getSimilarDataForSelectedItems(DataHandler::DataConcerned(column));
+    return dataHandler->getSimilarDataForSelectedItems(DataHandler::DataConcerned(column));
 }
 
 bool Mediator::getSelectedForRow(int rowNumber)
 {
-    return dataHandler.getItemSelection(rowNumber);
+    return dataHandler->getItemSelection(rowNumber);
 }
 
 void Mediator::setDataForCell(int rowNumber, int column, const String& newData)
 {
     if(rowNumber < getNumberOfRowsToDisplay() -1)
     {
-        dataHandler.setDataForItem(DataHandler::DataConcerned(column), rowNumber, newData);
+        dataHandler->setDataForItem(DataHandler::DataConcerned(column), rowNumber, newData);
     }
 }
 
@@ -170,11 +159,11 @@ void Mediator::buttonClicked(Button* button)
         
         if(tempButton->getRowNumber() < getNumberOfRowsToDisplay() - 1)
         {
-            dataHandler.setItemSelection(tempButton->getRowNumber(), tempButton->getToggleState());
+            dataHandler->setItemSelection(tempButton->getRowNumber(), tempButton->getToggleState());
         }
         else
         {
-            dataHandler.setAllItemsSelection(tempButton->getToggleState());
+            dataHandler->setAllItemsSelection(tempButton->getToggleState());
         }
         
         mainComponent->updateTable();
@@ -210,9 +199,9 @@ void Mediator::buttonClicked(Button* button)
             //Checks if the button in batch controls for that data type was on
             if(buttonActive != 0)
             {
-                for(int i = 0; i < dataHandler.numEntries(); i++)
+                for(int i = 0; i < dataHandler->numEntries(); i++)
                 {
-                    if(dataHandler.getItemSelection(i))
+                    if(dataHandler->getItemSelection(i))
                     {
                         setDataForCell(i, columnId, batchControlsImp->manipulateStringAccordingToGUI(getDataForCell(i, columnId)));
                     }
@@ -232,7 +221,7 @@ void Mediator::buttonClicked(Button* button)
     
     else if(button->getComponentID().compare("file_controls_move") == 0)
     {
-        dataHandler.moveSelectedItemsBasedOnWildcards(*fileControls->getNewDirAndWildcardPath(), true);
+        dataHandler->moveSelectedItemsBasedOnWildcards(*fileControls->getNewDirAndWildcardPath(), true);
     }
     
     else if(button->getComponentID().compare("player_play_button") == 0)
@@ -273,7 +262,7 @@ void Mediator::textEditorTextChanged(TextEditor& editor)
         
         else if(tempEditor.getRowNumber() == getNumberOfRowsToDisplay() - 1)
         {
-            dataHandler.setDataForSelectedItems(DataHandler::DataConcerned(tempEditor.getColumnID()), true, tempEditor.getText());
+            dataHandler->setDataForSelectedItems(DataHandler::DataConcerned(tempEditor.getColumnID()), true, tempEditor.getText());
         }
         
         mainComponent->updateTable();
@@ -313,9 +302,9 @@ bool Mediator::addNewFiles()
 {
     if(initialiser.lookForNewFiles())
     {
-        dataHandler.addData(initialiser.getResult());
+        dataHandler->addData(initialiser.getResult());
         initialiser.clearCurrentFiles();
-        dataHandler.sort();
+        dataHandler->sort();
         menu->setMenuItemVisible(MenuModel::MenuNames::View, true);
         //dataHandler.printTest();
         return true;
@@ -334,7 +323,14 @@ void Mediator::playIndex(int index)
     {
         if(!player->isPlayerPaused() || index != currentPlayingIndex)
         {
-            player->loadFile(dataHandler.getFileForIndex(index));
+            MetadataReader* newFile = dataHandler->getReaderForIndex(index);
+            
+            player->loadFile(newFile->getFile());
+            
+            if(newFile->getArtwork() != nullptr)
+            {
+                //getAudioPlayerControls()->setArtworkToShow(*newFile->getArtwork());
+            }
         }
         player->play();
         audioPlayerControls->changePlayButtonState(1);

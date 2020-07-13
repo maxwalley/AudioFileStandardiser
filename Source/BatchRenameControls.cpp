@@ -11,6 +11,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "BatchRenameControls.h"
 #include "Mediator.h"
+#include "AudioFileStandardiserApplication.h"
 
 //==============================================================================
 BatchRenameControls::BatchRenameControls() : applyButton("Apply"), resetButton("Reset"), closeButton("Close")
@@ -99,14 +100,14 @@ BatchRenameControls::BatchRenameControls() : applyButton("Apply"), resetButton("
     
     
     addAndMakeVisible(applyButton);
-    applyButton.addListener(Mediator::getInstance());
+    applyButton.addListener(AudioFileStandardiserApplication::getMediator());
     applyButton.setComponentID("batch_apply");
     
     addAndMakeVisible(resetButton);
     resetButton.addListener(this);
     
     addAndMakeVisible(closeButton);
-    closeButton.addListener(Mediator::getInstance());
+    closeButton.addListener(AudioFileStandardiserApplication::getMediator());
     closeButton.setComponentID("extra_info_close");
 }
 

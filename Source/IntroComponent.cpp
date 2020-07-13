@@ -10,13 +10,14 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "IntroComponent.h"
+#include "AudioFileStandardiserApplication.h"
 
 //==============================================================================
 IntroComponent::IntroComponent()    :   openSourceButton("Open Source")
 {
     addAndMakeVisible(openSourceButton);
     
-    openSourceButton.addListener(Mediator::getInstance());
+    openSourceButton.addListener(AudioFileStandardiserApplication::getMediator());
     
     openSourceButton.setComponentID("intro_openSourceButton");
     

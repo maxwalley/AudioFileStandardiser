@@ -38,3 +38,8 @@ File& MetadataReader::getFile()
 {
     return fileToRead;
 }
+
+Image* MetadataReader::getArtwork()
+{
+    return nullptr;
+}

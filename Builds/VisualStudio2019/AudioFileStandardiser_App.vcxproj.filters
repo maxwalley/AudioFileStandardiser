@@ -418,6 +418,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\AudioFileStandardiserApplication.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\AudioPlayer.cpp">
       <Filter>AudioFileStandardiser\AudioPlayer</Filter>
     </ClCompile>
@@ -2412,6 +2415,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\AudioFileStandardiserApplication.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\AudioPlayer.h">
       <Filter>AudioFileStandardiser\AudioPlayer</Filter>
     </ClInclude>

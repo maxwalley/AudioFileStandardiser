@@ -10,7 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "FileAndDirectoryControls.h"
-#include "Mediator.h"
+#include "AudioFileStandardiserApplication.h"
 
 //==============================================================================
 FileAndDirectoryControls::FileAndDirectoryControls()    :   changeDirectoryButton("Select New Directory"), moveButton("Move Files"), closeButton("Close")
@@ -30,11 +30,11 @@ FileAndDirectoryControls::FileAndDirectoryControls()    :   changeDirectoryButto
     addAndMakeVisible(folderHierachyEditor);
     
     addAndMakeVisible(moveButton);
-    moveButton.addListener(Mediator::getInstance());
+    moveButton.addListener(AudioFileStandardiserApplication::getMediator());
     moveButton.setComponentID("file_controls_move");
     
     addAndMakeVisible(closeButton);
-    closeButton.addListener(Mediator::getInstance());
+    closeButton.addListener(AudioFileStandardiserApplication::getMediator());
     closeButton.setComponentID("extra_info_close");
 }
 

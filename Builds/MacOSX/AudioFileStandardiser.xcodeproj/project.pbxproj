@@ -61,6 +61,10 @@
 			isa = PBXBuildFile;
 			fileRef = 5A15C4E4BFD977D25E18ACFE;
 		};
+		03C2514A5C33E4A779D196FC = {
+			isa = PBXBuildFile;
+			fileRef = 3985FB687817540C08DCE01F;
+		};
 		CA91BF855E8301AC7C580E3A = {
 			isa = PBXBuildFile;
 			fileRef = A23B139D5691B9799AE9ADCD;
@@ -379,6 +383,13 @@
 			path = System/Library/Frameworks/QuartzCore.framework;
 			sourceTree = SDKROOT;
 		};
+		3985FB687817540C08DCE01F = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = AudioFileStandardiserApplication.cpp;
+			path = ../../Source/AudioFileStandardiserApplication.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		39E413055F6637354984B594 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -615,6 +626,13 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_core.mm";
 			path = "../../JuceLibraryCode/include_juce_core.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		95DF3A55BEC811450330A89F = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = AudioFileStandardiserApplication.h;
+			path = ../../Source/AudioFileStandardiserApplication.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		98153D6FFE3AF907B046CA72 = {
@@ -969,6 +987,8 @@
 		329608004BEDC20C07FBE1D7 = {
 			isa = PBXGroup;
 			children = (
+				95DF3A55BEC811450330A89F,
+				3985FB687817540C08DCE01F,
 				E48E3B43B5D51D6FDED17D62,
 				8487E93A1F00F32D8917E116,
 				DA0740EB4AE70ED6C8AEBBA3,
@@ -1321,6 +1341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03C2514A5C33E4A779D196FC,
 				CA91BF855E8301AC7C580E3A,
 				48835DE9F7B164A17F8BBF89,
 				B686EE4F07F2FDB7AAD8CFDF,

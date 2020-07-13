@@ -30,4 +30,6 @@ public:
     virtual void setArtistName(const String& newArtistName) = 0;
     virtual void setAlbumName(const String& newAlbumName) = 0;
     virtual void setYear(int newYear) = 0;
+    
+    //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AudioMetadataReader)
 };

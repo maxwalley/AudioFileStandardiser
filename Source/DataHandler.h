@@ -79,7 +79,7 @@ public:
     //removes data based on a comparison of the type set - returns the number of items removed
     int removeData(DataConcerned typeToCompare, const String& dataToCompare);
     
-    File& getFileForIndex(int index);
+    MetadataReader* getReaderForIndex(int index);
     
     void printTest();
     

@@ -13,6 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PlayerGUIButton.h"
 
+
 //==============================================================================
 /*
 */
@@ -30,11 +31,15 @@ public:
     
     bool getPlayButtonState();
     
+    void setArtworkToShow(const Image& artworkImage);
+    
 private:
     
     std::unique_ptr<PlayerGUIButton> playPauseButton;
     std::unique_ptr<PlayerGUIButton> nextButton;
     std::unique_ptr<PlayerGUIButton> previousButton;
+    
+    //std::unique_ptr<ImageComponent> artworkDisplayer;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPlayerGUI)
 };

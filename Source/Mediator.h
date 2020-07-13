@@ -34,9 +34,8 @@ class Mediator  :   public ActionListener,
 {
 public:
     
-    static Mediator* getInstance();
-    
-    static void closeInstance();
+    Mediator();
+    ~Mediator();
     
     NewMainComponent* getMainComponent();
     
@@ -44,7 +43,7 @@ public:
     
     TableModel* getTableModel();
     
-    static DataHandler* getDataHandler();
+    DataHandler* getDataHandler();
     
     BatchRenameControls* getBatchControls();
     
@@ -59,9 +58,6 @@ public:
     virtual void setDataForCell(int rowNumber, int column, const String& newData);
     
 private:
-    Mediator(){};
-    
-    static Mediator* instance;
     
     int currentPlayingIndex;
     
@@ -75,7 +71,7 @@ private:
     
     FileInitialiser initialiser;
     
-    static DataHandler dataHandler;
+    std::unique_ptr<DataHandler> dataHandler;
     
     bool addNewFiles();
     

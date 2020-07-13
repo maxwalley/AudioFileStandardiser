@@ -28,6 +28,8 @@ public:
     
     MetadataType getMetadataType() override;
     
+    Image* getArtwork() override;
+    
 private:
     
     TagLib::ID3v2::Tag* metadataTag;
@@ -38,5 +40,7 @@ private:
     TagLib::ID3v2::Tag* findTag(TagLib::File* inputFile);
     
     Image extractImage(TagLib::ID3v2::Tag* metadata);
+    
+    //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ID3v2MetadataReader)
     
 };

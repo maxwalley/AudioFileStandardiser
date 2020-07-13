@@ -252,9 +252,9 @@ int DataHandler::removeData(DataConcerned typeToCompare, const String& dataToCom
     return numRemoves;
 }
 
-File& DataHandler::getFileForIndex(int index)
+MetadataReader* DataHandler::getReaderForIndex(int index)
 {
-    return readers[index].object->getFile();
+    return readers[index].object.get();
 }
 
 void DataHandler::printTest()
