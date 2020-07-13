@@ -30,7 +30,8 @@ class Mediator  :   public ActionListener,
                     public Button::Listener,
                     public TextEditor::Listener,
                     public MouseListener,
-                    public AudioPlayerListener
+                    public AudioPlayerListener,
+                    public Slider::Listener
 {
 public:
     
@@ -68,6 +69,10 @@ private:
     void textEditorTextChanged(TextEditor& editor) override;
     
     void mouseDown(const MouseEvent& event) override;
+    
+    void playerFinished(AudioPlayer* playerThatHasFinished) override;
+    
+    void sliderValueChanged(Slider* slider) override;
     
     FileInitialiser initialiser;
     

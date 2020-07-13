@@ -107,6 +107,26 @@ void AudioPlayer::addListener(AudioPlayerListener* listener)
     listeners.push_back(listener);
 }
 
+void AudioPlayer::setGain(float newGain)
+{
+    transport.setGain(newGain);
+}
+
+float AudioPlayer::getGain() const
+{
+    return transport.getGain();
+}
+
+void AudioPlayer::setPlayerIndex(int newIndex)
+{
+    playerIndex = newIndex;
+}
+
+int AudioPlayer::getPlayerIndex() const
+{
+    return playerIndex;
+}
+
 void AudioPlayer::timerCallback()
 {
     if(currentState == TransportState::playing && transport.hasStreamFinished())

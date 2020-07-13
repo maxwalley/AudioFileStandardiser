@@ -45,21 +45,7 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
 
 NewMainComponent::~NewMainComponent()
 {
-    //To stop an error in look and feel
-    /*for(int j = 1; j < table.getHeader().getNumColumns(false); j++)
-    {
-        for(int i = 0; i < AudioFileStandardiserApplication::getMediator()->getNumberOfRowsToDisplay(); i++)
-        {
-            Component* currentComponent = table.getCellComponent(j, i);
-            
-            if(currentComponent != nullptr)
-            {
-                currentComponent->setLookAndFeel(nullptr);
-            }
-        }
-    }*/
     
-    //Mediator::closeInstance();
 }
 
 void NewMainComponent::paint (Graphics& g)
@@ -94,12 +80,12 @@ void NewMainComponent::resized()
         //Table is viewable only
         if(currentComponents == 1)
         {
-            setSize(tableWidth, tableHeight + 70);
+            setSize(tableWidth, tableHeight);
         }
         //Table is not alone
         else
         {
-            setSize(tableWidth + 200, tableHeight + 70);
+            setSize(tableWidth + 200, tableHeight);
             
             extraInfoViewport.setBounds(tableWidth, 0, 200, getHeight());
             

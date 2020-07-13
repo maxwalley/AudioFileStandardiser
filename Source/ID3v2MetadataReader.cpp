@@ -11,7 +11,7 @@
 #include "ID3v2MetadataReader.h"
 #include "attachedpictureframe.h"
 
-ID3v2MetadataReader::ID3v2MetadataReader(std::unique_ptr<TagLib::File> file) :   TagLibTagReader(std::move(file)), metadataTag(findTag(metadataFile.get()))//, coverArt(extractImage(metadataTag))
+ID3v2MetadataReader::ID3v2MetadataReader(std::unique_ptr<TagLib::File> file) :   TagLibTagReader(std::move(file)), metadataTag(findTag(metadataFile.get())), coverArt(extractImage(metadataTag))
 {
     
 }
@@ -28,11 +28,11 @@ MetadataReader::MetadataType ID3v2MetadataReader::getMetadataType()
 
 Image* ID3v2MetadataReader::getArtwork()
 {
-    /*if(coverArt.isValid())
+    if(coverArt.isValid())
     {
         return &coverArt;
     }
-    return nullptr;*/
+    return nullptr;
 }
 
 TagLib::ID3v2::Tag* ID3v2MetadataReader::findTag(TagLib::File* inputFile)
@@ -69,7 +69,7 @@ TagLib::ID3v2::Tag* ID3v2MetadataReader::findTag(TagLib::File* inputFile)
 
 Image ID3v2MetadataReader::extractImage(TagLib::ID3v2::Tag* metadata)
 {
-    /*int numFrames = metadata->frameList("APIC").size();
+    int numFrames = metadata->frameList("APIC").size();
     
     for(int i = 0; i < numFrames; i++)
     {
@@ -83,7 +83,7 @@ Image ID3v2MetadataReader::extractImage(TagLib::ID3v2::Tag* metadata)
             
             return testImage;
         }
-    }*/
+    }
     
     //returns a null image
     return Image();

@@ -39,7 +39,9 @@ private:
     std::unique_ptr<PlayerGUIButton> nextButton;
     std::unique_ptr<PlayerGUIButton> previousButton;
     
-    //std::unique_ptr<ImageComponent> artworkDisplayer;
+    std::unique_ptr<ImageComponent> artworkDisplayer;
+    
+    std::unique_ptr<Slider> volumeSlider;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPlayerGUI)
 };

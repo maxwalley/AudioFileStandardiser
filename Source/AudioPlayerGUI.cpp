@@ -19,7 +19,9 @@ AudioPlayerGUI::AudioPlayerGUI()
     nextButton = std::make_unique<PlayerGUIButton>(PlayerGUIButton::ControlType::next);
     previousButton = std::make_unique<PlayerGUIButton>(PlayerGUIButton::ControlType::last);
     
-    //artworkDisplayer = std::make_unique<ImageComponent>();
+    artworkDisplayer = std::make_unique<ImageComponent>();
+    
+    volumeSlider = std::make_unique<Slider>();
     
     addAndMakeVisible(playPauseButton.get());
     playPauseButton->setComponentID("player_play_button");
@@ -33,14 +35,22 @@ AudioPlayerGUI::AudioPlayerGUI()
     previousButton->setComponentID("player_last_button");
     previousButton->addListener(AudioFileStandardiserApplication::getMediator());
     
-    //addAndMakeVisible(artworkDisplayer.get());
+    addAndMakeVisible(artworkDisplayer.get());
     
-    setSize(260, 275);
+    addAndMakeVisible(volumeSlider.get());
+    volumeSlider->addListener(AudioFileStandardiserApplication::getMediator());
+    volumeSlider->setComponentID("player_vol_slider");
+    volumeSlider->setRange(0.0, 1.0);
+    volumeSlider->setSliderStyle(Slider::LinearHorizontal);
+    volumeSlider->setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+    volumeSlider->setValue(0.5);
+    
+    setSize(300, 450);
 }
 
 AudioPlayerGUI::~AudioPlayerGUI()
 {
-    //std::cout << "APGUI Deleted" << std::endl;
+    
 }
 
 void AudioPlayerGUI::paint (Graphics& g)
@@ -50,11 +60,13 @@ void AudioPlayerGUI::paint (Graphics& g)
 
 void AudioPlayerGUI::resized()
 {
-    playPauseButton->setBounds(getWidth()/2 - 20, (getHeight()/3) * 2 - 20, 40, 40);
-    nextButton->setBounds(getWidth()/4 * 3 - 15, (getHeight()/3) * 2 - 15, 30, 30);
-    previousButton->setBounds(getWidth()/4 - 15, (getHeight()/3) * 2 - 15, 30, 30);
+    playPauseButton->setBounds(getWidth()/2 - 20, (getHeight()/5) * 4 - 20, 40, 40);
+    nextButton->setBounds(getWidth()/4 * 3 - 15, (getHeight()/5) * 4 - 15, 30, 30);
+    previousButton->setBounds(getWidth()/4 - 15, (getHeight()/5) * 4 - 15, 30, 30);
     
-    //artworkDisplayer->setBounds(20, 20, getWidth()-40, getWidth()-40);
+    artworkDisplayer->setBounds(20, 20, getWidth()-40, getWidth()-40);
+    
+    volumeSlider->setBounds(20, getHeight()-30, getWidth()-40, 20);
 }
 
 void AudioPlayerGUI::changePlayButtonState(bool state)
@@ -69,5 +81,5 @@ bool AudioPlayerGUI::getPlayButtonState()
 
 void AudioPlayerGUI::setArtworkToShow(const Image& artworkImage)
 {
-    //artworkDisplayer->setImage(artworkImage);
+    artworkDisplayer->setImage(artworkImage);
 }

@@ -40,9 +40,9 @@ void Mediator::initialiseComponents()
     menu->addActionListener(this);
     player = std::make_unique<AudioPlayer>();
     player->addListener(this);
+    player->setPlayerIndex(1);
     playerWindow = std::make_unique<ComponentWindow>("Player", Colours::green, DocumentWindow::allButtons);
     playerWindow->setContentNonOwned(audioPlayerControls.get(), true);
-    //playerWindow->setVisible(false);
     currentPlayingIndex = -1;
 }
 
@@ -298,6 +298,19 @@ void Mediator::mouseDown(const MouseEvent& event)
     }
 }
 
+void Mediator::playerFinished(AudioPlayer* playerThatHasFinished)
+{
+    if(playerThatHasFinished->getPlayerIndex() == 1)
+    {
+        playIndex(++currentPlayingIndex);
+    }
+}
+
+void Mediator::sliderValueChanged(Slider* slider)
+{
+    player->setGain(slider->getValue());
+}
+
 bool Mediator::addNewFiles()
 {
     if(initialiser.lookForNewFiles())
@@ -329,7 +342,7 @@ void Mediator::playIndex(int index)
             
             if(newFile->getArtwork() != nullptr)
             {
-                //getAudioPlayerControls()->setArtworkToShow(*newFile->getArtwork());
+                getAudioPlayerControls()->setArtworkToShow(*newFile->getArtwork());
             }
         }
         player->play();
@@ -339,5 +352,6 @@ void Mediator::playIndex(int index)
     else
     {
         player->stop();
+        audioPlayerControls->changePlayButtonState(0);
     }
 }

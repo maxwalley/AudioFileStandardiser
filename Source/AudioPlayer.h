@@ -14,18 +14,6 @@
 
 class AudioPlayerListener;
 
-class AudioPlayerWindow :   public DocumentWindow
-{
-public:
-    AudioPlayerWindow();
-    ~AudioPlayerWindow();
-    
-    void closeButtonPressed() override;
-    
-private:
-    
-};
-
 class AudioPlayer   :   public AudioAppComponent,
                         public Timer
 {
@@ -55,7 +43,16 @@ public:
     
     void addListener(AudioPlayerListener* listener);
     
+    void setGain(float newGain);
+    float getGain() const;
+    
+    //Player index used for distinguishing one player from another - useful for its listener funcs
+    void setPlayerIndex(int newIndex);
+    int getPlayerIndex() const;
+    
 private:
+    int playerIndex;
+    
     void timerCallback() override;
     
     AudioFormatManager formatManager;
