@@ -29,10 +29,9 @@ public:
     
     void resized() override;
 
-    // 0 for play, 1 for pause
-    void changePlayButtonState(bool state);
+    void setPlayButtonState(PlayerGUIButton::ControlType state);
     
-    bool getPlayButtonState();
+    PlayerGUIButton::ControlType getPlayButtonState() const;
     
     void setArtworkToShow(const Image& artworkImage);
     

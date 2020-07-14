@@ -86,7 +86,7 @@ private:
     
     bool addNewFiles();
     
-    void playIndex(int index);
+    void playIndex(int index, bool ignorePause);
     
     void showPlayer(bool show);
     

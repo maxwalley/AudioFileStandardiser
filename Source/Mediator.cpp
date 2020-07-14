@@ -240,26 +240,25 @@ void Mediator::buttonClicked(Button* button)
     
     else if(button->getComponentID().compare("player_play_button") == 0)
     {
-        //Button state = 0 which is play
-        if(!audioPlayerControls->getPlayButtonState())
+        if(player->getPlayerState() == AudioPlayer::TransportState::playing)
         {
-            playIndex(0);
+            player->pause();
+            audioPlayerControls->setPlayButtonState(PlayerGUIButton::ControlType::play);
         }
         else
         {
-            player->pause();
-            audioPlayerControls->changePlayButtonState(0);
+            playIndex(currentPlayingIndex, false);
         }
     }
     
     else if(button->getComponentID().compare("player_next_button") == 0)
     {
-        playIndex(++currentPlayingIndex);
+        playIndex(++currentPlayingIndex, true);
     }
     
     else if(button->getComponentID().compare("player_last_button") == 0)
     {
-        playIndex(--currentPlayingIndex);
+        playIndex(--currentPlayingIndex, true);
     }
 }
 
@@ -299,7 +298,7 @@ void Mediator::mouseDown(const MouseEvent& event)
                 //Play option
                 if(menuClicked == 1)
                 {
-                    playIndex(componentRowNumber);
+                    playIndex(componentRowNumber, true);
                     showPlayer(true);
                 }
                 
@@ -317,7 +316,7 @@ void Mediator::playerFinished(AudioPlayer* playerThatHasFinished)
 {
     if(playerThatHasFinished->getPlayerIndex() == 1)
     {
-        playIndex(++currentPlayingIndex);
+        playIndex(++currentPlayingIndex, true);
     }
 }
 
@@ -338,12 +337,12 @@ bool Mediator::keyPressed(const KeyPress& key, Component* originatingComponent)
             if(player->getPlayerState() == AudioPlayer::TransportState::playing)
             {
                 player->pause();
-                audioPlayerControls->changePlayButtonState(0);
+                audioPlayerControls->setPlayButtonState(PlayerGUIButton::ControlType::play);
                 Timer::stopTimer();
             }
             else if(player->getPlayerState() == AudioPlayer::TransportState::paused)
             {
-                playIndex(currentPlayingIndex);
+                playIndex(currentPlayingIndex, false);
             }
         }
         return true;
@@ -369,12 +368,13 @@ bool Mediator::addNewFiles()
     return false;
 }
 
-void Mediator::playIndex(int index)
+void Mediator::playIndex(int index, bool ignorePause)
 {
     if(index >= 0 && index < getNumberOfRowsToDisplay() - 1)
     {
-        if(player->getPlayerState() != AudioPlayer::TransportState::paused || index != currentPlayingIndex)
+        if(index != currentPlayingIndex || ignorePause == true)
         {
+            player->stop();
             MetadataReader* newFile = dataHandler->getReaderForIndex(index);
             
             player->loadFile(newFile->getFile());
@@ -387,7 +387,7 @@ void Mediator::playIndex(int index)
             audioPlayerControls->setTitleLabelText(dataHandler->getDataForItem(DataHandler::DataConcerned::trackTitle, index));
         }
         player->play();
-        audioPlayerControls->changePlayButtonState(1);
+        audioPlayerControls->setPlayButtonState(PlayerGUIButton::ControlType::pause);
         currentPlayingIndex = index;
         Timer::startTimer(100);
     }
@@ -408,5 +408,6 @@ void Mediator::stopPlayer()
 {
     Timer::stopTimer();
     player->stop();
-    audioPlayerControls->changePlayButtonState(0);
+    audioPlayerControls->setPlayButtonState(PlayerGUIButton::ControlType::play);
+    currentPlayingIndex = 0;
 }

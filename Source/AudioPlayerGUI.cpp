@@ -83,14 +83,14 @@ void AudioPlayerGUI::resized()
     titleLabel->setBounds(20, getWidth()-10, getWidth()-40, 20);
 }
 
-void AudioPlayerGUI::changePlayButtonState(bool state)
+void AudioPlayerGUI::setPlayButtonState(PlayerGUIButton::ControlType state)
 {
-    playPauseButton->changeFunction(PlayerGUIButton::ControlType(state));
+    playPauseButton->changeFunction(state);
 }
 
-bool AudioPlayerGUI::getPlayButtonState()
+PlayerGUIButton::ControlType AudioPlayerGUI::getPlayButtonState() const
 {
-    return bool(playPauseButton->getFunction());
+    return playPauseButton->getFunction();
 }
 
 void AudioPlayerGUI::setArtworkToShow(const Image& artworkImage)
