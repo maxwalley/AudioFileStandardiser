@@ -38,12 +38,6 @@ private:
     /**Implementation of the DocumentWindow method*/
     void closeButtonPressed() override;
     
-    /**Implementation of the MouseListener method*/
-    void mouseDown(const MouseEvent &event) override;
-    
-    /**Implementation of the MouseListener method*/
-    void mouseUp(const MouseEvent &event) override;
-    
     String windowName;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ComponentWindow)

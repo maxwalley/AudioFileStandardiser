@@ -18,10 +18,9 @@ AudioPlayerGUI::AudioPlayerGUI()
     playPauseButton = std::make_unique<PlayerGUIButton>(PlayerGUIButton::ControlType::play);
     nextButton = std::make_unique<PlayerGUIButton>(PlayerGUIButton::ControlType::next);
     previousButton = std::make_unique<PlayerGUIButton>(PlayerGUIButton::ControlType::last);
-    
     artworkDisplayer = std::make_unique<ImageComponent>();
-    
     volumeSlider = std::make_unique<Slider>();
+    titleLabel = std::make_unique<Label>();
     
     addAndMakeVisible(playPauseButton.get());
     playPauseButton->setComponentID("player_play_button");
@@ -44,6 +43,11 @@ AudioPlayerGUI::AudioPlayerGUI()
     volumeSlider->setSliderStyle(Slider::LinearHorizontal);
     volumeSlider->setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
     volumeSlider->setValue(0.5);
+    volumeSlider->setColour(Slider::thumbColourId, Colours::white);
+    
+    addAndMakeVisible(titleLabel.get());
+    titleLabel->setJustificationType(Justification::centred);
+    titleLabel->setColour(Label::textColourId, Colours::black);
     
     setSize(300, 450);
 }
@@ -67,6 +71,8 @@ void AudioPlayerGUI::resized()
     artworkDisplayer->setBounds(20, 20, getWidth()-40, getWidth()-40);
     
     volumeSlider->setBounds(20, getHeight()-30, getWidth()-40, 20);
+    
+    titleLabel->setBounds(20, getWidth() - 10, getWidth()-40, 20);
 }
 
 void AudioPlayerGUI::changePlayButtonState(bool state)
@@ -82,4 +88,9 @@ bool AudioPlayerGUI::getPlayButtonState()
 void AudioPlayerGUI::setArtworkToShow(const Image& artworkImage)
 {
     artworkDisplayer->setImage(artworkImage);
+}
+
+void AudioPlayerGUI::setTitleLabelText(const String& newText)
+{
+    titleLabel->setText(newText, dontSendNotification);
 }

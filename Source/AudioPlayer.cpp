@@ -60,6 +60,11 @@ void AudioPlayer::loadFile(const File& fileToPlay)
     }
 }
 
+AudioPlayer::TransportState AudioPlayer::getPlayerState()
+{
+    return currentState;
+}
+
 void AudioPlayer::play()
 {
     if(fileLoaded)
@@ -91,15 +96,6 @@ void AudioPlayer::pause()
         Timer::stopTimer();
         currentState = TransportState::paused;
     }
-}
-
-bool AudioPlayer::isPlayerPaused() const
-{
-    if(currentState == TransportState::paused)
-    {
-        return true;
-    }
-    return false;
 }
 
 void AudioPlayer::addListener(AudioPlayerListener* listener)

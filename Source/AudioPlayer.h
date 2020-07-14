@@ -35,11 +35,11 @@ public:
     bool isFileLoaded() const;
     void loadFile(const File& fileToPlay);
     
+    TransportState getPlayerState();
+    
     void play();
     void stop();
     void pause();
-    
-    bool isPlayerPaused() const;
     
     void addListener(AudioPlayerListener* listener);
     

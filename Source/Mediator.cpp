@@ -35,6 +35,7 @@ void Mediator::initialiseComponents()
     batchControlsImp = std::make_unique<BatchControlsImplementation>(batchControls.get());
     fileControls = std::make_unique<FileAndDirectoryControls>();
     audioPlayerControls = std::make_unique<AudioPlayerGUI>();
+    audioPlayerControls->addKeyListener(this);
     mainComponent = new NewMainComponent();
     menu = std::make_unique<MenuModel>();
     menu->addActionListener(this);
@@ -43,6 +44,7 @@ void Mediator::initialiseComponents()
     player->setPlayerIndex(1);
     playerWindow = std::make_unique<ComponentWindow>("Player", Colours::green, DocumentWindow::allButtons);
     playerWindow->setContentNonOwned(audioPlayerControls.get(), true);
+    playerWindow->addActionListener(this);
     currentPlayingIndex = -1;
 }
 
@@ -144,6 +146,11 @@ void Mediator::actionListenerCallback (const String &message)
     else if(message.compare("menu_show_player") == 0)
     {
         showPlayer(menu->getPlayerWindowOpen());
+    }
+    
+    else if(message.compare("Player_closed") == 0)
+    {
+        stopPlayer();
     }
 }
 
@@ -316,7 +323,33 @@ void Mediator::playerFinished(AudioPlayer* playerThatHasFinished)
 
 void Mediator::sliderValueChanged(Slider* slider)
 {
-    player->setGain(slider->getValue());
+    if(slider->getComponentID().compare("player_vol_slider") == 0)
+    {
+        player->setGain(slider->getValue());
+    }
+}
+
+bool Mediator::keyPressed(const KeyPress& key, Component* originatingComponent)
+{
+    if(originatingComponent == audioPlayerControls.get())
+    {
+        if(key.getKeyCode() == KeyPress::spaceKey)
+        {
+            if(player->getPlayerState() == AudioPlayer::TransportState::playing)
+            {
+                player->pause();
+                audioPlayerControls->changePlayButtonState(0);
+            }
+            else if(player->getPlayerState() == AudioPlayer::TransportState::paused)
+            {
+                player->play();
+                audioPlayerControls->changePlayButtonState(1);
+            }
+        }
+        return true;
+    }
+    
+    return false;
 }
 
 bool Mediator::addNewFiles()
@@ -336,7 +369,7 @@ void Mediator::playIndex(int index)
 {
     if(index >= 0 && index < getNumberOfRowsToDisplay() - 1)
     {
-        if(!player->isPlayerPaused() || index != currentPlayingIndex)
+        if(player->getPlayerState() != AudioPlayer::TransportState::paused || index != currentPlayingIndex)
         {
             MetadataReader* newFile = dataHandler->getReaderForIndex(index);
             
@@ -344,8 +377,10 @@ void Mediator::playIndex(int index)
             
             if(newFile->getArtwork() != nullptr)
             {
-                getAudioPlayerControls()->setArtworkToShow(*newFile->getArtwork());
+                audioPlayerControls->setArtworkToShow(*newFile->getArtwork());
             }
+            
+            audioPlayerControls->setTitleLabelText(dataHandler->getDataForItem(DataHandler::DataConcerned::trackTitle, index));
         }
         player->play();
         audioPlayerControls->changePlayButtonState(1);
@@ -353,8 +388,7 @@ void Mediator::playIndex(int index)
     }
     else
     {
-        player->stop();
-        audioPlayerControls->changePlayButtonState(0);
+        stopPlayer();
     }
 }
 
@@ -362,4 +396,10 @@ void Mediator::showPlayer(bool show)
 {
     playerWindow->setVisible(show);
     menu->setPlayerWindowOpen(show);
+}
+
+void Mediator::stopPlayer()
+{
+    player->stop();
+    audioPlayerControls->changePlayButtonState(0);
 }

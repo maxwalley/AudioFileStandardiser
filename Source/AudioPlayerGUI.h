@@ -33,6 +33,8 @@ public:
     
     void setArtworkToShow(const Image& artworkImage);
     
+    void setTitleLabelText(const String& newText);
+    
 private:
     
     std::unique_ptr<PlayerGUIButton> playPauseButton;
@@ -42,6 +44,8 @@ private:
     std::unique_ptr<ImageComponent> artworkDisplayer;
     
     std::unique_ptr<Slider> volumeSlider;
+    
+    std::unique_ptr<Label> titleLabel;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPlayerGUI)
 };

@@ -31,7 +31,8 @@ class Mediator  :   public ActionListener,
                     public TextEditor::Listener,
                     public MouseListener,
                     public AudioPlayerListener,
-                    public Slider::Listener
+                    public Slider::Listener,
+                    public KeyListener
 {
 public:
     
@@ -74,6 +75,8 @@ private:
     
     void sliderValueChanged(Slider* slider) override;
     
+    bool keyPressed(const KeyPress& key, Component* originatingComponent) override;
+    
     FileInitialiser initialiser;
     
     std::unique_ptr<DataHandler> dataHandler;
@@ -83,6 +86,8 @@ private:
     void playIndex(int index);
     
     void showPlayer(bool show);
+    
+    void stopPlayer();
     
     std::unique_ptr<MenuModel> menu;
     

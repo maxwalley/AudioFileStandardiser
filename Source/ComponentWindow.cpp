@@ -27,14 +27,6 @@ ComponentWindow::~ComponentWindow()
 void ComponentWindow::closeButtonPressed()
 {
     setVisible(false);
-}
-
-void ComponentWindow::mouseDown(const MouseEvent &event)
-{
-    sendActionMessage("Mouse Clicked on " + windowName);
-}
-
-void ComponentWindow::mouseUp(const MouseEvent &event)
-{
-    sendActionMessage("Mouse Released on " + windowName);
+    
+    sendActionMessage(windowName + "_closed");
 }
