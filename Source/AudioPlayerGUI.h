@@ -23,7 +23,10 @@ public:
     AudioPlayerGUI();
     ~AudioPlayerGUI();
 
-    void paint (Graphics&) override;
+    void paint(Graphics&) override;
+    
+    void paintOverChildren(Graphics& g) override;
+    
     void resized() override;
 
     // 0 for play, 1 for pause
@@ -34,6 +37,8 @@ public:
     void setArtworkToShow(const Image& artworkImage);
     
     void setTitleLabelText(const String& newText);
+    
+    void setPercentageThroughTrack(float newPercentage);
     
 private:
     
@@ -46,6 +51,8 @@ private:
     std::unique_ptr<Slider> volumeSlider;
     
     std::unique_ptr<Label> titleLabel;
+    
+    float percentageThroughTrack;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPlayerGUI)
 };

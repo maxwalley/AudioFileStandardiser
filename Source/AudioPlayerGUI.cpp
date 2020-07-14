@@ -13,7 +13,7 @@
 #include "AudioFileStandardiserApplication.h"
 
 //==============================================================================
-AudioPlayerGUI::AudioPlayerGUI()
+AudioPlayerGUI::AudioPlayerGUI()    :   percentageThroughTrack(0.0)
 {
     playPauseButton = std::make_unique<PlayerGUIButton>(PlayerGUIButton::ControlType::play);
     nextButton = std::make_unique<PlayerGUIButton>(PlayerGUIButton::ControlType::next);
@@ -57,22 +57,30 @@ AudioPlayerGUI::~AudioPlayerGUI()
     
 }
 
-void AudioPlayerGUI::paint (Graphics& g)
+void AudioPlayerGUI::paint(Graphics& g)
 {
     g.fillAll(Colours::lightgrey);
 }
 
+void AudioPlayerGUI::paintOverChildren(Graphics& g)
+{
+    g.setColour(Colours::green);
+    
+    //Progress Bar
+    g.fillRect(20.0, float(getWidth())-20.0, float(((float(getWidth())-40.0)/100.0) * percentageThroughTrack), 10.0);
+}
+
 void AudioPlayerGUI::resized()
 {
-    playPauseButton->setBounds(getWidth()/2 - 20, (getHeight()/5) * 4 - 20, 40, 40);
-    nextButton->setBounds(getWidth()/4 * 3 - 15, (getHeight()/5) * 4 - 15, 30, 30);
-    previousButton->setBounds(getWidth()/4 - 15, (getHeight()/5) * 4 - 15, 30, 30);
+    playPauseButton->setBounds(getWidth()/2 - 20, getHeight() - 95, 40, 40);
+    nextButton->setBounds(getWidth()/4 * 3 - 15, getHeight() - 90, 30, 30);
+    previousButton->setBounds(getWidth()/4 - 15, getHeight() - 90, 30, 30);
     
     artworkDisplayer->setBounds(20, 20, getWidth()-40, getWidth()-40);
     
     volumeSlider->setBounds(20, getHeight()-30, getWidth()-40, 20);
     
-    titleLabel->setBounds(20, getWidth() - 10, getWidth()-40, 20);
+    titleLabel->setBounds(20, getWidth()-10, getWidth()-40, 20);
 }
 
 void AudioPlayerGUI::changePlayButtonState(bool state)
@@ -93,4 +101,10 @@ void AudioPlayerGUI::setArtworkToShow(const Image& artworkImage)
 void AudioPlayerGUI::setTitleLabelText(const String& newText)
 {
     titleLabel->setText(newText, dontSendNotification);
+}
+
+void AudioPlayerGUI::setPercentageThroughTrack(float newPercentage)
+{
+    percentageThroughTrack = newPercentage;
+    repaint(20, getWidth()-20, getWidth()-40, 10);
 }

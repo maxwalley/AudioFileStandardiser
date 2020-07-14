@@ -46,6 +46,10 @@ public:
     void setGain(float newGain);
     float getGain() const;
     
+    double getCurrentPos() const;
+    double getPosAsPercentageOfTrackLen() const;
+    double getCurrentTrackLength() const;
+    
     //Player index used for distinguishing one player from another - useful for its listener funcs
     void setPlayerIndex(int newIndex);
     int getPlayerIndex() const;

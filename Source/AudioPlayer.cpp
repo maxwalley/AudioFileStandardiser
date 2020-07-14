@@ -113,6 +113,21 @@ float AudioPlayer::getGain() const
     return transport.getGain();
 }
 
+double AudioPlayer::getCurrentPos() const
+{
+    return transport.getCurrentPosition();
+}
+
+double AudioPlayer::getPosAsPercentageOfTrackLen() const
+{
+    return (transport.getCurrentPosition()/transport.getLengthInSeconds()) * 100;
+}
+
+double AudioPlayer::getCurrentTrackLength() const
+{
+    return transport.getLengthInSeconds();
+}
+
 void AudioPlayer::setPlayerIndex(int newIndex)
 {
     playerIndex = newIndex;

@@ -339,17 +339,22 @@ bool Mediator::keyPressed(const KeyPress& key, Component* originatingComponent)
             {
                 player->pause();
                 audioPlayerControls->changePlayButtonState(0);
+                Timer::stopTimer();
             }
             else if(player->getPlayerState() == AudioPlayer::TransportState::paused)
             {
-                player->play();
-                audioPlayerControls->changePlayButtonState(1);
+                playIndex(currentPlayingIndex);
             }
         }
         return true;
     }
     
     return false;
+}
+
+void Mediator::timerCallback()
+{
+    audioPlayerControls->setPercentageThroughTrack(player->getPosAsPercentageOfTrackLen());
 }
 
 bool Mediator::addNewFiles()
@@ -359,7 +364,6 @@ bool Mediator::addNewFiles()
         dataHandler->addData(initialiser.getResult());
         initialiser.clearCurrentFiles();
         dataHandler->sort();
-        //dataHandler.printTest();
         return true;
     }
     return false;
@@ -385,10 +389,12 @@ void Mediator::playIndex(int index)
         player->play();
         audioPlayerControls->changePlayButtonState(1);
         currentPlayingIndex = index;
+        Timer::startTimer(100);
     }
     else
     {
         stopPlayer();
+        audioPlayerControls->setTitleLabelText("");
     }
 }
 
@@ -400,6 +406,7 @@ void Mediator::showPlayer(bool show)
 
 void Mediator::stopPlayer()
 {
+    Timer::stopTimer();
     player->stop();
     audioPlayerControls->changePlayButtonState(0);
 }

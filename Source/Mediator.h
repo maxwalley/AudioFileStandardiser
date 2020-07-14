@@ -32,7 +32,8 @@ class Mediator  :   public ActionListener,
                     public MouseListener,
                     public AudioPlayerListener,
                     public Slider::Listener,
-                    public KeyListener
+                    public KeyListener,
+                    public Timer
 {
 public:
     
@@ -76,6 +77,8 @@ private:
     void sliderValueChanged(Slider* slider) override;
     
     bool keyPressed(const KeyPress& key, Component* originatingComponent) override;
+    
+    void timerCallback() override;
     
     FileInitialiser initialiser;
     
