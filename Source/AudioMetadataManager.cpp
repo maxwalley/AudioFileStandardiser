@@ -47,6 +47,16 @@ std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(
         }
     }
     
+    else if(file.getFileExtension().compareIgnoreCase(".aiff") == 0 || file.getFileExtension().compareIgnoreCase(".aif") == 0 || file.getFileExtension().compareIgnoreCase(".aifc") == 0)
+    {
+        std::unique_ptr<TagLib::RIFF::AIFF::File> aiffFile = std::make_unique<TagLib::RIFF::AIFF::File>(file.getFullPathName().toRawUTF8());
+        
+        if(aiffFile->hasID3v2Tag())
+        {
+            return std::make_unique<ID3v2MetadataReader>(std::move(aiffFile));
+        }
+    }
+    
     else if(file.getFileExtension().compareIgnoreCase(".flac") == 0)
     {
         std::unique_ptr<TagLib::FLAC::File> flacFile = std::make_unique<TagLib::FLAC::File>(file.getFullPathName().toRawUTF8());
@@ -59,6 +69,31 @@ std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(
         else if(flacFile->hasID3v1Tag())
         {
             return std::make_unique<TagLibTagReader>(std::move(flacFile));
+        }
+    }
+    
+    else if(file.getFileExtension().compareIgnoreCase(".tta") == 0)
+    {
+        std::unique_ptr<TagLib::TrueAudio::File> ttaFile = std::make_unique<TagLib::TrueAudio::File>(file.getFullPathName().toRawUTF8());
+        
+        if(ttaFile->hasID3v2Tag())
+        {
+            return std::make_unique<ID3v2MetadataReader>(std::move(ttaFile));
+        }
+        
+        else if(ttaFile->hasID3v1Tag())
+        {
+            return std::make_unique<TagLibTagReader>(std::move(ttaFile));
+        }
+    }
+    
+    else if(file.getFileExtension().compareIgnoreCase(".wv") == 0)
+    {
+        std::unique_ptr<TagLib::WavPack::File> wvFile = std::make_unique<TagLib::WavPack::File>(file.getFullPathName().toRawUTF8());
+        
+        if(wvFile->hasID3v1Tag())
+        {
+            return std::make_unique<TagLibTagReader>(std::move(wvFile));
         }
     }
     

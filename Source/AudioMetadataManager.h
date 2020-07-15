@@ -17,6 +17,9 @@
 #include "wavfile.h"
 #include "flacfile.h"
 #include "modfile.h"
+#include "aifffile.h"
+#include "trueaudiofile.h"
+#include "wavpackfile.h"
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
