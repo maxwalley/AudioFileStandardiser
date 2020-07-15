@@ -21,7 +21,7 @@ ID3v2MetadataReader::~ID3v2MetadataReader()
     
 }
 
-MetadataReader::MetadataType ID3v2MetadataReader::getMetadataType()
+MetadataReader::MetadataType ID3v2MetadataReader::getMetadataType() const
 {
     return MetadataType::ID3v2;
 }
@@ -56,12 +56,10 @@ TagLib::ID3v2::Tag* ID3v2MetadataReader::findTag(TagLib::File* inputFile)
     {
         TagLib::MPEG::File* convertedFile = dynamic_cast<TagLib::MPEG::File*>(inputFile);
         
-        if(!convertedFile->hasID3v2Tag())
+        if(convertedFile->hasID3v2Tag())
         {
-            return nullptr;
+            return convertedFile->ID3v2Tag();
         }
-        
-        return convertedFile->ID3v2Tag();
     }
     
     return nullptr;

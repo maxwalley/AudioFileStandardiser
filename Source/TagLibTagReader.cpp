@@ -21,6 +21,11 @@ TagLibTagReader::~TagLibTagReader()
     metadataFile->save();
 }
 
+MetadataReader::MetadataType TagLibTagReader::getMetadataType() const
+{
+    return MetadataType::GenericTagLib;
+}
+
 int TagLibTagReader::getTrackNum()
 {
     return metadata->track();

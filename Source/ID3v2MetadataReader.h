@@ -26,7 +26,7 @@ public:
     
     static bool isID3v2Type(const TagLib::FileRef& fileToTest);
     
-    MetadataType getMetadataType() override;
+    MetadataType getMetadataType() const override;
     
     Image* getArtwork() override;
     
@@ -42,5 +42,4 @@ private:
     Image extractImage(TagLib::ID3v2::Tag* metadata);
     
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(ID3v2MetadataReader)
-    
 };

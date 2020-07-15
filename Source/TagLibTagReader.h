@@ -14,12 +14,16 @@
 #include "fileref.h"
 #include "tag.h"
 
+/*This class is used for reading metadata types that the taglib library supports. It is also derived from by specific metadata types that the taglib library supports but that support additional data*/
+
 class TagLibTagReader : public AudioMetadataReader
 {
 public:
     TagLibTagReader(std::unique_ptr<TagLib::File> file);
     TagLibTagReader(const TagLib::FileRef& file);
     ~TagLibTagReader();
+    
+    MetadataType getMetadataType() const override;
     
     int getTrackNum() override;
     String getTrackTitle() override;

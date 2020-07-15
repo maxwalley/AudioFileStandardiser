@@ -20,10 +20,11 @@ public:
     
     enum class MetadataType
     {
-        ID3v2
+        ID3v2,
+        GenericTagLib
     };
     
-    virtual MetadataType getMetadataType() = 0;
+    virtual MetadataType getMetadataType() const = 0;
     
     virtual void moveFileToNewDirectory(const String& newLocation);
     virtual void changeFileName(const String& newName);
