@@ -294,28 +294,33 @@ void Mediator::mouseDown(const MouseEvent& event)
         }
     }
     
-    if(event.mods.isRightButtonDown())
+    if(event.originalComponent->getComponentID().compare("table_editor") == 0)
     {
-        TableCellComponent* originalComponent = dynamic_cast<TableCellComponent*>(event.originalComponent);
-        if(originalComponent)
+        if(event.mods.isRightButtonDown())
         {
-            int componentRowNumber = originalComponent->getRowNumber();
-        
-            if(componentRowNumber != getNumberOfRowsToDisplay() - 1)
+            
+            TableCellComponent* originalComponent = dynamic_cast<TableCellComponent*>(event.originalComponent);
+            
+            if(originalComponent)
             {
-                int menuClicked = mainComponent->showTablePopup();
-                
-                //Play option
-                if(menuClicked == 1)
+                int componentRowNumber = originalComponent->getRowNumber();
+        
+                if(componentRowNumber != getNumberOfRowsToDisplay() - 1)
                 {
-                    playIndex(componentRowNumber, true);
-                    showPlayer(true);
-                }
+                    int menuClicked = mainComponent->showTablePopup();
                 
-                //Extra info option
-                else if(menuClicked == 2)
-                {
-                    std::cout << "Extra info" << std::endl;
+                    //Play option
+                    if(menuClicked == 1)
+                    {
+                        playIndex(componentRowNumber, true);
+                        showPlayer(true);
+                    }
+                
+                    //Extra info option
+                    else if(menuClicked == 2)
+                    {
+                        std::cout << "Extra info" << std::endl;
+                    }
                 }
             }
         }
