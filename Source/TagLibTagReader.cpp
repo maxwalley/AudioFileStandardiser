@@ -10,7 +10,7 @@
 
 #include "TagLibTagReader.h"
 
-TagLibTagReader::TagLibTagReader(std::unique_ptr<TagLib::File> file)   :   AudioMetadataReader(File(String(CharPointer_UTF8(file->name())))), metadataFile(std::move(file)), metadata(metadataFile->tag())
+TagLibTagReader::TagLibTagReader(std::unique_ptr<TagLib::File> file)   :   AudioMetadataReader(File(String(CharPointer_UTF8(file->name())))), metadataFile(std::move(file)), metadata(metadataFile->tag()), audioFileProps(metadataFile->audioProperties())
 {
     metadata->setGenre("");
     metadata->setComment("");
@@ -29,8 +29,6 @@ int TagLibTagReader::getTrackNum()
 String TagLibTagReader::getTrackTitle()
 {
     return String(metadata->title().to8Bit());
-    
-    //return String(CharPointer_UTF8(metadata->title()));
 }
 
 String TagLibTagReader::getArtistName()
@@ -71,4 +69,19 @@ void TagLibTagReader::setAlbumName(const String& newAlbumName)
 void TagLibTagReader::setYear(int newYear)
 {
     metadata->setYear(newYear);
+}
+
+int TagLibTagReader::getSampleRate() const
+{
+    return audioFileProps->sampleRate();
+}
+
+int TagLibTagReader::getNumChannels() const
+{
+    return audioFileProps->channels();
+}
+
+std::chrono::seconds TagLibTagReader::getLength() const
+{
+    return std::chrono::duration<int, std::ratio<1>>(audioFileProps->length());
 }

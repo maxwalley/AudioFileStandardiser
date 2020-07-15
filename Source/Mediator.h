@@ -105,6 +105,8 @@ private:
     
     std::unique_ptr<FileAndDirectoryControls> fileControls;
     
+    //std::unique_ptr<Component> extraInfoComponent;
+    
     std::unique_ptr<AudioPlayerGUI> audioPlayerControls;
     
     std::unique_ptr<AudioPlayer> player;

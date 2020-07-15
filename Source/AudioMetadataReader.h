@@ -31,5 +31,9 @@ public:
     virtual void setAlbumName(const String& newAlbumName) = 0;
     virtual void setYear(int newYear) = 0;
     
+    virtual int getSampleRate() const = 0;
+    virtual int getNumChannels() const = 0;
+    virtual std::chrono::seconds getLength() const = 0;
+    
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AudioMetadataReader)
 };

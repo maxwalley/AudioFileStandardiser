@@ -33,9 +33,14 @@ public:
     void setAlbumName(const String& newAlbumName) override;
     void setYear(int newYear) override;
     
+    int getSampleRate() const override;
+    int getNumChannels() const override;
+    std::chrono::seconds getLength() const override;
+    
 protected:
     std::unique_ptr<TagLib::File> metadataFile;
     TagLib::Tag* metadata;
+    TagLib::AudioProperties* audioFileProps;
     
     //JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TagLibTagReader)
 };
