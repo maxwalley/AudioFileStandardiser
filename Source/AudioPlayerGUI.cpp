@@ -83,6 +83,8 @@ AudioPlayerGUI::AudioPlayerGUI()
     titleLabel->setColour(Label::textColourId, Colours::black);
     
     addAndMakeVisible(progressBar.get());
+    progressBar->addMouseListener(AudioFileStandardiserApplication::getMediator(), true);
+    progressBar->setComponentID("playerGUI_prog_bar");
     
     addAndMakeVisible(timeGoneLabel.get());
     timeGoneLabel->setJustificationType(Justification::centred);

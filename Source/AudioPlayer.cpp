@@ -133,6 +133,11 @@ double AudioPlayer::getNumberOfSecondsLeft() const
     return transport.getLengthInSeconds() - transport.getCurrentPosition();
 }
 
+void AudioPlayer::setPosAsPercetageOfTrackLen(float percentage)
+{
+    transport.setPosition((percentage/100.0)*transport.getLengthInSeconds());
+}
+
 void AudioPlayer::setPlayerIndex(int newIndex)
 {
     playerIndex = newIndex;

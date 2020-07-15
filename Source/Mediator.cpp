@@ -284,6 +284,16 @@ void Mediator::textEditorTextChanged(TextEditor& editor)
 
 void Mediator::mouseDown(const MouseEvent& event)
 {
+    if(event.originalComponent->getComponentID().compare("playerGUI_prog_bar") == 0)
+    {
+        if(event.mods.isLeftButtonDown())
+        {
+            float percentageAlongClicked = (float(event.getMouseDownX())/float(event.originalComponent->getWidth())) * 100.0;
+            
+            player->setPosAsPercetageOfTrackLen(percentageAlongClicked);
+        }
+    }
+    
     if(event.mods.isRightButtonDown())
     {
         TableCellComponent* originalComponent = dynamic_cast<TableCellComponent*>(event.originalComponent);
