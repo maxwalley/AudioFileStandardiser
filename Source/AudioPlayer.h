@@ -49,6 +49,7 @@ public:
     double getCurrentPos() const;
     double getPosAsPercentageOfTrackLen() const;
     double getCurrentTrackLength() const;
+    double getNumberOfSecondsLeft() const;
     
     //Player index used for distinguishing one player from another - useful for its listener funcs
     void setPlayerIndex(int newIndex);

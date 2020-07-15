@@ -354,6 +354,8 @@ bool Mediator::keyPressed(const KeyPress& key, Component* originatingComponent)
 void Mediator::timerCallback()
 {
     audioPlayerControls->setPercentageThroughTrack(player->getPosAsPercentageOfTrackLen());
+
+    audioPlayerControls->setTimeThroughTrack(std::chrono::duration<int, std::ratio<1>>(int(player->getCurrentPos())));
 }
 
 bool Mediator::addNewFiles()
@@ -385,6 +387,8 @@ void Mediator::playIndex(int index, bool ignorePause)
             }
             
             audioPlayerControls->setTitleLabelText(dataHandler->getDataForItem(DataHandler::DataConcerned::trackTitle, index));
+            
+            audioPlayerControls->setLengthOfTrack(std::chrono::duration<int, std::ratio<1>>(int(player->getCurrentTrackLength())));
         }
         player->play();
         audioPlayerControls->setPlayButtonState(PlayerGUIButton::ControlType::pause);
@@ -402,6 +406,11 @@ void Mediator::showPlayer(bool show)
 {
     playerWindow->setVisible(show);
     menu->setPlayerWindowOpen(show);
+    
+    if(!show)
+    {
+        stopPlayer();
+    }
 }
 
 void Mediator::stopPlayer()

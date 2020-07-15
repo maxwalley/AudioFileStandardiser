@@ -17,6 +17,21 @@
 //==============================================================================
 /*
 */
+class PartiallyFilledRect   :   public Component
+{
+public:
+    PartiallyFilledRect(float percentage = 0.0);
+    ~PartiallyFilledRect();
+    
+    void paint(Graphics& g) override;
+    
+    void setPercentageToFill(float newPercentage);
+    float getPercentageToFill() const;
+    
+private:
+    float percentageToFill;
+};
+
 class AudioPlayerGUI    :   public Component
 {
 public:
@@ -24,8 +39,6 @@ public:
     ~AudioPlayerGUI();
 
     void paint(Graphics&) override;
-    
-    void paintOverChildren(Graphics& g) override;
     
     void resized() override;
 
@@ -39,7 +52,12 @@ public:
     
     void setPercentageThroughTrack(float newPercentage);
     
+    void setTimeThroughTrack(std::chrono::seconds timeThrough);
+    void setLengthOfTrack(std::chrono::seconds trackLen);
+    
 private:
+    
+    String convertTimeToString(std::chrono::seconds timeToConvert);
     
     std::unique_ptr<PlayerGUIButton> playPauseButton;
     std::unique_ptr<PlayerGUIButton> nextButton;
@@ -51,7 +69,11 @@ private:
     
     std::unique_ptr<Label> titleLabel;
     
-    float percentageThroughTrack;
+    std::unique_ptr<PartiallyFilledRect> progressBar;
+    
+    std::unique_ptr<Label> timeGoneLabel;
+    std::unique_ptr<Label> trackLengthLabel;
+    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPlayerGUI)
 };

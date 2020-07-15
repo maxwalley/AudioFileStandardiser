@@ -13,7 +13,37 @@
 #include "AudioFileStandardiserApplication.h"
 
 //==============================================================================
-AudioPlayerGUI::AudioPlayerGUI()    :   percentageThroughTrack(0.0)
+PartiallyFilledRect::PartiallyFilledRect(float percentage)  :   percentageToFill(percentage)
+{
+    
+}
+
+PartiallyFilledRect::~PartiallyFilledRect()
+{
+    
+}
+
+void PartiallyFilledRect::paint(Graphics& g)
+{
+    g.setColour(Colours::grey);
+    g.fillRect(0.0, 0.0, float(getWidth())/100.0 * percentageToFill, float(getHeight()));
+}
+
+void PartiallyFilledRect::setPercentageToFill(float newPercentage)
+{
+    if(newPercentage > 0 && newPercentage < 100)
+    {
+        percentageToFill = newPercentage;
+    }
+}
+
+float PartiallyFilledRect::getPercentageToFill() const
+{
+    return percentageToFill;
+}
+
+
+AudioPlayerGUI::AudioPlayerGUI()
 {
     playPauseButton = std::make_unique<PlayerGUIButton>(PlayerGUIButton::ControlType::play);
     nextButton = std::make_unique<PlayerGUIButton>(PlayerGUIButton::ControlType::next);
@@ -21,6 +51,9 @@ AudioPlayerGUI::AudioPlayerGUI()    :   percentageThroughTrack(0.0)
     artworkDisplayer = std::make_unique<ImageComponent>();
     volumeSlider = std::make_unique<Slider>();
     titleLabel = std::make_unique<Label>();
+    progressBar = std::make_unique<PartiallyFilledRect>();
+    timeGoneLabel = std::make_unique<Label>();
+    trackLengthLabel = std::make_unique<Label>();
     
     addAndMakeVisible(playPauseButton.get());
     playPauseButton->setComponentID("player_play_button");
@@ -49,6 +82,20 @@ AudioPlayerGUI::AudioPlayerGUI()    :   percentageThroughTrack(0.0)
     titleLabel->setJustificationType(Justification::centred);
     titleLabel->setColour(Label::textColourId, Colours::black);
     
+    addAndMakeVisible(progressBar.get());
+    
+    addAndMakeVisible(timeGoneLabel.get());
+    timeGoneLabel->setJustificationType(Justification::centred);
+    timeGoneLabel->setColour(Label::textColourId, Colours::black);
+    timeGoneLabel->setFont(Font(13));
+    addAndMakeVisible(trackLengthLabel.get());
+    trackLengthLabel->setJustificationType(Justification::centred);
+    trackLengthLabel->setColour(Label::textColourId, Colours::black);
+    trackLengthLabel->setFont(Font(13));
+    
+    timeGoneLabel->setText("test", dontSendNotification);
+    trackLengthLabel->setText("test", dontSendNotification);
+    
     setSize(300, 450);
 }
 
@@ -62,14 +109,6 @@ void AudioPlayerGUI::paint(Graphics& g)
     g.fillAll(Colours::lightgrey);
 }
 
-void AudioPlayerGUI::paintOverChildren(Graphics& g)
-{
-    g.setColour(Colours::green);
-    
-    //Progress Bar
-    g.fillRect(20.0, float(getWidth())-20.0, float(((float(getWidth())-40.0)/100.0) * percentageThroughTrack), 10.0);
-}
-
 void AudioPlayerGUI::resized()
 {
     playPauseButton->setBounds(getWidth()/2 - 20, getHeight() - 95, 40, 40);
@@ -80,7 +119,12 @@ void AudioPlayerGUI::resized()
     
     volumeSlider->setBounds(20, getHeight()-30, getWidth()-40, 20);
     
-    titleLabel->setBounds(20, getWidth()-10, getWidth()-40, 20);
+    titleLabel->setBounds(20, getHeight() - 130, getWidth()-40, 20);
+    
+    progressBar->setBounds(20, getWidth()-20, getWidth()-40, 10);
+    
+    timeGoneLabel->setBounds(10, getHeight()-160, 30, 20);
+    trackLengthLabel->setBounds(getWidth()-40, getHeight()-160, 30, 20);
 }
 
 void AudioPlayerGUI::setPlayButtonState(PlayerGUIButton::ControlType state)
@@ -105,6 +149,42 @@ void AudioPlayerGUI::setTitleLabelText(const String& newText)
 
 void AudioPlayerGUI::setPercentageThroughTrack(float newPercentage)
 {
-    percentageThroughTrack = newPercentage;
-    repaint(20, getWidth()-20, getWidth()-40, 10);
+    progressBar->setPercentageToFill(newPercentage);
+    progressBar->repaint();
+}
+
+void AudioPlayerGUI::setTimeThroughTrack(std::chrono::seconds timeThrough)
+{
+    timeGoneLabel->setText(convertTimeToString(timeThrough), dontSendNotification);
+}
+
+void AudioPlayerGUI::setLengthOfTrack(std::chrono::seconds trackLen)
+{
+    trackLengthLabel->setText(convertTimeToString(trackLen), dontSendNotification);
+}
+
+String AudioPlayerGUI::convertTimeToString(std::chrono::seconds timeToConvert)
+{
+    //Get minutes
+    std::chrono::duration<int, std::ratio<60>> timeInMins = std::chrono::floor<std::chrono::duration<int, std::ratio<60>>>(timeToConvert);
+    
+    //This leaves minutes with minutes and timeToConvert with just seconds
+    timeToConvert -= timeInMins;
+    
+    int minutes = timeInMins.count();
+    int seconds = timeToConvert.count();
+    
+    String secondsString;
+    
+    //Adds the 0 on if needed
+    if(seconds < 10)
+    {
+        secondsString = "0" + String(seconds);
+    }
+    else
+    {
+        secondsString = String(seconds);
+    }
+    
+    return String(String(minutes) + ":" + secondsString);
 }

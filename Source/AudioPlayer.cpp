@@ -128,6 +128,11 @@ double AudioPlayer::getCurrentTrackLength() const
     return transport.getLengthInSeconds();
 }
 
+double AudioPlayer::getNumberOfSecondsLeft() const
+{
+    return transport.getLengthInSeconds() - transport.getCurrentPosition();
+}
+
 void AudioPlayer::setPlayerIndex(int newIndex)
 {
     playerIndex = newIndex;
