@@ -30,8 +30,16 @@ void MetadataReader::moveFileToNewDirectory(const String& newLocation)
 void MetadataReader::changeFileName(const String& newName)
 {
     String newPath = fileToRead.getFullPathName().replace(fileToRead.getFileNameWithoutExtension(), newName);
-    fileToRead.moveFileTo(File(newPath));
-    fileToRead = newPath;
+    
+    //creates a new empty file
+    std::optional<File> newFile = FileAndFolderCreator::createNewFolder(newPath);
+    
+    if(newFile != std::nullopt)
+    {
+        //Overwrites the old file with the new one
+        fileToRead.moveFileTo(*newFile);
+        fileToRead = *newFile;
+    }
 }
 
 File& MetadataReader::getFile()

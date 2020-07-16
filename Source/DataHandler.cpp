@@ -53,6 +53,10 @@ void DataHandler::setDataForItem(DataConcerned typeOfData, int itemIndex, const 
             case DataConcerned::fileName:
                 readers[itemIndex].object->changeFileName(newData);
                 break;
+                
+            case DataConcerned::length:
+                //Error
+                break;
         }
     }
 }
@@ -130,6 +134,10 @@ String DataHandler::getDataForItem(DataConcerned typeOfData, int index) const
             
         case DataConcerned::fileName:
             return readers[index].object->getFile().getFileNameWithoutExtension();
+            break;
+            
+        case DataConcerned::length:
+            return  ChronoTimeToStringConverter::convertToWildcardString("%m:%s", readers[index].object->getLength());
             break;
     }
 }

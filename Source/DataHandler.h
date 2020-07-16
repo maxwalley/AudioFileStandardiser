@@ -12,6 +12,7 @@
 
 #include "TagLibTagReader.h"
 #include "AudioMetadataManager.h"
+#include "ChronoTimeToStringConverter.h"
 
 template <class t>
 struct SelectionData
@@ -38,7 +39,8 @@ public:
         albumName = 4,
         year = 5,
         fileExtension = 6,
-        fileName = 7
+        fileName = 7,
+        length = 8
     };
     
     void setDataForItem(DataConcerned typeOfData, int itemIndex, const String& newData);

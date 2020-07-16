@@ -125,8 +125,8 @@ void AudioPlayerGUI::resized()
     
     progressBar->setBounds(20, getWidth()-20, getWidth()-40, 10);
     
-    timeGoneLabel->setBounds(10, getHeight()-160, 30, 20);
-    trackLengthLabel->setBounds(getWidth()-40, getHeight()-160, 30, 20);
+    timeGoneLabel->setBounds(0, getHeight()-160, 40, 20);
+    trackLengthLabel->setBounds(getWidth()-40, getHeight()-160, 40, 20);
 }
 
 void AudioPlayerGUI::setPlayButtonState(PlayerGUIButton::ControlType state)
@@ -157,36 +157,10 @@ void AudioPlayerGUI::setPercentageThroughTrack(float newPercentage)
 
 void AudioPlayerGUI::setTimeThroughTrack(std::chrono::seconds timeThrough)
 {
-    timeGoneLabel->setText(convertTimeToString(timeThrough), dontSendNotification);
+    timeGoneLabel->setText(ChronoTimeToStringConverter::convertToWildcardString("%m:%s", timeThrough), dontSendNotification);
 }
 
 void AudioPlayerGUI::setLengthOfTrack(std::chrono::seconds trackLen)
 {
-    trackLengthLabel->setText(convertTimeToString(trackLen), dontSendNotification);
-}
-
-String AudioPlayerGUI::convertTimeToString(std::chrono::seconds timeToConvert)
-{
-    //Get minutes
-    std::chrono::duration<int, std::ratio<60>> timeInMins = std::chrono::floor<std::chrono::duration<int, std::ratio<60>>>(timeToConvert);
-    
-    //This leaves minutes with minutes and timeToConvert with just seconds
-    timeToConvert -= timeInMins;
-    
-    int minutes = timeInMins.count();
-    int seconds = timeToConvert.count();
-    
-    String secondsString;
-    
-    //Adds the 0 on if needed
-    if(seconds < 10)
-    {
-        secondsString = "0" + String(seconds);
-    }
-    else
-    {
-        secondsString = String(seconds);
-    }
-    
-    return String(String(minutes) + ":" + secondsString);
+    trackLengthLabel->setText(ChronoTimeToStringConverter::convertToWildcardString("%m:%s", trackLen), dontSendNotification);
 }

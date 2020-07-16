@@ -418,7 +418,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\FileAndFolderCreator.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\AudioFileStandardiserApplication.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ChronoTimeToStringConverter.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\AudioPlayer.cpp">
@@ -2415,7 +2421,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\FileAndFolderCreator.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\AudioFileStandardiserApplication.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ChronoTimeToStringConverter.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\AudioPlayer.h">

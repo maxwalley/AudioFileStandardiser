@@ -61,9 +61,17 @@
 			isa = PBXBuildFile;
 			fileRef = 5A15C4E4BFD977D25E18ACFE;
 		};
+		6767CD913BAE18CD9A371A7C = {
+			isa = PBXBuildFile;
+			fileRef = 1C2E4CC21714D1490BA97A0E;
+		};
 		03C2514A5C33E4A779D196FC = {
 			isa = PBXBuildFile;
 			fileRef = 3985FB687817540C08DCE01F;
+		};
+		02097C08365FA9C3F8088AED = {
+			isa = PBXBuildFile;
+			fileRef = 2EC0A34D20C581E0E439B24B;
 		};
 		CA91BF855E8301AC7C580E3A = {
 			isa = PBXBuildFile;
@@ -271,6 +279,13 @@
 			path = AudioFileStandardiser.entitlements;
 			sourceTree = "SOURCE_ROOT";
 		};
+		106A704D113734BD496453CD = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = FileAndFolderCreator.h;
+			path = ../../Source/FileAndFolderCreator.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		123BB4CC297305689050A3C7 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -305,6 +320,13 @@
 			name = Accelerate.framework;
 			path = System/Library/Frameworks/Accelerate.framework;
 			sourceTree = SDKROOT;
+		};
+		1C2E4CC21714D1490BA97A0E = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = FileAndFolderCreator.cpp;
+			path = ../../Source/FileAndFolderCreator.cpp;
+			sourceTree = "SOURCE_ROOT";
 		};
 		1C9411EAC797752A18F6EDE1 = {
 			isa = PBXFileReference;
@@ -367,6 +389,13 @@
 			lastKnownFileType = sourcecode.cpp.objcpp;
 			name = "include_juce_events.mm";
 			path = "../../JuceLibraryCode/include_juce_events.mm";
+			sourceTree = "SOURCE_ROOT";
+		};
+		2EC0A34D20C581E0E439B24B = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = ChronoTimeToStringConverter.cpp;
+			path = ../../Source/ChronoTimeToStringConverter.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
 		30B05E1C0E8D7384BB1C0C21 = {
@@ -719,6 +748,13 @@
 			path = ../../Source/BatchRenameControls.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		A9D51009877D476E6D30A301 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = ChronoTimeToStringConverter.h;
+			path = ../../Source/ChronoTimeToStringConverter.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		AA38239E485313439431C6F8 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
@@ -987,8 +1023,12 @@
 		329608004BEDC20C07FBE1D7 = {
 			isa = PBXGroup;
 			children = (
+				106A704D113734BD496453CD,
+				1C2E4CC21714D1490BA97A0E,
 				95DF3A55BEC811450330A89F,
 				3985FB687817540C08DCE01F,
+				A9D51009877D476E6D30A301,
+				2EC0A34D20C581E0E439B24B,
 				E48E3B43B5D51D6FDED17D62,
 				8487E93A1F00F32D8917E116,
 				DA0740EB4AE70ED6C8AEBBA3,
@@ -1341,7 +1381,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6767CD913BAE18CD9A371A7C,
 				03C2514A5C33E4A779D196FC,
+				02097C08365FA9C3F8088AED,
 				CA91BF855E8301AC7C580E3A,
 				48835DE9F7B164A17F8BBF89,
 				B686EE4F07F2FDB7AAD8CFDF,

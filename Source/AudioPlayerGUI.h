@@ -12,6 +12,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PlayerGUIButton.h"
+#include "ChronoTimeToStringConverter.h"
 
 
 //==============================================================================
@@ -56,8 +57,6 @@ public:
     void setLengthOfTrack(std::chrono::seconds trackLen);
     
 private:
-    
-    String convertTimeToString(std::chrono::seconds timeToConvert);
     
     std::unique_ptr<PlayerGUIButton> playPauseButton;
     std::unique_ptr<PlayerGUIButton> nextButton;

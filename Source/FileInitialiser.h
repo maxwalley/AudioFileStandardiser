@@ -12,8 +12,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "AudioMetadataManager.h"
+#include "FileAndFolderCreator.h"
 
-//class Mediator;
 
 class FileInitialiser
 {

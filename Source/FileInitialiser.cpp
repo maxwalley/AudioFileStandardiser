@@ -119,25 +119,16 @@ std::optional<File> FileInitialiser::decompressZipToLocation(const File& zip)
             
         String newDirName = zip.getParentDirectory().getFullPathName() + "/" + zip.getFileNameWithoutExtension();
         
-        if(File(newDirName).isDirectory())
+        std::optional<File> newFolder = FileAndFolderCreator::createNewFolder(newDirName);
+        
+        if(newFolder == std::nullopt)
         {
-            if(!AlertWindow::showNativeDialogBox("Duplicate folder names", "A folder with this name already exists in this directory, would you like a similar name to be allocated?", true))
-            {
-                return std::nullopt;
-            }
-            
-            bool nameFound = false;
-            for(int i = 0; !nameFound; i++)
-            {
-                if(!File(newDirName + " (" + String(i+1) + ")").isDirectory())
-                {
-                    newDirName = newDirName + " (" + String(i+1) + ")";
-                    nameFound = true;
-                }
-            }
+            return std::nullopt;
         }
         
-        file.uncompressTo(newDirName);
+        DBG(newFolder->getFullPathName());
+        
+        file.uncompressTo(*newFolder);
         return File(newDirName);
     }
     return zip;

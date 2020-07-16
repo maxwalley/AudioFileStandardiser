@@ -3,10 +3,18 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               jucerVersion="5.4.5" cppLanguageStandard="17">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
+    <FILE id="QnQ6bo" name="FileAndFolderCreator.h" compile="0" resource="0"
+          file="Source/FileAndFolderCreator.h"/>
+    <FILE id="uquJLC" name="FileAndFolderCreator.cpp" compile="1" resource="0"
+          file="Source/FileAndFolderCreator.cpp"/>
     <FILE id="I1eyuV" name="AudioFileStandardiserApplication.h" compile="0"
           resource="0" file="Source/AudioFileStandardiserApplication.h"/>
     <FILE id="SImdTD" name="AudioFileStandardiserApplication.cpp" compile="1"
           resource="0" file="Source/AudioFileStandardiserApplication.cpp"/>
+    <FILE id="WclxqP" name="ChronoTimeToStringConverter.h" compile="0"
+          resource="0" file="Source/ChronoTimeToStringConverter.h"/>
+    <FILE id="l9QnN9" name="ChronoTimeToStringConverter.cpp" compile="1"
+          resource="0" file="Source/ChronoTimeToStringConverter.cpp"/>
     <GROUP id="{9034DDFF-7CA7-F81D-8195-19CAB99CE7FA}" name="AudioPlayer">
       <FILE id="JpLbQ5" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
       <FILE id="XgnrEt" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>

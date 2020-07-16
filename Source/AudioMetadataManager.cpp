@@ -28,7 +28,9 @@ std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(
         
         if(mpegFile->hasID3v2Tag())
         {
-            return std::make_unique<ID3v2MetadataReader>(std::move(mpegFile));
+            TagLib::ID3v2::Tag* mpegTag = mpegFile->ID3v2Tag();
+            
+            return std::make_unique<ID3v2MetadataReader>(std::move(mpegFile), mpegTag);
         }
         
         else if(mpegFile->hasID3v1Tag())
@@ -43,7 +45,14 @@ std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(
         
         if(wavFile->hasID3v2Tag())
         {
-            return std::make_unique<ID3v2MetadataReader>(std::move(wavFile));
+            TagLib::ID3v2::Tag* tag = wavFile->ID3v2Tag();
+            
+            return std::make_unique<ID3v2MetadataReader>(std::move(wavFile), tag);
+        }
+        
+        else if(wavFile->hasInfoTag())
+        {
+            return std::make_unique<TagLibTagReader>(std::move(wavFile));
         }
     }
     
@@ -53,7 +62,7 @@ std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(
         
         if(aiffFile->hasID3v2Tag())
         {
-            return std::make_unique<ID3v2MetadataReader>(std::move(aiffFile));
+            return std::make_unique<ID3v2MetadataReader>(std::move(aiffFile), aiffFile->tag());
         }
     }
     
@@ -63,7 +72,9 @@ std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(
         
         if(flacFile->hasID3v2Tag())
         {
-            return std::make_unique<ID3v2MetadataReader>(std::move(flacFile));
+            TagLib::ID3v2::Tag* tag = flacFile->ID3v2Tag();
+            
+            return std::make_unique<ID3v2MetadataReader>(std::move(flacFile), tag);
         }
         
         else if(flacFile->hasID3v1Tag())
@@ -78,7 +89,9 @@ std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(
         
         if(ttaFile->hasID3v2Tag())
         {
-            return std::make_unique<ID3v2MetadataReader>(std::move(ttaFile));
+            TagLib::ID3v2::Tag* tag = ttaFile->ID3v2Tag();
+            
+            return std::make_unique<ID3v2MetadataReader>(std::move(ttaFile), tag);
         }
         
         else if(ttaFile->hasID3v1Tag())
@@ -97,12 +110,12 @@ std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(
         }
     }
     
-    else if(file.getFileExtension().compareIgnoreCase(".mod") == 0 || file.getFileExtension().compareIgnoreCase(".s3m") == 0 || file.getFileExtension().compareIgnoreCase(".xm") == 0)
+    /*else if(file.getFileExtension().compareIgnoreCase(".mod") == 0 || file.getFileExtension().compareIgnoreCase(".s3m") == 0 || file.getFileExtension().compareIgnoreCase(".xm") == 0)
     {
         std::unique_ptr<TagLib::File> modFile = std::make_unique<TagLib::File>(file.getFullPathName().toRawUTF8());
         
         return std::make_unique<TagLibTagReader>(std::move(modFile));
-    }
+    }*/
     
     return nullptr;
 }

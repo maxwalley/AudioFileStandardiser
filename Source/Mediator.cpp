@@ -46,6 +46,10 @@ void Mediator::initialiseComponents()
     playerWindow->setContentNonOwned(audioPlayerControls.get(), true);
     playerWindow->addActionListener(this);
     currentPlayingIndex = -1;
+    
+    File newTest("/Users/maxwalley/Desktop/Coldplay - Love In Tokyo/THIS IS A TEST");
+    std::cout << int(newTest.exists()) << std::endl;
+    
 }
 
 TableModel* Mediator::getTableModel()

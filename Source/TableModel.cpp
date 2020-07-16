@@ -49,7 +49,7 @@ Component* TableModel::refreshComponentForCell(int rowNumber, int columnId, bool
     //If no component currently exists
     if(existingComponentToUpdate == nullptr)
     {
-        if(columnId == 7)
+        if(columnId == 100)
         {
             TableToggleButtonComponent* componentToAdd = new TableToggleButtonComponent();
             componentToAdd->addListener(AudioFileStandardiserApplication::getMediator());
@@ -78,27 +78,31 @@ Component* TableModel::refreshComponentForCell(int rowNumber, int columnId, bool
             componentToAdd->setColour(TextEditor::backgroundColourId, Colours::lightgrey);
         }
         
-        if((columnId == 1 || columnId == 5) && columnId != 6)
+        //Justification
+        if(columnId == 1 || columnId == 5 || columnId == 6)
         {
             componentToAdd->setJustification(Justification::centred);
-            componentToAdd->setInputRestrictions(0, "0123456789");
         }
         else
         {
             componentToAdd->setJustification(Justification::left);
         }
         
-        if(columnId == 6)
+        //Enabled/input restrictions
+        if(columnId == 6 || columnId == 8)
         {
-            componentToAdd->setJustification(Justification::centred);
             componentToAdd->setEnabled(false);
+        }
+        else if(columnId == 1 || columnId == 5)
+        {
+            componentToAdd->setInputRestrictions(0, "0123456789");
         }
         
         return componentToAdd;
     }
     
     //If a component is already there
-    if(columnId != 7)
+    if(columnId != 100)
     {
         //Casts the component to the table specific class
         TableTextEditorComponent* componentToUpdate = dynamic_cast<TableTextEditorComponent*>(existingComponentToUpdate);

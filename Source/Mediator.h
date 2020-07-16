@@ -24,6 +24,8 @@
 #include "AudioPlayerListener.h"
 #include "ComponentWindow.h"
 
+#include "ChronoTimeToStringConverter.h"
+
 class NewMainComponent;
 
 class Mediator  :   public ActionListener,

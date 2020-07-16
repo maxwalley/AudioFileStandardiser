@@ -138,7 +138,9 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\FileAndFolderCreator.cpp"/>
     <ClCompile Include="..\..\Source\AudioFileStandardiserApplication.cpp"/>
+    <ClCompile Include="..\..\Source\ChronoTimeToStringConverter.cpp"/>
     <ClCompile Include="..\..\Source\AudioPlayer.cpp"/>
     <ClCompile Include="..\..\Source\AudioPlayerListener.cpp"/>
     <ClCompile Include="..\..\Source\PlayerGUIButton.cpp"/>
@@ -1934,7 +1936,9 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\FileAndFolderCreator.h"/>
     <ClInclude Include="..\..\Source\AudioFileStandardiserApplication.h"/>
+    <ClInclude Include="..\..\Source\ChronoTimeToStringConverter.h"/>
     <ClInclude Include="..\..\Source\AudioPlayer.h"/>
     <ClInclude Include="..\..\Source\AudioPlayerListener.h"/>
     <ClInclude Include="..\..\Source\PlayerGUIButton.h"/>
