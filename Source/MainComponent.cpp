@@ -22,13 +22,13 @@ MainComponent::MainComponent() : openSourceButton("Open Source"), fileLoaded(fal
     fileTable.setName("File Table");
     fileTable.addActionListener(this);
     
-    setMacMainMenu(this);
+    //setMacMainMenu(this);
     
 }
     
 MainComponent::~MainComponent()
 {
-    setMacMainMenu(0);
+    //setMacMainMenu(0);
 }
 
 //==============================================================================

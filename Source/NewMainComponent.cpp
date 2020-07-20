@@ -20,7 +20,7 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
     addAndMakeVisible(introComponent);
     
     addAndMakeVisible(table);
-    table.setHeader(new TableHeaderComponent);
+    table.setHeader(std::make_unique<TableHeaderComponent>());
     table.getHeader().addColumn("Track", 1, 50, 50, 50, 13);
     table.getHeader().addColumn("Track Name", 2, 150, 150, 150, 13);
     table.getHeader().addColumn("Artist Name", 3, 150, 150, 150, 13);

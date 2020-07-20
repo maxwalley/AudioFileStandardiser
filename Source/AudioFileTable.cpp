@@ -62,7 +62,7 @@ AudioFileTable::AudioFileTable()    :   fileNamesToChangeWithTitle(false), showB
     addAndMakeVisible(table);
     
     table.setModel(this);
-    table.setHeader(new TableHeaderComponent);
+    table.setHeader(std::make_unique<TableHeaderComponent>());
     
     table.getHeader().addColumn("Track", 1, 50, 50, 50, 1);
     table.getHeader().addColumn("Track Name", 2, 150, 150, 150, 1);

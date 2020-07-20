@@ -83,10 +83,8 @@ public:
                                                                           .findColour (ResizableWindow::backgroundColourId),
                                                     DocumentWindow::allButtons)
         {
-            setUsingNativeTitleBar (true);
+            //setUsingNativeTitleBar (true);
             
-            //setContentOwned (AudioFileStandardiserApplication::getMediator()->getMainComponent(), true);
-            //setContentNonOwned(AudioFileStandardiserApplication::getMediator()->getMainComponent(), true);
             
            #if JUCE_IOS || JUCE_ANDROID
             setFullScreen (true);
