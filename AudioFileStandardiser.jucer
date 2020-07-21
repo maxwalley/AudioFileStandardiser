@@ -140,12 +140,12 @@
         <MODULEPATH id="juce_audio_utils" path="../../C++ Libs and Frameworks/JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <VS2019 targetFolder="Builds/VisualStudio2019" externalLibraries="tag&#10;tag_c">
+    <VS2019 targetFolder="Builds/VisualStudio2019" externalLibraries="tag.lib&#10;tag_c.lib">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" headerPath="$(SolutionDir)/Dependencies/taglib/include/taglib&#10;"
-                       libraryPath="$(SolutionDir)/Dependencies/taglib/include/lib&#10;"/>
-        <CONFIGURATION isDebug="0" name="Release" headerPath="$(SolutionDir)/Dependencies/taglib/include/taglib&#10;"
-                       libraryPath="$(SolutionDir)/Dependencies/taglib/include/lib&#10;"/>
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="$(SolutionDir)Dependencies\taglib\include\taglib"
+                       libraryPath="$(SolutionDir)Dependencies\taglib\lib&#10;"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="$(SolutionDir)Dependencies\taglib\include\taglib&#10;"
+                       libraryPath="$(SolutionDir)Dependencies\taglib\lib&#10;"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_opengl"/>

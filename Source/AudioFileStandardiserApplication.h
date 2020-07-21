@@ -18,9 +18,9 @@ class AudioFileStandardiserApplication  : public JUCEApplication
 {
 public:
     //==============================================================================
-    AudioFileStandardiserApplication() {}
+	AudioFileStandardiserApplication() {}
 
-    const String getApplicationName() override       { return ProjectInfo::projectName; }
+    const String getApplicationName() override       { return ProjectInfo::projectName;}
     const String getApplicationVersion() override    { return ProjectInfo::versionString; }
     bool moreThanOneInstanceAllowed() override       { return true; }
 
@@ -29,10 +29,24 @@ public:
     {
         mediator = std::make_unique<Mediator>();
         // This method is where you should put your application's initialisation code..
+
         mainWindow.reset (new MainWindow (getApplicationName()));
         
+		DBG("TEST 3");
+
         mediator->initialiseComponents();
-        
+
+		DBG("TEST 4");
+
+		if (mediator->getMainComponent() == nullptr)
+		{
+			DBG("NULL");
+		}
+		else
+		{
+			DBG("Not NUll");
+		}
+
         mainWindow->setContentNonOwned(mediator->getMainComponent(), true);
     }
 
@@ -83,7 +97,7 @@ public:
                                                                           .findColour (ResizableWindow::backgroundColourId),
                                                     DocumentWindow::allButtons)
         {
-            //setUsingNativeTitleBar (true);
+            setUsingNativeTitleBar (true);
             
             
            #if JUCE_IOS || JUCE_ANDROID
@@ -110,7 +124,7 @@ public:
            you really have to override any DocumentWindow methods, make sure your
            subclass also calls the superclass's method.
         */
-
+	
     private:
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainWindow)
     };

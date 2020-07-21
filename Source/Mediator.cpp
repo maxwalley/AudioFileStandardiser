@@ -47,9 +47,6 @@ void Mediator::initialiseComponents()
     playerWindow->addActionListener(this);
     currentPlayingIndex = -1;
     
-    File newTest("/Users/maxwalley/Desktop/Coldplay - Love In Tokyo/THIS IS A TEST");
-    std::cout << int(newTest.exists()) << std::endl;
-    
 }
 
 TableModel* Mediator::getTableModel()

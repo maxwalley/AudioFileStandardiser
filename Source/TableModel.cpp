@@ -52,7 +52,7 @@ Component* TableModel::refreshComponentForCell(int rowNumber, int columnId, bool
         if(columnId == 100)
         {
             TableToggleButtonComponent* componentToAdd = new TableToggleButtonComponent();
-            componentToAdd->addListener(AudioFileStandardiserApplication::getMediator());
+            //componentToAdd->addListener(AudioFileStandardiserApplication::getMediator());
             componentToAdd->setLocationInTable(columnId, rowNumber);
             //Sets the name for identification by a listener
             componentToAdd->setComponentID("table_button");
@@ -60,7 +60,7 @@ Component* TableModel::refreshComponentForCell(int rowNumber, int columnId, bool
         }
         
         TableTextEditorComponent* componentToAdd = new TableTextEditorComponent();
-        componentToAdd->addListener(AudioFileStandardiserApplication::getMediator());
+        //componentToAdd->addListener(AudioFileStandardiserApplication::getMediator());
         componentToAdd->setPopupMenuEnabled(false);
         //Sets the name for identification by a listener
         componentToAdd->setComponentID("table_editor");
@@ -111,7 +111,7 @@ Component* TableModel::refreshComponentForCell(int rowNumber, int columnId, bool
     
         if(rowNumber < getNumRows())
         {
-            componentToUpdate->setText(AudioFileStandardiserApplication::getMediator()->getDataForCell(rowNumber, columnId), dontSendNotification);
+            //componentToUpdate->setText(AudioFileStandardiserApplication::getMediator()->getDataForCell(rowNumber, columnId), dontSendNotification);
             
             return componentToUpdate;
         }
@@ -122,7 +122,7 @@ Component* TableModel::refreshComponentForCell(int rowNumber, int columnId, bool
     {
         TableToggleButtonComponent* componentToUpdate = dynamic_cast<TableToggleButtonComponent*>(existingComponentToUpdate);
         
-        componentToUpdate->setToggleState(AudioFileStandardiserApplication::getMediator()->getSelectedForRow(rowNumber), dontSendNotification);
+        //componentToUpdate->setToggleState(AudioFileStandardiserApplication::getMediator()->getSelectedForRow(rowNumber), dontSendNotification);
         
         return componentToUpdate;
     }

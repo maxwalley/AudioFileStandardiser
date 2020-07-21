@@ -130,5 +130,7 @@ bool AudioMetadataManager::moveFileBasedOnWildcardPath(AudioMetadataReader* file
     }
     
     fileToMove->moveFileToNewDirectory(convertedLocation);
+
+	return true;
 }
 

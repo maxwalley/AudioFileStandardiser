@@ -8,7 +8,7 @@
   ==============================================================================
 */
 
-#include "../JuceLibraryCode/JuceHeader.h"
+//#include "../JuceLibraryCode/JuceHeader.h"
 #include "NewMainComponent.h"
 #include "AudioFileStandardiserApplication.h"
 
@@ -65,7 +65,7 @@ void NewMainComponent::resized()
     {
         int tableHeight = table.getHeaderHeight() + (AudioFileStandardiserApplication::getMediator()->getNumberOfRowsToDisplay() * table.getRowHeight());
         int tableWidth;
-        
+
         if(tableHeight > 530)
         {
             tableWidth = 658;
