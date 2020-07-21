@@ -1,0 +1,239 @@
+﻿  FileAndFolderCreator.cpp
+  AudioFileStandardiserApplication.cpp
+  ChronoTimeToStringConverter.cpp
+  AudioPlayer.cpp
+  AudioPlayerListener.cpp
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerListener.h(21,46): warning C4100:  'playerThatHasFinished': unreferenced formal parameter (compiling source file ..\..\Source\AudioPlayer.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\AudioFileStandardiserApplication.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\AudioFileStandardiserApplication.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\AudioFileStandardiserApplication.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\AudioFileStandardiserApplication.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerListener.h(21,46): warning C4100:  'playerThatHasFinished': unreferenced formal parameter (compiling source file ..\..\Source\AudioFileStandardiserApplication.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(28,36): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\AudioFileStandardiserApplication.cpp)
+  PlayerGUIButton.cpp
+  AudioPlayerGUI.cpp
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(68,48): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\AudioFileStandardiserApplication.cpp)
+  AudioMetadataManager.cpp
+  MetadataReader.cpp
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerListener.h(21,46): warning C4100:  'playerThatHasFinished': unreferenced formal parameter (compiling source file ..\..\Source\AudioPlayerListener.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(28,46): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(28,33): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(38,127): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(38,111): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(38,93): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(38,72): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(38,55): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(38,39): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(44,87): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(44,66): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(44,49): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(44,33): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(45,87): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(45,66): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(45,49): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(45,33): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(57,120): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(57,100): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(57,86): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(57,70): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(57,51): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(57,36): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(58,91): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(58,70): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(58,51): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(58,35): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(64,126): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(64,105): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(64,86): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(64,70): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(64,51): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(64,36): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(65,79): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(65,59): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(65,45): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(65,30): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(24,90): warning C4100:  'shouldDrawButtonAsDown': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\PlayerGUIButton.cpp(24,54): warning C4100:  'shouldDrawButtonAsHighlighted': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\AudioPlayerGUI.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\AudioPlayerGUI.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\AudioPlayerGUI.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\AudioPlayerGUI.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerListener.h(21,46): warning C4100:  'playerThatHasFinished': unreferenced formal parameter (compiling source file ..\..\Source\AudioPlayerGUI.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\AudioMetadataManager.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\AudioMetadataManager.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\AudioMetadataManager.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\AudioMetadataManager.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(28,36): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\AudioPlayerGUI.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(68,48): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\AudioPlayerGUI.cpp)
+  AudioMetadataReader.cpp
+  TagLibTagReader.cpp
+  ID3v2MetadataReader.cpp
+  ComponentWindow.cpp
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerGUI.cpp(29,50): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\TagLibTagReader.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\TagLibTagReader.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\TagLibTagReader.cpp)
+  BatchControlsImplementation.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\TagLibTagReader.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\ID3v2MetadataReader.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\ID3v2MetadataReader.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\ID3v2MetadataReader.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\ID3v2MetadataReader.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\ID3v2MetadataReader.cpp(38,61): warning C4458:  declaration of 'metadata' hides class member
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\TagLibTagReader.h(46,18): message :  see declaration of 'TagLibTagReader::metadata' (compiling source file ..\..\Source\ID3v2MetadataReader.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tlist.tcc(199,1): warning C4267:  'return': conversion from 'size_t' to 'unsigned int', possible loss of data (compiling source file ..\..\Source\ID3v2MetadataReader.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tlist.tcc(198): message :  while compiling class template member function 'unsigned int TagLib::List<TagLib::ID3v2::Frame *>::size(void) const' (compiling source file ..\..\Source\ID3v2MetadataReader.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\ID3v2MetadataReader.cpp(40): message :  see reference to function template instantiation 'unsigned int TagLib::List<TagLib::ID3v2::Frame *>::size(void) const' being compiled
+  MenuModel.cpp
+  LookAndFeels.cpp
+  TableModel.cpp
+  NewMainComponent.cpp
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\ID3v2MetadataReader.cpp(40): message :  see reference to class template instantiation 'TagLib::List<TagLib::ID3v2::Frame *>' being compiled
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\LookAndFeels.cpp(17,26): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\LookAndFeels.cpp(18,24): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\LookAndFeels.cpp(18,17): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\LookAndFeels.cpp(19,20): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\LookAndFeels.cpp(13,98): warning C4100:  'editor': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\MenuModel.cpp(74,42): warning C4100:  'topLevelMenuIndex': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\TableModel.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\TableModel.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\TableModel.cpp)
+  IntroComponent.cpp
+  Logger.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\TableModel.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerListener.h(21,46): warning C4100:  'playerThatHasFinished': unreferenced formal parameter (compiling source file ..\..\Source\TableModel.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(28,36): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\TableModel.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(68,48): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\TableModel.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\TableModel.cpp(39,34): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\TableModel.cpp(39,27): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\TableModel.cpp(39,19): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\TableModel.cpp(29,93): warning C4100:  'rowIsSelected': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\TableModel.cpp(42,98): warning C4100:  'rowIsSelected': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\TableModel.cpp(42,85): warning C4100:  'height': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\TableModel.cpp(42,74): warning C4100:  'width': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\TableModel.cpp(42,60): warning C4100:  'columnId': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\TableModel.cpp(42,45): warning C4100:  'rowNumber': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\TableModel.cpp(42,38): warning C4100:  'g': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\TableModel.cpp(47,82): warning C4100:  'isRowSelected': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\Logger.cpp(30,59): warning C4100:  'logTime': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\NewMainComponent.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\NewMainComponent.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\NewMainComponent.cpp)
+  FileInitialiser.cpp
+  DataHandler.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\NewMainComponent.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerListener.h(21,46): warning C4100:  'playerThatHasFinished': unreferenced formal parameter (compiling source file ..\..\Source\NewMainComponent.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(28,36): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\NewMainComponent.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(68,48): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\NewMainComponent.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\NewMainComponent.cpp(52,41): warning C4100:  'g': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\IntroComponent.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\IntroComponent.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\IntroComponent.cpp)
+  Mediator.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\IntroComponent.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerListener.h(21,46): warning C4100:  'playerThatHasFinished': unreferenced formal parameter (compiling source file ..\..\Source\IntroComponent.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(28,36): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\IntroComponent.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(68,48): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\IntroComponent.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\FileInitialiser.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\FileInitialiser.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\FileInitialiser.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\FileInitialiser.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\DataHandler.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\DataHandler.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\DataHandler.cpp)
+  FilePathWildcardInterpretter.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\DataHandler.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\DataHandler.cpp(64,74): warning C4100:  'selected': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\DataHandler.cpp(278,26): warning C4267:  'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\Mediator.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\Mediator.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\Mediator.cpp)
+  TableCellComponent.cpp
+  FileAndDirectoryControls.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\Mediator.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerListener.h(21,46): warning C4100:  'playerThatHasFinished': unreferenced formal parameter (compiling source file ..\..\Source\Mediator.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\Mediator.cpp(217,30): warning C4456:  declaration of 'i' hides previous local declaration
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\Mediator.cpp(190,17): message :  see declaration of 'i'
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\Mediator.cpp(292,42): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\Mediator.cpp(343,41): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+  MainComponent.cpp
+  Main.cpp
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\Mediator.cpp(372,88): warning C4244:  'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\FileAndDirectoryControls.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\FileAndDirectoryControls.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\FileAndDirectoryControls.cpp)
+  AudioFileTable.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\FileAndDirectoryControls.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerListener.h(21,46): warning C4100:  'playerThatHasFinished': unreferenced formal parameter (compiling source file ..\..\Source\FileAndDirectoryControls.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(28,36): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\FileAndDirectoryControls.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(68,48): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\FileAndDirectoryControls.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\MainComponent.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\MainComponent.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\MainComponent.cpp)
+  BatchRenameControls.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\MainComponent.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\Main.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\Main.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\Main.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\Main.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerListener.h(21,46): warning C4100:  'playerThatHasFinished': unreferenced formal parameter (compiling source file ..\..\Source\MainComponent.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\MainComponent.cpp(35,38): warning C4100:  'g': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\MainComponent.cpp(80,79): warning C4100:  'menuName': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\AudioFileTable.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\AudioFileTable.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\AudioFileTable.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\AudioFileTable.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerListener.h(21,46): warning C4100:  'playerThatHasFinished': unreferenced formal parameter (compiling source file ..\..\Source\Main.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(28,36): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\Main.cpp)
+  StringChecker.cpp
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(68,48): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\Main.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerListener.h(21,46): warning C4100:  'playerThatHasFinished': unreferenced formal parameter (compiling source file ..\..\Source\AudioFileTable.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(52,26): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(53,24): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(53,17): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(54,20): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(48,101): warning C4100:  'editor': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(108,39): warning C4100:  'g': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(325,34): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(325,27): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(325,19): warning C4244:  'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(315,97): warning C4100:  'rowIsSelected': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(328,102): warning C4100:  'rowIsSelected': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(328,89): warning C4100:  'height': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(328,78): warning C4100:  'width': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(328,64): warning C4100:  'columnId': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(328,49): warning C4100:  'rowNumber': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(328,42): warning C4100:  'g': unreferenced formal parameter
+  include_juce_audio_basics.cpp
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(333,86): warning C4100:  'isRowSelected': unreferenced formal parameter
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(53,30): warning C4251:  'TagLib::FileName::m_name': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\BatchRenameControls.cpp)
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4231): message :  see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' (compiling source file ..\..\Source\BatchRenameControls.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\Dependencies\taglib\include\taglib\tiostream.h(54,31): warning C4251:  'TagLib::FileName::m_wname': class 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' needs to have dll-interface to be used by clients of class 'TagLib::FileName' (compiling source file ..\..\Source\BatchRenameControls.cpp)
+  include_juce_audio_devices.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\xstring(4232): message :  see declaration of 'std::basic_string<wchar_t,std::char_traits<wchar_t>,std::allocator<wchar_t>>' (compiling source file ..\..\Source\BatchRenameControls.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioPlayerListener.h(21,46): warning C4100:  'playerThatHasFinished': unreferenced formal parameter (compiling source file ..\..\Source\BatchRenameControls.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(28,36): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\BatchRenameControls.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileStandardiserApplication.h(68,48): warning C4100:  'commandLine': unreferenced formal parameter (compiling source file ..\..\Source\BatchRenameControls.cpp)
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\StringChecker.cpp(43,110): warning C4389:  '!=': signed/unsigned mismatch
+  include_juce_audio_formats.cpp
+  include_juce_audio_processors.cpp
+  include_juce_audio_utils.cpp
+  include_juce_core.cpp
+  include_juce_cryptography.cpp
+  include_juce_data_structures.cpp
+  include_juce_events.cpp
+  include_juce_graphics.cpp
+  include_juce_gui_basics.cpp
+  include_juce_gui_extra.cpp
+  include_juce_opengl.cpp
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\StringChecker.cpp(65,48): warning C4389:  '==': signed/unsigned mismatch
+  Generating code
+  Not all modules are compiled with -Gy (function comdat), build without incremental LTCG.
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\MenuModel.cpp(144): warning C4715: 'MenuModel::menuNamesToString': not all control paths return a value
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(868): warning C4715: 'AudioFileTable::getValueForCell': not all control paths return a value
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\AudioFileTable.cpp(45): warning C4715: 'MetadataReaderSorter::compareElements': not all control paths return a value
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\DataHandler.cpp(143): warning C4715: 'DataHandler::getDataForItem': not all control paths return a value
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\Mediator.cpp(215): warning C4701: potentially uninitialized local variable 'buttonActive' used
+C:\Users\maxwa\Documents\AudioFileStandardiser\Source\Mediator.cpp(221): warning C4701: potentially uninitialized local variable 'columnId' used
+  Finished generating code
+  AudioFileStandardiser_App.vcxproj -> C:\Users\maxwa\Documents\AudioFileStandardiser\Builds\VisualStudio2019\x64\Release\App\AudioFileStandardiser.exe
