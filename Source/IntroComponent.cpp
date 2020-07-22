@@ -30,5 +30,5 @@ IntroComponent::~IntroComponent()
 
 void IntroComponent::resized()
 {
-    openSourceButton.setBounds(100, 60, 100, 30);
+    openSourceButton.setBounds(getWidth()/2-50, getHeight()/2-15, 100, 30);
 }

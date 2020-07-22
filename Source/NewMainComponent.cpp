@@ -64,16 +64,13 @@ void NewMainComponent::resized()
     else
     {
         int tableHeight = table.getHeaderHeight() + (AudioFileStandardiserApplication::getMediator()->getNumberOfRowsToDisplay() * table.getRowHeight());
-        int tableWidth;
+        
+        int tableWidth = 650;
 
         if(tableHeight > 530)
         {
             tableWidth = 658;
             tableHeight = 530;
-        }
-        else
-        {
-            tableWidth = 650;
         }
         
         table.setBounds(0, 0, tableWidth, tableHeight);
@@ -83,6 +80,7 @@ void NewMainComponent::resized()
         {
             setSize(tableWidth, tableHeight);
         }
+        
         //Table is not alone
         else
         {

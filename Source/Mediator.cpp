@@ -375,8 +375,10 @@ void Mediator::timerCallback()
 
 bool Mediator::addNewFiles()
 {
+    DBG("Adding new files");
     if(initialiser.lookForNewFiles())
     {
+        DBG(initialiser.getResult().size());
         dataHandler->addData(initialiser.getResult());
         initialiser.clearCurrentFiles();
         dataHandler->sort();

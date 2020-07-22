@@ -43,7 +43,8 @@ void AudioFileStandardiserApplication::initialise(const String& commandLine)
 
 	mediator->initialiseComponents();
 
-	mainWindow->setContentNonOwned(mediator->getMainComponent(), true);
+    mainWindow->setContentNonOwned(mediator->getMainComponent(), true);
+    mainWindow->setResizeLimits(40, 72, 850, 2000);
 }
 
 void AudioFileStandardiserApplication::shutdown()
@@ -66,6 +67,7 @@ Mediator* AudioFileStandardiserApplication::getMediator()
 	AudioFileStandardiserApplication* thisApp = dynamic_cast<AudioFileStandardiserApplication*>(AudioFileStandardiserApplication::getInstance());
 	return thisApp->getMediatorInstance();
 }
+
 
 AudioFileStandardiserApplication::MainWindow::MainWindow(String name) : DocumentWindow(name, Desktop::getInstance().getDefaultLookAndFeel().findColour(ResizableWindow::backgroundColourId), DocumentWindow::allButtons)
 {
