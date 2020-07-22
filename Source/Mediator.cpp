@@ -46,7 +46,6 @@ void Mediator::initialiseComponents()
     playerWindow->setContentNonOwned(audioPlayerControls.get(), true);
     playerWindow->addActionListener(this);
     currentPlayingIndex = -1;
-    
 }
 
 TableModel* Mediator::getTableModel()

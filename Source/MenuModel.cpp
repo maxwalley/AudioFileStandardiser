@@ -12,12 +12,16 @@
 
 MenuModel::MenuModel()  :   menuNames("File"), batchControlsShown(false), fileAndFolderControlsShown(false), playerWindowOpen(false)
 {
-    //setMacMainMenu(this);
+#ifdef JUCE_MAC
+    setMacMainMenu(this);
+#endif
 }
 
 MenuModel::~MenuModel()
 {
-    //setMacMainMenu(nullptr);
+#ifdef JUCE_MAC
+	setMacMainMenu(nullptr);
+#endif
 }
 
 void MenuModel::setMenuItemVisible(MenuNames menuName, bool setVisible, int index)
