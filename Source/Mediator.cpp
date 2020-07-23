@@ -19,7 +19,7 @@ Mediator::Mediator()
 
 Mediator::~Mediator()
 {
-    delete mainComponent;
+    
 }
 
 NewMainComponent* Mediator::getMainComponent()
@@ -29,6 +29,7 @@ NewMainComponent* Mediator::getMainComponent()
 
 void Mediator::initialiseComponents()
 {
+    mainWindow = std::make_unique<MainWindow>(JUCEApplication::getInstance()->getApplicationName());
     dataHandler = std::make_unique<DataHandler>();
     tableModel = std::make_unique<TableModel>();
     batchControls = std::make_unique<BatchRenameControls>();
@@ -37,6 +38,7 @@ void Mediator::initialiseComponents()
     audioPlayerControls = std::make_unique<AudioPlayerGUI>();
     audioPlayerControls->addKeyListener(this);
     mainComponent = new NewMainComponent();
+    mainWindow->setContentOwned(mainComponent, true);
     menu = std::make_unique<MenuModel>();
     menu->addActionListener(this);
     player = std::make_unique<AudioPlayer>();
@@ -162,6 +164,7 @@ void Mediator::buttonClicked(Button* button)
         {
             mainComponent->setComponentsToDisplay(NewMainComponent::Table);
             mainComponent->resized();
+            
             menu->setMenuItemVisible(MenuModel::MenuNames::View, true);
             menu->setMenuItemVisible(MenuModel::MenuNames::Window, true);
         }

@@ -42,7 +42,7 @@ public:
         This class implements the desktop window that contains an instance of
         our MainComponent class.
     */
-    class MainWindow    : public DocumentWindow
+    /*class MainWindow    : public DocumentWindow
     {
     public:
 		MainWindow(String name);
@@ -56,11 +56,11 @@ public:
            subclass also calls the superclass's method.
         */
 	
-    private:
+    /*private:
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainWindow)
-    };
+    };*/
 
 private:
     std::unique_ptr<Mediator> mediator;
-    std::unique_ptr<MainWindow> mainWindow;
+    //std::unique_ptr<MainWindow> mainWindow;
 };

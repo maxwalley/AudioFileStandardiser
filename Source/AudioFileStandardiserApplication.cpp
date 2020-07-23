@@ -39,12 +39,11 @@ void AudioFileStandardiserApplication::initialise(const String& commandLine)
 {
 	mediator = std::make_unique<Mediator>();
 
-	mainWindow.reset(new MainWindow(getApplicationName()));
+	//mainWindow.reset(new MainWindow(getApplicationName()));
 
 	mediator->initialiseComponents();
 
-    mainWindow->setContentNonOwned(mediator->getMainComponent(), true);
-    mainWindow->setResizeLimits(40, 72, 850, 2000);
+    //mainWindow->setContentNonOwned(mediator->getMainComponent(), true);
 }
 
 void AudioFileStandardiserApplication::shutdown()
@@ -68,6 +67,10 @@ Mediator* AudioFileStandardiserApplication::getMediator()
 	return thisApp->getMediatorInstance();
 }
 
+/*AudioFileStandardiserApplication::MainWindow* AudioFileStandardiserApplication::getMainWindow()
+{
+    return mainWindow.get();
+}
 
 AudioFileStandardiserApplication::MainWindow::MainWindow(String name) : DocumentWindow(name, Desktop::getInstance().getDefaultLookAndFeel().findColour(ResizableWindow::backgroundColourId), DocumentWindow::allButtons)
 {
@@ -75,6 +78,7 @@ AudioFileStandardiserApplication::MainWindow::MainWindow(String name) : Document
 
 	setResizable(true, true);
 	centreWithSize(getWidth(), getHeight());
+    setResizeLimits(40, 72, 2000, 2000);
 
 	setVisible(true);
 }
@@ -82,4 +86,4 @@ AudioFileStandardiserApplication::MainWindow::MainWindow(String name) : Document
 void AudioFileStandardiserApplication::MainWindow::closeButtonPressed()
 {
 	JUCEApplication::getInstance()->systemRequestedQuit();
-}
+}*/

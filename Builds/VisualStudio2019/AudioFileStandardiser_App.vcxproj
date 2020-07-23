@@ -150,6 +150,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\MainWindow.cpp"/>
     <ClCompile Include="..\..\Source\FileAndFolderCreator.cpp"/>
     <ClCompile Include="..\..\Source\AudioFileStandardiserApplication.cpp"/>
     <ClCompile Include="..\..\Source\ChronoTimeToStringConverter.cpp"/>
@@ -2113,6 +2114,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\MainWindow.h"/>
     <ClInclude Include="..\..\Source\FileAndFolderCreator.h"/>
     <ClInclude Include="..\..\Source\AudioFileStandardiserApplication.h"/>
     <ClInclude Include="..\..\Source\ChronoTimeToStringConverter.h"/>

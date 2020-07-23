@@ -23,7 +23,7 @@
 #include "AudioPlayer.h"
 #include "AudioPlayerListener.h"
 #include "ComponentWindow.h"
-
+#include "MainWindow.h"
 #include "ChronoTimeToStringConverter.h"
 
 class NewMainComponent;
@@ -107,11 +107,11 @@ private:
     
     std::unique_ptr<FileAndDirectoryControls> fileControls;
     
-    //std::unique_ptr<Component> extraInfoComponent;
-    
     std::unique_ptr<AudioPlayerGUI> audioPlayerControls;
     
     std::unique_ptr<AudioPlayer> player;
     
     std::unique_ptr<ComponentWindow> playerWindow;
+    
+    std::unique_ptr<MainWindow> mainWindow;
 };

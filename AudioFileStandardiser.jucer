@@ -3,6 +3,8 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               cppLanguageStandard="17" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
+    <FILE id="W6szdi" name="MainWindow.h" compile="0" resource="0" file="Source/MainWindow.h"/>
+    <FILE id="wKjmZe" name="MainWindow.cpp" compile="1" resource="0" file="Source/MainWindow.cpp"/>
     <FILE id="QnQ6bo" name="FileAndFolderCreator.h" compile="0" resource="0"
           file="Source/FileAndFolderCreator.h"/>
     <FILE id="uquJLC" name="FileAndFolderCreator.cpp" compile="1" resource="0"

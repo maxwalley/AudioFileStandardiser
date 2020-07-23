@@ -56,6 +56,8 @@ void NewMainComponent::paint (Graphics& g)
 
 void NewMainComponent::resized()
 {
+    DBG("resized");
+    
     //Intro component is viewable
     if(currentComponents == 0)
     {
@@ -66,7 +68,7 @@ void NewMainComponent::resized()
         int tableHeight = table.getHeaderHeight() + (AudioFileStandardiserApplication::getMediator()->getNumberOfRowsToDisplay() * table.getRowHeight());
         
         int tableWidth = 650;
-
+        
         if(tableHeight > 530)
         {
             tableWidth = 658;
