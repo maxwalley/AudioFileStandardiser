@@ -84,6 +84,8 @@ void NewMainComponent::resized()
         //Table is viewable only
         if(currentComponents == 1)
         {
+            setSize(tableWidth, tableHeight);
+            
             table.setBounds(0, 0, getWidth(), getHeight());
             
             currentLimits.maxWidth = tableWidth;

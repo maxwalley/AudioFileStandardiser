@@ -167,8 +167,6 @@ void Mediator::buttonClicked(Button* button)
             
             mainComponent->setSize(mainComponent->getCurrentSizeLimits().defWidth, mainComponent->getCurrentSizeLimits().defHeight);
             
-            mainWindow->setResizeLimits(mainComponent->getCurrentSizeLimits().minWidth, mainComponent->getCurrentSizeLimits().minHeight, mainComponent->getCurrentSizeLimits().maxWidth, mainComponent->getCurrentSizeLimits().maxHeight);
-            
             menu->setMenuItemVisible(MenuModel::MenuNames::View, true);
             menu->setMenuItemVisible(MenuModel::MenuNames::Window, true);
         }
