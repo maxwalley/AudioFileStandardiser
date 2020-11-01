@@ -30,6 +30,16 @@ public:
         FileAndFolderControls = 4
     };
     
+    struct SizeLimits
+    {
+        int maxWidth;
+        int maxHeight;
+        int minWidth;
+        int minHeight;
+        int defWidth;
+        int defHeight;
+    };
+    
     NewMainComponent();
     ~NewMainComponent();
 
@@ -43,6 +53,8 @@ public:
     int showTablePopup();
     
     void setAdditionalAudioSource(AudioSource* newAudioSource);
+    
+    SizeLimits getCurrentSizeLimits() const;
 
 private:
     
@@ -58,6 +70,8 @@ private:
     Viewport extraInfoViewport;
     
     PopupMenu tablePopup;
+    
+    SizeLimits currentLimits;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewMainComponent)
 };

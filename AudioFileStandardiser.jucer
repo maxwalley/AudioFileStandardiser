@@ -3,6 +3,11 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               cppLanguageStandard="17" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
+    <GROUP id="{3B46B1ED-54B5-70B5-7484-F6AA04270348}" name="FileConverter">
+      <FILE id="iwcB8j" name="Mp3Converter.h" compile="0" resource="0" file="Source/Mp3Converter.h"/>
+      <FILE id="EhjmRx" name="Mp3Converter.cpp" compile="1" resource="0"
+            file="Source/Mp3Converter.cpp"/>
+    </GROUP>
     <FILE id="W6szdi" name="MainWindow.h" compile="0" resource="0" file="Source/MainWindow.h"/>
     <FILE id="wKjmZe" name="MainWindow.cpp" compile="1" resource="0" file="Source/MainWindow.cpp"/>
     <FILE id="QnQ6bo" name="FileAndFolderCreator.h" compile="0" resource="0"
@@ -185,5 +190,6 @@
     <OSX/>
     <WINDOWS/>
   </LIVE_SETTINGS>
-  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_USE_MP3AUDIOFORMAT="1"/>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_USE_MP3AUDIOFORMAT="1"
+               JUCE_USE_LAME_AUDIO_FORMAT="1"/>
 </JUCERPROJECT>

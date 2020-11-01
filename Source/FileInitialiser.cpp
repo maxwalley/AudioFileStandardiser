@@ -12,8 +12,6 @@
 
 #include "FileInitialiser.h"
 
-//#include "Mediator.h"
-
 FileInitialiser::FileInitialiser()
 {
     
@@ -125,8 +123,6 @@ std::optional<File> FileInitialiser::decompressZipToLocation(const File& zip)
         {
             return std::nullopt;
         }
-        
-        DBG(newFolder->getFullPathName());
         
         file.uncompressTo(*newFolder);
         return File(newDirName);

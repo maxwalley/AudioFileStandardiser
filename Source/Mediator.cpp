@@ -165,6 +165,10 @@ void Mediator::buttonClicked(Button* button)
             mainComponent->setComponentsToDisplay(NewMainComponent::Table);
             mainComponent->resized();
             
+            mainComponent->setSize(mainComponent->getCurrentSizeLimits().defWidth, mainComponent->getCurrentSizeLimits().defHeight);
+            
+            mainWindow->setResizeLimits(mainComponent->getCurrentSizeLimits().minWidth, mainComponent->getCurrentSizeLimits().minHeight, mainComponent->getCurrentSizeLimits().maxWidth, mainComponent->getCurrentSizeLimits().maxHeight);
+            
             menu->setMenuItemVisible(MenuModel::MenuNames::View, true);
             menu->setMenuItemVisible(MenuModel::MenuNames::Window, true);
         }
@@ -378,10 +382,8 @@ void Mediator::timerCallback()
 
 bool Mediator::addNewFiles()
 {
-    DBG("Adding new files");
     if(initialiser.lookForNewFiles())
     {
-        DBG(initialiser.getResult().size());
         dataHandler->addData(initialiser.getResult());
         initialiser.clearCurrentFiles();
         dataHandler->sort();

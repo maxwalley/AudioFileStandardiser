@@ -2,6 +2,9 @@
 
 <Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="AudioFileStandardiser\FileConverter">
+      <UniqueIdentifier>{167CBAB9-7A7B-7279-2F8A-E7043C4B3737}</UniqueIdentifier>
+    </Filter>
     <Filter Include="AudioFileStandardiser\AudioPlayer">
       <UniqueIdentifier>{83CE6774-BF3B-3891-9D4C-815AB5F2B4FD}</UniqueIdentifier>
     </Filter>
@@ -451,6 +454,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Mp3Converter.cpp">
+      <Filter>AudioFileStandardiser\FileConverter</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\MainWindow.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
@@ -2622,6 +2628,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Mp3Converter.h">
+      <Filter>AudioFileStandardiser\FileConverter</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\MainWindow.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>

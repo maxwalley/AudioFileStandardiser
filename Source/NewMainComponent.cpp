@@ -56,7 +56,6 @@ void NewMainComponent::paint (Graphics& g)
 
 void NewMainComponent::resized()
 {
-    DBG("resized");
     
     //Intro component is viewable
     if(currentComponents == 0)
@@ -65,22 +64,47 @@ void NewMainComponent::resized()
     }
     else
     {
-        int tableHeight = table.getHeaderHeight() + (AudioFileStandardiserApplication::getMediator()->getNumberOfRowsToDisplay() * table.getRowHeight());
+        int tableHeight = table.getHeaderHeight() + ((AudioFileStandardiserApplication::getMediator()->getNumberOfRowsToDisplay() + 1) * table.getRowHeight()) + 8;
         
-        int tableWidth = 650;
+        int tableWidth = table.getHeader().getTotalWidth() + 8;
         
-        if(tableHeight > 530)
+        currentLimits.maxHeight = tableHeight;
+        
+        currentLimits.minWidth = 100;
+        
+        if(table.getHorizontalScrollBar().isVisible())
         {
-            tableWidth = 658;
-            tableHeight = 530;
+            currentLimits.minHeight = 80;
         }
-        
-        table.setBounds(0, 0, tableWidth, tableHeight);
+        else
+        {
+            currentLimits.minHeight = 72;
+        }
         
         //Table is viewable only
         if(currentComponents == 1)
         {
-            setSize(tableWidth, tableHeight);
+            table.setBounds(0, 0, getWidth(), getHeight());
+            
+            currentLimits.maxWidth = tableWidth;
+            
+            if(tableWidth > 650)
+            {
+                currentLimits.defWidth = 658;
+            }
+            else
+            {
+                currentLimits.defWidth = tableWidth;
+            }
+            
+            if(tableHeight > 530)
+            {
+                currentLimits.defHeight = 530;
+            }
+            else
+            {
+                currentLimits.defHeight = tableHeight;
+            }
         }
         
         //Table is not alone
@@ -126,4 +150,9 @@ int NewMainComponent::showTablePopup()
 void NewMainComponent::setAdditionalAudioSource(AudioSource* newAudioSource)
 {
     additionalAudioSource = newAudioSource;
+}
+
+NewMainComponent::SizeLimits NewMainComponent::getCurrentSizeLimits() const
+{
+    return currentLimits;
 }

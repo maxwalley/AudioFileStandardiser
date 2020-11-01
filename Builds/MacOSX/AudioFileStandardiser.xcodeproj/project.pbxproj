@@ -61,6 +61,10 @@
 			isa = PBXBuildFile;
 			fileRef = 5A15C4E4BFD977D25E18ACFE;
 		};
+		3242F1575C8E93D1C5F4CC91 = {
+			isa = PBXBuildFile;
+			fileRef = B118617CBF981E8FBD5558AE;
+		};
 		2BE89AC6B5137FC1AFB2AE65 = {
 			isa = PBXBuildFile;
 			fileRef = 56D2615EF93F5FF0E1E50BAD;
@@ -682,6 +686,13 @@
 			path = ../../Source/Mediator.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		983B6E8086C653005AE1CA26 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = Mp3Converter.h;
+			path = ../../Source/Mp3Converter.h;
+			sourceTree = "SOURCE_ROOT";
+		};
 		9B848FC35EBEAD7FFC413A48 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -800,6 +811,13 @@
 			name = "juce_core";
 			path = "/Users/maxwalley/Documents/C++ Libs and Frameworks/JUCE/modules/juce_core";
 			sourceTree = "<absolute>";
+		};
+		B118617CBF981E8FBD5558AE = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = Mp3Converter.cpp;
+			path = ../../Source/Mp3Converter.cpp;
+			sourceTree = "SOURCE_ROOT";
 		};
 		B33E8CB6D878193717ECE657 = {
 			isa = PBXFileReference;
@@ -983,6 +1001,15 @@
 			path = ../../Source/FilePathWildcardInterpretter.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		8FAC1E1C9A84447352665F28 = {
+			isa = PBXGroup;
+			children = (
+				983B6E8086C653005AE1CA26,
+				B118617CBF981E8FBD5558AE,
+			);
+			name = FileConverter;
+			sourceTree = "<group>";
+		};
 		E48E3B43B5D51D6FDED17D62 = {
 			isa = PBXGroup;
 			children = (
@@ -1034,6 +1061,7 @@
 		329608004BEDC20C07FBE1D7 = {
 			isa = PBXGroup;
 			children = (
+				8FAC1E1C9A84447352665F28,
 				43F53A9687F539E5CEC66892,
 				56D2615EF93F5FF0E1E50BAD,
 				106A704D113734BD496453CD,
@@ -1394,6 +1422,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3242F1575C8E93D1C5F4CC91,
 				2BE89AC6B5137FC1AFB2AE65,
 				6767CD913BAE18CD9A371A7C,
 				03C2514A5C33E4A779D196FC,

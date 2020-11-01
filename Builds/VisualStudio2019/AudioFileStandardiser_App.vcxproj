@@ -150,6 +150,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\Mp3Converter.cpp"/>
     <ClCompile Include="..\..\Source\MainWindow.cpp"/>
     <ClCompile Include="..\..\Source\FileAndFolderCreator.cpp"/>
     <ClCompile Include="..\..\Source\AudioFileStandardiserApplication.cpp"/>
@@ -2114,6 +2115,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\Mp3Converter.h"/>
     <ClInclude Include="..\..\Source\MainWindow.h"/>
     <ClInclude Include="..\..\Source\FileAndFolderCreator.h"/>
     <ClInclude Include="..\..\Source\AudioFileStandardiserApplication.h"/>
