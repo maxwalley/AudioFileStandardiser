@@ -19,7 +19,9 @@
 //==============================================================================
 /*
 */
-class NewMainComponent    : public Component
+
+class NewMainComponent    : public Component,
+                            public FileDragAndDropTarget
 {
 public:
     enum componentsToDisplay
@@ -43,10 +45,11 @@ public:
     NewMainComponent();
     ~NewMainComponent();
 
-    void paint (Graphics&) override;
+    void paintOverChildren (Graphics&) override;
     void resized() override;
     
     void setComponentsToDisplay(int components);
+    int getDisplayedComponents() const;
     
     void updateTable();
     
@@ -55,8 +58,25 @@ public:
     void setAdditionalAudioSource(AudioSource* newAudioSource);
     
     SizeLimits getCurrentSizeLimits() const;
+    
+    class Listener
+    {
+    public:
+        Listener();
+        virtual ~Listener();
+        
+        virtual void filesDropped(const StringArray& files){};
+    };
+    
+    void addListener(Listener* newListener);
+    void removeListener(Listener* lisToRemove);
 
 private:
+    
+    bool isInterestedInFileDrag(const StringArray& files) override;
+    void fileDragEnter(const StringArray& files, int x, int y) override;
+    void fileDragExit(const StringArray& files) override;
+    void filesDropped(const StringArray& files, int x, int y) override;
     
     componentsToDisplay currentComponents;
     
@@ -72,6 +92,10 @@ private:
     PopupMenu tablePopup;
     
     SizeLimits currentLimits;
+    
+    std::vector<Listener*> listeners;
+    
+    bool fileDrag = false;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewMainComponent)
 };

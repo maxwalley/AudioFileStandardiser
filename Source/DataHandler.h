@@ -81,6 +81,12 @@ public:
     //removes data based on a comparison of the type set - returns the number of items removed
     int removeData(DataConcerned typeToCompare, const String& dataToCompare);
     
+    //removes all selected items returning how many were removed
+    int removeSelectedData();
+    
+    //Removes all data
+    void clearData();
+    
     MetadataReader* getReaderForIndex(int index);
     
     void printTest();

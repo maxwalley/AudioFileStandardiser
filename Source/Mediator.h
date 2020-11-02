@@ -25,8 +25,7 @@
 #include "ComponentWindow.h"
 #include "MainWindow.h"
 #include "ChronoTimeToStringConverter.h"
-
-class NewMainComponent;
+#include "NewMainComponent.h"
 
 class Mediator  :   public ActionListener,
                     public Button::Listener,
@@ -35,7 +34,8 @@ class Mediator  :   public ActionListener,
                     public AudioPlayerListener,
                     public Slider::Listener,
                     public KeyListener,
-                    public Timer
+                    public Timer,
+                    public NewMainComponent::Listener
 {
 public:
     
@@ -56,11 +56,13 @@ public:
     
     AudioPlayerGUI* getAudioPlayerControls();
     
-    virtual int getNumberOfRowsToDisplay();
-    virtual String getDataForCell(int rowNumber, int column);
-    virtual bool getSelectedForRow(int rowNumber);
+    int getNumberOfRowsToDisplay();
+    String getDataForCell(int rowNumber, int column);
+    bool getSelectedForRow(int rowNumber);
     
-    virtual void setDataForCell(int rowNumber, int column, const String& newData);
+    void setDataForCell(int rowNumber, int column, const String& newData);
+    
+    StringArray getSupportedFileTypes() const;
     
 private:
     
@@ -82,11 +84,13 @@ private:
     
     void timerCallback() override;
     
+    void filesDropped(const StringArray& files) override;
+    
     FileInitialiser initialiser;
     
     std::unique_ptr<DataHandler> dataHandler;
     
-    bool addNewFiles();
+    bool addNewFiles(const Array<File>& filesToAdd = Array<File>());
     
     void playIndex(int index, bool ignorePause);
     

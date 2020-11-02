@@ -8,13 +8,11 @@
   ==============================================================================
 */
 
-#define SUPPORTEDTYPES "*.mp3;*.flac;*.wav;*.wave;*.aac;*.wma;*.aif;*.m4a"
-
 #include "FileInitialiser.h"
 
-FileInitialiser::FileInitialiser()
+FileInitialiser::FileInitialiser(const StringArray& supportedFileTypes)  : supportedTypes(supportedFileTypes)
 {
-    
+    supportedTypesInOne = convertSupportedTypesToString();
 }
 
 FileInitialiser::~FileInitialiser()
@@ -22,9 +20,9 @@ FileInitialiser::~FileInitialiser()
     clearCurrentFiles();
 }
 
-bool FileInitialiser::lookForNewFiles()
+bool FileInitialiser::lookForNewFilesAndAdd()
 {
-    FileChooser chooser("Pick a folder", File(), "*.zip;*.mp3;*.flac;*.wav;*.wave;*.aac;*.wma;*.aif;*.m4a", true, false, nullptr);
+    FileChooser chooser("Pick a folder", File(), "*.zip;" + supportedTypesInOne, true, false, nullptr);
     
     //Looks and opens the file
     if(!chooser.browseForMultipleFilesOrDirectories())
@@ -32,7 +30,12 @@ bool FileInitialiser::lookForNewFiles()
         return false;
     }
     
-    Array<File> chosenFiles = chooser.getResults();
+    return addNewFiles(chooser.getResults());
+}
+
+bool FileInitialiser::addNewFiles(const Array<File>& files)
+{
+    Array<File> chosenFiles(files);
     
     for(int i = 0; i < chosenFiles.size(); i++)
     {
@@ -59,7 +62,7 @@ bool FileInitialiser::lookForNewFiles()
         
         if(chosenFiles[i].isDirectory())
         {
-            Array<File> tempArray = chosenFiles[i].findChildFiles(2, true, SUPPORTEDTYPES);
+            Array<File> tempArray = chosenFiles[i].findChildFiles(2, true, supportedTypesInOne);
             chosenFiles.remove(i);
             chosenFiles.insertArray(i, tempArray.data(), tempArray.size());
         }
@@ -109,6 +112,11 @@ void FileInitialiser::clearCurrentFiles()
     currentFiles.clear();
 }
 
+StringArray FileInitialiser::getSupportedFileTypes() const
+{
+    return supportedTypes;
+}
+
 std::optional<File> FileInitialiser::decompressZipToLocation(const File& zip)
 {
     if(zip.exists() && zip.getFileExtension().compare(".zip") == 0)
@@ -128,4 +136,16 @@ std::optional<File> FileInitialiser::decompressZipToLocation(const File& zip)
         return File(newDirName);
     }
     return zip;
+}
+
+String FileInitialiser::convertSupportedTypesToString()
+{
+    String convertedOutput;
+    
+    std::for_each(supportedTypes.begin(), supportedTypes.end(), [&convertedOutput](const String& str)
+    {
+        convertedOutput += "*" + str + ";";
+    });
+    
+    return convertedOutput;
 }

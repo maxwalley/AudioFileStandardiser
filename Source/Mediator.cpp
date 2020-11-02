@@ -12,7 +12,7 @@
 
 #include "NewMainComponent.h"
 
-Mediator::Mediator()
+Mediator::Mediator()  : initialiser({".mp3", ".flac", ".wav", ".wave", ".aac", ".wma", ".aif", ".m4a"})
 {
     
 }
@@ -38,6 +38,7 @@ void Mediator::initialiseComponents()
     audioPlayerControls = std::make_unique<AudioPlayerGUI>();
     audioPlayerControls->addKeyListener(this);
     mainComponent = new NewMainComponent();
+    mainComponent->addListener(this);
     mainWindow->setContentOwned(mainComponent, true);
     menu = std::make_unique<MenuModel>();
     menu->addActionListener(this);
@@ -108,11 +109,28 @@ void Mediator::setDataForCell(int rowNumber, int column, const String& newData)
     }
 }
 
+StringArray Mediator::getSupportedFileTypes() const
+{
+    return initialiser.getSupportedFileTypes();
+}
+
 void Mediator::actionListenerCallback (const String &message)
 {
     if(message.compare("menu_add_files") == 0)
     {
         addNewFiles();
+    }
+    
+    else if(message.compare("menu_clear_files") == 0)
+    {
+        dataHandler->clearData();
+        mainComponent->resized();
+        mainComponent->updateTable();
+    }
+    
+    else if(message.compare("menu_remove_selected") == 0)
+    {
+        dataHandler->removeSelectedData();
         mainComponent->resized();
         mainComponent->updateTable();
     }
@@ -303,7 +321,6 @@ void Mediator::mouseDown(const MouseEvent& event)
     {
         if(event.mods.isRightButtonDown())
         {
-            
             TableCellComponent* originalComponent = dynamic_cast<TableCellComponent*>(event.originalComponent);
             
             if(originalComponent)
@@ -378,16 +395,46 @@ void Mediator::timerCallback()
     audioPlayerControls->setTimeThroughTrack(std::chrono::duration<int, std::ratio<1>>(int(player->getCurrentPos())));
 }
 
-bool Mediator::addNewFiles()
+void Mediator::filesDropped(const StringArray& files)
 {
-    if(initialiser.lookForNewFiles())
+    Array<File> openedFiles;
+    
+    std::for_each(files.begin(), files.end(), [&openedFiles](const String& str)
+    {
+        openedFiles.add(File(str));
+    });
+    
+    addNewFiles(openedFiles);
+}
+
+bool Mediator::addNewFiles(const Array<File>& filesToAdd)
+{
+    bool result;
+    
+    if(filesToAdd.isEmpty())
+    {
+        result = initialiser.lookForNewFilesAndAdd();
+    }
+    else
+    {
+        result = initialiser.addNewFiles(filesToAdd);
+    }
+    
+    if(result)
     {
         dataHandler->addData(initialiser.getResult());
         initialiser.clearCurrentFiles();
         dataHandler->sort();
-        return true;
+        
+        if((mainComponent->getDisplayedComponents() & int(NewMainComponent::Table)) != int(NewMainComponent::Table))
+        {
+            mainComponent->setComponentsToDisplay(NewMainComponent::Table);
+        }
+        
+        mainComponent->resized();
+        mainComponent->updateTable();
     }
-    return false;
+    return result;
 }
 
 void Mediator::playIndex(int index, bool ignorePause)

@@ -14,19 +14,24 @@
 #include "AudioMetadataManager.h"
 #include "FileAndFolderCreator.h"
 
-
 class FileInitialiser
 {
 public:
-    FileInitialiser();
+    FileInitialiser(const StringArray& supportedFileTypes = StringArray());
     ~FileInitialiser();
     
     //Returns false if error when choosing or empty folder chosen
-    bool lookForNewFiles();
+    bool lookForNewFilesAndAdd();
+    
+    bool addNewFiles(const Array<File>& files);
     
     std::vector<std::unique_ptr<AudioMetadataReader>>& getResult();
     
     void clearCurrentFiles();
+    
+    StringArray getSupportedFileTypes() const;
+    
+    //Set relative zip decomressLocation
     
 private:
     std::optional<File> decompressZipToLocation(const File& zip);
@@ -34,4 +39,10 @@ private:
     AudioMetadataManager metadataManager;
     
     std::vector<std::unique_ptr<AudioMetadataReader>> currentFiles;
+    
+    String convertSupportedTypesToString();
+    
+    StringArray supportedTypes;
+    
+    String supportedTypesInOne;
 };

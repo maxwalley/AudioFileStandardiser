@@ -260,6 +260,27 @@ int DataHandler::removeData(DataConcerned typeToCompare, const String& dataToCom
     return numRemoves;
 }
 
+int DataHandler::removeSelectedData()
+{
+    int count = 0;
+    
+    for(int i = 0; i < readers.size(); i++)
+    {
+        if(readers[i].selection)
+        {
+            readers.erase(readers.begin() + i);
+            count++;
+        }
+    }
+    
+    return count;
+}
+
+void DataHandler::clearData()
+{
+    readers.clear();
+}
+
 MetadataReader* DataHandler::getReaderForIndex(int index)
 {
     return readers[index].object.get();

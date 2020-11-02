@@ -95,9 +95,6 @@ AudioPlayerGUI::AudioPlayerGUI()
     trackLengthLabel->setColour(Label::textColourId, Colours::black);
     trackLengthLabel->setFont(Font(13));
     
-    timeGoneLabel->setText("test", dontSendNotification);
-    trackLengthLabel->setText("test", dontSendNotification);
-    
     setSize(300, 450);
 }
 

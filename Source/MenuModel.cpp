@@ -82,6 +82,8 @@ PopupMenu MenuModel::getMenuForIndex(int topLevelMenuIndex, const String &menuNa
     if(menuName.compare("File") == 0)
     {
         menu.addItem(1, "Add new files", true, false);
+        menu.addItem(2, "Clear all files", true, false);
+        menu.addItem(3, "Remove selected items", true, false);
     }
     
     else if(menuName.compare("View") == 0)
@@ -100,14 +102,19 @@ PopupMenu MenuModel::getMenuForIndex(int topLevelMenuIndex, const String &menuNa
 
 void MenuModel::menuItemSelected(int menuItemID, int topLevelMenuIndex)
 {
-    //Alternative for this would be for items to just send their item id alongside menu index to reduce checks
-    
-    if(topLevelMenuIndex == 0)
+    if(menuItemID == 1)
     {
-        if(menuItemID == 1)
-        {
-            sendActionMessage("menu_add_files");
-        }
+        sendActionMessage("menu_add_files");
+    }
+    
+    else if(menuItemID == 2)
+    {
+        sendActionMessage("menu_clear_files");
+    }
+    
+    else if(menuItemID == 3)
+    {
+        sendActionMessage("menu_remove_selected");
     }
     
     else if(menuItemID == 10)

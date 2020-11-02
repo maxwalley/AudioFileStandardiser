@@ -49,14 +49,26 @@ NewMainComponent::~NewMainComponent()
     
 }
 
-void NewMainComponent::paint (Graphics& g)
+void NewMainComponent::paintOverChildren (Graphics& g)
 {
-    
+    if(fileDrag)
+    {
+        g.setColour(Colours::silver);
+        g.setOpacity(0.7);
+        g.fillAll();
+        
+        Font fontToUse(25);
+        String addText("Drop Files To Add");
+        int textWidth = fontToUse.getStringWidth(addText);
+        
+        g.setColour(Colours::black);
+        g.setFont(fontToUse);
+        g.drawText(addText, getWidth() / 2 - textWidth / 2, getHeight() / 2 - fontToUse.getHeight() / 2, textWidth, fontToUse.getHeight(), Justification::centred);
+    }
 }
 
 void NewMainComponent::resized()
 {
-    
     //Intro component is viewable
     if(currentComponents == 0)
     {
@@ -64,7 +76,7 @@ void NewMainComponent::resized()
     }
     else
     {
-        int tableHeight = table.getHeaderHeight() + ((AudioFileStandardiserApplication::getMediator()->getNumberOfRowsToDisplay() + 1) * table.getRowHeight()) + 8;
+        int tableHeight = table.getHeaderHeight() + AudioFileStandardiserApplication::getMediator()->getNumberOfRowsToDisplay() * table.getRowHeight() + 8;
         
         int tableWidth = table.getHeader().getTotalWidth() + 8;
         
@@ -139,6 +151,11 @@ void NewMainComponent::setComponentsToDisplay(int components)
     currentComponents = componentsToDisplay(components);
 }
 
+int NewMainComponent::getDisplayedComponents() const
+{
+    return currentComponents;
+}
+
 void NewMainComponent::updateTable()
 {
     table.updateContent();
@@ -157,4 +174,73 @@ void NewMainComponent::setAdditionalAudioSource(AudioSource* newAudioSource)
 NewMainComponent::SizeLimits NewMainComponent::getCurrentSizeLimits() const
 {
     return currentLimits;
+}
+
+NewMainComponent::Listener::Listener()
+{
+    
+}
+
+NewMainComponent::Listener::~Listener()
+{
+    
+}
+
+void NewMainComponent::addListener(Listener* newListener)
+{
+    listeners.push_back(newListener);
+}
+
+void NewMainComponent::removeListener(Listener* lisToRemove)
+{
+    std::remove(listeners.begin(), listeners.end(), lisToRemove);
+}
+
+bool NewMainComponent::isInterestedInFileDrag(const StringArray& files)
+{
+    AudioFileStandardiserApplication::getMediator()->getSupportedFileTypes();
+    
+    //As long as one file is acceptable then we are interested
+    return std::for_each(files.begin(), files.end(), [](const String& str)
+    {
+        int lastStop = str.lastIndexOf(".");
+        
+        //If its a folder
+        if(lastStop == -1)
+        {
+            return true;
+        }
+        
+        String fileType = str.substring(lastStop);
+        
+        if(AudioFileStandardiserApplication::getMediator()->getSupportedFileTypes().contains(fileType))
+        {
+            return true;
+        }
+        
+        return false;
+    });
+}
+
+void NewMainComponent::fileDragEnter(const StringArray& files, int x, int y)
+{
+    fileDrag = true;
+    repaint();
+}
+
+void NewMainComponent::fileDragExit(const StringArray& files)
+{
+    fileDrag = false;
+    repaint();
+}
+
+void NewMainComponent::filesDropped(const StringArray& files, int x, int y)
+{
+    std::for_each(listeners.begin(), listeners.end(), [&files](Listener* lis)
+    {
+        lis->filesDropped(files);
+    });
+    
+    fileDrag = false;
+    repaint();
 }
