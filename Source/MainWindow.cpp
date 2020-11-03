@@ -16,7 +16,6 @@ MainWindow::MainWindow(String name) :   DocumentWindow(name, Colours::grey, Docu
 
     setResizable(true, true);
     centreWithSize(getWidth(), getHeight());
-    setResizeLimits(40, 72, 2000, 2000);
 
     setVisible(true);
 }

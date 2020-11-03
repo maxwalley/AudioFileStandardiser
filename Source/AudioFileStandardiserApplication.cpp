@@ -66,24 +66,3 @@ Mediator* AudioFileStandardiserApplication::getMediator()
 	AudioFileStandardiserApplication* thisApp = dynamic_cast<AudioFileStandardiserApplication*>(AudioFileStandardiserApplication::getInstance());
 	return thisApp->getMediatorInstance();
 }
-
-/*AudioFileStandardiserApplication::MainWindow* AudioFileStandardiserApplication::getMainWindow()
-{
-    return mainWindow.get();
-}
-
-AudioFileStandardiserApplication::MainWindow::MainWindow(String name) : DocumentWindow(name, Desktop::getInstance().getDefaultLookAndFeel().findColour(ResizableWindow::backgroundColourId), DocumentWindow::allButtons)
-{
-	setUsingNativeTitleBar(true);
-
-	setResizable(true, true);
-	centreWithSize(getWidth(), getHeight());
-    setResizeLimits(40, 72, 2000, 2000);
-
-	setVisible(true);
-}
-
-void AudioFileStandardiserApplication::MainWindow::closeButtonPressed()
-{
-	JUCEApplication::getInstance()->systemRequestedQuit();
-}*/

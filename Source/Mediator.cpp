@@ -124,14 +124,14 @@ void Mediator::actionListenerCallback (const String &message)
     else if(message.compare("menu_clear_files") == 0)
     {
         dataHandler->clearData();
-        mainComponent->resized();
+        calculateMainWindowSizes();
         mainComponent->updateTable();
     }
     
     else if(message.compare("menu_remove_selected") == 0)
     {
         dataHandler->removeSelectedData();
-        mainComponent->resized();
+        calculateMainWindowSizes();
         mainComponent->updateTable();
     }
     
@@ -146,7 +146,7 @@ void Mediator::actionListenerCallback (const String &message)
         {
             mainComponent->setComponentsToDisplay(NewMainComponent::Table);
         }
-        mainComponent->resized();
+        calculateMainWindowSizes();
     }
     
     else if(message.compare("menu_show_file_controls") == 0)
@@ -160,7 +160,7 @@ void Mediator::actionListenerCallback (const String &message)
         {
             mainComponent->setComponentsToDisplay(NewMainComponent::Table);
         }
-        mainComponent->resized();
+        calculateMainWindowSizes();
     }
     
     else if(message.compare("menu_show_player") == 0)
@@ -180,11 +180,6 @@ void Mediator::buttonClicked(Button* button)
     {
         if(addNewFiles())
         {
-            mainComponent->setComponentsToDisplay(NewMainComponent::Table);
-            mainComponent->resized();
-            
-            mainComponent->setSize(mainComponent->getCurrentSizeLimits().defWidth, mainComponent->getCurrentSizeLimits().defHeight);
-            
             menu->setMenuItemVisible(MenuModel::MenuNames::View, true);
             menu->setMenuItemVisible(MenuModel::MenuNames::Window, true);
         }
@@ -253,7 +248,7 @@ void Mediator::buttonClicked(Button* button)
         menu->setFileControlsShown(false);
         menu->setBatchControlsShown(false);
         mainComponent->setComponentsToDisplay(NewMainComponent::Table);
-        mainComponent->resized();
+        calculateMainWindowSizes();
     }
     
     else if(button->getComponentID().compare("file_controls_move") == 0)
@@ -431,7 +426,7 @@ bool Mediator::addNewFiles(const Array<File>& filesToAdd)
             mainComponent->setComponentsToDisplay(NewMainComponent::Table);
         }
         
-        mainComponent->resized();
+        calculateMainWindowSizes();
         mainComponent->updateTable();
     }
     return result;
@@ -486,4 +481,31 @@ void Mediator::stopPlayer()
     player->stop();
     audioPlayerControls->setPlayButtonState(PlayerGUIButton::ControlType::play);
     currentPlayingIndex = 0;
+}
+
+void Mediator::calculateMainWindowSizes()
+{
+    if (mainComponent->getDisplayedComponents() == NewMainComponent::Intro)
+    {
+        mainWindow->setResizeLimits(100, 100, 2000, 2000);
+        return;
+    }
+    
+    int headerHeight = mainComponent->getTableHeaderHeight();
+    int rowHeight = mainComponent->getTableHeaderHeight();
+    int headerWidth = mainComponent->getHeaderWidth();
+    
+    if(mainComponent->getDisplayedComponents() == NewMainComponent::Table)
+    {
+        
+        mainWindow->setResizeLimits(100, headerHeight + rowHeight, headerWidth, getNumberOfRowsToDisplay() * rowHeight);
+    }
+    
+    //One of the extra info things
+    else
+    {
+        mainWindow->setResizeLimits(300, headerHeight + rowHeight, headerWidth + 200, getNumberOfRowsToDisplay() * rowHeight);
+    }
+    
+    mainComponent->resized();
 }

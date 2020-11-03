@@ -98,6 +98,8 @@ private:
     
     void stopPlayer();
     
+    void calculateMainWindowSizes();
+    
     std::unique_ptr<MenuModel> menu;
     
     //This can't be a unique pointer because it is an incomplete type - can be done but complicated

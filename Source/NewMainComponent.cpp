@@ -36,9 +36,9 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
     renameControls = AudioFileStandardiserApplication::getMediator()->getBatchControls();
     fileControls = AudioFileStandardiserApplication::getMediator()->getFileAndDirectoryControls();
     
-    addAndMakeVisible(renameControls);
-    addAndMakeVisible(fileControls);
-    addAndMakeVisible(extraInfoViewport);
+    addChildComponent(extraInfoViewport);
+    addChildComponent(fileControls);
+    addChildComponent(extraInfoViewport);
     
     tablePopup.addItem(1, "Play", true, false);
     tablePopup.addItem(2, "Extra Info", true, false);
@@ -76,70 +76,31 @@ void NewMainComponent::resized()
     }
     else
     {
-        int tableHeight = table.getHeaderHeight() + AudioFileStandardiserApplication::getMediator()->getNumberOfRowsToDisplay() * table.getRowHeight() + 8;
-        
-        int tableWidth = table.getHeader().getTotalWidth() + 8;
-        
-        currentLimits.maxHeight = tableHeight;
-        
-        currentLimits.minWidth = 100;
-        
-        if(table.getHorizontalScrollBar().isVisible())
-        {
-            currentLimits.minHeight = 80;
-        }
-        else
-        {
-            currentLimits.minHeight = 72;
-        }
-        
         //Table is viewable only
         if(currentComponents == 1)
         {
-            setSize(tableWidth, tableHeight);
-            
             table.setBounds(0, 0, getWidth(), getHeight());
-            
-            currentLimits.maxWidth = tableWidth;
-            
-            if(tableWidth > 650)
-            {
-                currentLimits.defWidth = 658;
-            }
-            else
-            {
-                currentLimits.defWidth = tableWidth;
-            }
-            
-            if(tableHeight > 530)
-            {
-                currentLimits.defHeight = 530;
-            }
-            else
-            {
-                currentLimits.defHeight = tableHeight;
-            }
         }
         
         //Table is not alone
         else
         {
-            setSize(tableWidth + 200, tableHeight);
-            
-            extraInfoViewport.setBounds(tableWidth, 0, 200, getHeight());
+            extraInfoViewport.setVisible(true);
+            table.setBounds(0, 0, getWidth() - 200, getHeight());
+            extraInfoViewport.setBounds(getWidth() - 200, 0, 200, getHeight());
             
             //Batch controls Viewable
             if(currentComponents & RenameControls)
             {
+                renameControls->setVisible(true);
                 extraInfoViewport.setViewedComponent(renameControls, false);
-                renameControls->setSize(190, 900);
             }
             
             //File and dir controls viewable
             if(currentComponents & FileAndFolderControls)
             {
+                fileControls->setVisible(true);
                 extraInfoViewport.setViewedComponent(fileControls, false);
-                fileControls->setSize(190, 330);
             }
             
         }
@@ -194,6 +155,21 @@ void NewMainComponent::addListener(Listener* newListener)
 void NewMainComponent::removeListener(Listener* lisToRemove)
 {
     std::remove(listeners.begin(), listeners.end(), lisToRemove);
+}
+
+int NewMainComponent::getTableRowHeight() const
+{
+    return table.getRowHeight();
+}
+
+int NewMainComponent::getTableHeaderHeight() const
+{
+    return table.getHeaderHeight();
+}
+
+int NewMainComponent::getHeaderWidth() const
+{
+    return table.getHeader().getTotalWidth();
 }
 
 bool NewMainComponent::isInterestedInFileDrag(const StringArray& files)

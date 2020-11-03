@@ -36,6 +36,8 @@ FileAndDirectoryControls::FileAndDirectoryControls()    :   changeDirectoryButto
     addAndMakeVisible(closeButton);
     closeButton.addListener(AudioFileStandardiserApplication::getMediator());
     closeButton.setComponentID("extra_info_close");
+    
+    setSize(190, 330);
 }
 
 FileAndDirectoryControls::~FileAndDirectoryControls()

@@ -16,6 +16,8 @@
 //==============================================================================
 BatchRenameControls::BatchRenameControls() : applyButton("Apply"), resetButton("Reset"), closeButton("Close")
 {
+    setSize(190, 900);
+    
     addAndMakeVisible(titleToggle);
     addAndMakeVisible(artistToggle);
     addAndMakeVisible(albumToggle);

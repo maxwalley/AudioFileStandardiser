@@ -70,6 +70,10 @@ public:
     
     void addListener(Listener* newListener);
     void removeListener(Listener* lisToRemove);
+    
+    int getTableRowHeight() const;
+    int getTableHeaderHeight() const;
+    int getHeaderWidth() const;
 
 private:
     
