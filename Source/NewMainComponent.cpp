@@ -21,15 +21,15 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
     
     addAndMakeVisible(table);
     table.setHeader(std::make_unique<TableHeaderComponent>());
-    table.getHeader().addColumn("Track", 1, 50, 50, 50, 13);
-    table.getHeader().addColumn("Track Name", 2, 150, 150, 150, 13);
-    table.getHeader().addColumn("Artist Name", 3, 150, 150, 150, 13);
-    table.getHeader().addColumn("Album Name", 4, 150, 150, 150, 13);
-    table.getHeader().addColumn("Year", 5, 50, 50, 50, 13);
-    table.getHeader().addColumn("File Type", 6, 50, 50, 50, 13);
-    table.getHeader().addColumn("File Name", 7, 150, 150, 150, 12);
-    table.getHeader().addColumn("Length", 8, 50, 50, 50, 12);
-    table.getHeader().addColumn("Selected", 100, 50, 50, 50, 13);
+    table.getHeader().addColumn("Track", 1, 50, 10, 250, 15);
+    table.getHeader().addColumn("Track Name", 2, 150, 10, 250, 15);
+    table.getHeader().addColumn("Artist Name", 3, 150, 10, 250, 15);
+    table.getHeader().addColumn("Album Name", 4, 150, 10, 250, 15);
+    table.getHeader().addColumn("Year", 5, 50, 10, 250, 15);
+    table.getHeader().addColumn("File Type", 6, 50, 10, 250, 15);
+    table.getHeader().addColumn("File Name", 7, 150, 10, 250, 14);
+    table.getHeader().addColumn("Length", 8, 50, 10, 250, 14);
+    table.getHeader().addColumn("Selected", 100, 50, 10, 250, 15);
     table.addMouseListener(AudioFileStandardiserApplication::getMediator(), true);
     table.setModel(AudioFileStandardiserApplication::getMediator()->getTableModel());
     

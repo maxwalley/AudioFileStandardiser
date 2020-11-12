@@ -137,30 +137,41 @@ void Mediator::actionListenerCallback (const String &message)
     
     else if(message.compare("menu_show_batch") == 0)
     {
+        int newWidth = mainComponent->getWidth();
+        
         if(menu->getBatchControlsShown())
         {
             menu->setFileControlsShown(false);
+            
             mainComponent->setComponentsToDisplay(NewMainComponent::Table | NewMainComponent::RenameControls);
+            
+            newWidth += 200;
         }
         else
         {
             mainComponent->setComponentsToDisplay(NewMainComponent::Table);
         }
         calculateMainWindowSizes();
+        
+        mainComponent->setSize(newWidth, mainComponent->getHeight());
     }
     
     else if(message.compare("menu_show_file_controls") == 0)
     {
+        int newWidth = mainComponent->getWidth();
+        
         if(menu->getFileControlsShown())
         {
             menu->setBatchControlsShown(false);
             mainComponent->setComponentsToDisplay(NewMainComponent::Table | NewMainComponent::FileAndFolderControls);
+            newWidth += 200;
         }
         else
         {
             mainComponent->setComponentsToDisplay(NewMainComponent::Table);
         }
         calculateMainWindowSizes();
+        mainComponent->setSize(newWidth, mainComponent->getHeight());
     }
     
     else if(message.compare("menu_show_player") == 0)
@@ -424,6 +435,7 @@ bool Mediator::addNewFiles(const Array<File>& filesToAdd)
         if((mainComponent->getDisplayedComponents() & int(NewMainComponent::Table)) != int(NewMainComponent::Table))
         {
             mainComponent->setComponentsToDisplay(NewMainComponent::Table);
+            mainComponent->setSize(mainComponent->getHeaderWidth(), mainComponent->getTableRowHeight() * getNumberOfRowsToDisplay() + mainComponent->getTableHeaderHeight());
         }
         
         calculateMainWindowSizes();
@@ -492,19 +504,19 @@ void Mediator::calculateMainWindowSizes()
     }
     
     int headerHeight = mainComponent->getTableHeaderHeight();
-    int rowHeight = mainComponent->getTableHeaderHeight();
+    int rowHeight = mainComponent->getTableRowHeight();
     int headerWidth = mainComponent->getHeaderWidth();
+    int nativeTitleBarHeight = mainComponent->getPeer()->getFrameSize().getTop();
     
     if(mainComponent->getDisplayedComponents() == NewMainComponent::Table)
     {
-        
-        mainWindow->setResizeLimits(100, headerHeight + rowHeight, headerWidth, getNumberOfRowsToDisplay() * rowHeight);
+        mainWindow->setResizeLimits(100, headerHeight + nativeTitleBarHeight + rowHeight, headerWidth, getNumberOfRowsToDisplay() * rowHeight + headerHeight + nativeTitleBarHeight);
     }
     
     //One of the extra info things
     else
     {
-        mainWindow->setResizeLimits(300, headerHeight + rowHeight, headerWidth + 200, getNumberOfRowsToDisplay() * rowHeight);
+        mainWindow->setResizeLimits(300, headerHeight + rowHeight + nativeTitleBarHeight, headerWidth + 200, getNumberOfRowsToDisplay() * rowHeight + nativeTitleBarHeight + headerHeight);
     }
     
     mainComponent->resized();
