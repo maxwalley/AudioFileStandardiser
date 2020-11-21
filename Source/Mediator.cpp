@@ -413,6 +413,16 @@ void Mediator::filesDropped(const StringArray& files)
     addNewFiles(openedFiles);
 }
 
+void Mediator::tableColumnsChanged(TableHeaderComponent* tableHeader)
+{
+    calculateMainWindowSizes();
+}
+
+void Mediator::tableColumnsResized(TableHeaderComponent* tableHeader)
+{
+    calculateMainWindowSizes();
+}
+
 bool Mediator::addNewFiles(const Array<File>& filesToAdd)
 {
     bool result;

@@ -35,7 +35,8 @@ class Mediator  :   public ActionListener,
                     public Slider::Listener,
                     public KeyListener,
                     public Timer,
-                    public NewMainComponent::Listener
+                    public NewMainComponent::Listener,
+                    public TableHeaderComponent::Listener
 {
 public:
     
@@ -85,6 +86,12 @@ private:
     void timerCallback() override;
     
     void filesDropped(const StringArray& files) override;
+    
+    void tableColumnsChanged(TableHeaderComponent* tableHeader) override;
+    
+    void tableColumnsResized(TableHeaderComponent* tableHeader) override;
+    
+    void tableSortOrderChanged(TableHeaderComponent* tableHeader) override {};
     
     FileInitialiser initialiser;
     

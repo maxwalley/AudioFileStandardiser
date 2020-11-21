@@ -1,7 +1,8 @@
+Builds
+
 *.opendb
 *.suo
 *.db
 *.ipch
 *.exe
-Builds/VisualStudio2019/x64/Debug/App/AudioFileStandardiser.ilk
 *.pdb

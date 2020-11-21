@@ -30,6 +30,7 @@ NewMainComponent::NewMainComponent()    :   currentComponents(Intro)
     table.getHeader().addColumn("File Name", 7, 150, 10, 250, 14);
     table.getHeader().addColumn("Length", 8, 50, 10, 250, 14);
     table.getHeader().addColumn("Selected", 100, 50, 10, 250, 15);
+    table.getHeader().addListener(AudioFileStandardiserApplication::getMediator());
     table.addMouseListener(AudioFileStandardiserApplication::getMediator(), true);
     table.setModel(AudioFileStandardiserApplication::getMediator()->getTableModel());
     
