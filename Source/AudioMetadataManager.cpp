@@ -122,7 +122,7 @@ std::unique_ptr<AudioMetadataReader> AudioMetadataManager::createMetadataReader(
 
 bool AudioMetadataManager::moveFileBasedOnWildcardPath(AudioMetadataReader* fileToMove, const String& newLocationWithWildcards)
 {
-    String convertedLocation = wildcardInterpretter.interpretString(newLocationWithWildcards, fileToMove);
+    String convertedLocation = wildcardInterpretter.interpretString(fileToMove, newLocationWithWildcards);
     
     if(!File(convertedLocation).exists())
     {
@@ -130,7 +130,7 @@ bool AudioMetadataManager::moveFileBasedOnWildcardPath(AudioMetadataReader* file
     }
     
     fileToMove->moveFileToNewDirectory(convertedLocation);
-
-	return true;
+    
+    return true;
 }
 

@@ -12,7 +12,7 @@
 
 #include "ID3v2MetadataReader.h"
 #include "fileref.h"
-#include "FilePathWildcardInterpretter.h"
+#include "AudioMetadataWildcardManager.h"
 #include "mpegfile.h"
 #include "wavfile.h"
 #include "flacfile.h"
@@ -35,5 +35,5 @@ public:
     
 private:
     
-    FilePathWildcardInterpretter wildcardInterpretter;
+    AudioMetadataWildcardManager wildcardInterpretter;
 };

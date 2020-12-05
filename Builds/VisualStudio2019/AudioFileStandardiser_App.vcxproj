@@ -150,6 +150,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\WildcardManager.cpp"/>
+    <ClCompile Include="..\..\Source\AudioMetadataWildcardManager.cpp"/>
     <ClCompile Include="..\..\Source\Mp3Converter.cpp"/>
     <ClCompile Include="..\..\Source\MainWindow.cpp"/>
     <ClCompile Include="..\..\Source\FileAndFolderCreator.cpp"/>
@@ -175,7 +177,6 @@
     <ClCompile Include="..\..\Source\FileInitialiser.cpp"/>
     <ClCompile Include="..\..\Source\DataHandler.cpp"/>
     <ClCompile Include="..\..\Source\Mediator.cpp"/>
-    <ClCompile Include="..\..\Source\FilePathWildcardInterpretter.cpp"/>
     <ClCompile Include="..\..\Source\TableCellComponent.cpp"/>
     <ClCompile Include="..\..\Source\FileAndDirectoryControls.cpp"/>
     <ClCompile Include="..\..\Source\MainComponent.cpp"/>
@@ -2115,6 +2116,8 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\WildcardManager.h"/>
+    <ClInclude Include="..\..\Source\AudioMetadataWildcardManager.h"/>
     <ClInclude Include="..\..\Source\Mp3Converter.h"/>
     <ClInclude Include="..\..\Source\MainWindow.h"/>
     <ClInclude Include="..\..\Source\FileAndFolderCreator.h"/>
@@ -2140,7 +2143,6 @@
     <ClInclude Include="..\..\Source\FileInitialiser.h"/>
     <ClInclude Include="..\..\Source\DataHandler.h"/>
     <ClInclude Include="..\..\Source\Mediator.h"/>
-    <ClInclude Include="..\..\Source\FilePathWildcardInterpretter.h"/>
     <ClInclude Include="..\..\Source\TableCellComponent.h"/>
     <ClInclude Include="..\..\Source\FileAndDirectoryControls.h"/>
     <ClInclude Include="..\..\Source\MainComponent.h"/>

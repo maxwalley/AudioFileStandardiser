@@ -3,6 +3,14 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               cppLanguageStandard="17" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
+    <FILE id="IfIfNs" name="WildcardManager.h" compile="0" resource="0"
+          file="Source/WildcardManager.h"/>
+    <FILE id="C94mXc" name="WildcardManager.cpp" compile="1" resource="0"
+          file="Source/WildcardManager.cpp"/>
+    <FILE id="vBpyxG" name="AudioMetadataWildcardManager.h" compile="0"
+          resource="0" file="Source/AudioMetadataWildcardManager.h"/>
+    <FILE id="ZgxrJO" name="AudioMetadataWildcardManager.cpp" compile="1"
+          resource="0" file="Source/AudioMetadataWildcardManager.cpp"/>
     <GROUP id="{3B46B1ED-54B5-70B5-7484-F6AA04270348}" name="FileConverter">
       <FILE id="iwcB8j" name="Mp3Converter.h" compile="0" resource="0" file="Source/Mp3Converter.h"/>
       <FILE id="EhjmRx" name="Mp3Converter.cpp" compile="1" resource="0"
@@ -93,10 +101,6 @@
     <FILE id="f7NUAw" name="DataHandler.cpp" compile="1" resource="0" file="Source/DataHandler.cpp"/>
     <FILE id="dtB9yv" name="Mediator.h" compile="0" resource="0" file="Source/Mediator.h"/>
     <FILE id="UA7AB9" name="Mediator.cpp" compile="1" resource="0" file="Source/Mediator.cpp"/>
-    <FILE id="vBpyxG" name="FilePathWildcardInterpretter.h" compile="0"
-          resource="0" file="Source/FilePathWildcardInterpretter.h"/>
-    <FILE id="ZgxrJO" name="FilePathWildcardInterpretter.cpp" compile="1"
-          resource="0" file="Source/FilePathWildcardInterpretter.cpp"/>
     <FILE id="B7BRzh" name="TableCellComponent.h" compile="0" resource="0"
           file="Source/TableCellComponent.h"/>
     <FILE id="E3yrMp" name="TableCellComponent.cpp" compile="1" resource="0"

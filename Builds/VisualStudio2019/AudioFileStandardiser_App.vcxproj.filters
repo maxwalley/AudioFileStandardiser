@@ -454,6 +454,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\WildcardManager.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\AudioMetadataWildcardManager.cpp">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Mp3Converter.cpp">
       <Filter>AudioFileStandardiser\FileConverter</Filter>
     </ClCompile>
@@ -527,9 +533,6 @@
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Mediator.cpp">
-      <Filter>AudioFileStandardiser</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\FilePathWildcardInterpretter.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\TableCellComponent.cpp">
@@ -2628,6 +2631,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\WildcardManager.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\AudioMetadataWildcardManager.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Mp3Converter.h">
       <Filter>AudioFileStandardiser\FileConverter</Filter>
     </ClInclude>
@@ -2701,9 +2710,6 @@
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Mediator.h">
-      <Filter>AudioFileStandardiser</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\FilePathWildcardInterpretter.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\TableCellComponent.h">

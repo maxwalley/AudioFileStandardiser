@@ -39,11 +39,7 @@ void AudioFileStandardiserApplication::initialise(const String& commandLine)
 {
 	mediator = std::make_unique<Mediator>();
 
-	//mainWindow.reset(new MainWindow(getApplicationName()));
-
 	mediator->initialiseComponents();
-
-    //mainWindow->setContentNonOwned(mediator->getMainComponent(), true);
 }
 
 void AudioFileStandardiserApplication::shutdown()
