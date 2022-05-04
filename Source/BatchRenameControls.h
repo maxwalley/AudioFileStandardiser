@@ -80,6 +80,8 @@ private:
     ToggleButton artistToggle;
     ToggleButton albumToggle;
     
+    ComboBox dataTypesBox;
+    
     Label titleToggleLabel;
     Label artistToggleLabel;
     Label albumToggleLabel;

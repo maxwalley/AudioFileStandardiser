@@ -14,6 +14,10 @@
 #include "NewMainComponent.h"
 #include "Mediator.h"
 
+//Remove
+#include "ComponentWindow.h"
+#include "ComponentListComponent.h"
+
 class AudioFileStandardiserApplication  : public JUCEApplication
 {
 public:
@@ -36,26 +40,11 @@ public:
 	Mediator* getMediatorInstance();
     
 	static Mediator* getMediator();
-
-    /*class MainWindow    : public DocumentWindow
-    {
-    public:
-        MainWindow(String name);
-
-        void closeButtonPressed() override;
-
-        /* Note: Be careful if you override any DocumentWindow methods - the base
-           class uses a lot of them, so by overriding you might break its functionality.
-           It's best to do all your work in your content component instead, but if
-           you really have to override any DocumentWindow methods, make sure your
-           subclass also calls the superclass's method.
-        */
-/*
-    private:
-        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainWindow)
-    };*/
     
 private:
     std::unique_ptr<Mediator> mediator;
-    //std::unique_ptr<MainWindow> mainWindow;
+    
+    //remove
+    std::unique_ptr<ComponentWindow> testWin;
+    std::unique_ptr<ComponentListComponent> testCom;
 };

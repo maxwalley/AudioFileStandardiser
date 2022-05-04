@@ -454,7 +454,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\WildcardManager.cpp">
+    <ClCompile Include="..\..\Source\ComponentListComponent.cpp">
       <Filter>AudioFileStandardiser</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\AudioMetadataWildcardManager.cpp">
@@ -2631,6 +2631,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\ComponentListComponent.h">
+      <Filter>AudioFileStandardiser</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\WildcardManager.h">
       <Filter>AudioFileStandardiser</Filter>
     </ClInclude>

@@ -125,12 +125,3 @@ String BatchControlsImplementation::manipulateStringAccordingToGUI(const String&
     
     return newString;
 }
-
-void BatchControlsImplementation::test()
-{
-    DBG(int(guiControls->getButtonsActive() & BatchRenameControls::titleButton));
-    DBG(int(guiControls->getButtonsActive() & BatchRenameControls::artistButton));
-    DBG(int(guiControls->getButtonsActive() & BatchRenameControls::albumButton));
-    
-    DBG(guiControls->getCharsToRemove().value_or("false"));
-}

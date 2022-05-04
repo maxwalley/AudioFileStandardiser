@@ -3,10 +3,12 @@
 <JUCERPROJECT id="VTPp1k" name="AudioFileStandardiser" projectType="guiapp"
               cppLanguageStandard="17" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="fNEtEx" name="AudioFileStandardiser">
+    <FILE id="YdYa78" name="ComponentListComponent.cpp" compile="1" resource="0"
+          file="Source/ComponentListComponent.cpp"/>
+    <FILE id="c6tWx0" name="ComponentListComponent.h" compile="0" resource="0"
+          file="Source/ComponentListComponent.h"/>
     <FILE id="IfIfNs" name="WildcardManager.h" compile="0" resource="0"
           file="Source/WildcardManager.h"/>
-    <FILE id="C94mXc" name="WildcardManager.cpp" compile="1" resource="0"
-          file="Source/WildcardManager.cpp"/>
     <FILE id="vBpyxG" name="AudioMetadataWildcardManager.h" compile="0"
           resource="0" file="Source/AudioMetadataWildcardManager.h"/>
     <FILE id="ZgxrJO" name="AudioMetadataWildcardManager.cpp" compile="1"

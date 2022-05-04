@@ -150,7 +150,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\WildcardManager.cpp"/>
+    <ClCompile Include="..\..\Source\ComponentListComponent.cpp"/>
     <ClCompile Include="..\..\Source\AudioMetadataWildcardManager.cpp"/>
     <ClCompile Include="..\..\Source\Mp3Converter.cpp"/>
     <ClCompile Include="..\..\Source\MainWindow.cpp"/>
@@ -2116,6 +2116,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\ComponentListComponent.h"/>
     <ClInclude Include="..\..\Source\WildcardManager.h"/>
     <ClInclude Include="..\..\Source\AudioMetadataWildcardManager.h"/>
     <ClInclude Include="..\..\Source\Mp3Converter.h"/>

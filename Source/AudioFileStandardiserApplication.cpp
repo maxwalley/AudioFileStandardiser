@@ -40,6 +40,18 @@ void AudioFileStandardiserApplication::initialise(const String& commandLine)
 	mediator = std::make_unique<Mediator>();
 
 	mediator->initialiseComponents();
+    
+    testWin = std::make_unique<ComponentWindow>("test", juce::Colours::green, 7);
+    testCom = std::make_unique<ComponentListComponent>();
+    
+    testCom->setSize(200, 400);
+    testWin->setContentNonOwned(testCom.get(), true);
+    testWin->setVisible(true);
+    
+    for(int i = 0; i < 100; ++i)
+    {
+        testCom->addComponent(std::make_unique<TestCom>());
+    }
 }
 
 void AudioFileStandardiserApplication::shutdown()

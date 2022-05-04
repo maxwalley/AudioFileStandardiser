@@ -27,8 +27,6 @@ public:
     
     String manipulateStringAccordingToGUI(const String& inputString);
     
-    void test();
-    
 private:
     BatchRenameControls* guiControls;
     

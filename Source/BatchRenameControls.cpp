@@ -168,13 +168,15 @@ void BatchRenameControls::paint (Graphics& g)
 void BatchRenameControls::resized()
 {
         //Made to be same size as table toggle buttons
-        titleToggle.setBounds(3, 35, 25, 22);
+        /*titleToggle.setBounds(3, 35, 25, 22);
         artistToggle.setBounds(66, 35, 25, 22);
-        albumToggle.setBounds(133, 35, 25, 22);
+        albumToggle.setBounds(133, 35, 25, 22);*/
+    
+    dataTypesBox.setBounds(0, 35, getWidth(), 20);
         
-        titleToggleLabel.setBounds(21, 35, 40, 22);
+        /*titleToggleLabel.setBounds(21, 35, 40, 22);
         artistToggleLabel.setBounds(84, 35, 40, 22);
-        albumToggleLabel.setBounds(151, 35, 40, 22);
+        albumToggleLabel.setBounds(151, 35, 40, 22);*/
         
         
         removeCharsEditor.setBounds(10, 90, 70, 20);
